@@ -230,4 +230,4 @@ of storages, but different number of storages (e.g. save to both a text file and
 
 === Exercise: Enhance AddressBook
 
-* Enhance AddressBook in some way. e.g. add a new command
+* Enhance AddressBook in some way. e.g. add a new command.
