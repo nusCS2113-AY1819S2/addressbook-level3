@@ -14,6 +14,13 @@ import java.util.*;
 public class UniquePersonList implements Iterable<Person> {
 
     /**
+     * Sorts all persons in list in lexicographic order.
+     */
+    public void sort() {
+        Collections.sort(internalList, new PersonComparator());
+    }
+
+    /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
     public static class DuplicatePersonException extends DuplicateDataException {

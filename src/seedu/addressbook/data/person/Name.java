@@ -44,6 +44,13 @@ public class Name {
         return Arrays.asList(fullName.split("\\s+"));
     }
 
+    /**
+     * Retrieves person name.
+     */
+    public String getFullName() {
+        return fullName;
+    }
+
     @Override
     public String toString() {
         return fullName;
