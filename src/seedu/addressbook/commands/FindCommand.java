@@ -43,9 +43,11 @@ public class FindCommand extends Command {
      * @return list of persons found
      */
     private List<ReadOnlyPerson> getPersonsWithNameContainingAnyKeyword(Set<String> keywords) {
+        keywords = toLower(keywords);
         final List<ReadOnlyPerson> matchedPersons = new ArrayList<>();
         for (ReadOnlyPerson person : addressBook.getAllPersons()) {
-            final Set<String> wordsInName = new HashSet<>(person.getName().getWordsInName());
+            Set<String> wordsInName = new HashSet<>(person.getName().getWordsInName());
+            wordsInName = toLower(wordsInName);
             if (!Collections.disjoint(wordsInName, keywords)) {
                 matchedPersons.add(person);
             }
@@ -53,4 +55,25 @@ public class FindCommand extends Command {
         return matchedPersons;
     }
 
+    /**
+     * Take in a set of Strings on change them to lowercase.
+     *
+     * @param keywords to have contents converted to lowercase.
+     * @return Set of lowercase Strings.
+     */
+    private Set<String> toLower(Set<String> keywords) {
+        LinkedList<String> wordList = new LinkedList<>(keywords);
+
+        //Do modification
+        for (int i = 0; i < wordList.size(); i++) {
+            String str = wordList.get(i);
+            wordList.set(i, str.toLowerCase());
+        }
+
+        //Convert back to set
+        keywords.clear();
+        keywords.addAll(wordList);
+
+        return keywords;
+    }
 }
