@@ -111,7 +111,7 @@ public class MainWindow {
 
     public void welcomePage() {
         display(MESSAGE_WELCOME + "\n" + "Below are the different functions that are available in this Address Book"
-                + "\n" + "Do take note of the required format of your input"
+                + "\n" + "Do follow the required format for your input"
                 + "\n" + "Enjoy (:" + "\n");
 
         String MESSAGE_ALL_USAGES = AddCommand.MESSAGE_USAGE
