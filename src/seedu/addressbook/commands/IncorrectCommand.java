@@ -9,7 +9,7 @@ public class IncorrectCommand extends Command{
     public final String feedbackToUser;
 
     public IncorrectCommand(String feedbackToUser){
-        this.feedbackToUser = feedbackToUser;
+        this.feedbackToUser = feedbackToUser + "\n\n" + HelpCommand.MESSAGE_ALL_USAGES;
     }
 
     @Override

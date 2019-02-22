@@ -17,7 +17,7 @@ public class DeleteCommand extends Command {
             + "Parameters: INDEX\n\t"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
+    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s\n\n" + HelpCommand.MESSAGE_ALL_USAGES;
 
 
     public DeleteCommand(int targetVisibleIndex) {

@@ -9,7 +9,7 @@ public class ClearCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Clears address book permanently.\n\t"
             + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_SUCCESS = "Address book has been cleared!";
+    public static final String MESSAGE_SUCCESS = "Address book has been cleared!\n\n" + HelpCommand.MESSAGE_ALL_USAGES;
 
     @Override
     public CommandResult execute() {
