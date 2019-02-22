@@ -20,9 +20,13 @@ Please refer to the <<DeveloperGuide#setting-up, Setting up>> section to learn h
 +
 image::Ui.png[]
 
+A list of available commands for the user to perform will then be displayed.
+
 == Viewing help : `help`
 
 Format: `help`
+
+A list of available commands for the user will then be displayed.
 
 [TIP]
 ====
@@ -42,6 +46,9 @@ Put a `p` before the phone / email / address prefixes to mark it as `private`. `
 be seen using the `viewall` command.
 
 Persons can have any number of tags (including 0)
+
+A list of available commands will be displayed after Person is added.
+
 ****
 
 Examples:
@@ -54,10 +61,14 @@ Examples:
 Shows a list of all persons in the address book. +
 Format: `list`
 
+A list of available commands will be displayed after all persons are listed.
+
 == Finding all persons containing any keyword in their name: `find`
 
 Finds persons whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
+
+A list of available commands will be displayed after the search is complete.
 
 [NOTE]
 ====
@@ -77,6 +88,8 @@ Returns Any person having names `Betsy`, `Tim`, or `John`.
 
 Deletes the specified person from the address book. Irreversible. +
 Format: `delete INDEX`
+
+A list of available commands will be displayed after the specified person is deleted.
 
 ****
 Deletes the person at the specified `INDEX`.
@@ -98,6 +111,8 @@ Deletes the 1st person in the results of the `find` command.
 Displays the non-private details of the specified person. +
 Format: `view INDEX`
 
+A list of available commands will be displayed after the non-private details of the specified person are displayed.
+
 ****
 Views the person at the specified `INDEX`.
 The index refers to the index number shown in the most recent listing.
@@ -118,6 +133,8 @@ Views the 1st person in the results of the `find` command.
 Displays all details (including private details) of the specified person. +
 Format: `viewall INDEX`
 
+A list of available commands will be displayed after all details of a specified person are displayed.
+
 ****
 Views all details of the person at the specified `INDEX`.
 The index refers to the index number shown in the most recent listing.
@@ -137,6 +154,8 @@ Views all details of the 1st person in the results of the `find` command.
 
 Clears all entries from the address book. +
 Format: `clear`
+
+A list of available commands will be displayed after Address Book is cleared.
 
 == Exiting the program : `exit`
 

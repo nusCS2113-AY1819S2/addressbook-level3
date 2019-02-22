@@ -20,6 +20,6 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute() {
         List<ReadOnlyPerson> allPersons = addressBook.getAllPersons().immutableListView();
-        return new CommandResult(getMessageForPersonListShownSummary(allPersons), allPersons);
+        return new CommandResult(getMessageForPersonListShownSummary(allPersons) + "\n\n" + HelpCommand.MESSAGE_ALL_USAGES, allPersons);
     }
 }
