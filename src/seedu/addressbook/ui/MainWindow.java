@@ -5,11 +5,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import seedu.addressbook.commands.ExitCommand;
+import seedu.addressbook.commands.*;
 import seedu.addressbook.logic.Logic;
-import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 
+import java.security.PublicKey;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,7 +19,6 @@ import static seedu.addressbook.common.Messages.*;
  * Main Window of the GUI.
  */
 public class MainWindow {
-
     private Logic logic;
     private Stoppable mainApp;
 
@@ -38,7 +37,8 @@ public class MainWindow {
     private TextArea outputConsole;
 
     @FXML
-    private TextField commandInput;
+    public TextField commandInput;
+
 
 
     @FXML
@@ -88,8 +88,9 @@ public class MainWindow {
     }
 
     public void displayWelcomeMessage(String version, String storageFilePath) {
-        String storageFileInfo = String.format(MESSAGE_USING_STORAGE_FILE, storageFilePath);
-        display(MESSAGE_WELCOME, version, MESSAGE_PROGRAM_LAUNCH_ARGS_USAGE, storageFileInfo);
+        welcomePage();
+
+
     }
 
     /**
@@ -103,8 +104,29 @@ public class MainWindow {
     /**
      * Displays the given messages on the output display area, after formatting appropriately.
      */
-    private void display(String... messages) {
+    public void display(String... messages) {
         outputConsole.setText(outputConsole.getText() + new Formatter().format(messages));
     }
+
+
+    public void welcomePage() {
+        display(MESSAGE_WELCOME + "\n" + "Below are the different functions that are available in this Address Book"
+                + "\n" + "Do follow the required format for your input"
+                + "\n" + "Enjoy (:" + "\n");
+
+        String MESSAGE_ALL_USAGES = AddCommand.MESSAGE_USAGE
+                + "\n" + DeleteCommand.MESSAGE_USAGE
+                + "\n" + ClearCommand.MESSAGE_USAGE
+                + "\n" + FindCommand.MESSAGE_USAGE
+                + "\n" + ListCommand.MESSAGE_USAGE
+                + "\n" + ViewCommand.MESSAGE_USAGE
+                + "\n" + ViewAllCommand.MESSAGE_USAGE
+                + "\n" + HelpCommand.MESSAGE_USAGE
+                + "\n" + ExitCommand.MESSAGE_USAGE;
+
+        display(MESSAGE_ALL_USAGES);
+
+    }
+
 
 }

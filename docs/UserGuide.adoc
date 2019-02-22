@@ -16,7 +16,7 @@ Please refer to the <<DeveloperGuide#setting-up, Setting up>> section to learn h
 . Open up `src/seedu.addressbook` folder
 . Right click on `Main`
 . Click `Run Main.main()`
-. The GUI should appear in a few seconds
+. The GUI should appear in a few seconds with the whole list of commands the Address Book can carry out.
 +
 image::Ui.png[]
 
