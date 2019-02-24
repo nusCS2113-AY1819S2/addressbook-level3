@@ -417,7 +417,7 @@ public class LogicTest {
     }
 
     @Test
-    public void execute_find_isCaseSensitive() throws Exception {
+    public void execute_find_isCaseInsensitive() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Person pTarget1 = helper.generatePersonWithName("bla bla KEY bla");
         Person pTarget2 = helper.generatePersonWithName("bla KEY bla bceofeia");
@@ -426,7 +426,7 @@ public class LogicTest {
 
         List<Person> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
         AddressBook expectedAB = helper.generateAddressBook(fourPersons);
-        List<Person> expectedList = helper.generatePersonList(pTarget1, pTarget2);
+        List<Person> expectedList = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
         helper.addToAddressBook(addressBook, fourPersons);
 
         assertCommandBehavior("find KEY",
@@ -446,7 +446,7 @@ public class LogicTest {
 
         List<Person> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
         AddressBook expectedAB = helper.generateAddressBook(fourPersons);
-        List<Person> expectedList = helper.generatePersonList(pTarget1, pTarget2);
+        List<Person> expectedList = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
         helper.addToAddressBook(addressBook, fourPersons);
 
         assertCommandBehavior("find KEY rAnDoM",
@@ -454,6 +454,53 @@ public class LogicTest {
                                 expectedAB,
                                 true,
                                 expectedList);
+    }
+
+    @Test
+    public void execute_find_matchesIfAnyKeywordIsEmail() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Person pTarget1 = helper.generatePersonWithEmail("bla@email");
+        Person pTarget2 = helper.generatePersonWithEmail("BLA@email");
+        Person p1 = helper.generatePersonWithEmail("key@MAIL");
+        Person p2 = helper.generatePersonWithEmail("KEY@mail");
+
+        List<Person> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
+        AddressBook expectedAB = helper.generateAddressBook(fourPersons);
+        List<Person> expectedList = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
+        helper.addToAddressBook(addressBook, fourPersons);
+
+        assertCommandBehavior("find KEY@mail bla@email",
+                Command.getMessageForPersonListShownSummary(expectedList),
+                expectedAB,
+                true,
+                expectedList);
+    }
+
+    @Test
+    public void execute_find_matchesIfAnyKeywordIsAddress() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Person pTarget1 = helper.generatePersonWithAddress("311 ClEmEnTi");
+        Person pTarget2 = helper.generatePersonWithAddress("311 Clementi");
+        Person p1 = helper.generatePersonWithAddress("321 YeWtEe");
+        Person p2 = helper.generatePersonWithAddress("321 Yewtee");
+
+        List<Person> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
+        AddressBook expectedAB = helper.generateAddressBook(fourPersons);
+        List<Person> expectedList = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
+        helper.addToAddressBook(addressBook, fourPersons);
+
+        /* By block number */
+        assertCommandBehavior("find 321 311",
+                Command.getMessageForPersonListShownSummary(expectedList),
+                expectedAB,
+                true,
+                expectedList);
+        /* By Street Name */
+        assertCommandBehavior("find clementi yewtee",
+                Command.getMessageForPersonListShownSummary(expectedList),
+                expectedAB,
+                true,
+                expectedList);
     }
 
     /**
@@ -582,6 +629,38 @@ public class LogicTest {
                     new Phone("1", false),
                     new Email("1@email", false),
                     new Address("House of 1", false),
+                    Collections.singleton(new Tag("tag"))
+            );
+        }
+
+        /**
+         * Returns a Person object with given email.
+         * Other fields will have some dummy values.
+         *
+         * @return a generate Person object with given email
+         */
+        Person generatePersonWithEmail(String email) throws Exception {
+            return new Person(
+                    new Name("test"),
+                    new Phone("1", false),
+                    new Email(email, false),
+                    new Address("House of 1", false),
+                    Collections.singleton(new Tag("tag"))
+            );
+        }
+
+        /**
+         * Returns a Person object with given address.
+         * Other fields will have some dummy values.
+         *
+         * @return a generated Person object with given address
+         */
+        Person generatePersonWithAddress(String address) throws Exception {
+            return new Person(
+                    new Name("test"),
+                    new Phone("1", false),
+                    new Email("1@email", false),
+                    new Address(address, false),
                     Collections.singleton(new Tag("tag"))
             );
         }

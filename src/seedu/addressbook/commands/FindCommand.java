@@ -1,8 +1,12 @@
 package seedu.addressbook.commands;
 
-import seedu.addressbook.data.person.ReadOnlyPerson;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-import java.util.*;
+import seedu.addressbook.data.person.ReadOnlyPerson;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
@@ -12,8 +16,9 @@ public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Finds all persons whose names contain any of "
-            + "the specified keywords (case-sensitive) and displays them as a list with index numbers.\n\t"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
+            + "Finds all persons whose details (name, number, email) contain any of the specified keywords "
+            + "(case-insensitive) and displays them as a list with index numbers.\n\t"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n\t"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
 
@@ -45,12 +50,18 @@ public class FindCommand extends Command {
     private List<ReadOnlyPerson> getPersonsWithNameContainingAnyKeyword(Set<String> keywords) {
         final List<ReadOnlyPerson> matchedPersons = new ArrayList<>();
         for (ReadOnlyPerson person : addressBook.getAllPersons()) {
-            final Set<String> wordsInName = new HashSet<>(person.getName().getWordsInName());
-            if (!Collections.disjoint(wordsInName, keywords)) {
+            final Set<String> wordsInDetail = getPersonDetails(person);
+            if (!Collections.disjoint(wordsInDetail, keywords)) {
                 matchedPersons.add(person);
             }
         }
         return matchedPersons;
     }
 
+    private Set<String> getPersonDetails(ReadOnlyPerson person) {
+        final Set<String> wordsInName = new HashSet<>(person.getName().getWordsInNameCaseInsensitive());
+        wordsInName.addAll(person.getAddress().getWordsInAddressCaseInsensitive());
+        wordsInName.add(person.getEmail().toString().toLowerCase());
+        return wordsInName;
+    }
 }
