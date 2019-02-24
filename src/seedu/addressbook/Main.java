@@ -13,7 +13,7 @@ import seedu.addressbook.ui.Stoppable;
  */
 public class Main extends Application implements Stoppable{
 
-    /** Version info of the program. AddressBook Level 3 - Version 1.0*/
+    /** Version info of the program.*/
     public static final String VERSION = "AddressBook Level 3 - Version 1.0";
 
     private Gui gui;
