@@ -100,6 +100,27 @@ public class LogicTest {
     }
 
     @Test
+    public void execute_displayweek() throws Exception {
+        // setup expectations
+        String[] acadCal = {"2019-1:Vacation_AY18/19_N.A.", "2019-2:Vacation_AY18/19_N.A.", "2019-3:Week 1_AY18/19_Sem 2", 
+                "2019-4:Week 2_AY18/19_Sem 2", "2019-5:Week 3_AY18/19_Sem 2", "2019-6:Week 4_AY18/19_Sem 2", 
+                "2019-7:Week 5_AY18/19_Sem 2", "2019-8:Week 6_AY18/19_Sem 2", "2019-9:Recess Week_AY18/19_Sem 2", 
+                "2019-10:Week 7_AY18/19_Sem 2", "2019-11:Week 8_AY18/19_Sem 2", "2019-12:Week 9_AY18/19_Sem 2", 
+                "2019-13:Week 10_AY18/19_Sem 2", "2019-14:Week 11_AY18/19_Sem 2", "2019-15:Week 12_AY18/19_Sem 2",
+                "2019-16:Week 13_AY18/19_Sem 2", "2019-17:Reading Week_AY18/19_Sem 2", "2019-18:Examination Week_AY18/19_Sem 2",
+                "2019-19:Examination Week_AY18/19_Sem 2", "2019-20:Vacation_AY18/19_N.A.", "2019-21:Vacation_AY18/19_N.A."};
+        int currentWeek = Calendar.getInstance().get(Calendar.WEEK_OF_YEAR);
+        String acadCalWeekYearSem = acadCal[currentWeek-1].split(":")[1];
+        String acadCalWeek = acadCalWeekYearSem.split("_")[0];
+        String acadCalYear = acadCalWeekYearSem.split("_")[1];
+        String acadCalSem = acadCalWeekYearSem.split("_")[2];
+
+        // execute command and verify result
+        assertCommandBehavior("displayweek", 
+                String.format(DisplayWeekCommand.MESSAGE_DISPLAY_CURRENT_WEEK, acadCalWeek, acadCalYear, acadCalSem));
+    }
+    
+    @Test
     public void execute_help() throws Exception {
         assertCommandBehavior("help", HelpCommand.MESSAGE_ALL_USAGES);
     }
