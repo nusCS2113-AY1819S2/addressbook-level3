@@ -23,6 +23,7 @@ public class HelpCommand extends Command {
 
     @Override
     public CommandResult execute() {
+        isMutating = false;
         return new CommandResult(MESSAGE_ALL_USAGES);
     }
 }

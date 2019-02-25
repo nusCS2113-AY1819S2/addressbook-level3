@@ -13,7 +13,13 @@ public class ClearCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        addressBook.clear();
+        if (addressBook.getAllPersons().immutableListView().isEmpty()) {
+            isMutating = false;
+        }
+        else {
+            isMutating = true;
+            addressBook.clear();
+        }
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

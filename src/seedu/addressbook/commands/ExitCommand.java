@@ -13,6 +13,7 @@ public class ExitCommand extends Command {
 
     @Override
     public CommandResult execute() {
+        isMutating = false;
         return new CommandResult(MESSAGE_EXIT_ACKNOWEDGEMENT);
     }
 

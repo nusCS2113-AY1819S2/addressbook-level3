@@ -27,6 +27,7 @@ public class ViewAllCommand extends Command {
 
     @Override
     public CommandResult execute() {
+        isMutating = false;
         try {
             final ReadOnlyPerson target = getTargetPerson();
             if (!addressBook.containsPerson(target)) {
