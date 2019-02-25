@@ -29,6 +29,11 @@ Format: `help`
 Help is also shown if you enter an incorrect command e.g. `abcd`
 ====
 
+== Display current academic week : `displayweek`
+
+Displays the current week of the semester based on today's date. +
+Format: `displayweek`
+
 == Adding a person: `add`
 
 Adds a person to the address book. +
