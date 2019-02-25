@@ -1,6 +1,6 @@
 package seedu.addressbook.commands;
 
-import static seedu.addressbook.commands.Command.getMessageForPersonListShownSummary;
+import static seedu.addressbook.commands.Command.getMessageForPersonSortedShownSummary;
 
 import seedu.addressbook.data.person.ReadOnlyPerson;
 
@@ -17,7 +17,7 @@ public class SortCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        addressBook.sortPersons();
+        addressBook.sortsPersons();
         List<ReadOnlyPerson> allPersons = addressBook.getAllPersons().immutableListView();
         return new CommandResult(getMessageForPersonSortedShownSummary(allPersons), allPersons);
     }
