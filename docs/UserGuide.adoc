@@ -147,4 +147,19 @@ Format: `exit`
 
 Address book data are saved in the hard disk automatically after any command that changes the data.
 
+[NOTE]
+====
+Address book data is not saved in the hard disk if there are no changes to the data, which happens if: +
+
+. the command entered is invalid +
+. `clear` command is executed on an empty Address book +
+. any of the following commands is executed: +
+  .. `exit` +
+  .. `find` +
+  .. `help` +
+  .. `list` +
+  .. `view` +
+  .. `viewall`
+====
+
 There is no need to save manually. Address book data are saved in a file called `addressbook.txt` in the project root folder.
