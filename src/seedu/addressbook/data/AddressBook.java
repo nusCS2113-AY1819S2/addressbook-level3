@@ -65,6 +65,8 @@ public class AddressBook {
         allPersons.clear();
     }
 
+    public void sort() { allPersons.sort(); }
+
     /**
      * Defensively copied UniquePersonList of all persons in the address book at the time of the call.
      */
