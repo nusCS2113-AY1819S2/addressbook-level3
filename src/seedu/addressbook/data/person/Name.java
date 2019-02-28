@@ -45,8 +45,7 @@ public class Name {
     }
     
     public int compareTo(Name target) {
-        int compare = this.fullName.compareTo(target.fullName);
-        return(compare);
+        return(this.fullName.compareTo(target.fullName));
     }
     
     @Override
