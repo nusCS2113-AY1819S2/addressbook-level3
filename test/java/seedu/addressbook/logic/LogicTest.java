@@ -199,6 +199,29 @@ public class LogicTest {
                               true,
                               expectedList);
     }
+    
+    @Test
+    public void execute_sort_showsAllPersons() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Person alice = helper.generatePersonWithName("Alice");
+        Person ben = helper.generatePersonWithName("Ben");
+        Person charlie = helper.generatePersonWithName("Charlie");
+        Person dan = helper.generatePersonWithName("Dan");
+
+        List<Person> expectedSortedList = helper.generatePersonList(alice, ben, charlie, dan);
+        AddressBook expectedAB = helper.generateAddressBook(expectedSortedList);
+
+        List<Person> personsUnsorted = helper.generatePersonList(dan, ben, alice, charlie);
+        helper.addToAddressBook(addressBook, personsUnsorted);
+
+        addressBook.sortAllPersons();
+
+        assertCommandBehavior("sort",
+                Command.getMessageForPersonSortShownSummary(expectedSortedList),
+                expectedAB,
+                true,
+                expectedSortedList);
+    }
 
     @Test
     public void execute_view_invalidArgsFormat() throws Exception {
