@@ -43,7 +43,12 @@ public class Name {
     public List<String> getWordsInName() {
         return Arrays.asList(fullName.split("\\s+"));
     }
-
+    
+    public int compareTo(Name target) {
+        int compare = this.fullName.compareTo(target.fullName);
+        return(compare);
+    }
+    
     @Override
     public String toString() {
         return fullName;

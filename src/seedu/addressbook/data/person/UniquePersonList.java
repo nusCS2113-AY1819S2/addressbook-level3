@@ -81,7 +81,14 @@ public class UniquePersonList implements Iterable<Person> {
     public boolean contains(ReadOnlyPerson toCheck) {
         return internalList.contains(toCheck);
     }
-
+    
+    /**
+     * Sorts the current list in alphabetical order of names.
+     */
+    public void sort () {
+        Collections.sort(internalList, Person.compareByName);
+    }
+    
     /**
      * Adds a person to the list.
      *

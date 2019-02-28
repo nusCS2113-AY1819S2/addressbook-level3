@@ -78,6 +78,11 @@ public class AddressBook {
                 || (other instanceof AddressBook // instanceof handles nulls
                 && this.allPersons.equals(((AddressBook) other).allPersons));
     }
+    
+    public UniquePersonList sortAllPersons() {
+        allPersons.sort();
+        return new UniquePersonList(allPersons);
+    }
 
     @Override
     public int hashCode() {
