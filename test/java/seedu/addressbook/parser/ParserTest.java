@@ -59,6 +59,12 @@ public class ParserTest {
     }
 
     @Test
+    public void sortByEmailCommand_parsedCorrectly() {
+        final String input = "sortByEmail";
+        parseAndAssertCommandType(input, SortByEmailCommand.class);
+    }
+
+    @Test
     public void exitCommand_parsedCorrectly() {
         final String input = "exit";
         parseAndAssertCommandType(input, ExitCommand.class);

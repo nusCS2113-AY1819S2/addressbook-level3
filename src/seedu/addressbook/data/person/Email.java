@@ -54,7 +54,6 @@ public class Email implements Comparable<Email> {
         return value.hashCode();
     }
 
-
     public boolean isPrivate() {
         return isPrivate;
     }
