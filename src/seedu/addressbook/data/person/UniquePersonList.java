@@ -11,7 +11,7 @@ import java.util.*;
  * @see Person#equals(Object)
  * @see Utils#elementsAreUnique(Collection)
  */
-public class UniquePersonList implements Iterable<Person> {
+public class UniquePersonList implements Iterable<Person>{
 
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
@@ -131,4 +131,10 @@ public class UniquePersonList implements Iterable<Person> {
         return internalList.hashCode();
     }
 
+    /**
+     * Sort all persons in list by email.
+     */
+    public void sortByEmail() {
+        Collections.sort(internalList, Comparator.comparing(Person::getEmail));
+    }
 }
