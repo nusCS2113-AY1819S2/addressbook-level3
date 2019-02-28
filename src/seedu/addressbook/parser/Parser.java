@@ -72,6 +72,9 @@ public class Parser {
             case ListCommand.COMMAND_WORD:
                 return new ListCommand();
 
+            case SortByEmailCommand.COMMAND_WORD:
+                return new SortByEmailCommand();
+
             case ViewCommand.COMMAND_WORD:
                 return prepareView(arguments);
 
