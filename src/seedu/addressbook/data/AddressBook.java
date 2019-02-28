@@ -83,4 +83,8 @@ public class AddressBook {
     public int hashCode() {
         return allPersons.hashCode();
     }
+
+    public void sortByEmail() {
+        allPersons.sortByEmail();
+    }
 }
