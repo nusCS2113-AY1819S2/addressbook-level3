@@ -133,6 +133,24 @@ Views all details of the 2nd person in the address book.
 `viewall 1` +
 Views all details of the 1st person in the results of the `find` command.
 
+== View the last command you typed in previously : `last`
+
+Displays the last command you typed in(not including 'last') previously +
+Format: `last`
+
+****
+Shows the latest command typed in.
+****
+
+Examples:
+
+* `add something` +
+This is the previous command for demo.
+
+* `last` +
+`add something` +
+Displays the last command `add something`
+
 == Clearing all entries : `clear`
 
 Clears all entries from the address book. +
