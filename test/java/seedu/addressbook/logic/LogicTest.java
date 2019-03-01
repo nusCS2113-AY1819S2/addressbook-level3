@@ -457,6 +457,21 @@ public class LogicTest {
     }
 
     /**
+     * The testing function for the newly implement command -LastCommand 
+     *  cannot be implemented because the result of the execution depends
+     *  on the previous executed command.
+
+     @Test
+     public void execute_LastCommand() throws Exception {
+
+     }
+
+      * It should return the last command user typed in previously.
+     */
+    
+
+
+    /**
      * A utility class to generate test data.
      */
     class TestDataHelper{
