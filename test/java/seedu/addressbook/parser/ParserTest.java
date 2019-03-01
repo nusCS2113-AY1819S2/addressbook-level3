@@ -59,6 +59,12 @@ public class ParserTest {
     }
 
     @Test
+    public void LastCommand_parsedCorrectly() {
+        final String input = "last";
+        parseAndAssertCommandType(input, LastCommand.class);
+    }
+
+    @Test
     public void exitCommand_parsedCorrectly() {
         final String input = "exit";
         parseAndAssertCommandType(input, ExitCommand.class);
