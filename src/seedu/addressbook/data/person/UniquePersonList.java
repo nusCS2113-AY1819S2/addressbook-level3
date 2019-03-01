@@ -13,6 +13,10 @@ import java.util.*;
  */
 public class UniquePersonList implements Iterable<Person> {
 
+    public void sort() {
+        Collections.sort(internalList, Person.compareByName);
+    }
+
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
@@ -31,7 +35,7 @@ public class UniquePersonList implements Iterable<Person> {
     private final List<Person> internalList = new ArrayList<>();
 
     /**
-     * Constructs empty person list.
+     * Constructs empty person list. Cos never define the parameters.
      */
     public UniquePersonList() {}
 
@@ -105,7 +109,6 @@ public class UniquePersonList implements Iterable<Person> {
             throw new PersonNotFoundException();
         }
     }
-
     /**
      * Clears all persons in list.
      */

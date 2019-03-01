@@ -59,6 +59,15 @@ public class AddressBook {
     }
 
     /**
+     * to sort the list of people in the address book
+     */
+    public UniquePersonList sortPersonList(){
+        allPersons.sort();
+        return new UniquePersonList(allPersons);
+    }
+
+
+    /**
      * Clears all persons from the address book.
      */
     public void clear() {

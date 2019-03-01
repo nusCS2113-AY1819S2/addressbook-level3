@@ -1,5 +1,6 @@
 package seedu.addressbook.data.person;
 
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -61,6 +62,11 @@ public class Person implements ReadOnlyPerson {
         return new HashSet<>(tags);
     }
 
+    public static Comparator< Person> compareByName = new Comparator<Person>() {
+        public int compare(Person o1, Person o2) {
+            return o1.name.compareName(o2.name);
+        }
+    };
     /**
      * Replaces this person's tags with the tags in {@code replacement}.
      */
