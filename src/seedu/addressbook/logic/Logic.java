@@ -19,6 +19,8 @@ public class Logic {
 
     private StorageFile storage;
     private AddressBook addressBook;
+    private String lastCommand = "";
+
 
     /** The list of person shown to the user most recently.  */
     private List<? extends ReadOnlyPerson> lastShownList = Collections.emptyList();
@@ -66,13 +68,28 @@ public class Logic {
 
     /**
      * Parses the user command, executes it, and returns the result.
+     * Record this user command.
      * @throws Exception if there was any problem during command execution.
      */
     public CommandResult execute(String userCommandText) throws Exception {
+        userCommandText = checkLastCommand(userCommandText);
         Command command = new Parser().parseCommand(userCommandText);
         CommandResult result = execute(command);
         recordResult(result);
         return result;
+    }
+
+    /**
+     * Check if the command is "last".
+     * If yes then append the lastCommand for later execution.
+     */
+    private String checkLastCommand(String userCommandText) throws Exception {
+        if( userCommandText.substring(0, Math.min(userCommandText.length(), 4)).equals("last")) {
+            userCommandText = userCommandText.concat(" ").concat(lastCommand);
+        } else {
+            lastCommand = userCommandText;
+        }
+        return userCommandText;
     }
 
     /**
