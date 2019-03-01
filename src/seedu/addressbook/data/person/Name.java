@@ -44,6 +44,11 @@ public class Name {
         return Arrays.asList(fullName.split("\\s+"));
     }
 
+    public int compareName(Name a){
+        int compare = this.fullName.compareTo(a.fullName);
+        return compare;
+    }
+
     @Override
     public String toString() {
         return fullName;

@@ -1,6 +1,7 @@
 package seedu.addressbook.parser;
 
 import seedu.addressbook.commands.*;
+import seedu.addressbook.commands.ListSort;
 import seedu.addressbook.data.exception.IllegalValueException;
 
 import java.util.*;
@@ -56,6 +57,8 @@ public class Parser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
+            case ListSort.COMMAND_WORD:
+                return new ListSort();
 
             case AddCommand.COMMAND_WORD:
                 return prepareAdd(arguments);
