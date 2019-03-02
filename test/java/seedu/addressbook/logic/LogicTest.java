@@ -178,7 +178,7 @@ public class LogicTest {
                 expectedAB,
                 true,
                 expectedList);
-        
+
     }
 
     @Test
