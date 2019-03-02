@@ -11,6 +11,7 @@ import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.person.*;
 import seedu.addressbook.data.tag.Tag;
+import seedu.addressbook.parser.Parser;
 import seedu.addressbook.storage.StorageFile;
 
 import java.util.*;
@@ -107,6 +108,11 @@ public class LogicTest {
     @Test
     public void execute_exit() throws Exception {
         assertCommandBehavior("exit", ExitCommand.MESSAGE_EXIT_ACKNOWEDGEMENT);
+    }
+
+    @Test
+    public void execute_all() throws Exception {
+        assertCommandBehavior("all", AllCommand.MESSAGE_SUCCESS + Parser.allcommands);
     }
 
     @Test

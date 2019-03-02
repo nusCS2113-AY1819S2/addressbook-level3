@@ -26,6 +26,7 @@ public class Parser {
                     + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
+    public static int allcommands;
 
     /**
      * Signals that the user input could not be parsed.
@@ -58,27 +59,39 @@ public class Parser {
         switch (commandWord) {
 
             case AddCommand.COMMAND_WORD:
+                allcommands ++;
                 return prepareAdd(arguments);
 
+            case AllCommand.COMMAND_WORD:
+                allcommands ++;
+                return new AllCommand();
+
             case DeleteCommand.COMMAND_WORD:
+                allcommands ++;
                 return prepareDelete(arguments);
 
             case ClearCommand.COMMAND_WORD:
+                allcommands ++;
                 return new ClearCommand();
 
             case FindCommand.COMMAND_WORD:
+                allcommands ++;
                 return prepareFind(arguments);
 
             case ListCommand.COMMAND_WORD:
+                allcommands ++;
                 return new ListCommand();
 
             case ViewCommand.COMMAND_WORD:
+                allcommands ++;
                 return prepareView(arguments);
 
             case ViewAllCommand.COMMAND_WORD:
+                allcommands ++;
                 return prepareViewAll(arguments);
 
             case ExitCommand.COMMAND_WORD:
+                allcommands ++;
                 return new ExitCommand();
 
             case HelpCommand.COMMAND_WORD: // Fallthrough
