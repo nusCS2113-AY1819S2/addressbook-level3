@@ -108,6 +108,17 @@ public class LogicTest {
     public void execute_exit() throws Exception {
         assertCommandBehavior("exit", ExitCommand.MESSAGE_EXIT_ACKNOWEDGEMENT);
     }
+    @Test
+    public void execute_random() throws Exception {
+        if(addressBook.getAllPersons().immutableListView().size() == 0) {
+            assertCommandBehavior("random", Command.getMessageForRandomFail());
+        }
+        else {
+            assertCommandBehavior("random", Command.getMessageForRandomShown());
+        }
+    }
+
+
 
     @Test
     public void execute_clear() throws Exception {
