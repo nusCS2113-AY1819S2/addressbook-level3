@@ -138,6 +138,11 @@ Views all details of the 1st person in the results of the `find` command.
 Clears all entries from the address book. +
 Format: `clear`
 
+== Giving the number of all commands entered : `all`
+
+Gives the number of all commands entered to the address book. +
+Format: `all`
+
 == Exiting the program : `exit`
 
 Exits the program. +

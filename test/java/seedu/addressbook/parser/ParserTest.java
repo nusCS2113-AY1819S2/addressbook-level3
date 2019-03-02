@@ -39,7 +39,13 @@ public class ParserTest {
     /**
      * Test 0-argument commands
      */
-    
+
+    @Test
+    public void allCommand_parsedCorrectly() {
+        final String input = "all";
+        parseAndAssertCommandType(input, AllCommand.class);
+    }
+
     @Test
     public void helpCommand_parsedCorrectly() {
         final String input = "help";
