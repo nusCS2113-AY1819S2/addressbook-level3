@@ -133,9 +133,14 @@ Views all details of the 2nd person in the address book.
 `viewall 1` +
 Views all details of the 1st person in the results of the `find` command.
 
-== Listing new
+== Display a random entry : 'random'
 
+Display a random entry from the address book. +
+Format: 'random'
 
+****
+View details of a random entry from the address book
+****
 
 == Clearing all entries : `clear`
 
