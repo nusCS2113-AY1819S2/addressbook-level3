@@ -145,21 +145,40 @@ public class LogicTest {
 
     }
 
+    //@Test
+    //public void execute_add_successful() throws Exception {
+    //    // setup expectations
+    //    TestDataHelper helper = new TestDataHelper();
+    //    Person toBeAdded = helper.adam();
+    //    AddressBook expectedAB = new AddressBook();
+    //    expectedAB.addPerson(toBeAdded);
+
+    //    // execute command and verify result
+    //    assertCommandBehavior(helper.generateAddCommand(toBeAdded),
+    //                          String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+    //                          expectedAB,
+    //                          false,
+    //                          Collections.emptyList());
+
+    //}
+
+
     @Test
-    public void execute_add_successful() throws Exception {
-        // setup expectations
+    public void execute_add_showsAllPersons() throws Exception {
+        // prepare expectations
         TestDataHelper helper = new TestDataHelper();
-        Person toBeAdded = helper.adam();
-        AddressBook expectedAB = new AddressBook();
-        expectedAB.addPerson(toBeAdded);
+        AddressBook expectedAB = helper.generateAddressBook(false, true);
+        List<? extends ReadOnlyPerson> expectedList = expectedAB.getAllPersons().immutableListView();
 
-        // execute command and verify result
-        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                              String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
-                              expectedAB,
-                              false,
-                              Collections.emptyList());
+        // prepare address book state
+        helper.addToAddressBook(addressBook, false, true);
 
+        assertCommandBehavior("list",
+                Command.getMessageForPersonListShownSummary(expectedList),
+                expectedAB,
+                true,
+                expectedList);
+        
     }
 
     @Test
