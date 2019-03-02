@@ -19,7 +19,12 @@ public class RandomCommand extends Command {
 
     public CommandResult execute() {
         final List<ReadOnlyPerson> randomPerson = getRandomPerson();
-        return new CommandResult(getMessageForRandomShown(), randomPerson);
+        if(randomPerson.size() == 0) {
+            return new CommandResult(getMessageForRandomFail());
+        }
+        else {
+            return new CommandResult(getMessageForRandomShown(), randomPerson);
+        }
     }
 
 
@@ -28,6 +33,10 @@ public class RandomCommand extends Command {
         Random random = new Random();
         List<ReadOnlyPerson> allPerson = addressBook.getAllPersons().immutableListView();
         int upperBound = allPerson.size();
+        if (upperBound == 0) {
+            return randomEntry;
+        }
+
         int index = 0;
         int randomIndex = random.nextInt(upperBound);
 

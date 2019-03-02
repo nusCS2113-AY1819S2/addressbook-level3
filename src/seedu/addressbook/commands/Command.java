@@ -38,7 +38,9 @@ public abstract class Command {
     public static String getMessageForRandomShown() {
         return Messages.MESSAGE_RANDOM;
     }
-
+    public static String getMessageForRandomFail() {
+        return Messages.MESSAGE_RANDOM_FAIL;
+    }
     /**
      * Executes the command and returns the result.
      */

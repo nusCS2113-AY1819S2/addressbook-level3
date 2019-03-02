@@ -14,4 +14,5 @@ public class Messages {
     public static final String MESSAGE_WELCOME = "Welcome to your Address Book!";
     public static final String MESSAGE_USING_STORAGE_FILE = "Using storage file : %1$s";
     public static final String MESSAGE_RANDOM = "Random contact shown!";
+    public static final String MESSAGE_RANDOM_FAIL = "Address book empty!";
 }
