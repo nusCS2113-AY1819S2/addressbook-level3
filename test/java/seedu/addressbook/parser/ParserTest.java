@@ -245,6 +245,73 @@ public class ParserTest {
         assertEquals(result.getPerson(), testPerson);
     }
 
+    @Test
+    public void addListCommand_invalidArgs() {
+        final String[] inputs = {
+                "add&list",
+                "add&list",
+                "add&list wrong args format",
+                // no phone prefix
+                String.format("add&list $s $s e/$s a/$s", Name.EXAMPLE, Phone.EXAMPLE, Email.EXAMPLE, Address.EXAMPLE),
+                // no email prefix
+                String.format("add&list $s p/$s $s a/$s", Name.EXAMPLE, Phone.EXAMPLE, Email.EXAMPLE, Address.EXAMPLE),
+                // no address prefix
+                String.format("add&list $s p/$s e/$s $s", Name.EXAMPLE, Phone.EXAMPLE, Email.EXAMPLE, Address.EXAMPLE)
+        };
+        final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddListCommand.MESSAGE_USAGE);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+
+    @Test
+    public void addListCommand_invalidPersonDataInArgs() {
+        final String invalidName = "[]\\[;]";
+        final String validName = Name.EXAMPLE;
+        final String invalidPhoneArg = "p/not__numbers";
+        final String validPhoneArg = "p/" + Phone.EXAMPLE;
+        final String invalidEmailArg = "e/notAnEmail123";
+        final String validEmailArg = "e/" + Email.EXAMPLE;
+        final String invalidTagArg = "t/invalid_-[.tag";
+
+        // address can be any string, so no invalid address
+        final String addCommandFormatString = "add $s $s $s a/" + Address.EXAMPLE;
+
+        // test each incorrect person data field argument individually
+        final String[] inputs = {
+                // invalid name
+                String.format(addCommandFormatString, invalidName, validPhoneArg, validEmailArg),
+                // invalid phone
+                String.format(addCommandFormatString, validName, invalidPhoneArg, validEmailArg),
+                // invalid email
+                String.format(addCommandFormatString, validName, validPhoneArg, invalidEmailArg),
+                // invalid tag
+                String.format(addCommandFormatString, validName, validPhoneArg, validEmailArg) + " " + invalidTagArg
+        };
+        for (String input : inputs) {
+            parseAndAssertCommandType(input, IncorrectCommand.class);
+        }
+    }
+
+    @Test
+    public void addListCommand_validPersonData_parsedCorrectly() {
+        final Person testPerson = generateTestPerson();
+        final String input = convertPersonToAddListCommandString(testPerson);
+        final AddListCommand result = parseAndAssertCommandType(input, AddListCommand.class);
+        assertEquals(result.getPerson(), testPerson);
+    }
+
+    @Test
+    public void addListCommand_duplicateTags_merged() throws IllegalValueException {
+        final Person testPerson = generateTestPerson();
+        String input = convertPersonToAddListCommandString(testPerson);
+        for (Tag tag : testPerson.getTags()) {
+            // create duplicates by doubling each tag
+            input += " t/" + tag.tagName;
+        }
+
+        final AddListCommand result = parseAndAssertCommandType(input, AddListCommand.class);
+        assertEquals(result.getPerson(), testPerson);
+    }
+
     private static Person generateTestPerson() {
         try {
             return new Person(
@@ -261,6 +328,18 @@ public class ParserTest {
 
     private static String convertPersonToAddCommandString(ReadOnlyPerson person) {
         String addCommand = "add "
+                + person.getName().fullName
+                + (person.getPhone().isPrivate() ? " pp/" : " p/") + person.getPhone().value
+                + (person.getEmail().isPrivate() ? " pe/" : " e/") + person.getEmail().value
+                + (person.getAddress().isPrivate() ? " pa/" : " a/") + person.getAddress().value;
+        for (Tag tag : person.getTags()) {
+            addCommand += " t/" + tag.tagName;
+        }
+        return addCommand;
+    }
+
+    private static String convertPersonToAddListCommandString(ReadOnlyPerson person) {
+        String addCommand = "add&list "
                 + person.getName().fullName
                 + (person.getPhone().isPrivate() ? " pp/" : " p/") + person.getPhone().value
                 + (person.getEmail().isPrivate() ? " pe/" : " e/") + person.getEmail().value
