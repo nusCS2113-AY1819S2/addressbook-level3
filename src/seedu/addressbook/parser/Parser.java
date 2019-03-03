@@ -78,6 +78,9 @@ public class Parser {
             case ViewAllCommand.COMMAND_WORD:
                 return prepareViewAll(arguments);
 
+            case ViewPrivateCommand.COMMAND_WORD:
+                return prepareViewPrivate(arguments);
+
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
 
@@ -187,6 +190,23 @@ public class Parser {
         } catch (ParseException | NumberFormatException e) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     ViewAllCommand.MESSAGE_USAGE));
+        }
+    }
+
+    /**
+     * Parses arguments in the context of the view private command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareViewPrivate(String args) {
+
+        try {
+            final int targetIndex = parseArgsAsDisplayedIndex(args);
+            return new ViewPrivateCommand(targetIndex);
+        } catch (ParseException | NumberFormatException e) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ViewPrivateCommand.MESSAGE_USAGE));
         }
     }
 

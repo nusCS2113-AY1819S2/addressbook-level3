@@ -133,6 +133,29 @@ Views all details of the 2nd person in the address book.
 `viewall 1` +
 Views all details of the 1st person in the results of the `find` command.
 
+== View all private details of a person : `viewprivate`
+
+Displays only private details of the specified person. +
+Format: `viewprivate INDEX`
+
+****
+Views private details of the person at the specified `INDEX`.
+The index refers to the index number shown in the most recent listing.
+****
+
+Examples:
+
+* `list` +
+`viewprivate 2` +
+Views private details of the 2nd person in the address book.
+
+* `find Betsy` +
+`viewprivate 1` +
+Views private details of the 1st person in the results of the `find` command.
+
+
+
+
 == Clearing all entries : `clear`
 
 Clears all entries from the address book. +
