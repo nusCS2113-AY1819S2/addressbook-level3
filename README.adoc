@@ -16,7 +16,7 @@ image::Ui.png[]
 
 == Acknowledgements
 
-This application is morphed from AddressBook-Level4 project created by SE-EDU initiative https://github.com/se-edu/[here].
+This application is morphed from AddressBook-Level3 project created by SE-EDU initiative https://github.com/se-edu/[here].
 
 Some parts of this sample application was inspired by the excellent
 http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by Marco Jakob
