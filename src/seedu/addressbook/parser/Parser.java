@@ -69,6 +69,9 @@ public class Parser {
             case FindCommand.COMMAND_WORD:
                 return prepareFind(arguments);
 
+            case FindpCommand.COMMAND_WORD:
+                return prepareFindp(arguments);
+
             case ListCommand.COMMAND_WORD:
                 return new ListCommand();
 
@@ -226,5 +229,14 @@ public class Parser {
         return new FindCommand(keywordSet);
     }
 
+    private Command prepareFindp(String args) {
+        final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    FindpCommand.MESSAGE_USAGE));
+        }
+        String phone_number = args.trim();
+        return new FindpCommand(phone_number);
+    }
 
 }
