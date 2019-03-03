@@ -83,4 +83,35 @@ public interface ReadOnlyPerson {
         }
         return builder.toString();
     }
+
+    /**
+     * Formats the person as text, showing only private contact details.
+     */
+    default String getAsTextShowPrivate() {
+        final StringBuilder builder = new StringBuilder();
+        final String detailIsPrivate = "(private) ";
+        boolean foundPrivate=false;
+        if (getPhone().isPrivate()) {
+            builder.append(getName()).append(" Phone: ");
+            builder.append(detailIsPrivate).append(getPhone());;
+            foundPrivate=true;
+        }
+        if (getEmail().isPrivate()) {
+            builder.append(getPhone()).append(" Email: ");
+            builder.append(detailIsPrivate).append(getEmail());
+            foundPrivate=true;
+        }
+        if (getAddress().isPrivate()) {
+            builder.append(getEmail()).append(" Address: ");
+            builder.append(detailIsPrivate).append(getAddress());
+
+            foundPrivate=true;
+        }
+        if (foundPrivate==false){
+            builder.append("No private information found!");
+        }
+
+        return builder.toString();
+    }
 }
+
