@@ -12,7 +12,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Lee Chong Wei Justin
-image::justin.png[width="150", align="left"]
+image::e0176106.png[width="150", align="left"]
 {empty}[http://github.com/E0176106[github]] [<<E0176106#, portfolio>>]
 
 Role:  +
@@ -30,7 +30,7 @@ Responsibilities: League Feature
 '''
 
 === Wang Jiannan
-image::jiannan.png[width="150", align="left"]
+image::warheade.png[width="150", align="left"]
 {empty}[http://github.com/warheade[github]] [<<warheade#, portfolio>>]
 
 Role:  +
@@ -39,7 +39,7 @@ Responsibilities: Player Feature
 '''
 
 === Lee Ying Rong
-image::yingrong.jpg[width="150", align="left"]
+image::yingrong1996.png[width="150", align="left"]
 {empty}[http://github.com/yingrong1996[github]] [<<yingrong1996#, portfolio>>]
 
 Role:  +
