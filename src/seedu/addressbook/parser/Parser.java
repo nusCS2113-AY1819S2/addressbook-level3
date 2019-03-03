@@ -78,10 +78,14 @@ public class Parser {
             case ViewAllCommand.COMMAND_WORD:
                 return prepareViewAll(arguments);
 
+            case SortCommand.COMMAND_WORD:
+                return new SortCommand();
+
+
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
 
-            case HelpCommand.COMMAND_WORD: // Fallthrough
+            case HelpCommand.COMMAND_WORD:// Fallthrough
             default:
                 return new HelpCommand();
         }
