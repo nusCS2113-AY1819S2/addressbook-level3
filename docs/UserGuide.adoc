@@ -54,6 +54,12 @@ Examples:
 Shows a list of all persons in the address book. +
 Format: `list`
 
+== Counting the number of persons: `Count`
+
+Shows an integer which is the number of entries in the address book. +
+Format: `Count`
+
+
 == Finding all persons containing any keyword in their name: `find`
 
 Finds persons whose names contain any of the given keywords. +
