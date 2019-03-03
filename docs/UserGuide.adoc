@@ -138,6 +138,11 @@ Views all details of the 1st person in the results of the `find` command.
 Clears all entries from the address book. +
 Format: `clear`
 
+== Get a random entry : `random`
+
+Gets a random entry from the address book. +
+Format: `random`
+
 == Exiting the program : `exit`
 
 Exits the program. +
