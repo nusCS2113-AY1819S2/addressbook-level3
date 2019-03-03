@@ -173,6 +173,14 @@ public class ParserTest {
                 parseAndAssertCommandType(input, FindCommand.class);
         assertEquals(keySet, result.getKeywords());
     }
+    /**
+     * Test commands in upper case
+     */
+    @Test
+    public void uppercaseCommand_parsedCorrectly() {
+        final String input = "LIST";
+        parseAndAssertCommandType(input, ListCommand.class);
+    }
 
     /**
      * Test add person command
