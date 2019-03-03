@@ -52,6 +52,7 @@ Help is also shown if you enter an incorrect command e.g. `abcd`
 ==== List Team
 List current Teams in League. +
 Format :`ListTeam`
+
 ==== Add Team
 Add a new Team to League Tracker. +
 Format : `AddTeam NAME c/COUNTRY g/GOAL SCORED p/POINTS  `
@@ -83,6 +84,28 @@ Deletes the 1st Team in the Team list.
 === League
 
 === Match Schedule
+
+==== List Matches
+List Matches in League. +
+Format :`ListMatches`
+
+==== Add Matches
+Add a new Match to League Tracker. +
+Format : `AddMatch dd/mm/yyyy h/hometeam a/awayteam`
+
+Example: +
+ `AddMatch 28/02/2019 h/Fulham a/Chelsea +
+ Adds a new Match with the specified details.
+ 
+==== Delete Matches
+Delete a Match from League Tracker. +
+Format : `DeleteMatch INDEX  `
+
+Example: +
+
+* `ListMatches` +
+* `DeleteMatch 1` +
+Deletes the 1st Match in the Match list.
 
 == Exiting the program : `exit`
 
