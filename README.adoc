@@ -7,12 +7,19 @@ image:https://travis-ci.org/CS2113-AY1819S2-M11-1/main.svg?branch=master["Build 
 image::Ui.png[]
 
 * This is a CLI (Command Line Interface) League Tracker application *written in OOP fashion*. It has a very basic GUI.
-* It is a Java sample application intended for League Operators to manage teams, players, matches records.
+* It is a Java application intended for League Operators to manage teams, players, matches records.
 
 *Useful Links*
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
+
+== Acknowledgements
+
+This application is morphed from AddressBook-Level4 project created by SE-EDU initiative https://github.com/se-edu/[here].
+
+Some parts of this sample application was inspired by the excellent
+http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by Marco Jakob
 
 == Contact Us
 
