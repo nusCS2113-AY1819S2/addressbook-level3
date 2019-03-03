@@ -1,0 +1,52 @@
+= About Us
+:site-section: AboutUs
+:relfileprefix: team/
+:imagesDir: images
+:stylesDir: stylesheets
+
+AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
+_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
+{empty} +
+We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+== Project Team
+
+=== Lee Chong Wei Justin
+image::justin.png[width="150", align="left"]
+{empty}[http://github.com/E0176106[github]] [<<E0176106#, portfolio>>]
+
+Role:  +
+Responsibilities: Match Schedule Feature
+
+'''
+
+=== Hu Yidi
+image::huyidi.png[width="150", align="left"]
+{empty}[https://github.com/huyidi[github]] [<<huyidi#, portfolio>>]
+
+Role:  +
+Responsibilities: League Feature
+
+'''
+
+=== Wang Jiannan
+image::jiannan.png[width="150", align="left"]
+{empty}[http://github.com/warheade[github]] [<<warheade#, portfolio>>]
+
+Role:  +
+Responsibilities: Player Feature
+
+'''
+
+=== Lee Ying Rong
+image::yingrong.jpg[width="150", align="left"]
+{empty}[http://github.com/yingrong1996[github]] [<<yingrong1996#, portfolio>>]
+
+Role:  +
+Responsibilities: Team Feature
+
+'''
+
+
+
+
