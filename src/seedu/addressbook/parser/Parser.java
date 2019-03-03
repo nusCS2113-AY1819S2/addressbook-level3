@@ -60,6 +60,9 @@ public class Parser {
             case AddCommand.COMMAND_WORD:
                 return prepareAdd(arguments);
 
+            case CountCommand.COMMAND_WORD:
+                return new CountCommand();
+
             case DeleteCommand.COMMAND_WORD:
                 return prepareDelete(arguments);
 
