@@ -174,11 +174,14 @@ A: Install the app in the other computer and overwrite the empty data file it cr
 
 
 === Teams
-*List Team in League* : `ListTeam`
-*Add Team to League* : `AddTeam`
-*Edit Team's Profile* : `EditTeam`
+*List Team in League* : `ListTeam` +
+*Add Team to League* : `AddTeam` +
+*Edit Team's Profile* : `EditTeam` +
 *Delete Team from League* : `DelTeam`
 
 === League
 
 === Match Schedule
+*List Matches in League* : `ListMatches` +
+*Add Match to League* : `AddMatch` +
+*Delete Match from League* : `DeleteMatch`

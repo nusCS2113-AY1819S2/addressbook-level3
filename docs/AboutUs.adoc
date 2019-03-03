@@ -4,8 +4,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
+The LeagueTracker provides football league operator with an efficient method of managing the players, teams and matches in the season. It features many ways to keep track of the teams and players playing in the league. The LeagueTracker will help manager have an easier time in keeping track of the current situation in the football league. +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
@@ -15,7 +14,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::e0176106.png[width="150", align="left"]
 {empty}[http://github.com/E0176106[github]] [<<E0176106#, portfolio>>]
 
-Role:  +
+Role: Integration, Developer +
 Responsibilities: Match Schedule Feature
 
 '''
@@ -24,7 +23,7 @@ Responsibilities: Match Schedule Feature
 image::huyidi.png[width="150", align="left"]
 {empty}[https://github.com/huyidi[github]] [<<huyidi#, portfolio>>]
 
-Role:  +
+Role: Documentation, Developer +
 Responsibilities: League Feature
 
 '''
@@ -33,7 +32,7 @@ Responsibilities: League Feature
 image::warheade.png[width="150", align="left"]
 {empty}[http://github.com/warheade[github]] [<<warheade#, portfolio>>]
 
-Role:  +
+Role: Team Lead, Developer +
 Responsibilities: Player Feature
 
 '''
@@ -42,7 +41,7 @@ Responsibilities: Player Feature
 image::yingrong1996.png[width="150", align="left"]
 {empty}[http://github.com/yingrong1996[github]] [<<yingrong1996#, portfolio>>]
 
-Role:  +
+Role: Testing, Developer +
 Responsibilities: Team Feature
 
 '''

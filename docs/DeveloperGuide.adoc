@@ -1,99 +1,174 @@
-= Developer Guide
+= League Tracker - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
+:toc-placement: preamble
+:sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
-:experimental:
+:xrefstyle: full
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+endif::[]
+
+By: `CS2113-AY1819S2-M11-1`      Since: ``      Licence: ``
+
+== Introduction
+The LeagueTracker provides football league operator with an efficient method of managing the current teams that are playing in the season. It features many ways to keep track of the teams and players playing in the league. The LeagueTracker will help manager have an easier time in keeping track of the curretn situation in the football league.
+
 
 == Setting up
 
 === Prerequisites
 
-* JDK 9 or later
-* IntelliJ IDE
+. *JDK `9`* or later
 
-=== Importing the project into IntelliJ
+. *IntelliJ* IDE
 
+
+=== Setting up the project in your computer
+
+. Fork this repo, and clone the fork to your computer
 . Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
-. Set up the correct JDK version
+. Set up the correct JDK version for Gradle
 .. Click `Configure` > `Project Defaults` > `Project Structure`
-.. If JDK 9 is listed in the drop down, select it. If it is not, click `New...` and select the directory where you installed JDK 9
-.. Click `OK`
+.. Click `New...` and find the directory of the JDK
 . Click `Import Project`
 . Locate the `build.gradle` file and select it. Click `OK`
 . Click `Open as Project`
 . Click `OK` to accept the default settings
-. Run the `seedu.addressbook.Main` class (right-click the `Main` class and click `Run Main.main()`) and try executing a few commands
-. Run all the tests (right-click the `test` folder, and click `Run 'All Tests'`) and ensure that they pass
-. Open the `StorageFile` file and check for any code errors
-.. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
-.. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=java.xml.bind' to module compiler options`
+. Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
+This will generate all resources required by the application and tests.
 
-== Design
+=== Verifying the setup
 
-image::mainClassDiagram.png[]
+. Run the `seedu.addressbook.Main` and try a few commands
+. <<Testing,Run the tests>> to ensure they all pass.
 
-== Testing
+=== Configurations to do before writing code
 
-* In IntelliJ, right-click on the `test` folder and choose `Run 'All Tests'`
+==== Configuring the coding style
+
+This project follows https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[oss-generic coding standards]. IntelliJ's default style is mostly compliant with ours but it uses a different import order from ours. To rectify,
+
+. Go to `File` > `Settings...` (Windows/Linux), or `IntelliJ IDEA` > `Preferences...` (macOS)
+. Select `Editor` > `Code Style` > `Java`
+. Click on the `Imports` tab to set the order
+
+* For `Class count to use import with '\*'` and `Names count to use static import with '*'`: Set to `999` to prevent IntelliJ from contracting the import statements
+* For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javax.*`, `import org.\*`, `import com.*`, `import all other imports`. Add a `<blank line>` between each `import`
+
+Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
+
+==== Updating documentation to match your fork
+
+After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
+
+If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
+
+. Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
+
+. Replace the URL in the attribute `repoURL` in link:{repoURL}/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and link:{repoURL}/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
+
+==== Setting up CI
+
+Set up Travis to perform Continuous Integration (CI) for your fork. See <<UsingTravis#, UsingTravis.adoc>> to learn how to set it up.
+
+After setting up Travis, you can optionally set up coverage reporting for your team fork (see <<UsingCoveralls#, UsingCoveralls.adoc>>).
+
+[NOTE]
+Coverage reporting could be useful for a team repository that hosts the final version but it is not that useful for your personal fork.
+
+Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingAppVeyor.adoc>>).
+
+[NOTE]
+Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
+
+
+== Dev Ops
+
+=== Build Automation
+
+See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build automation.
+
+=== Continuous Integration
+
+We use https://travis-ci.org/[Travis CI] and https://www.appveyor.com/[AppVeyor] to perform _Continuous Integration_ on our projects. See <<UsingTravis#, UsingTravis.adoc>> and <<UsingAppVeyor#, UsingAppVeyor.adoc>> for more details.
+
+=== Coverage Reporting
+
+We use https://coveralls.io/[Coveralls] to track the code coverage of our projects. See <<UsingCoveralls#, UsingCoveralls.adoc>> for more details.
+
+=== Documentation Previews
+When a pull request has changes to asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
+
+=== Making a Release
+
+Here are the steps to create a new release.
+
+.  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
+.  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
+.  Tag the repo with the version number. e.g. `v0.1`
+.  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
+
+
+[appendix]
+== Product Scope
+
+*Target user profile*:
+
+* Football League Operators +
+* Has a need to manage leagues, team and player profiles +
+* Has a need to collect and view specific data regarding the league, matches, teams and players information in the league  +
+* Prefer typing over mouse input +
+* Prefer desktop apps over other type +
+* Reasonably comfortable using CLI apps
+
+
+*Value proposition*: 
+
+* Manage league/team/player faster than a typical mouse/GUI driven app. +
+* Easy access to records needed.
+
 
 [appendix]
 == User Stories
-
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="100%",cols="22%,<23%,<25%,<30%",options="header",]
-|===========================================================================================================================================
+[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+|=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
-|`* * *` |user |add a new person |
-|`* * *` |user |delete a person |remove entries that I no longer need
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
-|`* *` |user |hide <<private-contact-detail, private contact details>> by default |minimize chance of someone else seeing them by accident
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
-|===========================================================================================================================================
+|`* * *` |League Organiser |add, edit and delete players into the records | Add new player when they join,delete old player when they retire
 
-[appendix]
-== Use Cases
+|`* * *` |League Organiser |add, edit and delete teams into current league| Add new team that move up major league
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+|`* * *` |League Organiser |list all teams and player. | See all current teams and player
 
-=== Use case: Delete person
+|`* * *` |League Organiser |Able to see the performance of players in the league | Know player's goals scored and Penalties.
 
-*MSS*
+|`* * *` |League Organiser |Able to see the teams ranking in league | Know which team is currently leading in points
 
-. User requests to list persons
-. AddressBook shows a list of persons
-. User requests to delete a specific person in the list
-. AddressBook deletes the person.
-+
-Use case ends.
+|`* * *` |League Organiser |Able to keep track on the future match up for the playing teams| see the match scheduling
 
-*Extensions*
+|`* *` |League Organiser | Able to see the statistic of each team | know the percentage of winnings, average of fouls per matches of each team
 
-* 2a. The list is empty.
-+
-Use case ends.
+|`* *` |League Organiser |Able to tag injuries of players | know what old injuries player have
 
-* 3a. The given index is invalid.
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
+|`*` |League Organiser |Able to constantly keep track of best player | able to find out the golden leg(best scorer) of the season
+
+|`*` |League Organiser | Select certain player to moniter performance | keep track of 'HOT' Players
+
+|=======================================================================
+
+_{More to be added}_
 
 [appendix]
 == Non Functional Requirements
 
-. Should work on any <<mainstream-os, mainstream OS>> as long as it has Java 9 or higher installed.
-. Should be able to hold up to 1000 persons.
-. Should come with automated unit tests and open source code.
-. Should favor DOS style commands over Unix-style commands.
+. Quality requirement: The system should be efficient enough for organiser to quickly updat and keep track of the teams playing in the league.
+. Performance requirements: The system should be able to present the information in an orgainised format as the data could be confusing.
+. Project scope: The product is developed solely for the use of league organiser.
 
-[appendix]
-== Glossary
-
-[[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
-
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others.
+_{More to be added}_
