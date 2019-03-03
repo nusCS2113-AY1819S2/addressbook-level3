@@ -455,6 +455,27 @@ public class LogicTest {
                                 true,
                                 expectedList);
     }
+    @Test
+    public void execute_findtag_matchesIfAnyKeywordPresent() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Person pTarget1 = helper.generatePersonWithTag("bla");
+        Person pTarget2 = helper.generatePersonWithTag("Key");
+        Person p1 = helper.generatePersonWithTag("friend");
+        Person p2 = helper.generatePersonWithTag("myself");
+
+        List<Person> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
+        List<Person> expectedList = helper.generatePersonList(p1);
+
+        AddressBook expectedAB = helper.generateAddressBook(expectedList);
+
+        helper.addToAddressBook(addressBook, expectedList);
+
+        assertCommandBehavior("findtag friend",
+                Command.getMessageForPersonListShownSummary(expectedList),
+                expectedAB,
+                true,
+                expectedList);
+    }
 
     /**
      * A utility class to generate test data.
@@ -583,6 +604,17 @@ public class LogicTest {
                     new Email("1@email", false),
                     new Address("House of 1", false),
                     Collections.singleton(new Tag("tag"))
+            );
+        }
+        Person generatePersonWithTag(String tag) throws Exception {
+             Set<Tag> ts = new HashSet<>();
+             ts.add(new Tag(tag));
+            return new Person(
+                    new Name("bla bla"),
+                    new Phone("1", false),
+                    new Email("1@email", false),
+                    new Address("House of 1", false),
+                    ts
             );
         }
     }

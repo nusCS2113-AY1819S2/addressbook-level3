@@ -45,6 +45,10 @@ public class Tag {
         return tagName.hashCode();
     }
 
+    public String getName() {
+        return tagName;
+    }
+
     @Override
     public String toString() {
         return '[' + tagName + ']';
