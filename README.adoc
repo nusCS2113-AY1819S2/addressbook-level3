@@ -2,7 +2,7 @@
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 ifdef::env-github,env-browser[:imagesDir: docs/images]
 
-https://travis-ci.org/cs2113-ay1819s2-t11-2/main.svg?branch=master[image:https://travis-ci.org/cs2113-ay1819s2-t11-2/main.svg?branch=master[Build Status]]
+https://travis-ci.org/cs2113-ay1819s2-t11-2/main[image:https://travis-ci.org/cs2113-ay1819s2-t11-2/main.svg?branch=master[Build Status]]
 
 
 image::UI.png[]
