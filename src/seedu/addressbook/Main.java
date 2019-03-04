@@ -8,6 +8,8 @@ import seedu.addressbook.logic.Logic;
 import seedu.addressbook.ui.Gui;
 import seedu.addressbook.ui.Stoppable;
 
+// test commit
+
 /**
  * Main entry point to the application.
  */
