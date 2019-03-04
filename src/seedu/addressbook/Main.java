@@ -12,7 +12,7 @@ import seedu.addressbook.ui.Stoppable;
  * Main entry point to the application.
  */
 public class Main extends Application implements Stoppable{
-
+    // test commit
     /** Version info of the program. */
     public static final String VERSION = "AddressBook Level 3 - Version 1.0";
 
