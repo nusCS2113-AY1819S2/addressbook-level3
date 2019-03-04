@@ -36,6 +36,8 @@ public class StorageFile {
      */
     public final Path path;
     private final JAXBContext jaxbContext;
+    private final boolean isEncrypted = false; //set to true to encrypt data
+
     /**
      * @throws InvalidStorageFilePathException if the default path is invalid
      */
@@ -84,9 +86,13 @@ public class StorageFile {
             final AdaptedAddressBook toSave = new AdaptedAddressBook(addressBook);
             final Marshaller marshaller = jaxbContext.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            StringWriter sw = new StringWriter();
-            marshaller.marshal(toSave, sw);
-            fileWriter.write(Encryptor.encrypt(sw.toString()));
+            if (isEncrypted) {
+                StringWriter sw = new StringWriter();
+                marshaller.marshal(toSave, sw);
+                fileWriter.write(Encryptor.encrypt(sw.toString()));
+            } else {
+                marshaller.marshal(toSave, fileWriter);
+            }
 
         } catch (IOException ioe) {
             throw new StorageOperationException("Error writing to file: " + path + " error: " + ioe.getMessage());
@@ -106,8 +112,13 @@ public class StorageFile {
 
             final Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
             final AdaptedAddressBook loaded;
-            StringReader decryptedData = new StringReader(Encryptor.decrypt(fileReader.readLine()));
-            loaded = (AdaptedAddressBook) unmarshaller.unmarshal(decryptedData);
+            //decrypts
+            if (isEncrypted) {
+                StringReader decryptedData = new StringReader(Encryptor.decrypt(fileReader.readLine()));
+                loaded = (AdaptedAddressBook) unmarshaller.unmarshal(decryptedData);
+            } else {
+                loaded = (AdaptedAddressBook) unmarshaller.unmarshal(fileReader);
+            }
 
             // manual check for missing elements
             if (loaded.isAnyRequiredFieldMissing()) {
