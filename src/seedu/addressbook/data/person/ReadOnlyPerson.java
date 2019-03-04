@@ -39,23 +39,19 @@ public interface ReadOnlyPerson {
     default String getAsTextShowAll() {
         final StringBuilder builder = new StringBuilder();
         final String detailIsPrivate = "(private) ";
-        builder.append(getName())
-                .append(" Phone: ");
+        builder.append(getName()).append(System.getProperty("line.separator")).append("Phone: ");
         if (getPhone().isPrivate()) {
             builder.append(detailIsPrivate);
         }
-        builder.append(getPhone())
-                .append(" Email: ");
+        builder.append(getPhone()).append(System.getProperty("line.separator")).append("Email: ");
         if (getEmail().isPrivate()) {
             builder.append(detailIsPrivate);
         }
-        builder.append(getEmail())
-                .append(" Address: ");
+        builder.append(getEmail()).append(System.getProperty("line.separator")).append("Address: ");
         if (getAddress().isPrivate()) {
             builder.append(detailIsPrivate);
         }
-        builder.append(getAddress())
-                .append(" Tags: ");
+        builder.append(getAddress()).append(System.getProperty("line.separator")).append("Tags: ");
         for (Tag tag : getTags()) {
             builder.append(tag);
         }
@@ -66,6 +62,25 @@ public interface ReadOnlyPerson {
      * Formats a person as text, showing only non-private contact details.
      */
     default String getAsTextHidePrivate() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getName());
+        if (!getPhone().isPrivate()) {
+            builder.append(System.getProperty("line.separator")).append("Phone: ").append(getPhone());
+        }
+        if (!getEmail().isPrivate()) {
+            builder.append(System.getProperty("line.separator")).append("Email: ").append(getEmail());
+        }
+        if (!getAddress().isPrivate()) {
+            builder.append(System.getProperty("line.separator")).append("Address: ").append(getAddress());
+        }
+        builder.append(System.getProperty("line.separator")).append("Tags: ");
+        for (Tag tag : getTags()) {
+            builder.append(tag);
+        }
+        return builder.toString();
+    }
+
+    default String getAsListHidePrivate() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName());
         if (!getPhone().isPrivate()) {
