@@ -13,7 +13,7 @@ Please refer to the <<DeveloperGuide#setting-up, Setting up>> section to learn h
 == Starting the program
 
 . Find the project pane (usually located at the left side)
-. Open up `src/seedu.addressbook` folder
+. Open up `src/seedu.StudentHandBook` folder
 . Right click on `Main`
 . Click `Run Main.main()`
 . The GUI should appear in a few seconds
@@ -132,6 +132,15 @@ Views all details of the 2nd person in the address book.
 * `find Betsy` +
 `viewall 1` +
 Views all details of the 1st person in the results of the `find` command.
+
+== Display a random entry : 'random'
+
+Display a random entry from the address book. +
+Format: 'random'
+
+****
+View details of a random entry from the address book
+****
 
 == Clearing all entries : `clear`
 
