@@ -116,6 +116,14 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
+     * New method to get size of address book :D
+     * Returns the number of persons in the list.
+     */
+    public int size() {
+        return internalList.size();
+    }
+
+    /*
      * Sorts all persons in list by name.
      */
     public void sort(){
