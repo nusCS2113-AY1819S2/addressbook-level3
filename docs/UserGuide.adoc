@@ -147,7 +147,7 @@ Examples:
 * `appointments Matthias` +
 System prints (Jacky Time_of_appointment: 26/2/19 8pm...)
 
-== Referring someone to other doctor: `Refer` (coming in v1.2)
+== Referring someone to other doctor: `refer` (coming in v1.2)
 Refers a patient to another doctor who has expertise, and patient appears in the new doctor’s list of contacts. +
 
 Format: `refer n/NAME d/NEW_DOCTOR_NAME`
