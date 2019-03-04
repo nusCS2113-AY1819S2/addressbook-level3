@@ -37,6 +37,6 @@ http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by Marco Jako
 
 == Contact Us
 
-* *Bug reports, Suggestions* : Post in our https://github.com/se-edu/addressbook-level3/issues[issue tracker]
+* *Bug reports, Suggestions* : Post in our https://github.com/cs2113-ay1819s2-t11-2/main/issues[issue tracker]
 if you noticed bugs or have suggestions on how to improve.
 * *Contributing* : We welcome pull requests. Follow the process described https://github.com/oss-generic/process[here]
