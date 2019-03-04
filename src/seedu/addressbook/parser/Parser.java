@@ -30,8 +30,7 @@ public class Parser {
      * @Nicholasleeeee
      */
     public static final Pattern PERSON_LOGIN_FORMAT =
-            Pattern.compile("u/(?<username>[^/]+)"
-                    + "p/(?<password>[^/]+)"); // forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(u/)(?<username>[^/]+) (p/)(?<password>[^/]+)"); // forward slashes are reserved for delimiter prefixes
 
     public static final Map<String, String> loginInfo = new HashMap<String, String>(); // Creates a Hashmap for login information
     public static final String TEST = "my-test-text"; // Creates a hash test value
