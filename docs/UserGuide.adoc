@@ -29,7 +29,7 @@ Format: `help`
 Help is also shown if you enter an incorrect command e.g. `abcd`
 ====
 == Logging in: `Login`
-Log into your own address book
+Log into your own address book.+
 Format:  `USERNAME /PASSWORD`
 
 == Adding a person: `add`
@@ -139,7 +139,7 @@ Views all details of the 1st person in the results of the `find` command.
 == Managing Appointments : `appointments (coming in v1.2)`
 
 Prints out the appointments that a doctor has for the week.+
-Format:`appointments n/USER’s_NAME`.+
+Format:`appointments n/USER’s_NAME`.
 
 Examples:
 
@@ -149,7 +149,7 @@ System prints (Jacky Time_of_appointment: 26/2/19 8pm...)
 == Referring someone to other doctor: `Refer` (coming in v1.2)
 Refers a patient to another doctor who has expertise, and patient appears in the new doctor’s list of contacts. +
 
-Format: `refer n/NAME d/NEW_DOCTOR_NAME`.+
+Format: `refer n/NAME d/NEW_DOCTOR_NAME`.
 
 == Clearing all entries : `clear`
 
