@@ -28,6 +28,9 @@ Format: `help`
 ====
 Help is also shown if you enter an incorrect command e.g. `abcd`
 ====
+== Logging in: `Login`
+Log into your own address book
+Format:  `USERNAME /PASSWORD`
 
 == Adding a person: `add`
 
