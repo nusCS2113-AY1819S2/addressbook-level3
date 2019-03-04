@@ -33,6 +33,8 @@ public class AdaptedPerson {
     private AdaptedContactDetail email;
     @XmlElement(required = true)
     private AdaptedContactDetail address;
+    @XmlElement(required = true)
+    private String referral;
 
     @XmlElement
     private List<AdaptedTag> tagged = new ArrayList<>();
@@ -102,6 +104,7 @@ public class AdaptedPerson {
         final Phone phone = new Phone(this.phone.value, this.phone.isPrivate);
         final Email email = new Email(this.email.value, this.email.isPrivate);
         final Address address = new Address(this.address.value, this.address.isPrivate);
-        return new Person(name, phone, email, address, tags);
+        final Referral referral = new Referral(this.referral);
+        return new Person(name, phone, email, address, referral, tags);
     }
 }
