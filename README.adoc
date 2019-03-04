@@ -7,6 +7,7 @@ https://travis-ci.org/cs2113-ay1819s2-t11-2/main[image:https://travis-ci.org/cs2
 
 image::Ui.png[]
 * It is a Java sample application intended for hospital doctor who has several long-term patients he has to take care of.
+* This appication was developed by team T11-2 of CS2113T in National University of Singapore
 
 
 
