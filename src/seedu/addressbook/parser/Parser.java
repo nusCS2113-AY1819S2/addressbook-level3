@@ -1,5 +1,6 @@
 package seedu.addressbook.parser;
 
+import com.oracle.tools.packager.Log;
 import seedu.addressbook.commands.*;
 import seedu.addressbook.data.exception.IllegalValueException;
 
@@ -25,6 +26,17 @@ public class Parser {
                     + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
                     + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+    /**
+     * @Nicholasleeeee
+     */
+    public static final Pattern PERSON_LOGIN_FORMAT =
+            Pattern.compile("(u/)(?<username>[^/]+) (p/)(?<password>[^/]+)"); // forward slashes are reserved for delimiter prefixes
+
+    public static final Map<String, String> loginInfo = new HashMap<String, String>(); // Creates a Hashmap for login information
+    public static final String TEST = "my-test-text"; // Creates a hash test value
+    /**
+     * @Nicholasleeeee
+     */
 
 
     /**
@@ -56,6 +68,14 @@ public class Parser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
+            case SignupCommand.COMMAND_WORD:
+                return prepareSignup(arguments);
+
+            case LoginCommand.COMMAND_WORD:
+                return prepareLogin(arguments);
+
+            case LogoutCommand.COMMAND_WORD:
+                return new LogoutCommand();
 
             case AddCommand.COMMAND_WORD:
                 return prepareAdd(arguments);
@@ -86,6 +106,48 @@ public class Parser {
                 return new HelpCommand();
         }
     }
+
+    /**
+     * @Nicholasleeeee
+     * Parses arguments in the context of the signup command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareSignup(String args) {
+        final Matcher matcher = PERSON_LOGIN_FORMAT.matcher(args.trim());
+
+        if (!matcher.matches()){
+            return new IncorrectCommand(String.format(SignupCommand.MESSAGE_FAILURE));
+        }
+
+        return new SignupCommand(
+                matcher.group("username"),
+                matcher.group("password")
+        );
+    }
+    /**
+     * Parses arguments in the context of the login command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareLogin(String args) {
+        final Matcher matcher = PERSON_LOGIN_FORMAT.matcher(args.trim());
+
+        if (!matcher.matches()){
+            return new IncorrectCommand(String.format(LoginCommand.MESSAGE_FAILURE));
+        }
+
+        return new LoginCommand(
+                matcher.group("username"),
+                matcher.group("password")
+        );
+    }
+    /**
+     * @Nicholasleeeee
+     */
+
 
     /**
      * Parses arguments in the context of the add person command.

@@ -20,6 +20,41 @@ Please refer to the <<DeveloperGuide#setting-up, Setting up>> section to learn h
 +
 image::Ui.png[]
 
+== Signup : `signup`
+
+Registers a new user to the task manager. +
+Format: `signup u/USERNAME p/PASSWORD`
+****
+Words in UPPER_CASE are the parameters,
+
+Put a `u/` before the username +
+Put a `p/` before the password
+****
+[TIP]
+====
+If you receive a `Please Signup again!` message, there might already be a existing username or you may have keyed in an invalid username or password
+====
+
+== Login : `login`
+
+Logs in to your personal account, accessing to all your tasks +
+Format: `login u/USERNAME p/PASSWORD`
+****
+Words in UPPER_CASE are the parameters,
+
+Put a `u/` before the username +
+Put a `p/` before the password
+****
+
+== Logout : `logout`
+
+Logs out of your personal account, all files are saved automatically +
+Format: `logout`
+
+== Viewing help : `help`
+
+Format: `help`
+
 == Viewing help : `help`
 
 Format: `help`
