@@ -1,52 +1,41 @@
 package seedu.addressbook.storage;
 
-import seedu.addressbook.data.AddressBook;
-import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.storage.jaxb.AdaptedAddressBook;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-import java.io.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+
+import seedu.addressbook.data.AddressBook;
+import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.storage.jaxb.AdaptedAddressBook;
+
 
 /**
  * Represents the file used to store address book data.
  */
 public class StorageFile {
 
-    /** Default file path used if the user doesn't provide the file name. */
+    /**
+     * Default file path used if the user doesn't provide the file name.
+     */
     public static final String DEFAULT_STORAGE_FILEPATH = "addressbook.txt";
-
     /* Note: Note the use of nested classes below.
      * More info https://docs.oracle.com/javase/tutorial/java/javaOO/nested.html
      */
-
-    /**
-     * Signals that the given file path does not fulfill the storage filepath constraints.
-     */
-    public static class InvalidStorageFilePathException extends IllegalValueException {
-        public InvalidStorageFilePathException(String message) {
-            super(message);
-        }
-    }
-
-    /**
-     * Signals that some error has occured while trying to convert and read/write data between the application
-     * and the storage file.
-     */
-    public static class StorageOperationException extends Exception {
-        public StorageOperationException(String message) {
-            super(message);
-        }
-    }
-
-    private final JAXBContext jaxbContext;
-
     public final Path path;
-
+    private final JAXBContext jaxbContext;
     /**
      * @throws InvalidStorageFilePathException if the default path is invalid
      */
@@ -85,6 +74,7 @@ public class StorageFile {
      */
     public void save(AddressBook addressBook) throws StorageOperationException {
 
+
         /* Note: Note the 'try with resource' statement below.
          * More info: https://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html
          */
@@ -94,7 +84,9 @@ public class StorageFile {
             final AdaptedAddressBook toSave = new AdaptedAddressBook(addressBook);
             final Marshaller marshaller = jaxbContext.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            marshaller.marshal(toSave, fileWriter);
+            StringWriter sw = new StringWriter();
+            marshaller.marshal(toSave, sw);
+            fileWriter.write(Encryptor.encrypt(sw.toString()));
 
         } catch (IOException ioe) {
             throw new StorageOperationException("Error writing to file: " + path + " error: " + ioe.getMessage());
@@ -109,29 +101,32 @@ public class StorageFile {
      * @throws StorageOperationException if there were errors reading and/or converting data from file.
      */
     public AddressBook load() throws StorageOperationException {
-        try (final Reader fileReader =
+        try (final BufferedReader fileReader =
                      new BufferedReader(new FileReader(path.toFile()))) {
 
             final Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-            final AdaptedAddressBook loaded = (AdaptedAddressBook) unmarshaller.unmarshal(fileReader);
+            final AdaptedAddressBook loaded;
+            StringReader decryptedData = new StringReader(Encryptor.decrypt(fileReader.readLine()));
+            loaded = (AdaptedAddressBook) unmarshaller.unmarshal(decryptedData);
+
             // manual check for missing elements
             if (loaded.isAnyRequiredFieldMissing()) {
                 throw new StorageOperationException("File data missing some elements");
             }
             return loaded.toModelType();
 
-        /* Note: Here, we are using an exception to create the file if it is missing. However, we should minimize
-         * using exceptions to facilitate normal paths of execution. If we consider the missing file as a 'normal'
-         * situation (i.e. not truly exceptional) we should not use an exception to handle it.
-         */
+            /* Note: Here, we are using an exception to create the file if it is missing. However, we should minimize
+             * using exceptions to facilitate normal paths of execution. If we consider the missing file as a 'normal'
+             * situation (i.e. not truly exceptional) we should not use an exception to handle it.
+             */
 
-        // create empty file if not found
+            // create empty file if not found
         } catch (FileNotFoundException fnfe) {
             final AddressBook empty = new AddressBook();
             save(empty);
             return empty;
 
-        // other errors
+            // other errors
         } catch (IOException ioe) {
             throw new StorageOperationException("Error writing to file: " + path);
         } catch (JAXBException jaxbe) {
@@ -143,6 +138,25 @@ public class StorageFile {
 
     public String getPath() {
         return path.toString();
+    }
+
+    /**
+     * Signals that the given file path does not fulfill the storage filepath constraints.
+     */
+    public static class InvalidStorageFilePathException extends IllegalValueException {
+        public InvalidStorageFilePathException(String message) {
+            super(message);
+        }
+    }
+
+    /**
+     * Signals that some error has occured while trying to convert and read/write data between the application
+     * and the storage file.
+     */
+    public static class StorageOperationException extends Exception {
+        public StorageOperationException(String message) {
+            super(message);
+        }
     }
 
 }
