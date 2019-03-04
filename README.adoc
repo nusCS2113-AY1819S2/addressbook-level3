@@ -24,6 +24,7 @@ usually write in data structure modules.
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
 * <<LearningOutcomes#, Learning Outcomes>>
+* <<AboutUs#, About Us>>
 
 == Contributors
 
