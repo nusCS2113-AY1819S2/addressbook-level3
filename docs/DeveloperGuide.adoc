@@ -81,6 +81,39 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+=== Use case: Login
+
+*MSS*
+
+. The user opens the addressbook
+. Addressbook prompts’ user for username and password
+. The user inputs the username/password and hits enter
+. Addresbook authenticates the user and displays welcome address
+
+Use case ends.
+
+=== Use case: Referring a patient
+
+*MSS*
+
+. The user types refer NAME1 to NAME2 in the command line
+. The information of the patient whose name is NAME1 is added to  the addressbook of the doctor whose name is NAME2
+. The information of the patient whose name is NAME1 is removed from the user’s addressbook
+
+Use case ends.
+
+=== Use case: Managing appointments
+
+*MSS*
+
+. The user types a command appointments in the command line
+. The system finds all scheduled appointments and prints them to the screen in chronological order
+. If possible, can print a literal timetable on the screen
+. The expired appointments should be excluded from the timetable if possible
+
+
+Use case ends.
+
 [appendix]
 == Non Functional Requirements
 
