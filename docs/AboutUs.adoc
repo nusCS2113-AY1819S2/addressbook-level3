@@ -19,14 +19,14 @@ Role: Developer
 '''
 
 === Matthias Lum
-image:https://raw.githubusercontent.com/cs2113-ay1819s2-t11-2/main/master/docs/images/matthias.png[width=128]
+image:https://raw.githubusercontent.com/cs2113-ay1819s2-t11-2/main/master/docs/images/matthiaslum.png[width=128]
 
 Role: Developer
 
 '''
 
 === Teo Xuan Wei
-image:https://raw.githubusercontent.com/cs2113-ay1819s2-t11-2/main/master/docs/images/teoxuanwei.png[width=128]
+image:https://raw.githubusercontent.com/cs2113-ay1819s2-t11-2/main/master/docs/images/shawn-t.png[width=128]
 
 Role: Developer
 
