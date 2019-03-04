@@ -138,9 +138,9 @@ Views all details of the 1st person in the results of the `find` command.
 
 == Managing Appointments : `appointments (coming in v1.2)`
 
-Prints out the appointments that a doctor has for the week.+
+Prints out the appointments that a doctor has for the week.
 
-Format:`appointments n/USER’s_NAME`
+Format: `appointments n/USER’s_NAME`
 
 Examples:
 
