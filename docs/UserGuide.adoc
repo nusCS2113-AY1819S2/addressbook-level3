@@ -34,6 +34,8 @@ Help is also shown if you enter an incorrect command e.g. `abcd`
 Adds a person to the address book. +
 Format: `add NAME [p]p/PHONE_NUMBER [p]e/EMAIL [p]a/ADDRESS [t/TAG]...`
 
+* Alias: `a`
+
 ****
 Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional,
 items with `...` after them can have multiple instances. Order of parameters are fixed.
@@ -48,6 +50,7 @@ Examples:
 
 * `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01`
 * `add Betsy Crowe pp/1234567 e/betsycrowe@gmail.com pa/Newgate Prison t/criminal t/friend`
+* `a Jane p/81234567 e/janedoe@gmail.com a/123 Sesame Street #05-55`
 
 == Listing all persons : `list`
 
