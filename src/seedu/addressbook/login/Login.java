@@ -7,10 +7,12 @@ public class Login {
 
     private boolean loginStatus;
 
-    public static final String LOGIN_PROMPT = "Please login in order to use the address book";
+    public static final String LOGIN_PROMPT = "Please login or register in order to use the address book";
     private static final String SUCCESS = "Login Success, loading...";
+    private static final String REGISTRATION_SUCCEED = "Registration succeed, please login using the username and password";
     private static final String Invalid_USERNAME_OR_PASSWORD = "Invalid username or password, please try again";
-    private static final String Invalid_FORMAT = "Please input the correct login command: login username password";
+    private static final String Invalid_FORMAT = "Please login or register using: " + "\n" + "login username password" + "\n" + "register username password";
+    private static final String USERNAME_REGISTERED = "The username has already been registered, please try a new username";
     private Map<String, String> accounts = new HashMap<String, String>();
 
 
@@ -41,11 +43,27 @@ public class Login {
                 }
             }
             else{
-                return Invalid_FORMAT;
+                if (accountInfo.length == 3 && accountInfo[0].equals("register")){
+                    String username = accountInfo[1];
+                    if (accounts.containsKey(accountInfo[1]))
+                    {
+                        return(USERNAME_REGISTERED);
+                    }
+                    String password = accountInfo[2];
+                    register(username, password);
+                    return REGISTRATION_SUCCEED;
+                }
+                else{
+                    return Invalid_FORMAT;
+                }
             }
         }
         catch (Exception e){
             return Invalid_FORMAT;
         }
+    }
+
+    private void register(String username, String password){
+        accounts.put(username, password);
     }
 }
