@@ -5,7 +5,7 @@ import seedu.addressbook.data.exception.IllegalValueException;
 import java.util.Arrays;
 import java.util.List;
 
-public class Appointment {
+public class Appointment implements Comparable<Appointment>{
 
     public static final String EXAMPLE = "30November";
     public static final String MESSAGE_NAME_CONSTRAINTS = "Appointment dates should be spaces or alphanumeric characters";
@@ -55,6 +55,12 @@ public class Appointment {
     @Override
     public int hashCode() {
         return appointmentDate.hashCode();
+    }
+
+    /**compare name for sorting function*/
+    @Override
+    public int compareTo(Appointment appointment) {
+        return this.appointmentDate.compareTo(appointment.appointmentDate);
     }
 
 }

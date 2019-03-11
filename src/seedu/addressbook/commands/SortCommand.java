@@ -19,10 +19,16 @@ public class SortCommand extends Command {
             + "Displays all persons in the address book as a list sorted in alphabetical order with index numbers.\n\t"
             + "Example: " + COMMAND_WORD;
 
+    public final String attribute;
+
+    public SortCommand(String attribute) {
+        this.attribute = attribute;
+    }
+
 
     @Override
     public CommandResult execute() {
-        addressBook.sorted();
+        addressBook.sorted(attribute);
 
         List<ReadOnlyPerson> allPersons = addressBook.getAllPersons().immutableListView();
         return new CommandResult(getMessageForPersonSortShownSummary(allPersons), allPersons);
