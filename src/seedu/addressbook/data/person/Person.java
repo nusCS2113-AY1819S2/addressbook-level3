@@ -17,17 +17,19 @@ public class Person implements ReadOnlyPerson {
     private Email email;
     private Address address;
     private Appointment appointment;
+    private Status status;
 
     private final Set<Tag> tags = new HashSet<>();
     /**
      * Assumption: Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Appointment appointment, Set<Tag> tags) {
+    public Person(Name name, Phone phone, Email email, Address address, Appointment appointment, Status status, Set<Tag> tags) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.appointment = appointment;
+        this.status = status;
         this.tags.addAll(tags);
     }
 
@@ -35,7 +37,7 @@ public class Person implements ReadOnlyPerson {
      * Copy constructor.
      */
     public Person(ReadOnlyPerson source) {
-        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getAppointment(), source.getTags());
+        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getAppointment(), source.getStatus(),  source.getTags());
     }
 
     @Override
@@ -64,6 +66,12 @@ public class Person implements ReadOnlyPerson {
     }
 
     @Override
+    public Status getStatus() {
+        return status;
+    }
+
+
+    @Override
     public Set<Tag> getTags() {
         return new HashSet<>(tags);
     }
@@ -86,7 +94,7 @@ public class Person implements ReadOnlyPerson {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, appointment, tags);
+        return Objects.hash(name, phone, email, address, appointment, status,  tags);
     }
 
     @Override
