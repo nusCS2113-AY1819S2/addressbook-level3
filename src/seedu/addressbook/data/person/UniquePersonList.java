@@ -144,6 +144,15 @@ public class UniquePersonList implements Iterable<Person> {
         Collections.sort(internalList, person);
     }
 
+    public void SortByStatus(){
+        Comparator<Person> person = (p1, p2) -> {
+            Status status1 = p1.getStatus();
+            Status status2 = p2.getStatus();
+            return status1.compareTo(status2);
+        };
+        Collections.sort(internalList, person);
+    }
+
     @Override
     public Iterator<Person> iterator() {
         return internalList.iterator();
