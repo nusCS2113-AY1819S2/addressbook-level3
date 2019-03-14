@@ -36,9 +36,8 @@ public abstract class Command {
         return String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, personsDisplayed.size());
     }
 
-    public static String getMessageForPersonSortShownSummary(List<? extends ReadOnlyPerson> personsDisplayed, String attribute) {
-        attribute = attribute.trim();
-        return String.format(Messages.MESSAGE_PERSON_SORTED_OVERVIEW, personsDisplayed.size(), attribute);
+    public static String getMessageForPersonSortShownSummary(List<? extends ReadOnlyPerson> personsDisplayed) {
+        return String.format(Messages.MESSAGE_PERSON_SORTED_OVERVIEW, personsDisplayed.size());
     }
 
     /**

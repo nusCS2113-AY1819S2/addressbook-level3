@@ -31,7 +31,7 @@ public class SortCommand extends Command {
         addressBook.sorted(attribute);
 
         List<ReadOnlyPerson> allPersons = addressBook.getAllPersons().immutableListView();
-        return new CommandResult(getMessageForPersonSortShownSummary(allPersons, attribute), allPersons);
+        return new CommandResult(getMessageForPersonSortShownSummary(allPersons), allPersons);
 
     }
 }
