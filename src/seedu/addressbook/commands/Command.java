@@ -3,6 +3,7 @@ package seedu.addressbook.commands;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.person.ReadOnlyPerson;
+import seedu.addressbook.data.team.ReadOnlyTeam;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ import static seedu.addressbook.ui.Gui.DISPLAYED_INDEX_OFFSET;
 public abstract class Command {
     protected AddressBook addressBook;
     protected List<? extends ReadOnlyPerson> relevantPersons;
+    protected List<? extends ReadOnlyTeam> relevantTeams;
     private int targetIndex = -1;
 
     /**
@@ -37,6 +39,13 @@ public abstract class Command {
     }
 
     /**
+     * Constructs a feedback message to summarise an operation that displayed a listing of Teams.
+     */
+    public static String getMessageForTeamListShownSummary(List<? extends ReadOnlyTeam> teamsDisplayed) {
+        return String.format(Messages.MESSAGE_TEAMS_LISTED_OVERVIEW, teamsDisplayed.size());
+    }
+
+    /**
      * Executes the command and returns the result.
      */
     public CommandResult execute(){
@@ -49,9 +58,12 @@ public abstract class Command {
     /**
      * Supplies the data the command will operate on.
      */
-    public void setData(AddressBook addressBook, List<? extends ReadOnlyPerson> relevantPersons) {
+    public void setData(AddressBook addressBook,
+                        List<? extends ReadOnlyPerson> relevantPersons,
+                        List<? extends ReadOnlyTeam> relevantTeams) {
         this.addressBook = addressBook;
         this.relevantPersons = relevantPersons;
+        this.relevantTeams = relevantTeams;
     }
 
     /**
@@ -61,6 +73,10 @@ public abstract class Command {
      */
     protected ReadOnlyPerson getTargetPerson() throws IndexOutOfBoundsException {
         return relevantPersons.get(getTargetIndex() - DISPLAYED_INDEX_OFFSET);
+    }
+
+    protected ReadOnlyTeam getTargetTeam() throws IndexOutOfBoundsException {
+        return relevantTeams.get(getTargetIndex() - DISPLAYED_INDEX_OFFSET);
     }
 
     public int getTargetIndex() {

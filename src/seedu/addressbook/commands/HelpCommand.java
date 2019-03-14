@@ -1,6 +1,8 @@
 package seedu.addressbook.commands;
 
 
+import seedu.addressbook.commands.Team.*;
+
 /**
  * Shows help instructions.
  */
@@ -16,8 +18,13 @@ public class HelpCommand extends Command {
             + "\n" + ClearCommand.MESSAGE_USAGE
             + "\n" + FindCommand.MESSAGE_USAGE
             + "\n" + ListCommand.MESSAGE_USAGE
-            + "\n" + ViewCommand.MESSAGE_USAGE
             + "\n" + SortCommand.MESSAGE_USAGE
+            + "\n" + AddTeam.MESSAGE_USAGE
+            + "\n" + DeleteTeam.MESSAGE_USAGE
+            + "\n" + ClearTeam.MESSAGE_USAGE
+            + "\n" + FindTeam.MESSAGE_USAGE
+            + "\n" + ListTeam.MESSAGE_USAGE
+            + "\n" + ViewCommand.MESSAGE_USAGE
             + "\n" + ViewAllCommand.MESSAGE_USAGE
             + "\n" + HelpCommand.MESSAGE_USAGE
             + "\n" + ExitCommand.MESSAGE_USAGE;
