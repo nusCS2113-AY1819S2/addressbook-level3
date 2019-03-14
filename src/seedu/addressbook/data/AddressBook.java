@@ -71,6 +71,9 @@ public class AddressBook {
             case "appointment":
                 allPersons.SortByAppointment();
                 break;
+            case "status":
+                allPersons.SortByStatus();
+                break;
         }
     }
 
