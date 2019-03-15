@@ -127,7 +127,7 @@ The sort mechanism is facilitated by `UniquePersonList`. It stores a list of al
 * `UniquePersonList#SortByAppointment()` -- Sort `internalList` by appointment column in alphabetical order
 * `UniquePersonList#SortByStatus()` -- Sort `internalList` by status column in alphabetical order
 
-These operations are exposed in `AddressBook` as `AddressBook#sorted(String attribute)`. Corresponded operation will be called depending on attribute the user wants to sort the list by.
+These operations are exposed in `AddressBook` as `AddressBook#sorted(String attribute)`. Corresponding operation will be called depending on attribute the user wants to sort the list by.
 
 Given below is an example usage scenario and how the sort mechanism behaves at each step.
 
@@ -137,7 +137,7 @@ Step 2. The user executes `add n/…` to add some new people. These people will
 
 Step 3. The user then decides to execute the command `list`. Commands that do not modify the address book, such as list, will usually not call `AddressBook#sorted(String attribute)` . Thus, the `internalList` remains unchanged.
 
-Step 4. The user decides to view the list sorted by their name by executing the `sort name` command. This command will call `AddressBook#sorted(String attribute)` and pass the string “name” to the method. Since the value of parameter is “name”, `SortByName()` will be called. `internalList` will then be sorted by name column in alphabetical order. At the end, `internalList` will be returned and displayed to the user.
+Step 4. The user decides to view the list sorted by their name by executing the `sort name` command. This command will call `AddressBook#sorted(String attribute)` and pass the string “name” to the method. Since the value of parameter is “name”, `SortByName()` will be called. `internalList` will then be sorted by name column in alphabetical order. At last, `internalList` will be returned and displayed to the user.
 
 [appendix]
 == Non Functional Requirements
