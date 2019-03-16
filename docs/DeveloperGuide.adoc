@@ -59,6 +59,24 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 (For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 
+=== Use case: Add person
+
+*Main success scenario:*
+
+. User adds a person in the address book.
+. AddressBook adds person to address book and prints the newly added person's details.
++
+Use case ends.
+
+*Extensions*
+* 1a. The format entered by the user is incorrect.
+** 1a1. AddressBook shows an error message and prints the format for user to follow.
+** 1a2. User re-enters new person's particulars.
+*     Steps 1a1 - 1a2 are repeated until the correct format is entered by the user.
+*     Use case resumes at Step 2.
++
+Use case ends.
+
 === Use case: Delete person
 
 *Main success scenario:*
