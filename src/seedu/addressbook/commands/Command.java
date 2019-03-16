@@ -38,7 +38,8 @@ public abstract class Command {
 
     public static String getMessageForAppointmentsShownSummary(List<? extends ReadOnlyPerson> personsDisplayed, String doctor) {
         return String.format(Messages.MESSAGE_NUMBER_OF_APPOINTMENTS, doctor, personsDisplayed.size());
-
+    }
+    
     public static String getMessageForPersonSortShownSummary(List<? extends ReadOnlyPerson> personsDisplayed, String column) {
         column = column.trim();
         return String.format(Messages.MESSAGE_PERSON_SORTED_OVERVIEW, personsDisplayed.size(), column);
