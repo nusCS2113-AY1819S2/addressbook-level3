@@ -6,6 +6,7 @@
         <email isPrivate="false">johnd@gmail.com</email>
         <address isPrivate="false">John street, block 123, #01-01</address>
         <appointment>30November</appointment>
+        <status>observation</status>
     </persons>
     <persons>
         <name>Betsy Crowe</name>
@@ -13,6 +14,7 @@
         <email isPrivate="false">betsycrowe@gmail.com</email>
         <address isPrivate="true">Newgate Prison</address>
         <appointment>30November</appointment>
+        <status>observation</status>
         <tagged>friend</tagged>
         <tagged>criminal</tagged>
     </persons>
