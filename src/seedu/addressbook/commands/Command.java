@@ -36,6 +36,10 @@ public abstract class Command {
         return String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, personsDisplayed.size());
     }
 
+    public static String getMessageForAppointmentsShownSummary(List<? extends ReadOnlyPerson> personsDisplayed, String doctor) {
+        return String.format(Messages.MESSAGE_NUMBER_OF_APPOINTMENTS, doctor, personsDisplayed.size());
+    }
+
     /**
      * Executes the command and returns the result.
      */
@@ -50,7 +54,7 @@ public abstract class Command {
      * Supplies the data the command will operate on.
      */
     public void setData(AddressBook addressBook, List<? extends ReadOnlyPerson> relevantPersons) {
-        this.addressBook = addressBook;
+        this.addressBook = addressBook; //passes a reference to the same object, so editing that object will store it directly.
         this.relevantPersons = relevantPersons;
     }
 

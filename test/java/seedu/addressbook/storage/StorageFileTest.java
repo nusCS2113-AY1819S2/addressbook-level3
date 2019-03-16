@@ -14,6 +14,8 @@ import org.junit.rules.TemporaryFolder;
 import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.person.Address;
+import seedu.addressbook.data.person.Appointment;
+import seedu.addressbook.data.person.Doctor;
 import seedu.addressbook.data.person.Email;
 import seedu.addressbook.data.person.Name;
 import seedu.addressbook.data.person.Person;
@@ -100,11 +102,15 @@ public class StorageFileTest {
                                 new Phone("98765432", false),
                                 new Email("johnd@gmail.com", false),
                                 new Address("John street, block 123, #01-01", false),
+                                new Appointment("30November"),
+                                new Doctor("DoctorTan"),
                                 Collections.emptySet()));
         ab.addPerson(new Person(new Name("Betsy Crowe"),
                                 new Phone("1234567", true),
                                 new Email("betsycrowe@gmail.com", false),
                                 new Address("Newgate Prison", true),
+                                new Appointment("30November"),
+                                new Doctor("DoctorTan"),
                                 new HashSet<>(Arrays.asList(new Tag("friend"), new Tag("criminal")))));
         return ab;
     }

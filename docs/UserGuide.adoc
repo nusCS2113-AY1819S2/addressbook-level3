@@ -28,14 +28,11 @@ Format: `help`
 ====
 Help is also shown if you enter an incorrect command e.g. `abcd`
 ====
-== Logging in: `Login`
-Log into your own address book.+
-Format:  `USERNAME /PASSWORD`
 
 == Adding a person: `add`
 
 Adds a person to the address book. +
-Format: `add NAME [p]p/PHONE_NUMBER [p]e/EMAIL [p]a/ADDRESS r/NAME_OF_DOCTOR m/APPOINTMENT_DATE [t/TAG]...`
+Format: `add NAME [p]p/PHONE_NUMBER [p]e/EMAIL [p]a/ADDRESS [t/TAG]...`
 
 ****
 Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional,
@@ -49,8 +46,8 @@ Persons can have any number of tags (including 0)
 
 Examples:
 
-* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01 r/Doctor_Tan m/1 January 2019`
-* `add Betsy Crowe pp/1234567 e/betsycrowe@gmail.com pa/Newgate Prison r/Doctor_Jane m/30november t/criminal t/friend`
+* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01`
+* `add Betsy Crowe pp/1234567 e/betsycrowe@gmail.com pa/Newgate Prison t/criminal t/friend`
 
 == Listing all persons : `list`
 
@@ -136,31 +133,15 @@ Views all details of the 2nd person in the address book.
 `viewall 1` +
 Views all details of the 1st person in the results of the `find` command.
 
-== Managing Appointments : `appointments (coming in v1.2)`
-
-Prints out the appointments that a doctor has for the week.
-
-Format: `appointments n/USER’s_NAME`
-
-Examples:
-
-* `appointments Matthias` +
-System prints (Jacky Time_of_appointment: 26/2/19 8pm...)
-
-== Referring someone to other doctor: `refer` (coming in v1.2)
-Refers a patient to another doctor who has expertise, and patient appears in the new doctor’s list of contacts. +
-
-Format: `refer n/NAME d/NEW_DOCTOR_NAME`
-
 == Clearing all entries : `clear`
 
 Clears all entries from the address book. +
 Format: `clear`
 
-== Exiting the program : `logout`
+== Exiting the program : `exit`
 
-Logs out from the program. +
-Format: `logout`
+Exits the program. +
+Format: `exit`
 
 == Saving the data
 

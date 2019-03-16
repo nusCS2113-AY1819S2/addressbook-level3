@@ -3,6 +3,8 @@ package seedu.addressbook.data.person;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.time.LocalDate;
+
 
 import seedu.addressbook.data.tag.Tag;
 
@@ -16,16 +18,22 @@ public class Person implements ReadOnlyPerson {
     private Phone phone;
     private Email email;
     private Address address;
+    private Appointment appointment;
+    private Doctor doctor;
+    public LocalDate date = null;
+
 
     private final Set<Tag> tags = new HashSet<>();
     /**
      * Assumption: Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Person(Name name, Phone phone, Email email, Address address, Appointment appointment, Doctor doctor, Set<Tag> tags) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.appointment = appointment;
+        this.doctor =doctor;
         this.tags.addAll(tags);
     }
 
@@ -33,12 +41,17 @@ public class Person implements ReadOnlyPerson {
      * Copy constructor.
      */
     public Person(ReadOnlyPerson source) {
-        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getTags());
+        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getAppointment(), source.getDoctor(), source.getTags());
     }
 
     @Override
     public Name getName() {
         return name;
+    }
+
+    @Override
+    public int nameLength(){
+        return name.getNameLength();
     }
 
     @Override
@@ -52,8 +65,18 @@ public class Person implements ReadOnlyPerson {
     }
 
     @Override
+    public Appointment getAppointment() {
+        return appointment;
+    }
+
+    @Override
     public Address getAddress() {
         return address;
+    }
+
+    @Override
+    public Doctor getDoctor() {
+        return doctor;
     }
 
     @Override
@@ -79,7 +102,16 @@ public class Person implements ReadOnlyPerson {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, appointment, doctor, tags);
+    }
+    @Override
+    public LocalDate getLocalDate(){
+        return date;
+    }
+
+    @Override
+    public void setLocalDate(LocalDate date){
+        this.date = date;
     }
 
     @Override
@@ -88,3 +120,5 @@ public class Person implements ReadOnlyPerson {
     }
 
 }
+
+//new class, return person.getLocalDate().compareTo(person2.getLocalDate())
