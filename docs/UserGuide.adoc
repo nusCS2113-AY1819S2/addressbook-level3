@@ -76,8 +76,17 @@ Format: `list`
 
 == Listing all persons in sorted order : `sort`
 
-Shows a list of all persons sorted in alphabetical order in the address book. +
-Format: `sort`
+Shows a list of all persons sorted by desired attribute in alphabetical order in the address book. +
+Desired attribute could be name, appointment or status. +
+Format: `sort DESIRED_ATTRIBUTE`
+
+Examples:
+
+* `sort name` +
+Shows a list of all persons sorted by name in alphabetical order in the address book. 
+
+* `sort status` +
+Shows a list of all persons sorted by status in alphabetical order in the address book. 
 
 == Finding all persons containing any keyword in their name: `find`
 
