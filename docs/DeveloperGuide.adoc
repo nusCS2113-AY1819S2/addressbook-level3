@@ -54,33 +54,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
 |===========================================================================================================================================
 
-[appendix]
-== Use Cases
-
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
-
-=== Use case: Delete person
-
-*MSS*
-
-. User requests to list persons
-. AddressBook shows a list of persons
-. User requests to delete a specific person in the list
-. AddressBook deletes the person.
-+
-Use case ends.
-
-*Extensions*
-
-* 2a. The list is empty.
-+
-Use case ends.
-
-* 3a. The given index is invalid.
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
-
 === Login/Register/Logout Feature 
 ==== Current Implementation
 The login / register mechanism is facilitated by `AccountManager`, it implements the following operations:
@@ -142,6 +115,32 @@ HashMap is used because memory is not a serious issue for this program as the pr
 ** Pros: More compatible with HashMap. 
 ** Cons: Largest in file size.
 
+[appendix]
+== Use Cases
+
+(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+
+=== Use case: Delete person
+
+*MSS*
+
+. User requests to list persons
+. AddressBook shows a list of persons
+. User requests to delete a specific person in the list
+. AddressBook deletes the person.
++
+Use case ends.
+
+*Extensions*
+
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
+** 3a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
 
 [appendix]
 == Non Functional Requirements
