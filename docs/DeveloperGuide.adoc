@@ -69,9 +69,13 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 Use case ends.
 
 *Extensions*
+
 * 1a. The format entered by the user is incorrect.
+** 1a1. AddressBook shows an error message and prints the format for user to follow.
+** 1a2. User re-enters new person's particulars.
+* Steps 1a1 - 1a2 are repeated until the correct format is entered by the user.
 +
-Use case ends.
+Use case resumes at step 2.
 
 === Use case: Delete person
 
