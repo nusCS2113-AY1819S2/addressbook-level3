@@ -50,7 +50,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |doctor |have a custom-made address book  |filter out the patients that are not affiliated to me
 |`* * *` |doctor |sort my patient according to my desired attribute |prioritize the allocation of my resources
 |`* * *` |doctor |good authentication |my patients’ data are protected and not easily disclosed
-|`* *` |doctor |have a doctor-referral system |refer patients to other doctors and the other doctors will be able to see the patients I passed to him
+|`* *` |doctor |be able to directly refer patients to respective specialists | focus on attending to patients with medical conditions relevant to my expertise, and ensure that others are properly referred to the correct doctor to attend to their specific medical condition(s).
 |`*` |doctor with many persons in the address book |sort persons by name |locate a person easily
 |===========================================================================================================================================
 
