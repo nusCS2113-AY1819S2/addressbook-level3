@@ -48,9 +48,7 @@ public class AddCommand extends Command {
         );
     }
 
-    public AddCommand(Person toAdd) {
-        this.toAdd = toAdd;
-    }
+    public AddCommand(Person toAdd) { this.toAdd = toAdd; }
 
     public ReadOnlyPerson getPerson() {
         return toAdd;

@@ -1,6 +1,7 @@
 package seedu.addressbook.ui;
 
 import seedu.addressbook.data.person.ReadOnlyPerson;
+import seedu.addressbook.data.team.ReadOnlyTeam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,12 +36,20 @@ public class Formatter {
     }
 
     /** Formats the given list of persons for displaying to the user. */
-    public String format(List<? extends ReadOnlyPerson> persons) {
+    public String formatPersonResult(List<? extends ReadOnlyPerson> persons) {
         final List<String> formattedPersons = new ArrayList<>();
         for (ReadOnlyPerson person : persons) {
             formattedPersons.add(person.getAsTextHidePrivate());
         }
         return format(asIndexedList(formattedPersons));
+    }
+    /** Formats the given list of teams for displaying to the user. */
+    public String formatTeamResult(List<? extends ReadOnlyTeam> teams) {
+        final List<String> formattedTeams = new ArrayList<>();
+        for (ReadOnlyTeam team : teams) {
+            formattedTeams.add(team.getAsTextShowAll());
+        }
+        return format(asIndexedList(formattedTeams));
     }
 
     /** Formats a list of strings as an indexed list. */
@@ -62,5 +71,6 @@ public class Formatter {
     private static String getIndexedListItem(int visibleIndex, String listItem) {
         return String.format(MESSAGE_INDEXED_LIST_ITEM, visibleIndex, listItem);
     }
+
 
 }

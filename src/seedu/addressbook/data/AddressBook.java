@@ -5,6 +5,9 @@ import seedu.addressbook.data.person.ReadOnlyPerson;
 import seedu.addressbook.data.person.UniquePersonList;
 import seedu.addressbook.data.person.UniquePersonList.DuplicatePersonException;
 import seedu.addressbook.data.person.UniquePersonList.PersonNotFoundException;
+import seedu.addressbook.data.team.ReadOnlyTeam;
+import seedu.addressbook.data.team.Team;
+import seedu.addressbook.data.team.UniqueTeamList;
 
 /**
  * Represents the entire address book. Contains the data of the address book.
@@ -12,6 +15,7 @@ import seedu.addressbook.data.person.UniquePersonList.PersonNotFoundException;
 public class AddressBook {
 
     private final UniquePersonList allPersons;
+    private final UniqueTeamList allTeams;
 
     public static AddressBook empty() {
         return new AddressBook();
@@ -20,17 +24,18 @@ public class AddressBook {
     /**
      * Creates an empty address book.
      */
-    public AddressBook() {
-        allPersons = new UniquePersonList();
-    }
+    public AddressBook() { allPersons = new UniquePersonList();
+                            allTeams = new UniqueTeamList();}
 
     /**
      * Constructs an address book with the given data.
      *
      * @param persons external changes to this will not affect this address book
      */
-    public AddressBook(UniquePersonList persons) {
+    public AddressBook(UniquePersonList persons,
+                        UniqueTeamList teams) {
         this.allPersons = new UniquePersonList(persons);
+        this.allTeams = new UniqueTeamList(teams);
     }
 
     /**
@@ -38,9 +43,13 @@ public class AddressBook {
      *
      * @throws DuplicatePersonException if an equivalent person already exists.
      */
-    public void addPerson(Person toAdd) throws DuplicatePersonException {
-        allPersons.add(toAdd);
-    }
+    public void addPerson(Person toAdd) throws DuplicatePersonException { allPersons.add(toAdd); }
+
+    /**
+     * Adds a Team to the address book.
+     */
+    public void addTeam(Team toAdd) throws UniqueTeamList.DuplicateTeamException { allTeams.add(toAdd); }
+
 
     /**
      * Checks if an equivalent person exists in the address book.
@@ -59,11 +68,30 @@ public class AddressBook {
     }
 
     /**
+     * Removes the equivalent team from the address book.
+     */
+    public void removeTeam(ReadOnlyTeam toRemove) throws UniqueTeamList.TeamNotFoundException {
+        allTeams.remove(toRemove);
+    }
+    /**
+     * Sorts all persons from the address book.
+     */
+    public void sort() { allPersons.sort(); }
+
+    /**
      * Clears all persons from the address book.
      */
     public void clear() {
         allPersons.clear();
     }
+
+    /**
+     * Clears all teams from the address book.
+     */
+    public void clearTeam() {
+        allTeams.clear();
+    }
+
 
     /**
      * Defensively copied UniquePersonList of all persons in the address book at the time of the call.
@@ -72,6 +100,7 @@ public class AddressBook {
         return new UniquePersonList(allPersons);
     }
 
+    public UniqueTeamList getAllTeams() { return new UniqueTeamList(allTeams); }
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

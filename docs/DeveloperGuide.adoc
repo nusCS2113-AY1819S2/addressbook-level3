@@ -16,6 +16,7 @@ endif::[]
 By: `CS2113-AY1819S2-M11-1`      Since: ``      Licence: ``
 
 == Introduction
+
 The LeagueTracker provides football league operator with an efficient method of managing the current teams that are playing in the season. It features many ways to keep track of the teams and players playing in the league. The LeagueTracker will help manager have an easier time in keeping track of the curretn situation in the football league.
 
 
@@ -118,7 +119,6 @@ Here are the steps to create a new release.
 == Product Scope
 
 *Target user profile*:
-
 * Football League Operators +
 * Has a need to manage leagues, team and player profiles +
 * Has a need to collect and view specific data regarding the league, matches, teams and players information in the league  +
