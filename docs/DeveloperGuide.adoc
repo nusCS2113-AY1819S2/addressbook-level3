@@ -113,7 +113,7 @@ Use case resumes at step 2.
 +
 Use case resumes at step 2.
 
-=== Use case: UC04 - Managing appointments
+=== Use case: UC04 - Manage appointments
 
 *Main success scenario:*
 
@@ -204,7 +204,7 @@ Use case resumes at step 2.
 
 *Main success scenario:*
 
-. User requests to view patient at a certain index in the list.
+. User requests to view patient particulars at a certain index in the list.
 . AddressBook prints out patient with his/ her respective particulars that are not private at the specified index.
 +
 Use case ends.
@@ -222,7 +222,7 @@ Use case resumes at step 2.
 
 *Main success scenario:*
 
-. User requests to view patient will all particulars at a certain index in the list.
+. User requests to view patient with ALL particulars at a certain index in the list.
 . AddressBook prints out patient with his/ her respective particulars - including particulars that are private - at the specified index.
 +
 Use case ends.
