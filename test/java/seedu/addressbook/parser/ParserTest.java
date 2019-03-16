@@ -259,7 +259,8 @@ public class ParserTest {
                 new Email(Email.EXAMPLE, false),
                 new Address(Address.EXAMPLE, true),
                 new Appointment(Appointment.EXAMPLE),
-                    new Status(Status.EXAMPLE),
+                new Doctor(Doctor.EXAMPLE),
+                new Status(Status.EXAMPLE),
                 new HashSet<>(Arrays.asList(new Tag("tag1"), new Tag("tag2"), new Tag("tag3")))
             );
         } catch (IllegalValueException ive) {
@@ -274,6 +275,7 @@ public class ParserTest {
                 + (person.getEmail().isPrivate() ? " pe/" : " e/") + person.getEmail().value
                 + (person.getAddress().isPrivate() ? " pa/" : " a/") + person.getAddress().value
                 +("m/")+person.getAppointment().appointmentDate
+                +("d/")+person.getDoctor().doctorName
                 +("s/")+person.getStatus().status;
         for (Tag tag : person.getTags()) {
             addCommand += " t/" + tag.tagName;

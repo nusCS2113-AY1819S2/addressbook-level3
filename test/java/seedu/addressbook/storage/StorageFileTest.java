@@ -97,6 +97,7 @@ public class StorageFileTest {
                                 new Email("johnd@gmail.com", false),
                                 new Address("John street, block 123, #01-01", false),
                                 new Appointment("30November"),
+                                new Doctor("DoctorTan"),
                                 new Status("observation"),
                                 Collections.emptySet()));
         ab.addPerson(new Person(new Name("Betsy Crowe"),
@@ -104,6 +105,7 @@ public class StorageFileTest {
                                 new Email("betsycrowe@gmail.com", false),
                                 new Address("Newgate Prison", true),
                                 new Appointment("30November"),
+                                new Doctor("DoctorTan"),
                                 new Status("observation"),
                                 new HashSet<>(Arrays.asList(new Tag("friend"), new Tag("criminal")))));
         return ab;

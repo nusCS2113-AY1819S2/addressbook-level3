@@ -6,6 +6,7 @@
         <email isPrivate="false">johnd@gmail.com</email>
         <address isPrivate="false">John street, block 123, #01-01</address>
         <appointment>30November</appointment>
+        <doctor>DoctorTan</doctor>
         <status>observation</status>
     </persons>
     <persons>
@@ -14,6 +15,7 @@
         <email isPrivate="false">betsycrowe@gmail.com</email>
         <address isPrivate="true">Newgate Prison</address>
         <appointment>30November</appointment>
+        <doctor>DoctorTan</doctor>
         <status>observation</status>
         <tagged>friend</tagged>
         <tagged>criminal</tagged>

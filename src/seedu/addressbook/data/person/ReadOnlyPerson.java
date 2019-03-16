@@ -1,6 +1,8 @@
 package seedu.addressbook.data.person;
 
 import java.util.Set;
+import java.time.LocalDate;
+
 
 import seedu.addressbook.data.tag.Tag;
 
@@ -11,10 +13,14 @@ import seedu.addressbook.data.tag.Tag;
 public interface ReadOnlyPerson {
 
     Name getName();
+    int nameLength();
     Phone getPhone();
     Email getEmail();
     Address getAddress();
     Appointment getAppointment();
+    Doctor getDoctor();
+    LocalDate getLocalDate();
+    void setLocalDate(LocalDate date);
     Status getStatus();
 
     /**
@@ -33,6 +39,7 @@ public interface ReadOnlyPerson {
                 && other.getPhone().equals(this.getPhone())
                 && other.getEmail().equals(this.getEmail())
 //                && other.getAppointment().equals(this.getAppointment())
+//                && other.getDoctor().equals(this.getDoctor())
                 && other.getAddress().equals(this.getAddress()));
     }
 
@@ -58,7 +65,10 @@ public interface ReadOnlyPerson {
             builder.append(detailIsPrivate);
         }
         builder.append(getAddress()).append(" Appointment: ");
-        builder.append(getAppointment()).append(" Status: ");
+        builder.append(getAppointment());
+        builder.append(" Doctor: ");
+        builder.append(getDoctor());
+        builder.append(" Status: ");
         builder.append(getStatus())
                 .append(" Tags: ");
         for (Tag tag : getTags()) {
@@ -67,6 +77,22 @@ public interface ReadOnlyPerson {
         return builder.toString();
     }
 
+    default String getAsTextNameDateDoctor() {
+        final StringBuilder builder = new StringBuilder();
+        int num = 30 - nameLength();
+        System.out.println(nameLength());
+//        int initial = 30;
+//        while (num <= 0) {
+//            num = initial - nameLength();
+//            initial = initial + 5;
+//        }
+        builder.append(String.format("%1$-" + num + "s", getName()) + "\t");
+        builder.append(" Appointment: ");
+        builder.append(getAppointment() + "\t");
+        builder.append(" Doctor: ");
+        builder.append(getDoctor());
+        return builder.toString();
+    }
     /**
      * Formats a person as text, showing only non-private contact details.
      */
@@ -82,7 +108,8 @@ public interface ReadOnlyPerson {
         if (!getAddress().isPrivate()) {
             builder.append(" Address: ").append(getAddress());
         }
-        builder.append(" Appointment: ").append(getAppointment());
+        builder.append("Appointment: ").append(getAppointment());
+        builder.append(" Doctor: ").append(getDoctor());
         builder.append(" Status: ").append(getStatus());
         builder.append(" Tags: ");
         for (Tag tag : getTags()) {

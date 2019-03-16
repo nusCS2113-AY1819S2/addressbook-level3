@@ -62,5 +62,4 @@ public class Appointment implements Comparable<Appointment>{
     public int compareTo(Appointment appointment) {
         return this.appointmentDate.compareTo(appointment.appointmentDate);
     }
-
 }
