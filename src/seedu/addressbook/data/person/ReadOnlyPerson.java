@@ -21,6 +21,7 @@ public interface ReadOnlyPerson {
     Doctor getDoctor();
     LocalDate getLocalDate();
     void setLocalDate(LocalDate date);
+    Status getStatus();
 
     /**
      * The returned {@code Set} is a deep copy of the internal {@code Set},
@@ -66,7 +67,9 @@ public interface ReadOnlyPerson {
         builder.append(getAddress()).append(" Appointment: ");
         builder.append(getAppointment());
         builder.append(" Doctor: ");
-        builder.append(getDoctor())
+        builder.append(getDoctor());
+        builder.append(" Status: ");
+        builder.append(getStatus())
                 .append(" Tags: ");
         for (Tag tag : getTags()) {
             builder.append(tag);
@@ -107,6 +110,7 @@ public interface ReadOnlyPerson {
         }
         builder.append("Appointment: ").append(getAppointment());
         builder.append(" Doctor: ").append(getDoctor());
+        builder.append(" Status: ").append(getStatus());
         builder.append(" Tags: ");
         for (Tag tag : getTags()) {
             builder.append(tag);

@@ -59,6 +59,12 @@ public class ParserTest {
     }
 
     @Test
+    public void sortCommand_parsedCorrectly() {
+        final String input = "sort";
+        parseAndAssertCommandType(input, SortCommand.class);
+    }
+
+    @Test
     public void exitCommand_parsedCorrectly() {
         final String input = "exit";
         parseAndAssertCommandType(input, ExitCommand.class);
@@ -254,6 +260,7 @@ public class ParserTest {
                 new Address(Address.EXAMPLE, true),
                 new Appointment(Appointment.EXAMPLE),
                 new Doctor(Doctor.EXAMPLE),
+                new Status(Status.EXAMPLE),
                 new HashSet<>(Arrays.asList(new Tag("tag1"), new Tag("tag2"), new Tag("tag3")))
             );
         } catch (IllegalValueException ive) {
@@ -268,7 +275,8 @@ public class ParserTest {
                 + (person.getEmail().isPrivate() ? " pe/" : " e/") + person.getEmail().value
                 + (person.getAddress().isPrivate() ? " pa/" : " a/") + person.getAddress().value
                 +("m/")+person.getAppointment().appointmentDate
-                +("d/")+person.getDoctor().doctorName;
+                +("d/")+person.getDoctor().doctorName
+                +("s/")+person.getStatus().status;
         for (Tag tag : person.getTags()) {
             addCommand += " t/" + tag.tagName;
         }

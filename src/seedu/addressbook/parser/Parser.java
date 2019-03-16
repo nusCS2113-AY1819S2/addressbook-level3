@@ -26,6 +26,7 @@ public class Parser {
                     + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
                     + "m/(?<appointment>[^/]+)"
                     + "d/(?<doctor>[^/]+)"
+                    + "s/(?<status>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
 
@@ -74,6 +75,9 @@ public class Parser {
             case DoctorAppointmentsCommand.COMMAND_WORD:
                 return prepareFindDoctor(arguments);
 
+            case LengthCommand.COMMAND_WORD:
+                return new LengthCommand();
+
             case ListCommand.COMMAND_WORD:
                 return new ListCommand();
 
@@ -83,10 +87,14 @@ public class Parser {
             case ViewAllCommand.COMMAND_WORD:
                 return prepareViewAll(arguments);
 
+            case SortCommand.COMMAND_WORD:
+                return new SortCommand(arguments);
+
+
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
 
-            case HelpCommand.COMMAND_WORD: // Fallthrough
+            case HelpCommand.COMMAND_WORD:// Fallthrough
             default:
                 return new HelpCommand();
         }
@@ -120,6 +128,8 @@ public class Parser {
                     matcher.group("appointment"),
 
                     matcher.group("doctor"),
+
+                    matcher.group("status"),
 
                     getTagsFromArgs(matcher.group("tagArguments"))
             );

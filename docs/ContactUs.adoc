@@ -1,0 +1,5 @@
+== Contact Us
+
+* *Bug reports, Suggestions* : Post in our https://github.com/cs2113-ay1819s2-t11-2/main/issues[issue tracker]
+if you noticed bugs or have suggestions on how to improve.
+* *Contributing* : We welcome pull requests. Follow the process described https://github.com/oss-generic/process[here]

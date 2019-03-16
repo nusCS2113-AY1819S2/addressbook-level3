@@ -21,19 +21,21 @@ public class Person implements ReadOnlyPerson {
     private Appointment appointment;
     private Doctor doctor;
     public LocalDate date = null;
-
+    private Status status;
 
     private final Set<Tag> tags = new HashSet<>();
     /**
      * Assumption: Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Appointment appointment, Doctor doctor, Set<Tag> tags) {
+
+    public Person(Name name, Phone phone, Email email, Address address, Appointment appointment, Doctor doctor, Status status, Set<Tag> tags) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.appointment = appointment;
         this.doctor =doctor;
+        this.status = status;
         this.tags.addAll(tags);
     }
 
@@ -41,7 +43,7 @@ public class Person implements ReadOnlyPerson {
      * Copy constructor.
      */
     public Person(ReadOnlyPerson source) {
-        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getAppointment(), source.getDoctor(), source.getTags());
+        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getAppointment(), source.getDoctor(), source.getStatus(),  source.getTags());
     }
 
     @Override
@@ -79,6 +81,10 @@ public class Person implements ReadOnlyPerson {
         return doctor;
     }
 
+    public Status getStatus() {
+        return status;
+    }
+
     @Override
     public Set<Tag> getTags() {
         return new HashSet<>(tags);
@@ -102,7 +108,7 @@ public class Person implements ReadOnlyPerson {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, appointment, doctor, tags);
+        return Objects.hash(name, phone, email, address, appointment, doctor, status,  tags);
     }
     @Override
     public LocalDate getLocalDate(){
@@ -120,5 +126,3 @@ public class Person implements ReadOnlyPerson {
     }
 
 }
-
-//new class, return person.getLocalDate().compareTo(person2.getLocalDate())
