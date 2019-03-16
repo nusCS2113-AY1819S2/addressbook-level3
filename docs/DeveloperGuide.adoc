@@ -46,12 +46,12 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="100%",cols="22%,<23%,<25%,<30%",options="header",]
 |===========================================================================================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
-|`* * *` |user |add a new person |
-|`* * *` |user |delete a person |remove entries that I no longer need
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
-|`* *` |user |hide <<private-contact-detail, private contact details>> by default |minimize chance of someone else seeing them by accident
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |doctor |keep track of current and past appointments with patients that I have for the day |be on time to deliver treatment
+|`* * *` |doctor |have a custom-made address book  |filter out the patients that are not affiliated to me
+|`* * *` |doctor |sort my patient according to my desired attribute |prioritize the allocation of my resources
+|`* * *` |doctor |good authentication |my patients’ data are protected and not easily disclosed
+|`* *` |doctor |have a doctor-referral system |refer patients to other doctors and the other doctors will be able to see the patients I passed to him
+|`*` |doctor with many persons in the address book |sort persons by name |locate a person easily
 |===========================================================================================================================================
 
 [appendix]
@@ -80,6 +80,39 @@ Use case ends.
 ** 3a1. AddressBook shows an error message.
 +
 Use case resumes at step 2.
+
+=== Use case: Login
+
+*MSS*
+
+. The user opens the addressbook
+. Addressbook prompts’ user for username and password
+. The user inputs the username/password and hits enter
+. Addresbook authenticates the user and displays welcome address
+
+Use case ends.
+
+=== Use case: Referring a patient
+
+*MSS*
+
+. The user types refer NAME1 to NAME2 in the command line
+. The information of the patient whose name is NAME1 is added to  the addressbook of the doctor whose name is NAME2
+. The information of the patient whose name is NAME1 is removed from the user’s addressbook
+
+Use case ends.
+
+=== Use case: Managing appointments
+
+*MSS*
+
+. The user types a command appointments in the command line
+. The system finds all scheduled appointments and prints them to the screen in chronological order
+. If possible, can print a literal timetable on the screen
+. The expired appointments should be excluded from the timetable if possible
+
+
+Use case ends.
 
 [appendix]
 == Non Functional Requirements

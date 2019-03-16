@@ -24,6 +24,7 @@ public class Parser {
                     + " (?<isPhonePrivate>p?)p/(?<phone>[^/]+)"
                     + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
                     + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
+                    + "m/(?<appointment>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
 
@@ -69,6 +70,9 @@ public class Parser {
             case FindCommand.COMMAND_WORD:
                 return prepareFind(arguments);
 
+            case LengthCommand.COMMAND_WORD:
+                return new LengthCommand();
+
             case ListCommand.COMMAND_WORD:
                 return new ListCommand();
 
@@ -78,10 +82,14 @@ public class Parser {
             case ViewAllCommand.COMMAND_WORD:
                 return prepareViewAll(arguments);
 
+            case SortCommand.COMMAND_WORD:
+                return new SortCommand();
+
+
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
 
-            case HelpCommand.COMMAND_WORD: // Fallthrough
+            case HelpCommand.COMMAND_WORD:// Fallthrough
             default:
                 return new HelpCommand();
         }
@@ -111,6 +119,8 @@ public class Parser {
 
                     matcher.group("address"),
                     isPrivatePrefixPresent(matcher.group("isAddressPrivate")),
+
+                    matcher.group("appointment"),
 
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
