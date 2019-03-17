@@ -10,6 +10,7 @@ import seedu.addressbook.data.team.ReadOnlyTeam;
 import seedu.addressbook.logic.Logic;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.person.ReadOnlyPerson;
+import seedu.addressbook.data.match.ReadOnlyMatch;
 
 import java.util.List;
 import java.util.Optional;
@@ -83,11 +84,15 @@ public class MainWindow {
         clearOutputConsole();
         final Optional<List<? extends ReadOnlyPerson>> resultPersons = result.getRelevantPersons();
         final Optional<List<? extends ReadOnlyTeam>> resultTeams = result.getRelevantTeams();
+        final Optional<List<? extends ReadOnlyMatch>> resultMatches = result.getRelevantMatches();
         if(resultPersons.isPresent()) {
             displayPersonResult(resultPersons.get());
         }
         if(resultTeams.isPresent()) {
             displayTeamResult(resultTeams.get());
+        }
+        if(resultMatches.isPresent()) {
+            displayMatch(resultMatches.get());
         }
         displayPersonResult(result.feedbackToUser);
     }
@@ -95,6 +100,13 @@ public class MainWindow {
     public void displayWelcomeMessage(String version, String storageFilePath) {
         String storageFileInfo = String.format(MESSAGE_USING_STORAGE_FILE, storageFilePath);
         displayPersonResult(MESSAGE_WELCOME, version, MESSAGE_PROGRAM_LAUNCH_ARGS_USAGE, storageFileInfo);
+    }
+
+    /**
+     * Displays the list of matches in the output display area, formatted as an indexed list.
+     */
+    private void displayMatch(List<? extends ReadOnlyMatch> matches) {
+        display(new Formatter().formatMatchResult(matches));
     }
 
     /**
@@ -106,14 +118,12 @@ public class MainWindow {
     }
 
     /**
-     * Displays the list of persons in the output displayPersonResult area, formatted as an indexed list.
+     * Displays the list of teams in the output displayPersonResult area, formatted as an indexed list.
      * Private contact details are hidden.
      */
     private void displayTeamResult(List<? extends ReadOnlyTeam> teams) {
         displayTeamResult(new Formatter().formatTeamResult(teams));
     }
-
-
 
     /**
      * Displays the given messages on the output displayPersonResult area, after formatting appropriately.

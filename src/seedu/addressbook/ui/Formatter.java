@@ -1,6 +1,7 @@
 package seedu.addressbook.ui;
 
 import seedu.addressbook.data.person.ReadOnlyPerson;
+import seedu.addressbook.data.match.ReadOnlyMatch;
 import seedu.addressbook.data.team.ReadOnlyTeam;
 
 import java.util.ArrayList;
@@ -52,10 +53,19 @@ public class Formatter {
         return format(asIndexedList(formattedTeams));
     }
 
+    /** Formats the given list of matches for displaying to the user. */
+    public String formatMatchResult(List<? extends ReadOnlyMatch> matches) {
+        final List<String> formattedMatches = new ArrayList<>();
+        for (ReadOnlyMatch match : matches) {
+            formattedMatches.add(match.getAsTextShowAll());
+        }
+        return format(asIndexedList(formattedMatches));
+    }
+
     /** Formats a list of strings as an indexed list. */
     private static String asIndexedList(List<String> listItems) {
         final StringBuilder formatted = new StringBuilder();
-        int displayIndex = 0 + DISPLAYED_INDEX_OFFSET;
+        int displayIndex = DISPLAYED_INDEX_OFFSET;
         for (String listItem : listItems) {
             formatted.append(getIndexedListItem(displayIndex, listItem)).append("\n");
             displayIndex++;

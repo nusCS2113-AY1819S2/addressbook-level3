@@ -74,7 +74,7 @@ public class LogicTest {
                                       String expectedMessage,
                                       AddressBook expectedAddressBook,
                                       boolean isRelevantPersonsExpected,
-                                      List<? extends ReadOnlyPerson> lastShownList) throws Exception {
+                                      List<? extends ReadOnlyPerson> lastPersonList) throws Exception {
 
         //Execute the command
         CommandResult r = logic.execute(inputCommand);
@@ -83,7 +83,7 @@ public class LogicTest {
         assertEquals(expectedMessage, r.feedbackToUser);
         assertEquals(r.getRelevantPersons().isPresent(), isRelevantPersonsExpected);
         if(isRelevantPersonsExpected){
-            assertEquals(lastShownList, r.getRelevantPersons().get());
+            assertEquals(lastPersonList, r.getRelevantPersons().get());
         }
 
         //Confirm the state of data is as expected
@@ -220,13 +220,13 @@ public class LogicTest {
     private void assertInvalidIndexBehaviorForCommand(String commandWord) throws Exception {
         String expectedMessage = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
-        List<Person> lastShownList = helper.generatePersonList(false, true);
+        List<Person> lastPersonList = helper.generatePersonList(false, true);
 
         logic.setLastPersonShownList(lastShownList);
 
-        assertCommandBehavior(commandWord + " -1", expectedMessage, AddressBook.empty(), false, lastShownList);
-        assertCommandBehavior(commandWord + " 0", expectedMessage, AddressBook.empty(), false, lastShownList);
-        assertCommandBehavior(commandWord + " 3", expectedMessage, AddressBook.empty(), false, lastShownList);
+        assertCommandBehavior(commandWord + " -1", expectedMessage, AddressBook.empty(), false, lastPersonList);
+        assertCommandBehavior(commandWord + " 0", expectedMessage, AddressBook.empty(), false, lastPersonList);
+        assertCommandBehavior(commandWord + " 3", expectedMessage, AddressBook.empty(), false, lastPersonList);
 
     }
 
@@ -236,9 +236,9 @@ public class LogicTest {
         TestDataHelper helper = new TestDataHelper();
         Person p1 = helper.generatePerson(1, true);
         Person p2 = helper.generatePerson(2, false);
-        List<Person> lastShownList = helper.generatePersonList(p1, p2);
-        AddressBook expectedAB = helper.generateAddressBook(lastShownList);
-        helper.addToAddressBook(addressBook, lastShownList);
+        List<Person> lastPersonList = helper.generatePersonList(p1, p2);
+        AddressBook expectedAB = helper.generateAddressBook(lastPersonList);
+        helper.addToAddressBook(addressBook, lastPersonList);
 
         logic.setLastPersonShownList(lastShownList);
 
@@ -246,13 +246,13 @@ public class LogicTest {
                               String.format(ViewCommand.MESSAGE_VIEW_PERSON_DETAILS, p1.getAsTextHidePrivate()),
                               expectedAB,
                               false,
-                              lastShownList);
+                              lastPersonList);
 
         assertCommandBehavior("view 2",
                               String.format(ViewCommand.MESSAGE_VIEW_PERSON_DETAILS, p2.getAsTextHidePrivate()),
                               expectedAB,
                               false,
-                              lastShownList);
+                              lastPersonList);
     }
 
     @Test
@@ -260,7 +260,7 @@ public class LogicTest {
         TestDataHelper helper = new TestDataHelper();
         Person p1 = helper.generatePerson(1, false);
         Person p2 = helper.generatePerson(2, false);
-        List<Person> lastShownList = helper.generatePersonList(p1, p2);
+        List<Person> lastPersonList = helper.generatePersonList(p1, p2);
 
         AddressBook expectedAB = new AddressBook();
         expectedAB.addPerson(p2);
@@ -272,7 +272,7 @@ public class LogicTest {
                               Messages.MESSAGE_PERSON_NOT_IN_ADDRESSBOOK,
                               expectedAB,
                               false,
-                              lastShownList);
+                              lastPersonList);
     }
 
     @Test
@@ -292,9 +292,9 @@ public class LogicTest {
         TestDataHelper helper = new TestDataHelper();
         Person p1 = helper.generatePerson(1, true);
         Person p2 = helper.generatePerson(2, false);
-        List<Person> lastShownList = helper.generatePersonList(p1, p2);
-        AddressBook expectedAB = helper.generateAddressBook(lastShownList);
-        helper.addToAddressBook(addressBook, lastShownList);
+        List<Person> lastPersonList = helper.generatePersonList(p1, p2);
+        AddressBook expectedAB = helper.generateAddressBook(lastPersonList);
+        helper.addToAddressBook(addressBook, lastPersonList);
 
         logic.setLastPersonShownList(lastShownList);
 
@@ -302,13 +302,13 @@ public class LogicTest {
                             String.format(ViewCommand.MESSAGE_VIEW_PERSON_DETAILS, p1.getAsTextShowAll()),
                             expectedAB,
                             false,
-                            lastShownList);
+                            lastPersonList);
 
         assertCommandBehavior("viewall 2",
                             String.format(ViewCommand.MESSAGE_VIEW_PERSON_DETAILS, p2.getAsTextShowAll()),
                             expectedAB,
                             false,
-                            lastShownList);
+                            lastPersonList);
     }
 
     @Test
@@ -316,7 +316,7 @@ public class LogicTest {
         TestDataHelper helper = new TestDataHelper();
         Person p1 = helper.generatePerson(1, false);
         Person p2 = helper.generatePerson(2, false);
-        List<Person> lastShownList = helper.generatePersonList(p1, p2);
+        List<Person> lastPersonList = helper.generatePersonList(p1, p2);
 
         AddressBook expectedAB = new AddressBook();
         expectedAB.addPerson(p1);
@@ -328,7 +328,7 @@ public class LogicTest {
                                 Messages.MESSAGE_PERSON_NOT_IN_ADDRESSBOOK,
                                 expectedAB,
                                 false,
-                                lastShownList);
+                                lastPersonList);
     }
 
     @Test
