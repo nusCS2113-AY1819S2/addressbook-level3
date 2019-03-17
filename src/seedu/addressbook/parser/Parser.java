@@ -93,6 +93,9 @@ public class Parser {
             case FindTeam.COMMAND_WORD:
                 return prepareFindTeam(arguments);
 
+            case FinanceCommand.COMMAND_WORD:
+                return prepareFinance(arguments);
+
             case ListCommand.COMMAND_WORD:
                 return new ListCommand();
 
@@ -244,6 +247,7 @@ public class Parser {
         }
     }
 
+
     /**
      * Parses arguments in the context of the delete match command.
      *
@@ -270,6 +274,23 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteTeam.MESSAGE_USAGE));
         }
     }
+
+
+    /**
+     * Parses arguments in the context of the finance command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareFinance(String args) {
+        try {
+            final int targetIndex = parseArgsAsDisplayedIndex(args);
+            return new FinanceCommand(targetIndex);
+        } catch (ParseException | NumberFormatException e) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FinanceCommand.MESSAGE_USAGE));
+        }
+    }
+
 
     /**
      * Parses arguments in the context of the view command.
