@@ -55,7 +55,7 @@ public class MainWindow {
             displayResult(result);
             clearCommandInput();
         } catch (Exception e) {
-            displayPersonResult(e.getMessage());
+            display(e.getMessage());
             throw new RuntimeException(e);
         }
     }
@@ -94,12 +94,12 @@ public class MainWindow {
         if(resultMatches.isPresent()) {
             displayMatch(resultMatches.get());
         }
-        displayPersonResult(result.feedbackToUser);
+        display(result.feedbackToUser);
     }
 
     public void displayWelcomeMessage(String version, String storageFilePath) {
         String storageFileInfo = String.format(MESSAGE_USING_STORAGE_FILE, storageFilePath);
-        displayPersonResult(MESSAGE_WELCOME, version, MESSAGE_PROGRAM_LAUNCH_ARGS_USAGE, storageFileInfo);
+        display(MESSAGE_WELCOME, version, MESSAGE_PROGRAM_LAUNCH_ARGS_USAGE, storageFileInfo);
     }
 
     /**
@@ -114,7 +114,7 @@ public class MainWindow {
      * Private contact details are hidden.
      */
     private void displayPersonResult(List<? extends ReadOnlyPerson> persons) {
-        displayPersonResult(new Formatter().formatPersonResult(persons));
+        display(new Formatter().formatPersonResult(persons));
     }
 
     /**
@@ -122,21 +122,13 @@ public class MainWindow {
      * Private contact details are hidden.
      */
     private void displayTeamResult(List<? extends ReadOnlyTeam> teams) {
-        displayTeamResult(new Formatter().formatTeamResult(teams));
+        display(new Formatter().formatTeamResult(teams));
     }
 
     /**
      * Displays the given messages on the output displayPersonResult area, after formatting appropriately.
      */
-    private void displayPersonResult(String... messages) {
+    private void display(String... messages) {
         outputConsole.setText(outputConsole.getText() + new Formatter().format(messages));
     }
-
-    /**
-     * Displays the given messages on the output displayTeamResult area, after formatting appropriately.
-     */
-    private void displayTeamResult(String... messages) {
-        outputConsole.setText(outputConsole.getText() + new Formatter().format(messages));
-    }
-
 }

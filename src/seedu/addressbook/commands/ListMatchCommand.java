@@ -19,6 +19,6 @@ public class ListMatchCommand extends Command {
     @Override
     public CommandResult execute() {
         List<ReadOnlyMatch> allMatches = addressBook.getAllMatches().immutableListView();
-        return new CommandResult(getMessageForMatchListShownSummary(allMatches), null, allMatches);
+        return new CommandResult(getMessageForMatchListShownSummary(allMatches), null, null, allMatches);
     }
 }
