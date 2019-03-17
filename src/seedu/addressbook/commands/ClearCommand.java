@@ -1,19 +1,19 @@
 package seedu.addressbook.commands;
 
 /**
- * Clears the address book.
+ * Clears the person list in address book.
  */
 public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Clears address book permanently.\n\t"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Clear persons in address book permanently.\n\t"
             + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_SUCCESS = "Address book has been cleared!";
+    public static final String MESSAGE_SUCCESS = "Person list has been cleared!";
 
     @Override
     public CommandResult execute() {
-        addressBook.clear();
+        addressBook.clearPerson();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
