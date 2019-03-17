@@ -1,7 +1,13 @@
-= User Guide
+= League Tracker - User Guide
 :site-section: UserGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
+:xrefstyle: full
+:experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
@@ -10,15 +16,23 @@ endif::[]
 This product is not meant for end-users and therefore there is no user-friendly installer.
 Please refer to the <<DeveloperGuide#setting-up, Setting up>> section to learn how to set up the project.
 
-== Starting the program
+By : `CS2113-AY1819S2-M11-1`	Since: `` Licence:``
 
-. Find the project pane (usually located at the left side)
-. Open up `src/seedu.addressbook` folder
-. Right click on `Main`
-. Click `Run Main.main()`
+== Introduction
+
+The LeagueTracker provides soccer league opreator with an efficient method of managing the current teams that are playing in the season. It features many ways to keep track of the teams and players playing in the league. The LeagueTracker will help manager have an easier time in keeping track of the curretn situation in the soccer league.
+
+== Quick Start
+
+.  Ensure you have Java version `9` or later installed in your Computer.
+.  Download the latest `LeagueTracker.jar` \\coming soon
+.  Copy the file to the folder you want to use as the home folder for your League Tracker System.
+.  Double-click the file to start the application. The GUI should appear in a few seconds.
 . The GUI should appear in a few seconds
 +
 image::Ui.png[]
++
+.  Type the command in the command box and press kbd:[Enter] to execute it.
 
 == Viewing help : `help`
 
@@ -29,114 +43,119 @@ Format: `help`
 Help is also shown if you enter an incorrect command e.g. `abcd`
 ====
 
-== Adding a person: `add`
+== Features
 
-Adds a person to the address book. +
-Format: `add NAME [p]p/PHONE_NUMBER [p]e/EMAIL [p]a/ADDRESS [t/TAG]...`
+=== Players
 
-****
-Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional,
-items with `...` after them can have multiple instances. Order of parameters are fixed.
+==== List Player
+List current Players in a team. +
+Format ：`ListPlayer NameOfTeam`
 
-Put a `p` before the phone / email / address prefixes to mark it as `private`. `private` details can only
-be seen using the `viewall` command.
+Example: +
+`ListPlayer Liverpool`
 
-Persons can have any number of tags (including 0)
-****
+==== List All Players
+List current Players in the whole league. +
+Format ：`ListAllPlayer`
 
-Examples:
+==== Add Player
+Add a new player to League Tracker. +
+Format ：`AddPlayer NAME POSITION AGE GENDER PENALTY GOALSSCORED GOALSASSISTED TEAM RANKINLEAGUE COUNTRY JERSEYNUMBER APPEARANCE HEALTHSTATUS`
 
-* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01`
-* `add Betsy Crowe pp/1234567 e/betsycrowe@gmail.com pa/Newgate Prison t/criminal t/friend`
+Example: +
+`AddPlayer Lionel_Messi RW 31 Male 0 20 20 FC_Barcelona 1 Argentina 10 20 Healthy`
 
-== Listing all persons : `list`
+==== Delete Player
+Delete an existing player in League Tracker. +
+Format ：`DeletePlayer NAME TEAM`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+Example: +
+`DeletePlayer Lionel_Messi FC_Barcelona`
 
-== Finding all persons containing any keyword in their name: `find`
+==== Edit Player
+Edit an existing player in League Tracker. +
+Format ：`EditPlayer OLDNAME OLDTEAM POSITION AGE GENDER PENALTY GOALSSCORED GOALSASSISTED TEAM RANKINLEAGUE COUNTRY JERSEYNUMBER APPEARANCE HEALTHSTATUS`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Example: +
+`EditPlayer Lionel_Messi Real_Madrid RW 31 Male 0 20 20 FC_Barcelona 1 Argentina 10 20 Healthy`
 
-[NOTE]
-====
-The search is case sensitive, the order of the keywords does not matter, only the name is searched,
-and persons matching at least one keyword will be returned (i.e. `OR` search).
-====
+==== Display Player Profile
+Display the whole profile of the player. +
+Format ：`DisplayProfile NAME TEAM`
 
-Examples:
+Example: +
+`DisplayProfile Lionel_Messi FC_Barcelona`
 
-* `find John` +
-Returns `John Doe` but not `john`.
+=== Teams
 
-* `find Betsy Tim John` +
-Returns Any person having names `Betsy`, `Tim`, or `John`.
+==== List Team
+List current Teams in League. +
+Format :`ListTeam`
 
-== Deleting a person : `delete`
+==== Add Team
+Add a new Team to League Tracker. +
+Format : `AddTeam NAME c/COUNTRY g/GOAL SCORED p/POINTS  `
 
-Deletes the specified person from the address book. Irreversible. +
-Format: `delete INDEX`
+Example: +
+ `AddTeam Liverpool c/United Kingdom g/64 p/70 +
+ Adds a new Team with the specified details.
 
-****
-Deletes the person at the specified `INDEX`.
-The index refers to the index number shown in the most recent listing.
-****
+==== Edit Team
+Edit a Team in League Tracker. +
+Format : `EditTeam INDEX [c/COUNTRY] [g/GOAL SCORED] [p/POINTS]  `
 
-Examples:
+Example: +
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
+* `ListTeam` +
+* `EditTeam 1 c/Singapore` +
+Edits the country of the 1st team in the Team list to Singapore.
 
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+==== Delete Team
+Delete a Team from League Tracker. +
+Format : `DelTeam INDEX  `
 
-== View non-private details of a person : `view`
+Example: +
 
-Displays the non-private details of the specified person. +
-Format: `view INDEX`
+* `ListTeam` +
+* `DelTeam 1` +
+Deletes the 1st Team in the Team list.
 
-****
-Views the person at the specified `INDEX`.
-The index refers to the index number shown in the most recent listing.
-****
+=== Finance
 
-Examples:
+==== Give Team Finance
+Give the financial condition in USD of a Team selected in League Tracker. +
 
-* `list` +
-`view 2` +
-Views the 2nd person in the address book.
+Format : `finance INDEX`
 
-* `find Betsy` +
-`view 1` +
-Views the 1st person in the results of the `find` command.
+Example: +
 
-== View all details of a person : `viewall`
+* `ListTeam` +
+* `finance 1` +
+Finance of the team selected: 5487.0.
 
-Displays all details (including private details) of the specified person. +
-Format: `viewall INDEX`
+=== Match Schedule
 
-****
-Views all details of the person at the specified `INDEX`.
-The index refers to the index number shown in the most recent listing.
-****
+==== List Matches
+List Matches in League. +
+Format :`ListMatches`
 
-Examples:
+==== Add Matches
+Add a new Match to League Tracker. +
+Format : `AddMatch dd/mm/yyyy h/hometeam a/awayteam`
 
-* `list` +
-`viewall 2` +
-Views all details of the 2nd person in the address book.
+Example: +
+ `AddMatch 28/02/2019 h/Fulham a/Chelsea +
+ Adds a new Match with the specified details.
+ 
+==== Delete Matches
+Delete a Match from League Tracker. +
+Format : `DeleteMatch INDEX  `
 
-* `find Betsy` +
-`viewall 1` +
-Views all details of the 1st person in the results of the `find` command.
+Example: +
 
-== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
-Format: `clear`
+* `ListMatches` +
+* `DeleteMatch 1` +
+Deletes the 1st Match in the Match list.
 
 == Exiting the program : `exit`
 
@@ -145,6 +164,35 @@ Format: `exit`
 
 == Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data.
+League tracker data are saved in the hard disk automatically after any command that changes the data.
 
-There is no need to save manually. Address book data are saved in a file called `addressbook.txt` in the project root folder.
+There is no need to save manually. league tracker data are saved in a file called `addressbook.txt` in the project root folder.
+
+== FAQ
+
+Q: How do I transfer my data to another Computer?
+A: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous LeagueTracker folder.
+
+== Command Summary
+
+=== Players
+*List Players in a Team* : `ListPlayer`
+*List all Players in the league* : `ListAllPlayer`
+*Add a Player to League* : `AddPlayer`
+*Delete a Player from League* : `DeletePlayer`
+*Edit a Player's Profile* : `EditPlayer`
+*Display a Player's Profile* : `DisplayProfile`
+
+
+=== Teams
+*List Team in League* : `ListTeam` +
+*Add Team to League* : `AddTeam` +
+*Edit Team's Profile* : `EditTeam` +
+*Delete Team from League* : `DelTeam`
+
+=== League
+
+=== Match Schedule
+*List Matches in League* : `ListMatches` +
+*Add Match to League* : `AddMatch` +
+*Delete Match from League* : `DeleteMatch`

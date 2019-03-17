@@ -4,6 +4,8 @@ import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.person.ReadOnlyPerson;
+import seedu.addressbook.data.match.ReadOnlyMatch;
+import seedu.addressbook.data.team.ReadOnlyTeam;
 import seedu.addressbook.parser.Parser;
 import seedu.addressbook.storage.StorageFile;
 
@@ -21,7 +23,12 @@ public class Logic {
     private AddressBook addressBook;
 
     /** The list of person shown to the user most recently.  */
-    private List<? extends ReadOnlyPerson> lastShownList = Collections.emptyList();
+   private List<? extends ReadOnlyPerson> lastPersonShownList = Collections.emptyList();
+  
+    /** The list of match shown to the user most recently.  */
+    private List<? extends ReadOnlyMatch> lastMatchList = Collections.emptyList();
+    
+    private List<? extends ReadOnlyTeam> lastTeamShownList = Collections.emptyList();
 
     public Logic() throws Exception{
         setStorage(initializeStorage());
@@ -54,14 +61,36 @@ public class Logic {
     }
 
     /**
-     * Unmodifiable view of the current last shown list.
+     * Unmodifiable view of the current last person list.
      */
-    public List<ReadOnlyPerson> getLastShownList() {
-        return Collections.unmodifiableList(lastShownList);
+    public List<ReadOnlyPerson> getLastPersonShownList() {
+        return Collections.unmodifiableList(lastPersonShownList);
     }
 
-    protected void setLastShownList(List<? extends ReadOnlyPerson> newList) {
-        lastShownList = newList;
+    /**
+     * Unmodifiable view of the current last match list.
+     */
+    public List<ReadOnlyMatch> getLastMatchList() {
+        return Collections.unmodifiableList(lastMatchList);
+    }
+
+    protected void setLastMatchList(List<? extends ReadOnlyMatch> newList) {
+        lastMatchList = newList;
+    }
+
+    protected void setLastPersonShownList(List<? extends ReadOnlyPerson> newList) {
+        lastPersonShownList = newList;
+    }
+
+    /**
+     * Unmodifiable view of the current last shown list(Team).
+     */
+    public List<ReadOnlyTeam> getLastTeamShownList() {
+        return Collections.unmodifiableList(lastTeamShownList);
+    }
+
+    protected void setLastTeamShownList(List<? extends ReadOnlyTeam> newList) {
+        lastTeamShownList = newList;
     }
 
     /**
@@ -83,17 +112,28 @@ public class Logic {
      * @throws Exception if there was any problem during command execution.
      */
     private CommandResult execute(Command command) throws Exception {
-        command.setData(addressBook, lastShownList);
+        command.setData(addressBook,
+                lastPersonShownList,
+                lastTeamShownList,
+                lastMatchList);
         CommandResult result = command.execute();
         storage.save(addressBook);
         return result;
     }
 
-    /** Updates the {@link #lastShownList} if the result contains a list of Persons. */
+    /** Updates the {@link #lastPersonList} if the result contains a list of Persons.
+     *  Updates the {@link #lastMatchList} if the result contains a list of Matches.
+     */      
     private void recordResult(CommandResult result) {
         final Optional<List<? extends ReadOnlyPerson>> personList = result.getRelevantPersons();
+        final Optional<List<? extends ReadOnlyTeam>> teamList = result.getRelevantTeams();
+        final Optional<List<? extends ReadOnlyMatch>> matchList = result.getRelevantMatches();
         if (personList.isPresent()) {
-            lastShownList = personList.get();
+            lastPersonShownList = personList.get();
+        } else if (teamList.isPresent()) {
+            lastTeamShownList = teamList.get();
+        } else if (matchList.isPresent()) {
+            lastMatchList = matchList.get();
         }
     }
 }
