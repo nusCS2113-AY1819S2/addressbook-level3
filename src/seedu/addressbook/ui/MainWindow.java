@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import seedu.addressbook.commands.ExitCommand;
+import seedu.addressbook.data.team.ReadOnlyTeam;
 import seedu.addressbook.logic.Logic;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.person.ReadOnlyPerson;
@@ -54,7 +55,7 @@ public class MainWindow {
             displayResult(result);
             clearCommandInput();
         } catch (Exception e) {
-            display(e.getMessage());
+            displayPersonResult(e.getMessage());
             throw new RuntimeException(e);
         }
     }
@@ -73,7 +74,7 @@ public class MainWindow {
         commandInput.setText("");
     }
 
-    /** Clears the output display area */
+    /** Clears the output displayPersonResult area */
     public void clearOutputConsole(){
         outputConsole.clear();
     }
@@ -82,26 +83,23 @@ public class MainWindow {
     public void displayResult(CommandResult result) {
         clearOutputConsole();
         final Optional<List<? extends ReadOnlyPerson>> resultPersons = result.getRelevantPersons();
+        final Optional<List<? extends ReadOnlyTeam>> resultTeams = result.getRelevantTeams();
         final Optional<List<? extends ReadOnlyMatch>> resultMatches = result.getRelevantMatches();
         if(resultPersons.isPresent()) {
-            displayPerson(resultPersons.get());
-        } else if(resultMatches.isPresent()) {
+            displayPersonResult(resultPersons.get());
+        }
+        if(resultTeams.isPresent()) {
+            displayTeamResult(resultTeams.get());
+        }
+        if(resultMatches.isPresent()) {
             displayMatch(resultMatches.get());
         }
-        display(result.feedbackToUser);
+        displayPersonResult(result.feedbackToUser);
     }
 
     public void displayWelcomeMessage(String version, String storageFilePath) {
         String storageFileInfo = String.format(MESSAGE_USING_STORAGE_FILE, storageFilePath);
-        display(MESSAGE_WELCOME, version, MESSAGE_PROGRAM_LAUNCH_ARGS_USAGE, storageFileInfo);
-    }
-
-    /**
-     * Displays the list of persons in the output display area, formatted as an indexed list.
-     * Private contact details are hidden.
-     */
-    private void displayPerson(List<? extends ReadOnlyPerson> persons) {
-        display(new Formatter().formatPersonResult(persons));
+        displayPersonResult(MESSAGE_WELCOME, version, MESSAGE_PROGRAM_LAUNCH_ARGS_USAGE, storageFileInfo);
     }
 
     /**
@@ -112,9 +110,32 @@ public class MainWindow {
     }
 
     /**
-     * Displays the given messages on the output display area, after formatting appropriately.
+     * Displays the list of persons in the output displayPersonResult area, formatted as an indexed list.
+     * Private contact details are hidden.
      */
-    private void display(String... messages) {
+    private void displayPersonResult(List<? extends ReadOnlyPerson> persons) {
+        displayPersonResult(new Formatter().formatPersonResult(persons));
+    }
+
+    /**
+     * Displays the list of teams in the output displayPersonResult area, formatted as an indexed list.
+     * Private contact details are hidden.
+     */
+    private void displayTeamResult(List<? extends ReadOnlyTeam> teams) {
+        displayTeamResult(new Formatter().formatTeamResult(teams));
+    }
+
+    /**
+     * Displays the given messages on the output displayPersonResult area, after formatting appropriately.
+     */
+    private void displayPersonResult(String... messages) {
+        outputConsole.setText(outputConsole.getText() + new Formatter().format(messages));
+    }
+
+    /**
+     * Displays the given messages on the output displayTeamResult area, after formatting appropriately.
+     */
+    private void displayTeamResult(String... messages) {
         outputConsole.setText(outputConsole.getText() + new Formatter().format(messages));
     }
 

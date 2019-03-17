@@ -4,7 +4,7 @@ matrix:
     - jdk: oraclejdk9
 
 script: >-
-    travis_retry ./gradlew clean test coverage coveralls asciidoctor checkstyleMain checkstyleTest
+    travis_retry ./gradlew clean test coverage coveralls asciidoctor
 
 deploy:
   skip_cleanup: true

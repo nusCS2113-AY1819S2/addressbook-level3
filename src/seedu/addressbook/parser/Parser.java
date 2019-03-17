@@ -1,6 +1,7 @@
 package seedu.addressbook.parser;
 
 import seedu.addressbook.commands.*;
+import seedu.addressbook.commands.Team.*;
 import seedu.addressbook.data.exception.IllegalValueException;
 
 import java.util.*;
@@ -31,6 +32,12 @@ public class Parser {
                     + "h/(?<home>[^/]+)"
                     + "a/(?<away>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+
+    public static final Pattern TEAM_DATA_ARGS_FORMAT =
+            Pattern.compile("(?<name>[^/]+)"
+                    + "c/(?<country>[^/]+)"
+                    + "s/(?<sponsor>[^/]+)"
+                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags;
 
     /**
      * Signals that the user input could not be parsed.
@@ -65,14 +72,26 @@ public class Parser {
             case AddCommand.COMMAND_WORD:
                 return prepareAddPerson(arguments);
 
+            case AddTeam.COMMAND_WORD:
+                return AddTeam(arguments);
+
             case DeleteCommand.COMMAND_WORD:
                 return prepareDeletePerson(arguments);
+
+            case DeleteTeam.COMMAND_WORD:
+                return DelTeam(arguments);
 
             case ClearCommand.COMMAND_WORD:
                 return new ClearCommand();
 
+            case ClearTeam.COMMAND_WORD:
+                return new ClearTeam();
+
             case FindCommand.COMMAND_WORD:
                 return prepareFindPerson(arguments);
+
+            case FindTeam.COMMAND_WORD:
+                return prepareFindTeam(arguments);
 
             case ListCommand.COMMAND_WORD:
                 return new ListCommand();
@@ -92,6 +111,12 @@ public class Parser {
             case ListMatchCommand.COMMAND_WORD:
                 return new ListMatchCommand();
 
+            case ListTeam.COMMAND_WORD:
+                return new ListTeam();
+
+            case SortCommand.COMMAND_WORD:
+                return new SortCommand();
+
             case ViewCommand.COMMAND_WORD:
                 return prepareView(arguments);
 
@@ -104,6 +129,25 @@ public class Parser {
             case HelpCommand.COMMAND_WORD: // Fallthrough
             default:
                 return new HelpCommand();
+        }
+    }
+
+
+    private Command AddTeam(String args){
+        final Matcher matcher = TEAM_DATA_ARGS_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTeam.MESSAGE_USAGE));
+        }
+        try {
+            return new AddTeam(
+                    matcher.group("name"),
+                    matcher.group("country"),
+                    matcher.group("sponsor"),
+                    getTagsFromArgs(matcher.group("tagArguments"))
+            );
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
         }
     }
 
@@ -216,6 +260,18 @@ public class Parser {
     }
 
     /**
+     * Parses arguments in the context of the delete team command.
+     */
+    private Command DelTeam(String args) {
+        try {
+            final int targetIndex = parseArgsAsDisplayedIndex(args);
+            return new DeleteTeam(targetIndex);
+        } catch (ParseException | NumberFormatException e) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteTeam.MESSAGE_USAGE));
+        }
+    }
+
+    /**
      * Parses arguments in the context of the view command.
      *
      * @param args full command args string
@@ -296,11 +352,27 @@ public class Parser {
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     FindMatchCommand.MESSAGE_USAGE));
-        }
-
+        
         // keywords delimited by whitespace
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindMatchCommand(keywordSet);
     }
-}
+
+    /**
+     * Parses arguments in the context of the find team command.
+     */
+    private Command prepareFindTeam(String args) {
+        final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    FindTeam.MESSAGE_USAGE));
+        }
+
+        // keywords delimited by whitespace
+        final String[] keywords = matcher.group("keywords").split("\\s+");
+        final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
+        return new FindTeam(keywordSet);
+    }
+ }
+

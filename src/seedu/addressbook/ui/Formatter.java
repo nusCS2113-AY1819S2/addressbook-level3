@@ -2,6 +2,7 @@ package seedu.addressbook.ui;
 
 import seedu.addressbook.data.person.ReadOnlyPerson;
 import seedu.addressbook.data.match.ReadOnlyMatch;
+import seedu.addressbook.data.team.ReadOnlyTeam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,14 @@ public class Formatter {
         }
         return format(asIndexedList(formattedPersons));
     }
+    /** Formats the given list of teams for displaying to the user. */
+    public String formatTeamResult(List<? extends ReadOnlyTeam> teams) {
+        final List<String> formattedTeams = new ArrayList<>();
+        for (ReadOnlyTeam team : teams) {
+            formattedTeams.add(team.getAsTextShowAll());
+        }
+        return format(asIndexedList(formattedTeams));
+    }
 
     /** Formats the given list of matches for displaying to the user. */
     public String formatMatchResult(List<? extends ReadOnlyMatch> matches) {
@@ -72,5 +81,6 @@ public class Formatter {
     private static String getIndexedListItem(int visibleIndex, String listItem) {
         return String.format(MESSAGE_INDEXED_LIST_ITEM, visibleIndex, listItem);
     }
+
 
 }

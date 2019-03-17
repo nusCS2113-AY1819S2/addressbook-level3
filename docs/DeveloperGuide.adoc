@@ -16,7 +16,8 @@ endif::[]
 By: `CS2113-AY1819S2-M11-1`      Since: ``      Licence: ``
 
 == Introduction
-The LeagueTracker provides soccer league opreator with an efficient method of managing the current teams that are playing in the season. It features many ways to keep track of the teams and players playing in the league. The LeagueTracker will help manager have an easier time in keeping track of the curretn situation in the soccer league.
+
+The LeagueTracker provides football league operator with an efficient method of managing the current teams that are playing in the season. It features many ways to keep track of the teams and players playing in the league. The LeagueTracker will help manager have an easier time in keeping track of the curretn situation in the football league.
 
 
 == Setting up
@@ -118,15 +119,18 @@ Here are the steps to create a new release.
 == Product Scope
 
 *Target user profile*:
+* Football League Operators +
+* Has a need to manage leagues, team and player profiles +
+* Has a need to collect and view specific data regarding the league, matches, teams and players information in the league  +
+* Prefer typing over mouse input +
+* Prefer desktop apps over other type +
+* Reasonably comfortable using CLI apps
 
-*Has a need to manage leagues, team and player profiles
-*Has a need to collect and view specific data regarding the league and teams and players information in the league  
-*Prefer typing over mouse input
-*Prefer desktop apps over other type
-*Reasonably comfortable using CLI apps
 
+*Value proposition*: 
 
-*Value proposition*: manage League faster than a typical mouse/GUI driven app
+* Manage league/team/player faster than a typical mouse/GUI driven app. +
+* Easy access to records needed.
 
 
 [appendix]
@@ -148,13 +152,13 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |League Organiser |Able to keep track on the future match up for the playing teams| see the match scheduling
 
-|`* * ` |League Organiser | Able to see the statistic of each team | know the percentage of winnings, average of fouls per matches of each team
+|`* *` |League Organiser | Able to see the statistic of each team | know the percentage of winnings, average of fouls per matches of each team
 
 |`* *` |League Organiser |Able to tag injuries of players | know what old injuries player have
 
-|`* ` |League Organiser |Able to constantly keep track of best player | able to find out the golden leg(best scorer) of the season
+|`*` |League Organiser |Able to constantly keep track of best player | able to find out the golden leg(best scorer) of the season
 
-|`* ` |League Organiser | Select certain player to moniter performance | keep track of 'HOT' Players
+|`*` |League Organiser | Select certain player to moniter performance | keep track of 'HOT' Players
 
 |=======================================================================
 

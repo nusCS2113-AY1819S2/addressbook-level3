@@ -33,7 +33,7 @@ public class FindCommand extends Command {
     @Override
     public CommandResult execute() {
         final List<ReadOnlyPerson> personsFound = getPersonsWithNameContainingAnyKeyword(keywords);
-        return new CommandResult(getMessageForPersonListShownSummary(personsFound), personsFound, null);
+        return new CommandResult(getMessageForPersonListShownSummary(personsFound), personsFound,null);
     }
 
     /**

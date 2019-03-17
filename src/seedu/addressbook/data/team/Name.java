@@ -1,4 +1,4 @@
-package seedu.addressbook.data.person;
+package seedu.addressbook.data.team;
 
 import seedu.addressbook.data.exception.IllegalValueException;
 
@@ -6,21 +6,19 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Represents a Person's name in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
+ * Represents a Team's name in the address book.
  */
+
 public class Name implements Comparable<Name> {
 
-    public static final String EXAMPLE = "John Doe";
-    public static final String MESSAGE_NAME_CONSTRAINTS = "Person names should be spaces or alphanumeric characters";
+    public static final String EXAMPLE = "Singapore United";
+    public static final String MESSAGE_NAME_CONSTRAINTS = "Team names should be spaces or alphanumeric characters";
     public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
     public final String fullName;
 
     /**
      * Validates given name.
-     *
-     * @throws IllegalValueException if given name string is invalid.
      */
     public Name(String name) throws IllegalValueException {
         name = name.trim();
@@ -62,7 +60,7 @@ public class Name implements Comparable<Name> {
     }
 
     @Override
-    public int compareTo(Name name){
-        return this.fullName.compareToIgnoreCase(name.fullName);
+    public int compareTo(Name name){ return this.fullName.compareToIgnoreCase(name.fullName);
     }
+
 }

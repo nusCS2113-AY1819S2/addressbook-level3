@@ -12,6 +12,9 @@ public class Messages {
     public static final String MESSAGE_INVALID_MATCH_DISPLAYED_INDEX = "The match index provided is invalid";
     public static final String MESSAGE_MATCH_NOT_IN_ADDRESSBOOK = "Match could not be found in address book";
     public static final String MESSAGE_MATCHES_LISTED_OVERVIEW = "%1$d matches listed!";
+    public static final String MESSAGE_INVALID_TEAM_DISPLAYED_INDEX = "The team index provided is invalid";
+    public static final String MESSAGE_TEAM_NOT_IN_ADDRESSBOOK = "Team could not be found in address book";
+    public static final String MESSAGE_TEAMS_LISTED_OVERVIEW = "%1$d teams listed!";
     public static final String MESSAGE_PROGRAM_LAUNCH_ARGS_USAGE = "Launch command format: " +
             "java seedu.addressbook.Main [STORAGE_FILE_PATH]";
     public static final String MESSAGE_WELCOME = "Welcome to your Address Book!";
