@@ -172,3 +172,92 @@ _{More to be added}_
 . Project scope: The product is developed solely for the use of league organiser.
 
 _{More to be added}_
+
+
+[appendix]
+== Use Cases
+(For all use cases below, the System is the League Tracker and the Actor is the user, unless specified otherwise)
+
+Use Case: Add Player
+
+*MSS*
+
+. User requests to add a specific player in the League
+. User specify the following detail:
+  Name, Position Played, Age, Gender, Goals Scored, Goals Assisted, Team, Country,
+Jersey Number, Appearance,HealthStatus
+. System adds the person.
+. If successful, a message will be shown and a new player is added
+. If not successful, a message specifying reason for failure will be shown and command list
+  will be printed
++
+Use case ends.
+
+
+
+Use Case: Delete Player
+
+*MSS*
+
+. (Optional) User requests to list all players in the league
+. (Optional) System shows a list of players
+. User requests to delete a specific player in the list
+. User specify the following detail:
+  Name, Team,Jersey Number
+. System adds the person.
+. If successful, a message will be shown and the player is deleted
+. If not successful, a message specifying reason for failure will be shown and command list
+  will be printed
++
+Use case ends.
+
+
+
+Use Case: Transfer Player
+
+*MSS*
+
+. (Optional) User requests to list all players in the league
+. (Optional) System shows a list of players
+. User requests to transfer a specific player in the list
+. User specify the following detail:
+  Name,Team,Jersey Number,Original Team,Destination Team
+. System transfers the player.
+. If successful, a message will be shown and the player's details as well as details for teams will
+  be updated.
+. If not successful, a message specifying reason for failure will be shown and command list
+  will be printed
++
+Use case ends.
+
+
+
+Use Case: Edit Player
+
+*MSS*
+
+. (Optional) User requests to list all players in the league
+. (Optional) System shows a list of players
+. User requests to edit a specific player in the list
+. User first specifies the name, team and Jersey Number of the player
+. System returns a message of whether the player exists
+. If the player exists, a "Please enter new details" Message will be shown by system to ask for
+  input. Otherwise, a PlayerNotFound exception Message will be printed followed by the list of commands
+. Assume the player exists, user then specifies the following detail to be reflected in the new profile:
+  Name,Team,Jersey Number,Original Team,Destination Team
+. System updates the player.
+. If successful, a message will be shown and the player's details will
+  be updated.
+. If not successful, a message specifying reason for failure will be shown and command list
+  will be printed
++
+Use case ends.
+
+[appendix]
+==Glossary
+
+League: a group of football teams which play each other over a period for a championship.
+
+Transfer: the action taken whenever a player under contract moves between clubs. It refers to the transferring of a player's registration from one association football club to another.
+
+image::transfer.png[]
