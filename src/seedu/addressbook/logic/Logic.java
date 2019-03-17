@@ -4,6 +4,7 @@ import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.person.ReadOnlyPerson;
+import seedu.addressbook.data.match.ReadOnlyMatch;
 import seedu.addressbook.data.team.ReadOnlyTeam;
 import seedu.addressbook.parser.Parser;
 import seedu.addressbook.storage.StorageFile;
@@ -22,7 +23,11 @@ public class Logic {
     private AddressBook addressBook;
 
     /** The list of person shown to the user most recently.  */
-    private List<? extends ReadOnlyPerson> lastPersonShownList = Collections.emptyList();
+   private List<? extends ReadOnlyPerson> lastPersonShownList = Collections.emptyList();
+  
+    /** The list of match shown to the user most recently.  */
+    private List<? extends ReadOnlyMatch> lastMatchList = Collections.emptyList();
+    
     private List<? extends ReadOnlyTeam> lastTeamShownList = Collections.emptyList();
 
     public Logic() throws Exception{
@@ -56,10 +61,21 @@ public class Logic {
     }
 
     /**
-     * Unmodifiable view of the current last shown list.
+     * Unmodifiable view of the current last person list.
      */
     public List<ReadOnlyPerson> getLastPersonShownList() {
         return Collections.unmodifiableList(lastPersonShownList);
+    }
+
+    /**
+     * Unmodifiable view of the current last match list.
+     */
+    public List<ReadOnlyMatch> getLastMatchList() {
+        return Collections.unmodifiableList(lastMatchList);
+    }
+
+    protected void setLastMatchList(List<? extends ReadOnlyMatch> newList) {
+        lastMatchList = newList;
     }
 
     protected void setLastPersonShownList(List<? extends ReadOnlyPerson> newList) {
@@ -98,20 +114,26 @@ public class Logic {
     private CommandResult execute(Command command) throws Exception {
         command.setData(addressBook,
                 lastPersonShownList,
-                lastTeamShownList);
+                lastTeamShownList,
+                lastMatchList);
         CommandResult result = command.execute();
         storage.save(addressBook);
         return result;
     }
 
-    /** Updates the {@link #lastPersonShownList} if the result contains a list of Persons. */
+    /** Updates the {@link #lastPersonList} if the result contains a list of Persons.
+     *  Updates the {@link #lastMatchList} if the result contains a list of Matches.
+     */      
     private void recordResult(CommandResult result) {
         final Optional<List<? extends ReadOnlyPerson>> personList = result.getRelevantPersons();
         final Optional<List<? extends ReadOnlyTeam>> teamList = result.getRelevantTeams();
+        final Optional<List<? extends ReadOnlyMatch>> matchList = result.getRelevantMatches();
         if (personList.isPresent()) {
             lastPersonShownList = personList.get();
         } else if (teamList.isPresent()) {
             lastTeamShownList = teamList.get();
+        } else if (matchList.isPresent()) {
+            lastMatchList = matchList.get();
         }
     }
 }

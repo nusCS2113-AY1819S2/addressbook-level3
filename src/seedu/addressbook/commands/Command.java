@@ -3,6 +3,7 @@ package seedu.addressbook.commands;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.person.ReadOnlyPerson;
+import seedu.addressbook.data.match.ReadOnlyMatch;
 import seedu.addressbook.data.team.ReadOnlyTeam;
 
 import java.util.List;
@@ -15,7 +16,9 @@ import static seedu.addressbook.ui.Gui.DISPLAYED_INDEX_OFFSET;
 public abstract class Command {
     protected AddressBook addressBook;
     protected List<? extends ReadOnlyPerson> relevantPersons;
+    protected List<? extends ReadOnlyMatch> relevantMatches;
     protected List<? extends ReadOnlyTeam> relevantTeams;
+
     private int targetIndex = -1;
 
     /**
@@ -39,6 +42,13 @@ public abstract class Command {
     }
 
     /**
+     * Constructs a feedback message to summarise an operation that displayed a listing of Matches.
+     */
+    public static String getMessageForMatchListShownSummary(List<? extends ReadOnlyMatch> matchesDisplayed) {
+        return String.format(Messages.MESSAGE_MATCHES_LISTED_OVERVIEW, matchesDisplayed.size());
+    }
+      
+    /**
      * Constructs a feedback message to summarise an operation that displayed a listing of Teams.
      */
     public static String getMessageForTeamListShownSummary(List<? extends ReadOnlyTeam> teamsDisplayed) {
@@ -58,12 +68,15 @@ public abstract class Command {
     /**
      * Supplies the data the command will operate on.
      */
+
     public void setData(AddressBook addressBook,
                         List<? extends ReadOnlyPerson> relevantPersons,
-                        List<? extends ReadOnlyTeam> relevantTeams) {
+                        List<? extends ReadOnlyTeam> relevantTeams,
+                        List<? extends ReadOnlyMatch> relevantMatches) {
         this.addressBook = addressBook;
         this.relevantPersons = relevantPersons;
         this.relevantTeams = relevantTeams;
+        this.relevantMatches = relevantMatches;
     }
 
     /**
@@ -73,6 +86,10 @@ public abstract class Command {
      */
     protected ReadOnlyPerson getTargetPerson() throws IndexOutOfBoundsException {
         return relevantPersons.get(getTargetIndex() - DISPLAYED_INDEX_OFFSET);
+    }
+
+    protected ReadOnlyMatch getTargetMatch() throws IndexOutOfBoundsException {
+        return relevantMatches.get(getTargetIndex() - DISPLAYED_INDEX_OFFSET);
     }
 
     protected ReadOnlyTeam getTargetTeam() throws IndexOutOfBoundsException {
