@@ -279,6 +279,11 @@ Step 3. The user then decides to execute the command `list`. Commands that do n
 
 Step 4. The user decides to view the list sorted by their name by executing the `sort name` command. This command will call `AddressBook#sorted(String attribute)` and pass the string “name” to the method. Since the value of parameter is “name”, `SortByName()` will be called. `internalList` will then be sorted by name column in alphabetical order. At last, `internalList` will be returned and displayed to the user.
 
+=== Refer feature
+==== Current Implementation
+
+The refer feature is still currently undergoing development. In version 1.2, it takes on the architure of the find command - looks through the list of persons in addressbook and prints out those with keywords in their names. The difference is that if there is only 1 person, his particulars will not be printed - a simulation that he/ she is going to be tagged in a separate list after being removed from the address book.
+
 [appendix]
 == Non Functional Requirements
 
