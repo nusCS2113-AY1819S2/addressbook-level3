@@ -284,6 +284,67 @@ Step 4. The user decides to view the list sorted by their name by executing the 
 
 The refer feature is still currently undergoing development. In version 1.2, it takes on the architure of the find command - looks through the list of persons in addressbook and prints out those with keywords in their names. The difference is that if there is only 1 person, his particulars will not be printed - a simulation that he/ she is going to be tagged in a separate list after being removed from the address book.
 
+=== Login/Register/Logout Feature 
+==== Current Implementation
+
+The login / register mechanism is facilitated by `AccountManager`, it implements the following operations:
+
+* `AccountManager()` -- The constructor for the class `AccountManager`.
+* `loadAccounts` -- Loads all the account information from local storage.
+* `storeAccounts` -- Stores all the account information to local storage.
+* `getLoginStatus()` -- Returns the login status to the caller.
+* `setLoginStatus(boolean)` -- Sets the login status according to the parameter.
+* `accountCommandHandler(String)` -- Handles the user input, checks if there is a match for username and password match if the user's command is `login`, trys to regster a new account if the user's command is `register`, returns a string to indicate the outcome.
+* `register(String, String)` -- Creates a new account for user.
+* `logout` --  Logs the user out of the system
+
+
+Given below is an example usage scenario and how the login/register/logout mechanism behaves at each step.
+
+Step 1. The user launches the application. The `AccountManager` will be initialized, `loadAccounts` will be called to load all the accounts to a `HashMap` from local storage, the `HashMap` is used to keep track of all the account information.
+
+Step2. The user executes `register Doe 123` command to register a new account with username Doe and password 123. The new username and the corresponding password will be temporarily put into the `HashMap`.
+
+Step3. The user executes `login Doe 123` command to login to the system, if the login is successful, `setLoginStatus` will be called to set the login status accordingly, and the user will then be able to start using the addressbook.
+
+Step4. The user executes some other commands.
+
+Step5. The user executes `logout` command, `setLoginStatus` will be called to set the login status accordingly, and the user will be directed back to the login page.
+
+Step6. The user terminates the program, `storeAccounts` will be called to store all the account information in the HashMap to the local storage.
+
+The following sequence diagram shows how the login/register/logout mechanism works:
+
+image:https://raw.githubusercontent.com/cs2113-ay1819s2-t11-2/main/master/docs/images/Login_Register_Logout_Sequence_Diagram.png[width=800,height=]
+
+The following activity diagram explains the behaviour of the system during the execution of login/register/logout command.
+
+image:https://raw.githubusercontent.com/cs2113-ay1819s2-t11-2/main/master/docs/images/Login_Register_Logout_dialog_map.png[width=800,height=]
+
+==== Design Considerations
+
+===== Aspect: Data structure to keep account information during runtime
+
+* **Alternative 1 (current choice):** Use a HashMap to keep the username password pairs.
+** Pros: Higher performance, O(1) for most of the operations.
+** Cons: Larger memory overhead.
+* ** Alternative 2:** Use a TreeMap to keep the username password pairs. 
+** Pros: Lower performance, O(log(n)) for most of the operations.
+** Cons: Less memory overhead.
+
+HashMap is used because memory is not a serious issue for this program as the program is not memory consuming in nature.
+  
+===== Aspect: File format to keep account information in local storage
+
+* **Alternative 1:** Use a JSON file to store the username password pairs .
+** Pros: More compatible with HashMap and have a smaller size compared with XML.
+** Cons: Larger file size compared with CSV.
+* ** Alternative 2:** Use a CSV file to store the username password pairs.
+** Pros: Smallest in file size.
+** Cons: complicated to convert to/from HashMap. 
+* ** Alternative 2:** Use a XML file to store the username password pairs
+** Pros: More compatible with HashMap. 
+** Cons: Largest in file size.
 [appendix]
 == Non Functional Requirements
 
