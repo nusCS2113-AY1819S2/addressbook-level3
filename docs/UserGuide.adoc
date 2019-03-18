@@ -74,7 +74,7 @@ Format: `length`
 Shows a list of all persons in the address book. +
 Format: `list`
 
-== Listing all persons : `Refer`
+== Listing all persons : `refer`
 
 Shows a list of all persons in the address book with the keyword. +
 Format: `Refer John`
