@@ -16,8 +16,6 @@ public class Parser {
 
     public static final Pattern PERSON_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
-    public static final Pattern PERSON_NAME_ARGS_FORMAT = Pattern.compile("(?<name>[^/]+)");
-
     public static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 

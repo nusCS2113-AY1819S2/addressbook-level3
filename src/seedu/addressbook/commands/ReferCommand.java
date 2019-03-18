@@ -29,7 +29,7 @@ public class ReferCommand extends Command {
 //            }
 
     @Override
-    public CommandResult execute() throws IllegalValueException {
+    public CommandResult execute() {
         final List<ReadOnlyPerson> personsFound = getPersonsWithNameContainingAnyKeyword(keywords);
         return new CommandResult(getMessageForPersonListShownSummary(personsFound), personsFound);
     }
@@ -44,16 +44,19 @@ public class ReferCommand extends Command {
      * @return list of persons found
      */
     private List<ReadOnlyPerson> getPersonsWithNameContainingAnyKeyword(Set<String> keywords) {
-            int count = 0;
+            int count = 0, index = 0, insertionIndex = -1;
             final List<ReadOnlyPerson> matchedPersons = new ArrayList<>();
             final List<ReadOnlyPerson> one = new ArrayList<>();
-            List<Person> p = new ArrayList<>();
+        final List<ReadOnlyPerson> emptyList = new ArrayList<>();
+//            List<Person> p = new ArrayList<>();
             for (ReadOnlyPerson person : addressBook.getAllPersons()) {
+                index++;
             final Set<String> wordsInName = new HashSet<>(person.getName().getWordsInName());
                 if (!Collections.disjoint(wordsInName, keywords)) {
                     count++;
                     if (count == 1) {
                         one.add(person);
+                        insertionIndex = index;
                     }
                     matchedPersons.add(person);
                 }
@@ -61,7 +64,11 @@ public class ReferCommand extends Command {
             if (count == 1) {
 //              Person.ReferTo("Dr. Teo").ReferTo("Dr. Teo");
 //                Person.Refer();
-                return one;
+//
+
+//                final ReadOnlyPerson target = getTargetPerson();
+//                addressBook.removePerson(target);
+                return emptyList;
             }
             else
                 return matchedPersons;
