@@ -3,6 +3,9 @@ package seedu.addressbook.commands;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.finance.Finance;
 import seedu.addressbook.data.team.ReadOnlyTeam;
+import seedu.addressbook.data.team.UniqueTeamList;
+import seedu.addressbook.common.Messages;
+import seedu.addressbook.commands.CommandResult;
 
 /**
  * check the financial profit in USD of a team identified using it's last displayed index from the League.
@@ -34,9 +37,7 @@ public class FinanceCommand extends Command{
 
         } catch (IndexOutOfBoundsException ie) {
             return new CommandResult(Messages.MESSAGE_INVALID_TEAM_DISPLAYED_INDEX);
-        } //catch (UniqueTeamList.TeamNotFoundException tnfe) {
-            //return new CommandResult(Messages.MESSAGE_TEAM_NOT_IN_ADDRESSBOOK);
-        //not sure why this part wrong}
+        }
     }
 
 }
