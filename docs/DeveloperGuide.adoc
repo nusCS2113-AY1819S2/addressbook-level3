@@ -46,12 +46,12 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="100%",cols="22%,<23%,<25%,<30%",options="header",]
 |===========================================================================================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
-|`* * *` |user |add a new person |
-|`* * *` |user |delete a person |remove entries that I no longer need
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
-|`* *` |user |hide <<private-contact-detail, private contact details>> by default |minimize chance of someone else seeing them by accident
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |doctor |keep track of current and past appointments with patients that I have for the day |be on time to deliver treatment
+|`* * *` |doctor |have a custom-made address book  |filter out the patients that are not affiliated to me
+|`* * *` |doctor |sort my patient according to my desired attribute |prioritize the allocation of my resources
+|`* * *` |doctor |good authentication |my patients’ data are protected and not easily disclosed
+|`* *` |doctor |be able to directly refer patients to respective specialists | focus on attending to patients with medical conditions relevant to my expertise, and ensure that others are properly referred to the correct doctor to attend to their specific medical condition(s).
+|`*` |doctor with many persons in the address book |sort persons by name |locate a person easily
 |===========================================================================================================================================
 
 [appendix]
@@ -59,14 +59,133 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 (For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 
-=== Use case: Delete person
+=== Use case: UC01 - Login
 
-*MSS*
+*Main success scenario:*
 
-. User requests to list persons
-. AddressBook shows a list of persons
-. User requests to delete a specific person in the list
-. AddressBook deletes the person.
+. The user opens the addressbook
+. Addressbook prompts’ user for username and password
+. The user inputs the username/password and hits enter
+. Addresbook authenticates the user and displays welcome address
+
+Use case ends.
+
+=== Use case: UC02 - Sort entries
+
+*Main success scenario:*
+
+. User requests to sort the list in address book based on specified attribute.
+. AddressBook sorts and prints out all entries sorted by attribute specified by user.
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The format entered by the user is incorrect.
+** 1a1. AddressBook shows an error message and prints the format for user to follow.
+** 1a2. User re-enters new patient's particulars.
+* Steps 1a1 - 1a2 are repeated until the correct format is entered by the user.
++
+Use case resumes at step 2.
+
+=== Use case: UC03 - Refer patient
+
+*Main success scenario:*
+
+. The user requests to refer patient to another doctor.
+. AddressBook finds patient in the list and copies patient together with particulats to a separate list archive with an addition tag specifying which doctor he/ she is being referred to.
+. AddressBook deletes patient entry from the main list.
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The format entered by the user is incorrect.
+** 1a1. AddressBook shows an error message and prints the format for user to follow.
+** 1a2. User re-enters new patient's particulars.
+* Steps 1a1 - 1a2 are repeated until the correct format is entered by the user.
++
+Use case resumes at step 2.
+
+* 1b. Patient name has duplicates.
+** 1a1. AddressBook prints out patients' indexes and prompts users to select the correct index.
+** 1a2. User enters correct patient's index.
++
+Use case resumes at step 2.
+
+=== Use case: UC04 - Manage appointments
+
+*Main success scenario:*
+
+. The user types a command appointments in the command line
+. The system finds all scheduled appointments and prints them to the screen in chronological order
+. If possible, can print a literal timetable on the screen
+. The expired appointments should be excluded from the timetable if possible
+
+Use case ends.
+
+=== Use case: UC05 - Add patient
+
+*Main success scenario:*
+
+. User adds a patient in the address book.
+. AddressBook adds patient to address book and prints the newly added patient's details.
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The format entered by the user is incorrect.
+** 1a1. AddressBook shows an error message and prints the format for user to follow.
+** 1a2. User re-enters new patient's particulars.
+* Steps 1a1 - 1a2 are repeated until the correct format is entered by the user.
++
+Use case resumes at step 2.
+
+=== Use case: UC06 - Length of address book
+
+*Main success scenario:*
+
+. User requests for length of address book.
+. AddressBook gets the current length and prints out the number of entries.
++
+Use case ends.
+
+=== Use case: UC07 - List all entries
+
+*Main success scenario:*
+
+. User requests for list of address book.
+. AddressBook prints out all entries in the address book with their respective particulars that are not private.
++
+Use case ends.
+
+=== Use case: UC08 - Find patients
+
+*Main success scenario:*
+
+. User requests to find all patients containing any keyword in their name from the list.
+. AddressBook looks through the list and prints out all entries with the keyword specified by user.
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The format entered by the user is incorrect.
+** 1a1. AddressBook shows an error message and prints the format for user to follow.
+** 1a2. User re-enters new patient's particulars.
+* Steps 1a1 - 1a2 are repeated until the correct format is entered by the user.
++
+Use case resumes at step 2.
+
+=== Use case: UC09 - Delete patient
+
+*Main success scenario:*
+
+. User requests to list patients
+. AddressBook shows a list of patients
+. User requests to delete a specific patient in the list
+. AddressBook deletes the patient.
 +
 Use case ends.
 
@@ -80,6 +199,85 @@ Use case ends.
 ** 3a1. AddressBook shows an error message.
 +
 Use case resumes at step 2.
+
+=== Use case: UC10 - View patient by index
+
+*Main success scenario:*
+
+. User requests to view patient particulars at a certain index in the list.
+. AddressBook prints out patient with his/ her respective particulars that are not private at the specified index.
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The format entered by the user is incorrect.
+** 1a1. AddressBook shows an error message and prints the format for user to follow.
+** 1a2. User re-enters new patient's particulars.
+* Steps 1a1 - 1a2 are repeated until the correct format is entered by the user.
++
+Use case resumes at step 2.
+
+=== Use case: UC11 - View all particulars of a patient by index
+
+*Main success scenario:*
+
+. User requests to view patient with ALL particulars at a certain index in the list.
+. AddressBook prints out patient with his/ her respective particulars - including particulars that are private - at the specified index.
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The format entered by the user is incorrect.
+** 1a1. AddressBook shows an error message and prints the format for user to follow.
+** 1a2. User re-enters new patient's particulars.
+* Steps 1a1 - 1a2 are repeated until the correct format is entered by the user.
++
+Use case resumes at step 2.
+
+=== Use case: UC12 - Clear all entries
+
+*Main success scenario:*
+
+. User requests for list of address book.
+. AddressBook deletes all entries in the address book.
++
+Use case ends.
+
+=== Use case: UC13 - Exit
+
+*Main success scenario:*
+
+. User requests to exit AddressBook.
+. AddressBook cloese and quits the application.
++
+Use case ends.
+
+== Implementation
+
+This section describes some noteworthy details on how certain features are implemented.
+
+=== Sort feature
+==== Current Implementation
+
+The sort mechanism is facilitated by `UniquePersonList`. It stores a list of all persons in the address book as an `internalList`. Additionally, it implements the following operations:
+
+* `UniquePersonList#SortByName()` -- Sort `internalList` by name column in alphabetical order
+* `UniquePersonList#SortByAppointment()` -- Sort `internalList` by appointment column in alphabetical order
+* `UniquePersonList#SortByStatus()` -- Sort `internalList` by status column in alphabetical order
+
+These operations are exposed in `AddressBook` as `AddressBook#sorted(String attribute)`. Corresponding operation will be called depending on attribute the user wants to sort the list by.
+
+Given below is an example usage scenario and how the sort mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `UniquePersonList` will be initialized with the initial address book state.
+
+Step 2. The user executes `add n/…` to add some new people. These people will be added sequentially to the end of the list.
+
+Step 3. The user then decides to execute the command `list`. Commands that do not modify the address book, such as list, will usually not call `AddressBook#sorted(String attribute)` . Thus, the `internalList` remains unchanged.
+
+Step 4. The user decides to view the list sorted by their name by executing the `sort name` command. This command will call `AddressBook#sorted(String attribute)` and pass the string “name” to the method. Since the value of parameter is “name”, `SortByName()` will be called. `internalList` will then be sorted by name column in alphabetical order. At last, `internalList` will be returned and displayed to the user.
 
 [appendix]
 == Non Functional Requirements

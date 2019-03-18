@@ -4,6 +4,7 @@ import seedu.addressbook.data.person.ReadOnlyPerson;
 
 import java.util.ArrayList;
 import java.util.List;
+import seedu.addressbook.commands.Indicator;
 
 /**
  * Used for formatting text for display. e.g. for adding text decorations.
@@ -37,11 +38,21 @@ public class Formatter {
     /** Formats the given list of persons for displaying to the user. */
     public String format(List<? extends ReadOnlyPerson> persons) {
         final List<String> formattedPersons = new ArrayList<>();
-        for (ReadOnlyPerson person : persons) {
-            formattedPersons.add(person.getAsTextHidePrivate());
+        if (Indicator.getLastCommand() == "DoctorAppointments"){
+            Indicator.setLastCommand(null);
+            for (ReadOnlyPerson person : persons) {
+                formattedPersons.add(person.getAsTextNameDateDoctor());
+            }
+        }
+        else{
+            for (ReadOnlyPerson person : persons) {
+                formattedPersons.add(person.getAsTextHidePrivate());
+            }
         }
         return format(asIndexedList(formattedPersons));
     }
+    //Add a new person.getAsTextOnlyNameDate
+    //Add an indicator class.
 
     /** Formats a list of strings as an indexed list. */
     private static String asIndexedList(List<String> listItems) {
@@ -51,7 +62,12 @@ public class Formatter {
             formatted.append(getIndexedListItem(displayIndex, listItem)).append("\n");
             displayIndex++;
         }
-        return formatted.toString();
+        return "         NAME" + String.format("%1$" + 32+ "s", "DATE")
+                + String.format("%1$" + 44+ "s", "DOCTOR")
+                + "\n"
+                + "------------------------------------------------------------------------------\n"
+                + formatted.toString()
+                + "------------------------------------------------------------------------------\n";
     }
 
     /**
