@@ -15,6 +15,7 @@ import java.util.Optional;
 import static seedu.addressbook.common.Messages.*;
 
 import seedu.addressbook.login.Login;
+import seedu.addressbook.accountmanager.AccountManager;
 
 /**
  * Main Window of the GUI.
@@ -25,6 +26,7 @@ public class MainWindow {
     private Logic logic;
     private Stoppable mainApp;
     private Login login = new Login();
+    private AccountManager accountManager = new AccountManager();
 
     public MainWindow(){
     }
@@ -49,11 +51,13 @@ public class MainWindow {
         try {
             String userCommandText = commandInput.getText();
             String loginResult = login.checkLoginInfo(userCommandText);
+            String loginResult = accountManager.accountCommandHandler(userCommandText);
             CommandResult msg = new CommandResult(loginResult);
             displayResult(msg);
             clearCommandInput();
 
             if(login.getLoginStatus())
+            if(accountManager.getLoginStatus())
             {
                 CommandResult result = logic.execute(userCommandText);
                 if(isExitCommand(result)){
@@ -101,6 +105,7 @@ public class MainWindow {
     public void displayWelcomeMessage(String version, String storageFilePath) {
         String storageFileInfo = String.format(MESSAGE_USING_STORAGE_FILE, storageFilePath);
         display(MESSAGE_WELCOME, version, Login.LOGIN_PROMPT, MESSAGE_PROGRAM_LAUNCH_ARGS_USAGE, storageFileInfo);
+        display(MESSAGE_WELCOME, version, AccountManager.LOGIN_PROMPT, MESSAGE_PROGRAM_LAUNCH_ARGS_USAGE, storageFileInfo);
     }
 
     /**

@@ -1,9 +1,10 @@
 package seedu.addressbook.login;
+package seedu.addressbook.accountmanager;
 
 import java.util.Map;
 import java.util.HashMap;
 
-public class Login {
+public class AccountManager {
 
     private boolean loginStatus;
 
@@ -16,7 +17,7 @@ public class Login {
     private Map<String, String> accounts = new HashMap<String, String>();
 
 
-    public Login(){
+    public AccountManager(){
         this.loginStatus = false;
         this.accounts.put("guanlong", "12345");
         this.accounts.put("doctorA", "doctorA");
@@ -30,7 +31,7 @@ public class Login {
         return loginStatus;
     }
 
-    public String checkLoginInfo(String userCommandText){
+    public String accountCommandHandler(String userCommandText){
         String[] accountInfo = userCommandText.split(" ");
         try {
             if (accountInfo.length == 3 && accountInfo[0].equals("login")) {
