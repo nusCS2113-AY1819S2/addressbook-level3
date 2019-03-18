@@ -345,6 +345,34 @@ HashMap is used because memory is not a serious issue for this program as the pr
 * ** Alternative 2:** Use a XML file to store the username password pairs
 ** Pros: More compatible with HashMap. 
 ** Cons: Largest in file size.
+
+=== Add appointment feature 
+==== Current Implementation
+
+the add appointment feature facilitated by the `Appointment` class, it implements the following operations:
+* `Appointment(String)` -- The constructor for the class `Appointment`.
+* `toString()` -- Returns a String containing the date of the appointment.
+* `isValidDate()` -- Checks if the date is alphanumeric.
+* `equals(Object)` -- Checks if two appointment dates are equal.
+
+In addition to the Appointment class, we update the ReadOnlyPerson interface and the Person class (which implements the interface) to ensure that every Person object is constructructed with an Appointment class. To be specific, the following operations are added or updated.
+
+* `Person(Apppointment appointment)` --  The class `Person` now requires a person object during its construction.
+* `getAppointment()` -- The class `Person` implements a method that returns the Appointment object of a Person.
+* `getAsTextShowAll()` -- This operation is updated to allow a person's appointment date to be printed when an addresbook's lastShownList is printed onto the UI.
+
+Next, the parser is updated to recognize user input corresponding to the Appointment object of a person. It works together with an updated `Add` Command. When adding a new person through the add command, the user has to write `m/APPOINTMENTDATE' to signify the `Appointment` portion of a `Person`. 
+
+Given below is an example usage scenario and how the `Appointment` feature is incorporated at each step.
+
+Step 1. The user executes command `Add NAME [p]p/PHONE [p]e/EMAIL [p]a/ADDRESS m/APPOINTMENT [t/TAG]...\n\t"`
+
+Step2. The parser parses the user command, and creates the relevant object for `Appointment`, `Address` etc, and a new `Person` object is constructed. The `Logic` class executes the `AddCommand` with the prepared arguments. 
+
+Step3. The `Addressbook` trys to add the new person into the `uniquePersonList`. But first, the `uniquePersonList` checks if the new Person object is a duplicate of an existing Person object in the Addressbook. If the Person is not a duplicate, it is added into the Addresbook and the Addressbook is saved.
+
+Step4. The successful execution returns a MESSAGE_SUCCESS along with the added person. The MainWindow displays the result and prints the added person into the GUI.
+
 [appendix]
 == Non Functional Requirements
 
