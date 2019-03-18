@@ -356,7 +356,7 @@ the add appointment feature facilitated by the `Appointment` class, it implement
 * `isValidDate()` -- Checks if the date is alphanumeric.
 * `equals(Object)` -- Checks if two appointment dates are equal.
 
-In addition to the Appointment class, we update the ReadOnlyPerson interface and the Person class (which implements the interface) to ensure that every Person object is constructructed with an Appointment class. To be specific, the following operations are added or updated.
+In addition to the Appointment class, we update the ReadOnlyPerson interface and the Person class (which implements the interface) to ensure that every Person object is constructed with an Appointment class. To be specific, the following operations are added or updated.
 
 * `Person(Apppointment appointment)` --  The class `Person` now requires a person object during its construction.
 * `getAppointment()` -- The class `Person` implements a method that returns the Appointment object of a Person.
