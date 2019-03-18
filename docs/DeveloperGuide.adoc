@@ -368,11 +368,59 @@ Given below is an example usage scenario and how the `Appointment` feature is in
 
 Step 1. The user executes command `Add NAME [p]p/PHONE [p]e/EMAIL [p]a/ADDRESS m/APPOINTMENT [t/TAG]...\n\t"`
 
-Step2. The parser parses the user command, and creates the relevant object for `Appointment`, `Address` etc, and a new `Person` object is constructed. The `Logic` class executes the `AddCommand` with the prepared arguments. 
+Step 2. The parser parses the user command, and creates the relevant object for `Appointment`, `Address` etc, and a new `Person` object is constructed. The `Logic` class executes the `AddCommand` with the prepared arguments. 
 
-Step3. The `Addressbook` trys to add the new person into the `uniquePersonList`. But first, the `uniquePersonList` checks if the new Person object is a duplicate of an existing Person object in the Addressbook. If the Person is not a duplicate, it is added into the Addresbook and the Addressbook is saved.
+Step 3. The `Addressbook` trys to add the new person into the `uniquePersonList`. But first, the `uniquePersonList` checks if the new Person object is a duplicate of an existing Person object in the Addressbook. If the Person is not a duplicate, it is added into the Addresbook and the Addressbook is saved.
 
 Step4. The successful execution returns a MESSAGE_SUCCESS along with the added person. The MainWindow displays the result and prints the added person into the GUI.
+
+=== DoctorAppointments command 
+==== Current Implementation
+
+This is a new command, that is executed as `DoctorAppointments DOCTORNAME`. It finds all Persons in the addressbook that are assigned to a doctor with the same name as DOCTORNAME. Then, it prints out a list of them sorted according to Appointment dates. The first person from the top has the earliest appointment date. Let us split the implementation documentation into two parts. (1) Returning a list of persons corresponding to the user input's name of the doctor in chronological order. (2)Printing only the relevant information of these persons in a neat manner similar to a time-table.
+
+For the first part, finding and sorting the list of corresponding persons is facilitated by the `DoctorAppointmentsCommand` class and the `Person` class. The following operations are implemented in the `DoctorAppointmentsCommand` class.
+
+* `execute()` -- Upon execution, a new `Indicator` class stores information indicating that `DoctorAppointmentsCommand` is the most recently invoked command. Then, the following method `getPersonsWithNameContainingAnyKeyword(keywords)` is called. 
+* `getPersonsWithNameContainingAnyKeyword(keywords)` -- This method is adapted from the `FindCommand` class method. In addition to the original command, this method utilizes the package on LocalDate and Collections.Sort. This method updates a `LocalDate` field in a `Person` object (to be explained in the next paragraph). This method also calls SortDate() which is a separate sorting class that helps to compare `LocalDate` dates and sort them based on chronological order. This method returns an ArrayList of Persons that have the doctor's name corresponding to the user input's doctor. The ArrayList is sorted based on their appointment dates.
+
+We update the `Person` class to contain an additional field `LocalDate date` which is originally set to null for every person in the addressbook. Then the following getters and setters are implemented in the `Person` class and their method signatures are updated in the `ReadOnlyPerson` interface.
+
+* `getLocalDate()`
+* `setLocalDate()`
+
+Given below is an example usage scenario and how the Persons corresponding to a certain doctor are sorted and listed in Chronological order.
+
+Step 1. The user executes command `DoctorAppointments DOCTORNAME"`
+
+Step 2. The parser parses the command and prepares the keyword arguments for the `DoctorAppointmentsCommand` class. 
+
+Step 3. `DoctorAppointmentsCommand` is executed and the `Indicator` class records that this is the most recently invoked command. The execute command calls `getPersonsWithNameContainingAnyKeyword(keywords)`. For every Person in the existing addressbook, the Doctor's name is checked against the keyword (containing DOCTORNAME). If the doctor's name of the Person corresponds to DOCTORNAME, the `LocalDate` class parses the person's appointment date, and the Person's `LocalDate` date field is set to be the parsed appointment date.
+
+Step 4. The person is added into the matchedPersons list.
+
+Step 5. The list of matchedPersons are sorted based on the `Localdate` date field in each person.
+
+Step 6. The sorted list of matchedPersons are returned and displayed in a table format (explained in second part)
+
+For the second part of the implementation, we discuss how the list of matchedPersons is formatted to print in a certain manner. To facilitate the printing, we mainly update the format() method of the UI `Formatter` class. 
+
+To facilitate the update, a new `Indicator` class is created and a new method is implemented in the `ReadonlyPerson` interface.
+
+* `Indicator.setLastCommand(String)` --when called, stores a String that records the last invoked user Command.
+* `Indicator.getLastCommand()` --when called, provides information on the last invoked user Command.
+* `getAsTextNameDateDoctor()` --This is a method of the `ReadOnlyPerson` interface. It is a new String builder that builds a String of information about the Person. The information contains only the name and appointment date of the person. The String is padded on the right with whitespace to ensure a tabular format.
+
+The UI `Formatter` is updated in the following way.
+* `format(Persons)` --Checks if the last invoked user Command is the `DoctorAppointmentsCommand`. If it is, calls the new String builder method `getAsTextNameDateDoctor()` for each Person to be formatted.
+
+Given below is an example usage scenario and the formatter formats the Person to be printed in a tabular format. It continues from Step 6 above. 
+
+Step 7. When the dispay method is called in step 6, the format method in `Formatter` is called. 
+
+Step 8. A separate String builder method getAsTextNameDateDoctor() is called, and the String is padded on the right by whitespace. 
+
+Step 9. The `MainWindow` displays the newly formatted Persons in neat rows, displaying only the relevant information on Name and Appointment Date.
 
 [appendix]
 == Non Functional Requirements
