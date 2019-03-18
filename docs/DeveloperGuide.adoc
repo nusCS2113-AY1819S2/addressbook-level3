@@ -315,11 +315,11 @@ Step6. The user terminates the program, `storeAccounts` will be called to store 
 
 The following sequence diagram shows how the login/register/logout mechanism works:
 
-image:https://raw.githubusercontent.com/liguanlong/addressbook-level3/W7/docs/images/Login_Register_Logout_sequence.png[width=800,height=]
+image:https://raw.githubusercontent.com/cs2113-ay1819s2-t11-2/main/master/docs/images/Login_Register_Logout_Sequence_Diagram.png[width=800,height=]
 
 The following activity diagram explains the behaviour of the system during the execution of login/register/logout command.
 
-image:https://raw.githubusercontent.com/liguanlong/addressbook-level3/W7/docs/images/Login_Register_Logout_activity.png[width=800,height=]
+image:https://raw.githubusercontent.com/cs2113-ay1819s2-t11-2/main/master/docs/images/Login_Register_Logout_dialog_map.png[width=800,height=]
 
 ==== Design Considerations
 
