@@ -350,6 +350,7 @@ HashMap is used because memory is not a serious issue for this program as the pr
 ==== Current Implementation
 
 the add appointment feature facilitated by the `Appointment` class, it implements the following operations:
+
 * `Appointment(String)` -- The constructor for the class `Appointment`.
 * `toString()` -- Returns a String containing the date of the appointment.
 * `isValidDate()` -- Checks if the date is alphanumeric.
