@@ -10,7 +10,7 @@ public class Doctor {
     public static final String MESSAGE_NAME_CONSTRAINTS = "Doctor's names should be spaces or alphanumeric characters";
     public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
-    public final String doctorName;
+    public String doctorName;
 
     /**
      * Validates given name.
@@ -38,6 +38,15 @@ public class Doctor {
      */
     public List<String> getWordsInName() {
         return Arrays.asList(doctorName.split("\\s+"));
+    }
+
+    // to change doctor name
+    public void ReferTo (String newDoctor) throws IllegalValueException {
+        newDoctor = newDoctor.trim();
+        if (!isValidName(newDoctor)) {
+            throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
+        }
+        this.doctorName = newDoctor;
     }
 
     @Override

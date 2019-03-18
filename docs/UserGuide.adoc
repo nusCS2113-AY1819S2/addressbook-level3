@@ -74,6 +74,11 @@ Format: `length`
 Shows a list of all persons in the address book. +
 Format: `list`
 
+== Listing all persons : `Refer`
+
+Shows a list of all persons in the address book with the keyword. +
+Format: `Refer John`
+
 == Listing all persons in sorted order : `sort`
 
 Shows a list of all persons sorted by desired attribute in alphabetical order in the address book. +
