@@ -6,6 +6,7 @@ import java.util.Set;
 import java.time.LocalDate;
 
 
+import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.tag.Tag;
 
 /**
@@ -24,6 +25,7 @@ public class Person implements ReadOnlyPerson {
     private Status status;
 
     private final Set<Tag> tags = new HashSet<>();
+
     /**
      * Assumption: Every field must be present and not null.
      */
@@ -125,4 +127,11 @@ public class Person implements ReadOnlyPerson {
         return getAsTextShowAll();
     }
 
+    public static Person Refer () {
+//        this.doctorName = Doctor("Dr. Teo");
+        return null;
+    }
+//    public void Refer (Doctor newDoctor) {
+//        this.doctor = newDoctor;
+//    }
 }
