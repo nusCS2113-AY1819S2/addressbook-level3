@@ -62,7 +62,20 @@ public class AddressBook {
      * Sorts all persons from the address book.
      */
 
-    public void sorted()  { allPersons.sort();}
+    public void sorted(String attribute) {
+        attribute = attribute.trim();
+        switch (attribute) {
+            case "name":
+                allPersons.SortByName();
+                break;
+            case "appointment":
+                allPersons.SortByAppointment();
+                break;
+            case "status":
+                allPersons.SortByStatus();
+                break;
+        }
+    }
 
     /**
      * Clears all persons from the address book.
