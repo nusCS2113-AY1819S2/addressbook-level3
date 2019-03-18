@@ -1,4 +1,3 @@
-package seedu.addressbook.login;
 package seedu.addressbook.accountmanager;
 
 import java.util.Map;
