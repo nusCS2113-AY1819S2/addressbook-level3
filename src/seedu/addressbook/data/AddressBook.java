@@ -43,12 +43,16 @@ public class AddressBook {
      *
      * @throws DuplicatePersonException if an equivalent person already exists.
      */
-    public void addPerson(Person toAdd) throws DuplicatePersonException { allPersons.add(toAdd); }
+    public void addPerson(Person toAdd) throws DuplicatePersonException {
+        allPersons.add(toAdd);
+    }
 
     /**
      * Adds a Team to the address book.
      */
-    public void addTeam(Team toAdd) throws UniqueTeamList.DuplicateTeamException { allTeams.add(toAdd); }
+    public void addTeam(Team toAdd) throws UniqueTeamList.DuplicateTeamException {
+        allTeams.add(toAdd);
+    }
 
 
     /**
@@ -56,6 +60,13 @@ public class AddressBook {
      */
     public boolean containsPerson(ReadOnlyPerson key) {
         return allPersons.contains(key);
+    }
+
+    /**
+     * Checks if an equivalent person exists in the address book.
+     */
+    public boolean containsTeam(ReadOnlyTeam key) {
+        return allTeams.contains(key);
     }
 
     /**
@@ -76,7 +87,9 @@ public class AddressBook {
     /**
      * Sorts all persons from the address book.
      */
-    public void sort() { allPersons.sort(); }
+    public void sort() {
+        allPersons.sort();
+    }
 
     /**
      * Clears all persons from the address book.
@@ -92,6 +105,13 @@ public class AddressBook {
         allTeams.clear();
     }
 
+    /**
+     * Edits the equivalent player from League Tracker
+     */
+    public void editTeam(ReadOnlyTeam toRemove, Team toReplace) throws UniqueTeamList.TeamNotFoundException {
+        allTeams.edit(toRemove, toReplace);
+    }
+
 
     /**
      * Defensively copied UniquePersonList of all persons in the address book at the time of the call.
@@ -100,7 +120,14 @@ public class AddressBook {
         return new UniquePersonList(allPersons);
     }
 
-    public UniqueTeamList getAllTeams() { return new UniqueTeamList(allTeams); }
+    /**
+     * Defensively copied UniqueTeamList of all teams in the address book at the time of the call.
+     */
+
+    public UniqueTeamList getAllTeams() {
+        return new UniqueTeamList(allTeams);
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

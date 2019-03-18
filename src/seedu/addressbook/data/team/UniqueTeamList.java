@@ -112,6 +112,17 @@ public class UniqueTeamList implements Iterable<Team> {
         Collections.sort(internalList,CustomTeamCompare);
     }
 
+    /**
+     * Removes the equivalent employee from the list.
+     */
+    public void edit(ReadOnlyTeam toRemove, Team toReplace) throws TeamNotFoundException {
+        final boolean teamFoundAndDeleted = internalList.remove(toRemove);
+        if (!teamFoundAndDeleted) {
+            throw new TeamNotFoundException();
+        }
+        internalList.add(toReplace);
+    }
+
     @Override
     public Iterator<Team> iterator() {
         return internalList.iterator();
