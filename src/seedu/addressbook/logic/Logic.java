@@ -17,12 +17,17 @@ import java.util.Optional;
  */
 public class Logic {
 
-
     private StorageFile storage;
     private AddressBook addressBook;
 
-    /** The list of person shown to the user most recently.  */
+/**
+ * The list of person shown to the user most recently.
+ */
     private List<? extends ReadOnlyPerson> lastPersonShownList = Collections.emptyList();
+
+/**
+ * The list of team shown to the user most recently.
+ */
     private List<? extends ReadOnlyTeam> lastTeamShownList = Collections.emptyList();
 
     public Logic() throws Exception{

@@ -63,7 +63,7 @@ public class AddressBook {
     }
 
     /**
-     * Checks if an equivalent person exists in the address book.
+     * Checks if an equivalent team exists in the address book.
      */
     public boolean containsTeam(ReadOnlyTeam key) {
         return allTeams.contains(key);

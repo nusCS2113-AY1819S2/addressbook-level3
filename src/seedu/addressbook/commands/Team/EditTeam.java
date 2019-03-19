@@ -19,11 +19,11 @@ public class EditTeam extends Command {
     public static final String COMMAND_WORD = "editTeam";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
-            + "Edits the details of the employee identified by the index number used in the displayed team list.\n"
+            + "Edits the details of the team identified by the index number used in the displayed team list.\n"
             + "Existing values will be overwritten by the input values.\n"
-            + "(listTeam must be used before this command to retrieve index for employee to be deleted)\n\n"
+            + "(listTeam must be used before this command to retrieve index for team to be deleted)\n\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[NAME]"
+            + "[n/NAME]"
             + "[c/COUNTRY] "
             + "[s/SPONSOR] "
             + "[t/TAGS]\n"
@@ -67,17 +67,17 @@ public class EditTeam extends Command {
     }
 
     /**
-     * Creates and returns a Team with the details of teamToEdit edited with editEmployeeDescriptor.
+     * Creates and returns a Team with the details of teamToEdit edited with editTeamDescriptor.
      */
-    private static Team createEditedTeam(ReadOnlyTeam employeeToEdit,
-                                         EditTeamDescriptor editEmployeeDescriptor) {
+    private static Team createEditedTeam(ReadOnlyTeam teamToEdit,
+                                         EditTeamDescriptor editTeamDescriptor) {
 
-        Name updatedName = checkName(editEmployeeDescriptor.getName(), employeeToEdit.getName());
-        Country updatedCountry = checkCountry(editEmployeeDescriptor.getCountry(), employeeToEdit.getCountry());
-        Sponsor updatedSponsor = checkSponsor(editEmployeeDescriptor.getSponsor(), employeeToEdit.getSponsor());
-        Set<Tag> updatedTagset = checkTagset(editEmployeeDescriptor.getTags(), employeeToEdit.getTags());
+        Name updatedName = checkName(editTeamDescriptor.getName(), teamToEdit.getName());
+        Country updatedCountry = checkCountry(editTeamDescriptor.getCountry(), teamToEdit.getCountry());
+        Sponsor updatedSponsor = checkSponsor(editTeamDescriptor.getSponsor(), teamToEdit.getSponsor());
+        Set<Tag> updatedTagset = checkTagset(editTeamDescriptor.getTags(), teamToEdit.getTags());
 
-        return new Team(updatedName, updatedCountry, updatedSponsor, employeeToEdit.getPlayers(), updatedTagset);
+        return new Team(updatedName, updatedCountry, updatedSponsor, teamToEdit.getPlayers(), updatedTagset);
     }
 
     /**

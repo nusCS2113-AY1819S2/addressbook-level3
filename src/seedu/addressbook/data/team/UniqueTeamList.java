@@ -113,7 +113,7 @@ public class UniqueTeamList implements Iterable<Team> {
     }
 
     /**
-     * Removes the equivalent employee from the list.
+     * Removes the equivalent team from the list.
      */
     public void edit(ReadOnlyTeam toRemove, Team toReplace) throws TeamNotFoundException {
         final boolean teamFoundAndDeleted = internalList.remove(toRemove);
