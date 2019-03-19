@@ -39,6 +39,17 @@ public class Parser {
                     + "s/(?<sponsor>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags;
 
+
+    public static final Pattern TEAM_EDIT_DATA_ARGS_FORMAT =
+            Pattern.compile("(?<targetIndex>\\d+)"
+                    +"(( n/(?<name>[^/]+))?)"
+                    + "(( c/(?<country>[^/]+))?)"
+                    + "(( s/(?<sponsor>[^/]+))?)"
+                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags;
+
+    public static final Pattern TEAM_EDIT_DATA_NOARGS_FORMAT =
+            Pattern.compile("(?<targetIndex>\\d+)");
+
     /**
      * Signals that the user input could not be parsed.
      */
@@ -116,6 +127,9 @@ public class Parser {
 
             case ListTeam.COMMAND_WORD:
                 return new ListTeam();
+
+            case EditTeam.COMMAND_WORD:
+                return prepareEditTeam(arguments);
 
             case SortCommand.COMMAND_WORD:
                 return new SortCommand();
@@ -219,6 +233,7 @@ public class Parser {
 
     /**
      * Extracts the new person's tags from the add command's tag arguments string.
+     * Extracts the new team's tags from the addTeam command's tag arguments string.
      * Merges duplicate tag strings.
      */
     private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
@@ -291,6 +306,41 @@ public class Parser {
         }
     }
 
+
+    /**
+     * Parses arguments in the context of the Edit command.
+     */
+    private Command prepareEditTeam(String args) {
+
+        final Matcher checkForArgs = TEAM_EDIT_DATA_NOARGS_FORMAT.matcher(args.trim());
+        if (checkForArgs.matches()) {
+            return new IncorrectCommand(String.format(
+                    EditTeam.MESSAGE_NOARGS,
+                    EditTeam.MESSAGE_USAGE));
+        }
+        final Matcher matcher = TEAM_EDIT_DATA_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(
+                    MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditTeam.MESSAGE_USAGE));
+        }
+        try {
+            final int targetIndex = parseArgsAsDisplayedIndex(matcher.group("targetIndex"));
+            return new EditTeam(
+                    targetIndex,
+                    matcher.group("name"),
+                    matcher.group("country"),
+                    matcher.group("sponsor"),
+                    getTagsFromArgs(matcher.group("tagArguments"))
+            );
+        } catch (ParseException | NumberFormatException e) {
+            return new IncorrectCommand(String.format(
+                    MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditTeam.MESSAGE_USAGE));
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+    }
 
     /**
      * Parses arguments in the context of the view command.

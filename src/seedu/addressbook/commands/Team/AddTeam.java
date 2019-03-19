@@ -23,7 +23,7 @@ public class AddTeam extends Command {
             + " Singapore United c/Singapore s/5487 t/Lousy";
 
     public static final String MESSAGE_SUCCESS = "New Team added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This Team already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_TEAM = "This Team already exists in the address book";
 
     private final Team toAdd;
 
@@ -49,7 +49,9 @@ public class AddTeam extends Command {
         );
     }
 
-    public AddTeam(Team toAdd) { this.toAdd = toAdd; }
+    public AddTeam(Team toAdd) {
+        this.toAdd = toAdd;
+    }
 
     public ReadOnlyTeam getTeam() {
         return toAdd;
@@ -61,7 +63,7 @@ public class AddTeam extends Command {
             addressBook.addTeam(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTeamList.DuplicateTeamException dpe) {
-            return new CommandResult(MESSAGE_DUPLICATE_PERSON);
+            return new CommandResult(MESSAGE_DUPLICATE_TEAM);
         }
     }
 }

@@ -56,12 +56,16 @@ public class AddressBook {
      *
      * @throws DuplicatePersonException if an equivalent person already exists.
      */
-    public void addPerson(Person toAdd) throws DuplicatePersonException { allPersons.add(toAdd); }
+    public void addPerson(Person toAdd) throws DuplicatePersonException {
+        allPersons.add(toAdd);
+    }
 
     /**
      * Adds a Team to the address book.
      */
-    public void addTeam(Team toAdd) throws UniqueTeamList.DuplicateTeamException { allTeams.add(toAdd); }
+    public void addTeam(Team toAdd) throws UniqueTeamList.DuplicateTeamException {
+        allTeams.add(toAdd);
+    }
 
 
     /**
@@ -81,10 +85,18 @@ public class AddressBook {
     }
 
     /**
-     * Checks if an equivalent match exists in the address book.
+     * Checks if an equivalent team exists in the address book.
      */
+    public boolean containsTeam(ReadOnlyTeam key) {
+        return allTeams.contains(key);
+    }
+  
+    /**
+     * Checks if an equivalent match exists in the address book.
+     */  
     public boolean containsMatch(ReadOnlyMatch key) {
         return allMatches.contains(key);
+
     }
 
     /**
@@ -122,8 +134,8 @@ public class AddressBook {
     /**
      * Sorts all persons from the address book.
      */
-    public void sort() { 
-        allPersons.sort(); 
+    public void sort() {
+        allPersons.sort();
     }
 
     /**
@@ -140,6 +152,13 @@ public class AddressBook {
         allTeams.clear();
     }
 
+    /**
+     * Edits the equivalent player from League Tracker
+     */
+    public void editTeam(ReadOnlyTeam toRemove, Team toReplace) throws UniqueTeamList.TeamNotFoundException {
+        allTeams.edit(toRemove, toReplace);
+    }
+
 
     /**
      * Defensively copied UniquePersonList of all persons in the address book at the time of the call.
@@ -154,7 +173,10 @@ public class AddressBook {
     public UniqueMatchList getAllMatches() {
         return new UniqueMatchList(allMatches);
     }
-
+  
+    /**
+     * Defensively copied UniqueTeamList of all matches in the address book at the time of the call.
+     */
     public UniqueTeamList getAllTeams() {
         return new UniqueTeamList(allTeams); 
     }

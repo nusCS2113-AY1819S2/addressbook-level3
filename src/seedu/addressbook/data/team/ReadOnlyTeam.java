@@ -3,7 +3,6 @@ package seedu.addressbook.data.team;
 import seedu.addressbook.data.person.Person;
 import seedu.addressbook.data.tag.Tag;
 
-import java.util.List;
 import java.util.Set;
 
 /**
