@@ -19,6 +19,15 @@ By: `CS2113-AY1819S2-M11-1`      Since: ``      Licence: ``
 
 The LeagueTracker provides football league operator with an efficient method of managing the current teams that are playing in the season. It features many ways to keep track of the teams and players playing in the league. The LeagueTracker will help manager have an easier time in keeping track of the curretn situation in the football league.
 
+== Design
+
+=== Architecture
+
+.Architecture Diagram
+image::Architecture.png[width="600"]
+
+The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+
 
 == Setting up
 
@@ -172,3 +181,139 @@ _{More to be added}_
 . Project scope: The product is developed solely for the use of league organiser.
 
 _{More to be added}_
+
+
+[appendix]
+== Use Cases
+(For all use cases below, the System is the League Tracker and the Actor is the user, unless specified otherwise)
+
+Use Case: Add Player
+
+*MSS*
+
+. User requests to add a specific player in the League
+. User specify the following detail:
+  Name, Position Played, Age, Gender, Goals Scored, Goals Assisted, Team, Country,
+Jersey Number, Appearance,HealthStatus
+. System adds the person.
+. If successful, a message will be shown and a new player is added
+. If not successful, a message specifying reason for failure will be shown and command list
+  will be printed
++
+Use case ends.
+
+
+
+Use Case: Delete Player
+
+*MSS*
+
+. (Optional) User requests to list all players in the league
+. (Optional) System shows a list of players
+. User requests to delete a specific player in the list
+. User specify the following detail:
+  Name, Team,Jersey Number
+. System adds the person.
+. If successful, a message will be shown and the player is deleted
+. If not successful, a message specifying reason for failure will be shown and command list
+  will be printed
++
+Use case ends.
+
+
+
+Use Case: Transfer Player
+
+*MSS*
+
+. (Optional) User requests to list all players in the league
+. (Optional) System shows a list of players
+. User requests to transfer a specific player in the list
+. User specify the following detail:
+  Name,Team,Jersey Number,Original Team,Destination Team
+. System transfers the player.
+. If successful, a message will be shown and the player's details as well as details for teams will
+  be updated.
+. If not successful, a message specifying reason for failure will be shown and command list
+  will be printed
++
+Use case ends.
+
+
+
+Use Case: Edit Player
+
+*MSS*
+
+. (Optional) User requests to list all players in the league
+. (Optional) System shows a list of players
+. User requests to edit a specific player in the list
+. User first specifies the name, team and Jersey Number of the player
+. System returns a message of whether the player exists
+. If the player exists, a "Please enter new details" Message will be shown by system to ask for
+  input. Otherwise, a PlayerNotFound exception Message will be printed followed by the list of commands
+. Assume the player exists, user then specifies the following detail to be reflected in the new profile:
+  Name,Team,Jersey Number,Original Team,Destination Team
+. System updates the player.
+. If successful, a message will be shown and the player's details will
+  be updated.
+. If not successful, a message specifying reason for failure will be shown and command list
+  will be printed
++
+Use case ends.
+
+[appendix]
+==Glossary
+
+League: a group of football teams which play each other over a period for a championship.
+
+Transfer: the action taken whenever a player under contract moves between clubs. It refers to the transferring of a player's registration from one association football club to another.
+
+image::transfer.png[]
+
+
+[appendix]
+== Instructions for Manual Testing
+
+Given below are instructions to test the app manually.
+
+[NOTE]
+These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+
+=== Launch and Shutdown
+
+. Initial launch
+
+.. Download the jar file and copy into an empty folder
+.. Double-click the jar file +
+   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+
+. Saving window preferences
+
+.. Resize the window to an optimum size. Move the window to a different location. Close the window.
+.. Re-launch the app by double-clicking the jar file. +
+   Expected: The most recent window size and location is retained.
+
+_{ more test cases ... }_
+
+=== Deleting a person
+
+. Deleting a person while all persons are listed
+
+.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Test case: `delete 1` +
+   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete 0` +
+   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+   Expected: Similar to previous.
+
+_{ more test cases ... }_
+
+=== Saving data
+
+. Dealing with missing/corrupted data files
+
+.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+
+_{ more test cases ... }_
