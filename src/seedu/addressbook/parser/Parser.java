@@ -20,22 +20,21 @@ import seedu.addressbook.commands.FindCommand;
 import seedu.addressbook.commands.HelpCommand;
 import seedu.addressbook.commands.IncorrectCommand;
 import seedu.addressbook.commands.ListCommand;
+import seedu.addressbook.commands.SortCommand;
+import seedu.addressbook.commands.ViewAllCommand;
+import seedu.addressbook.commands.ViewCommand;
 import seedu.addressbook.commands.match.AddMatchCommand;
 import seedu.addressbook.commands.match.ClearMatchCommand;
 import seedu.addressbook.commands.match.DeleteMatchCommand;
 import seedu.addressbook.commands.match.FindMatchCommand;
 import seedu.addressbook.commands.match.ListMatchCommand;
-import seedu.addressbook.commands.SortCommand;
 import seedu.addressbook.commands.team.AddTeam;
 import seedu.addressbook.commands.team.ClearTeam;
 import seedu.addressbook.commands.team.DeleteTeam;
 import seedu.addressbook.commands.team.EditTeam;
 import seedu.addressbook.commands.team.FindTeam;
 import seedu.addressbook.commands.team.ListTeam;
-import seedu.addressbook.commands.ViewAllCommand;
-import seedu.addressbook.commands.ViewCommand;
 import seedu.addressbook.data.exception.IllegalValueException;
-
 
 /**
  * Parses user input.
@@ -69,7 +68,7 @@ public class Parser {
 
     public static final Pattern TEAM_EDIT_DATA_ARGS_FORMAT =
             Pattern.compile("(?<targetIndex>\\d+)"
-                    +"(( n/(?<name>[^/]+))?)"
+                    + "(( n/(?<name>[^/]+))?)"
                     + "(( c/(?<country>[^/]+))?)"
                     + "(( s/(?<sponsor>[^/]+))?)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags;
@@ -106,18 +105,17 @@ public class Parser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-
             case AddCommand.COMMAND_WORD:
                 return prepareAddPerson(arguments);
 
             case AddTeam.COMMAND_WORD:
-                return AddTeam(arguments);
+                return addTeam(arguments);
 
             case DeleteCommand.COMMAND_WORD:
                 return prepareDeletePerson(arguments);
 
             case DeleteTeam.COMMAND_WORD:
-                return DelTeam(arguments);
+                return delTeam(arguments);
 
             case ClearCommand.COMMAND_WORD:
                 return new ClearCommand();
@@ -176,8 +174,10 @@ public class Parser {
         }
     }
 
-
-    private Command AddTeam(String args) {
+    /**
+     * Parses arguments in the context of the add team command.
+     */
+    private Command addTeam(String args) {
         final Matcher matcher = TEAM_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
@@ -301,14 +301,15 @@ public class Parser {
             final int targetIndex = parseArgsAsDisplayedIndex(args);
             return new DeleteMatchCommand(targetIndex);
         } catch (ParseException | NumberFormatException e) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteMatchCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DeleteMatchCommand.MESSAGE_USAGE));
         }
     }
 
     /**
      * Parses arguments in the context of the delete team command.
      */
-    private Command DelTeam(String args) {
+    private Command delTeam(String args) {
         try {
             final int targetIndex = parseArgsAsDisplayedIndex(args);
             return new DeleteTeam(targetIndex);
@@ -408,7 +409,7 @@ public class Parser {
      *
      * @param args arguments string to parse as index number
      * @return the parsed index number
-     * @throws ParseException if no region of the args string could be found for the index
+     * @throws ParseException        if no region of the args string could be found for the index
      * @throws NumberFormatException the args string region is not a valid number
      */
     private int parseArgsAsDisplayedIndex(String args) throws ParseException, NumberFormatException {
@@ -473,4 +474,4 @@ public class Parser {
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindTeam(keywordSet);
     }
- }
+}

@@ -1,7 +1,7 @@
 package seedu.addressbook.commands;
 
-import java.util.Set;
 import java.util.HashSet;
+import java.util.Set;
 
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.player.Address;
@@ -12,10 +12,6 @@ import seedu.addressbook.data.player.Phone;
 import seedu.addressbook.data.player.ReadOnlyPerson;
 import seedu.addressbook.data.player.UniquePersonList;
 import seedu.addressbook.data.tag.Tag;
-
-
-
-
 
 /**
  * Adds a player to the address book.

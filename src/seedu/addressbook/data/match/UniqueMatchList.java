@@ -124,8 +124,7 @@ public class UniqueMatchList implements Iterable<Match> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueMatchList // instanceof handles nulls
-                && this.internalList.equals(
-                ((UniqueMatchList) other).internalList));
+                && this.internalList.equals(((UniqueMatchList) other).internalList));
     }
 
     @Override

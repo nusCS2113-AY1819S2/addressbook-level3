@@ -47,7 +47,7 @@ public abstract class Command {
     public static String getMessageForMatchListShownSummary(List<? extends ReadOnlyMatch> matchesDisplayed) {
         return String.format(Messages.MESSAGE_MATCHES_LISTED_OVERVIEW, matchesDisplayed.size());
     }
-      
+
     /**
      * Constructs a feedback message to summarise an operation that displayed a listing of Teams.
      */

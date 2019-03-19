@@ -1,8 +1,5 @@
 package seedu.addressbook.data.team;
 
-import seedu.addressbook.common.Utils;
-import seedu.addressbook.data.exception.DuplicateDataException;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -10,6 +7,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+
+import seedu.addressbook.common.Utils;
+import seedu.addressbook.data.exception.DuplicateDataException;
 
 /**
  * A list of Teams. Does not allow null elements or duplicates.
@@ -96,8 +96,8 @@ public class UniqueTeamList implements Iterable<Team> {
      * Removes the equivalent team from the list.
      */
     public void remove(ReadOnlyTeam toRemove) throws TeamNotFoundException {
-        final boolean TeamFoundAndDeleted = internalList.remove(toRemove);
-        if (!TeamFoundAndDeleted) {
+        final boolean teamFoundAndDeleted = internalList.remove(toRemove);
+        if (!teamFoundAndDeleted) {
             throw new TeamNotFoundException();
         }
     }
@@ -113,8 +113,8 @@ public class UniqueTeamList implements Iterable<Team> {
      * Sort all Teams in list by ascending alphabetical order.
      */
     public void sort() {
-        Comparator<Team> CustomTeamCompare = Comparator.comparing(Team::getName);
-        Collections.sort(internalList,CustomTeamCompare);
+        Comparator<Team> customTeamCompare = Comparator.comparing(Team::getName);
+        Collections.sort(internalList, customTeamCompare);
     }
 
     /**
@@ -137,8 +137,7 @@ public class UniqueTeamList implements Iterable<Team> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueTeamList // instanceof handles nulls
-                && this.internalList.equals(
-                         ((UniqueTeamList) other).internalList));
+                && this.internalList.equals(((UniqueTeamList) other).internalList));
     }
 
     @Override

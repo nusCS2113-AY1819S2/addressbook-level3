@@ -1,12 +1,12 @@
 package seedu.addressbook.data.player;
 
-import seedu.addressbook.data.exception.IllegalValueException;
-
 import java.util.Arrays;
 import java.util.List;
 
+import seedu.addressbook.data.exception.IllegalValueException;
+
 /**
- * Represents a Person's name in the address book.
+ * Represents a player's name in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name implements Comparable<Name> {
@@ -62,7 +62,7 @@ public class Name implements Comparable<Name> {
     }
 
     @Override
-    public int compareTo(Name name){
+    public int compareTo(Name name) {
         return this.fullName.compareToIgnoreCase(name.fullName);
     }
 }

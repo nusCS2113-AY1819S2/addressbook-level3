@@ -1,12 +1,11 @@
 package seedu.addressbook.data.team;
 
-
-import seedu.addressbook.data.player.Person;
-import seedu.addressbook.data.tag.Tag;
-
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+
+import seedu.addressbook.data.player.Person;
+import seedu.addressbook.data.tag.Tag;
 
 /**
  * Represents a team in the address book.
@@ -23,7 +22,7 @@ public class Team implements ReadOnlyTeam {
     /**
      * Assumption: Every field must be present and not null.
      */
-    public Team(Name name, Country country,Sponsor sponsor ,Set<Person> playerlist, Set<Tag> tags) {
+    public Team(Name name, Country country, Sponsor sponsor, Set<Person> playerlist, Set<Tag> tags) {
         this.name = name;
         this.country = country;
         this.sponsor = sponsor;
@@ -35,7 +34,7 @@ public class Team implements ReadOnlyTeam {
      * Copy constructor.
      */
     public Team(ReadOnlyTeam source) {
-        this(source.getName(), source.getCountry(),source.getSponsor(),source.getPlayers(), source.getTags());
+        this(source.getName(), source.getCountry(), source.getSponsor(), source.getPlayers(), source.getTags());
     }
 
     @Override
@@ -86,7 +85,7 @@ public class Team implements ReadOnlyTeam {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, country, sponsor, playerlist ,tags);
+        return Objects.hash(name, country, sponsor, playerlist, tags);
     }
 
     @Override

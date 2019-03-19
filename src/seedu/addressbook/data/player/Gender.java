@@ -1,13 +1,17 @@
 package seedu.addressbook.data.player;
 
-import seedu.addressbook.data.exception.IllegalValueException;
-
 import java.util.Arrays;
 import java.util.List;
 
+import seedu.addressbook.data.exception.IllegalValueException;
+
+/**
+ * Represents gender of a player made in the address book.
+ */
 public class Gender {
     public static final String EXAMPLE = "Male";
-    public static final String MESSAGE_GENDER_CONSTRAINTS = "Player's Gender should be spaces or alphanumeric characters";
+    public static final String MESSAGE_GENDER_CONSTRAINTS = "Player's Gender"
+            + "should be spaces or alphanumeric characters";
     public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
     public final String fullGender;
@@ -17,7 +21,7 @@ public class Gender {
      *
      * @throws IllegalValueException if given gender string is invalid.
      */
-    public Gender (String gender ) throws IllegalValueException {
+    public Gender (String gender) throws IllegalValueException {
         gender = gender.trim();
         if (!isValidGender(gender)) {
             throw new IllegalValueException(MESSAGE_GENDER_CONSTRAINTS);

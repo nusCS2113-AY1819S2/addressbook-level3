@@ -7,7 +7,8 @@ import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.tag.Tag;
 
 /**
- * Stores the details to edit the team with. Each non-empty field value will replace the corresponding field value of the team.
+ * Stores the details to edit the team with.
+ * Each non-empty field value will replace the corresponding field value of the team.
  */
 
 public class EditTeamDescriptor {

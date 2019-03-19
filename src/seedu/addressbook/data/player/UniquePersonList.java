@@ -1,16 +1,20 @@
 package seedu.addressbook.data.player;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
+
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.DuplicateDataException;
-
-import java.util.*;
 
 /**
  * A list of persons. Does not allow null elements or duplicates.
  *
  * @see Person#equals(Object)
- * @see Utils#elementsAreUnique(Collection)
  */
 public class UniquePersonList implements Iterable<Person> {
 
@@ -117,9 +121,9 @@ public class UniquePersonList implements Iterable<Person> {
     /**
      * Sort all persons in list by ascending alphabetical order.
      */
-    public void sort(){
-        Comparator<Person> CustomPersonCompare = Comparator.comparing(Person::getName);
-        Collections.sort(internalList,CustomPersonCompare);
+    public void sort() {
+        Comparator<Person> customPersonCompare = Comparator.comparing(Person::getName);
+        Collections.sort(internalList, customPersonCompare);
     }
 
     @Override
@@ -131,8 +135,7 @@ public class UniquePersonList implements Iterable<Person> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniquePersonList // instanceof handles nulls
-                && this.internalList.equals(
-                        ((UniquePersonList) other).internalList));
+                && this.internalList.equals(((UniquePersonList) other).internalList));
     }
 
     @Override

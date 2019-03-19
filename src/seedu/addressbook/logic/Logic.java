@@ -7,8 +7,8 @@ import java.util.Optional;
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.AddressBook;
-import seedu.addressbook.data.player.ReadOnlyPerson;
 import seedu.addressbook.data.match.ReadOnlyMatch;
+import seedu.addressbook.data.player.ReadOnlyPerson;
 import seedu.addressbook.data.team.ReadOnlyTeam;
 import seedu.addressbook.parser.Parser;
 import seedu.addressbook.storage.StorageFile;
@@ -21,20 +21,19 @@ public class Logic {
     private StorageFile storage;
     private AddressBook addressBook;
 
+    /**
+     * The list of player shown to the user most recently.
+     */
+    private List<? extends ReadOnlyPerson> lastPersonShownList = Collections.emptyList();
 
     /**
-      *The list of player shown to the user most recently.
-      */
-   private List<? extends ReadOnlyPerson> lastPersonShownList = Collections.emptyList();
-  
-    /**
-      *The list of match shown to the user most recently.
-      */
+     * The list of match shown to the user most recently.
+     */
     private List<? extends ReadOnlyMatch> lastMatchList = Collections.emptyList();
-    
-    /** 
-      *The list of team shown to the user most recently.
-      */
+
+    /**
+     * The list of team shown to the user most recently.
+     */
     private List<? extends ReadOnlyTeam> lastTeamShownList = Collections.emptyList();
 
     public Logic() throws Exception {
@@ -128,9 +127,10 @@ public class Logic {
         return result;
     }
 
-    /** Updates the {@link #lastPersonList} if the result contains a list of Persons.
-     *  Updates the {@link #lastMatchList} if the result contains a list of Matches.
-     */      
+    /**
+     * Updates the {@link #lastPersonShownList} if the result contains a list of Persons.
+     * Updates the {@link #lastMatchList} if the result contains a list of Matches.
+     */
     private void recordResult(CommandResult result) {
         final Optional<List<? extends ReadOnlyPerson>> personList = result.getRelevantPersons();
         final Optional<List<? extends ReadOnlyTeam>> teamList = result.getRelevantTeams();

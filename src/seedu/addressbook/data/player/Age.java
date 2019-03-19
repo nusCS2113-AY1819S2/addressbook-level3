@@ -9,7 +9,7 @@ import seedu.addressbook.data.exception.IllegalValueException;
 
 public class Age {
 
-    public static final int example = 20;
+    public static final int EXAMPLE = 20;
     public static final String MESSAGE_AGE_CONSTRAINTS = "Age of a player must be an integer";
 
 

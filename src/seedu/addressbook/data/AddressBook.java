@@ -24,8 +24,13 @@ public class AddressBook {
     private final UniqueTeamList allTeams;
     private final UniqueMatchList allMatches;
 
-    public static AddressBook empty() {
-        return new AddressBook();
+    /**
+     * Creates an empty address book.
+     */
+    public AddressBook() {
+        allPersons = new UniquePersonList();
+        allMatches = new UniqueMatchList();
+        allTeams = new UniqueTeamList();
     }
 
     /**
@@ -42,13 +47,8 @@ public class AddressBook {
         this.allMatches = new UniqueMatchList(matches);
     }
 
-    /**
-     * Creates an empty address book.
-     */
-    public AddressBook() {
-        allPersons = new UniquePersonList();
-        allMatches = new UniqueMatchList();
-        allTeams = new UniqueTeamList();
+    public static AddressBook empty() {
+        return new AddressBook();
     }
 
     /**
@@ -158,7 +158,6 @@ public class AddressBook {
         allTeams.edit(toRemove, toReplace);
     }
 
-
     /**
      * Defensively copied UniquePersonList of all persons in the address book at the time of the call.
      */
@@ -172,7 +171,7 @@ public class AddressBook {
     public UniqueMatchList getAllMatches() {
         return new UniqueMatchList(allMatches);
     }
-  
+
     /**
      * Defensively copied UniqueTeamList of all matches in the address book at the time of the call.
      */
