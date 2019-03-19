@@ -42,7 +42,6 @@ sourceSets {
 
 checkstyle {
     toolVersion = '8.1'
-    checkstyleTest.enabled = false
 }
 
 jacocoTestReport {
