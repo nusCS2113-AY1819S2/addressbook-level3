@@ -29,6 +29,21 @@ Format: `help`
 Help is also shown if you enter an incorrect command e.g. `abcd`
 ====
 
+== Login to the system : `login`
+
+Allow the user to login to the system +
+Format: `login username password`
+
+[NOTE]
+====
+Login is required in order to use the address book
+====
+
+Examples:
+
+* `login guanlong 12345` +
+Logged in as guanlong if the account and password are correct.
+
 == Adding a person: `add`
 
 Adds a person to the address book. +
