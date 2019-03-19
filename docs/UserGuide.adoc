@@ -95,6 +95,17 @@ Shows a list of all persons sorted by name in alphabetical order in the address 
 * `sort status` +
 Shows a list of all persons sorted by status in alphabetical order in the address book. 
 
+== Listing all appointments of a Doctor : `DoctorAppointments`
+
+Displays a list of all persons who have appointments with a specific doctor. 
+The list of persons are sorted by on chronological order of their appointment dates.
+For easy-readability, only the name and appointment date of each person is displayed.
+
+Examples: 
+* `DoctorAppointments DoctorTan`
+Shows a list of all patients who have appointments with DoctorTan.
+
+
 == Finding all persons containing any keyword in their name: `find`
 
 Finds persons whose names contain any of the given keywords. +
