@@ -33,8 +33,6 @@ public class AdaptedPerson {
     private AdaptedContactDetail email;
     @XmlElement(required = true)
     private AdaptedContactDetail address;
-    @XmlElement(required = true)
-    private String appointment;
 
     @XmlElement
     private List<AdaptedTag> tagged = new ArrayList<>();
@@ -64,8 +62,6 @@ public class AdaptedPerson {
         address = new AdaptedContactDetail();
         address.isPrivate = source.getAddress().isPrivate();
         address.value = source.getAddress().value;
-
-        appointment = source.getAppointment().appointmentDate;
 
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
@@ -106,7 +102,6 @@ public class AdaptedPerson {
         final Phone phone = new Phone(this.phone.value, this.phone.isPrivate);
         final Email email = new Email(this.email.value, this.email.isPrivate);
         final Address address = new Address(this.address.value, this.address.isPrivate);
-        final Appointment appointment = new Appointment(this.appointment);
-        return new Person(name, phone, email, address, appointment, tags);
+        return new Person(name, phone, email, address, tags);
     }
 }

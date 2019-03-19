@@ -59,20 +59,10 @@ public class AddressBook {
     }
 
     /**
-     * Sorts all persons from the address book.
-     */
-
-    public void sorted()  { allPersons.sort();}
-
-    /**
      * Clears all persons from the address book.
      */
     public void clear() {
         allPersons.clear();
-    }
-
-    public int size() {
-        return allPersons.size();
     }
 
     /**
