@@ -102,7 +102,7 @@ The list of persons are sorted by on chronological order of their appointment da
 For easy-readability, only the name and appointment date of each person is displayed.
 
 Examples: 
-* `DoctorAppointments DoctorTan`
+* `DoctorAppointments DoctorTan` +
 Shows a list of all patients who have appointments with DoctorTan.
 
 
