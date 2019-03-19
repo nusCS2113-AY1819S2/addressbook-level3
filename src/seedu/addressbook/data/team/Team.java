@@ -39,10 +39,14 @@ public class Team implements ReadOnlyTeam {
     }
 
     @Override
-    public Set<Person> getPlayers() {return new HashSet<>(playerlist);}
+    public Set<Person> getPlayers() {
+        return new HashSet<>(playerlist);
+    }
 
     @Override
-    public Sponsor getSponsor() {return sponsor;}
+    public Sponsor getSponsor() {
+        return sponsor;
+    }
 
     @Override
     public Name getName() {
@@ -55,7 +59,9 @@ public class Team implements ReadOnlyTeam {
     }
 
     @Override
-    public Set<Tag> getTags() { return new HashSet<>(tags); }
+    public Set<Tag> getTags() {
+        return new HashSet<>(tags);
+    }
 
     /**
      * Replaces this team's tags with the tags in {@code replacement}.

@@ -1,10 +1,10 @@
 package seedu.addressbook.data.team;
 
-import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.tag.Tag;
-
 import java.util.HashSet;
 import java.util.Set;
+
+import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.data.tag.Tag;
 
 /**
  * Stores the details to edit the team with. Each non-empty field value will replace the corresponding field value of the team.
@@ -17,7 +17,7 @@ public class EditTeamDescriptor {
     private Set<Tag> tagset;
 
 
-    public EditTeamDescriptor(){}
+    public EditTeamDescriptor() {}
 
     public EditTeamDescriptor(String name,
                               String country,

@@ -3,13 +3,16 @@ package seedu.addressbook.data.match;
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.DuplicateDataException;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+
 
 /**
  * A list of matches. Does not allow null elements or duplicates.
- *
- * @see Match#equals(Object)
- * @see Utils#elementsAreUnique(Collection)
  */
 public class UniqueMatchList implements Iterable<Match> {
 
@@ -130,5 +133,4 @@ public class UniqueMatchList implements Iterable<Match> {
     public int hashCode() {
         return internalList.hashCode();
     }
-
 }

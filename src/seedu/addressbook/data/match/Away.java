@@ -60,5 +60,4 @@ public class Away {
     public int hashCode() {
         return fullAway.hashCode();
     }
-
 }

@@ -1,11 +1,11 @@
 package seedu.addressbook.commands.Team;
 
+import java.util.List;
+
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.team.ReadOnlyTeam;
 
-
-import java.util.List;
 
 public class ListTeam extends Command {
 
@@ -22,4 +22,3 @@ public class ListTeam extends Command {
         return new CommandResult(getMessageForTeamListShownSummary(allTeams),null, allTeams, null);
     }
 }
-

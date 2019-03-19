@@ -1,13 +1,18 @@
 package seedu.addressbook.commands.Team;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.tag.Tag;
-import seedu.addressbook.data.team.*;
-
-import java.util.HashSet;
-import java.util.Set;
+import seedu.addressbook.data.team.Country;
+import seedu.addressbook.data.team.Name;
+import seedu.addressbook.data.team.ReadOnlyTeam;
+import seedu.addressbook.data.team.Sponsor;
+import seedu.addressbook.data.team.Team;
+import seedu.addressbook.data.team.UniqueTeamList;
 
 /**
  * Adds a Team to the address book.

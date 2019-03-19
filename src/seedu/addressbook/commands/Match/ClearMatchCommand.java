@@ -1,4 +1,7 @@
-package seedu.addressbook.commands;
+package seedu.addressbook.commands.Match;
+
+import seedu.addressbook.commands.Command;
+import seedu.addressbook.commands.CommandResult;
 
 /**
  * Clears the match list in address book.

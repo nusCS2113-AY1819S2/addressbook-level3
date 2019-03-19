@@ -17,6 +17,7 @@ public class CommandResult {
 
     /** The list of persons that was produced by the command */
     private final List<? extends ReadOnlyPerson> relevantPersons;
+
     /** The list of teams that was produced by the command */
     private final List<? extends ReadOnlyTeam> relevantTeams;
 

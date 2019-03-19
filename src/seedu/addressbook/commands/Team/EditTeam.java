@@ -1,14 +1,22 @@
 package seedu.addressbook.commands.Team;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.tag.Tag;
-import seedu.addressbook.data.team.*;
+import seedu.addressbook.data.team.Country;
+import seedu.addressbook.data.team.EditTeamDescriptor;
+import seedu.addressbook.data.team.Name;
+import seedu.addressbook.data.team.ReadOnlyTeam;
+import seedu.addressbook.data.team.Sponsor;
+import seedu.addressbook.data.team.Team;
+import seedu.addressbook.data.team.UniqueTeamList;
 
-import java.util.HashSet;
-import java.util.Set;
+
 
 /**
  * Edits a Team to the address book.
@@ -122,4 +130,3 @@ public class EditTeam extends Command {
     }
 
 }
-

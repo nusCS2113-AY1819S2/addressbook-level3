@@ -46,5 +46,4 @@ public interface ReadOnlyTeam {
         }
         return builder.toString();
     }
-
 }

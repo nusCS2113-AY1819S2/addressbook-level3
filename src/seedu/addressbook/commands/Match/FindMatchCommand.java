@@ -1,8 +1,14 @@
-package seedu.addressbook.commands;
+package seedu.addressbook.commands.Match;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import seedu.addressbook.commands.Command;
+import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.match.ReadOnlyMatch;
-
-import java.util.*;
 
 /**
  * Finds and lists all matches in address book with date that contains any of the argument keywords.

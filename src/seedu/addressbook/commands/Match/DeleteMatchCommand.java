@@ -1,5 +1,7 @@
-package seedu.addressbook.commands;
+package seedu.addressbook.commands.Match;
 
+import seedu.addressbook.commands.Command;
+import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.match.ReadOnlyMatch;
 import seedu.addressbook.data.match.UniqueMatchList.MatchNotFoundException;

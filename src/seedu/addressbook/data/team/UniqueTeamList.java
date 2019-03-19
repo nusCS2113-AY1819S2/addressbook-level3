@@ -1,10 +1,15 @@
 package seedu.addressbook.data.team;
 
-
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.DuplicateDataException;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * A list of Teams. Does not allow null elements or duplicates.
@@ -107,7 +112,7 @@ public class UniqueTeamList implements Iterable<Team> {
     /**
      * Sort all Teams in list by ascending alphabetical order.
      */
-    public void sort(){
+    public void sort() {
         Comparator<Team> CustomTeamCompare = Comparator.comparing(Team::getName);
         Collections.sort(internalList,CustomTeamCompare);
     }
@@ -140,6 +145,4 @@ public class UniqueTeamList implements Iterable<Team> {
     public int hashCode() {
         return internalList.hashCode();
     }
-
-
 }

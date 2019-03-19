@@ -3,15 +3,12 @@ package seedu.addressbook.commands;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.finance.Finance;
 import seedu.addressbook.data.team.ReadOnlyTeam;
-import seedu.addressbook.data.team.UniqueTeamList;
-import seedu.addressbook.common.Messages;
-import seedu.addressbook.commands.CommandResult;
 
 /**
  * check the financial profit in USD of a team identified using it's last displayed index from the League.
  */
 
-public class FinanceCommand extends Command{
+public class FinanceCommand extends Command {
 
     public static final String COMMAND_WORD = "finance" ;
 
@@ -41,4 +38,3 @@ public class FinanceCommand extends Command{
     }
 
 }
-

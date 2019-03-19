@@ -1,5 +1,9 @@
 package seedu.addressbook.logic;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.AddressBook;
@@ -8,10 +12,6 @@ import seedu.addressbook.data.match.ReadOnlyMatch;
 import seedu.addressbook.data.team.ReadOnlyTeam;
 import seedu.addressbook.parser.Parser;
 import seedu.addressbook.storage.StorageFile;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
 
 /**
  * Represents the main Logic of the AddressBook.
@@ -37,21 +37,21 @@ public class Logic {
       */
     private List<? extends ReadOnlyTeam> lastTeamShownList = Collections.emptyList();
 
-    public Logic() throws Exception{
+    public Logic() throws Exception {
         setStorage(initializeStorage());
         setAddressBook(storage.load());
     }
 
-    Logic(StorageFile storageFile, AddressBook addressBook){
+    Logic(StorageFile storageFile, AddressBook addressBook) {
         setStorage(storageFile);
         setAddressBook(addressBook);
     }
 
-    void setStorage(StorageFile storage){
+    void setStorage(StorageFile storage) {
         this.storage = storage;
     }
 
-    void setAddressBook(AddressBook addressBook){
+    void setAddressBook(AddressBook addressBook) {
         this.addressBook = addressBook;
     }
 

@@ -1,13 +1,13 @@
 package seedu.addressbook.ui;
 
+import java.io.IOException;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
 import seedu.addressbook.logic.Logic;
 import seedu.addressbook.Main;
-
-import java.io.File;
-import java.io.IOException;
 
 /**
  * The GUI of the App
@@ -34,7 +34,7 @@ public class Gui {
         mainWindow.displayWelcomeMessage(version, logic.getStorageFilePath());
     }
 
-    private MainWindow createMainWindow(Stage stage, Stoppable mainApp) throws IOException{
+    private MainWindow createMainWindow(Stage stage, Stoppable mainApp) throws IOException {
         FXMLLoader loader = new FXMLLoader();
 
         /* Note: When calling getResource(), use '/', instead of File.separator or '\\'
@@ -50,5 +50,4 @@ public class Gui {
         mainWindow.setMainApp(mainApp);
         return mainWindow;
     }
-
 }
