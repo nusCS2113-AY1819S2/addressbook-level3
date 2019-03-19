@@ -1,6 +1,5 @@
 package seedu.addressbook.commands;
 
-import seedu.addressbook.data.person.Name;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 
 import java.util.List;
@@ -33,4 +32,5 @@ public class CommandResult {
     public Optional<List<? extends ReadOnlyPerson>> getRelevantPersons() {
         return Optional.ofNullable(relevantPersons);
     }
+
 }

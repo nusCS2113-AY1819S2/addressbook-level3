@@ -74,24 +74,10 @@ Format: `length`
 Shows a list of all persons in the address book. +
 Format: `list`
 
-== Referring person indicated by user : `refer`
-
-Refer person to a doctor if there is only one entry and shows a list of all persons in the address book with the keyword if there are multiple entries. +
-Format: `refer John`
-
 == Listing all persons in sorted order : `sort`
 
-Shows a list of all persons sorted by desired attribute in alphabetical order in the address book. +
-Desired attribute could be name, appointment or status. +
-Format: `sort DESIRED_ATTRIBUTE`
-
-Examples:
-
-* `sort name` +
-Shows a list of all persons sorted by name in alphabetical order in the address book. 
-
-* `sort status` +
-Shows a list of all persons sorted by status in alphabetical order in the address book. 
+Shows a list of all persons sorted in alphabetical order in the address book. +
+Format: `sort`
 
 == Finding all persons containing any keyword in their name: `find`
 

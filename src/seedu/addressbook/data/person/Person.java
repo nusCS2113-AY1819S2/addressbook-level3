@@ -3,10 +3,7 @@ package seedu.addressbook.data.person;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-import java.time.LocalDate;
 
-
-import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.tag.Tag;
 
 /**
@@ -20,24 +17,17 @@ public class Person implements ReadOnlyPerson {
     private Email email;
     private Address address;
     private Appointment appointment;
-    private Doctor doctor;
-    public LocalDate date = null;
-    private Status status;
 
     private final Set<Tag> tags = new HashSet<>();
-
     /**
      * Assumption: Every field must be present and not null.
      */
-
-    public Person(Name name, Phone phone, Email email, Address address, Appointment appointment, Doctor doctor, Status status, Set<Tag> tags) {
+    public Person(Name name, Phone phone, Email email, Address address, Appointment appointment, Set<Tag> tags) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.appointment = appointment;
-        this.doctor =doctor;
-        this.status = status;
         this.tags.addAll(tags);
     }
 
@@ -45,17 +35,12 @@ public class Person implements ReadOnlyPerson {
      * Copy constructor.
      */
     public Person(ReadOnlyPerson source) {
-        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getAppointment(), source.getDoctor(), source.getStatus(),  source.getTags());
+        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getAppointment(), source.getTags());
     }
 
     @Override
     public Name getName() {
         return name;
-    }
-
-    @Override
-    public int nameLength(){
-        return name.getNameLength();
     }
 
     @Override
@@ -76,15 +61,6 @@ public class Person implements ReadOnlyPerson {
     @Override
     public Address getAddress() {
         return address;
-    }
-
-    @Override
-    public Doctor getDoctor() {
-        return doctor;
-    }
-
-    public Status getStatus() {
-        return status;
     }
 
     @Override
@@ -110,16 +86,7 @@ public class Person implements ReadOnlyPerson {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, appointment, doctor, status,  tags);
-    }
-    @Override
-    public LocalDate getLocalDate(){
-        return date;
-    }
-
-    @Override
-    public void setLocalDate(LocalDate date){
-        this.date = date;
+        return Objects.hash(name, phone, email, address, appointment, tags);
     }
 
     @Override
@@ -127,11 +94,4 @@ public class Person implements ReadOnlyPerson {
         return getAsTextShowAll();
     }
 
-    public static Person Refer () {
-//        this.doctorName = Doctor("Dr. Teo");
-        return null;
-    }
-//    public void Refer (Doctor newDoctor) {
-//        this.doctor = newDoctor;
-//    }
 }

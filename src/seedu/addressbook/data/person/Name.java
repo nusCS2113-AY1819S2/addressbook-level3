@@ -49,10 +49,6 @@ public class Name implements Comparable<Name>{
         return fullName;
     }
 
-    public int getNameLength(){
-        return this.fullName.length();
-    }
-
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
