@@ -6,13 +6,13 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Represents a Team's name in the address book.
+ * Represents a team's name in the address book.
  */
 
 public class Name implements Comparable<Name> {
 
     public static final String EXAMPLE = "Singapore United";
-    public static final String MESSAGE_NAME_CONSTRAINTS = "Team names should be spaces or alphanumeric characters";
+    public static final String MESSAGE_NAME_CONSTRAINTS = "team names should be spaces or alphanumeric characters";
     public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
     public final String fullName;

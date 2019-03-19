@@ -31,10 +31,6 @@ public class Age {
      * Returns true if a given string is a valid age.
      */
     public static boolean isValidAge(int test) {
-        return (test>0 && test <100);
+        return (test > 0 && test < 100);
     }
-
-
-
-
 }

@@ -1,4 +1,4 @@
-package seedu.addressbook.data.person;
+package seedu.addressbook.data.player;
 
 import seedu.addressbook.data.exception.IllegalValueException;
 
@@ -31,7 +31,7 @@ public class Email {
     }
 
     /**
-     * Checks if a given string is a valid person email.
+     * Checks if a given string is a valid player email.
      */
     public static boolean isValidEmail(String test) {
         return test.matches(EMAIL_VALIDATION_REGEX);

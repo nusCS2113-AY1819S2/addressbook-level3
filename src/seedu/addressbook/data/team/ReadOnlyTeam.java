@@ -1,12 +1,12 @@
 package seedu.addressbook.data.team;
 
-import seedu.addressbook.data.person.Person;
+import seedu.addressbook.data.player.Person;
 import seedu.addressbook.data.tag.Tag;
 
 import java.util.Set;
 
 /**
- * A read-only immutable interface for a Team in the league tracker.
+ * A read-only immutable interface for a team in the league tracker.
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
 

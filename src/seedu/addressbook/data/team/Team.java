@@ -1,7 +1,7 @@
 package seedu.addressbook.data.team;
 
 
-import seedu.addressbook.data.person.Person;
+import seedu.addressbook.data.player.Person;
 import seedu.addressbook.data.tag.Tag;
 
 import java.util.HashSet;
@@ -9,7 +9,7 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * Represents a Team in the address book.
+ * Represents a team in the address book.
  * Guarantees: details are present and not null, field values are validated.
  */
 

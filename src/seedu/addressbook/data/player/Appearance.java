@@ -2,6 +2,10 @@ package seedu.addressbook.data.player;
 
 import seedu.addressbook.data.exception.IllegalValueException;
 
+/**
+ * Represents number of appearances a player made in the address book.
+ */
+
 public class Appearance {
 
     public static final int example = 30;

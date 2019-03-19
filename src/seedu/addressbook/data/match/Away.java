@@ -1,18 +1,19 @@
 package seedu.addressbook.data.match;
 
-import seedu.addressbook.data.exception.IllegalValueException;
-
 import java.util.Arrays;
 import java.util.List;
 
+import seedu.addressbook.data.exception.IllegalValueException;
+
 /**
- * Represents a Match away team in the address book.
+ * Represents a match away team in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidAway(String)}
  */
 public class Away {
 
     public static final String EXAMPLE = "Huddersfield";
-    public static final String MESSAGE_AWAY_CONSTRAINTS = "Match away teams should be spaces or alphanumeric characters";
+    public static final String MESSAGE_AWAY_CONSTRAINTS = "match away teams"
+            + "should be spaces or alphanumeric characters";
     public static final String AWAY_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
     public final String fullAway;

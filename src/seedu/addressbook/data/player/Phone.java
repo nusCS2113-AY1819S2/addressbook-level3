@@ -1,4 +1,4 @@
-package seedu.addressbook.data.person;
+package seedu.addressbook.data.player;
 
 import seedu.addressbook.data.exception.IllegalValueException;
 
@@ -30,7 +30,7 @@ public class Phone {
     }
 
     /**
-     * Checks if a given string is a valid person phone number.
+     * Checks if a given string is a valid player phone number.
      */
     public static boolean isValidPhone(String test) {
         return test.matches(PHONE_VALIDATION_REGEX);

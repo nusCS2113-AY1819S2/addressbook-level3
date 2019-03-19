@@ -8,8 +8,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.person.Person;
-import seedu.addressbook.data.person.UniquePersonList;
+import seedu.addressbook.data.player.Person;
+import seedu.addressbook.data.player.UniquePersonList;
 import seedu.addressbook.data.match.Match;
 import seedu.addressbook.data.match.UniqueMatchList;
 import seedu.addressbook.data.team.Team;
@@ -66,7 +66,7 @@ public class AdaptedAddressBook {
 
     /**
      * Converts this jaxb-friendly {@code AdaptedAddressBook} object into the corresponding(@code AddressBook} object.
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person
+     * @throws IllegalValueException if there were any data constraints violated in the adapted player
      * @throws IllegalValueException if there were any data constraints violated in the adapted match
      */
     public AddressBook toModelType() throws IllegalValueException {

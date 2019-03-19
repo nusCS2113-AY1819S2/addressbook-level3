@@ -1,4 +1,4 @@
-package seedu.addressbook.data.person;
+package seedu.addressbook.data.player;
 
 import seedu.addressbook.data.exception.IllegalValueException;
 
@@ -31,7 +31,7 @@ public class Name implements Comparable<Name> {
     }
 
     /**
-     * Returns true if a given string is a valid person name.
+     * Returns true if a given string is a valid player name.
      */
     public static boolean isValidName(String test) {
         return test.matches(NAME_VALIDATION_REGEX);

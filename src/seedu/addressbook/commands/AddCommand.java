@@ -1,34 +1,37 @@
 package seedu.addressbook.commands;
 
-import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.person.Email;
-import seedu.addressbook.data.person.Name;
-import seedu.addressbook.data.person.Person;
-import seedu.addressbook.data.person.Phone;
-import seedu.addressbook.data.person.Address;
-import seedu.addressbook.data.person.ReadOnlyPerson;
-import seedu.addressbook.data.person.UniquePersonList;
-import seedu.addressbook.data.tag.Tag;
-
 import java.util.Set;
 import java.util.HashSet;
 
+import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.data.player.Address;
+import seedu.addressbook.data.player.Email;
+import seedu.addressbook.data.player.Name;
+import seedu.addressbook.data.player.Person;
+import seedu.addressbook.data.player.Phone;
+import seedu.addressbook.data.player.ReadOnlyPerson;
+import seedu.addressbook.data.player.UniquePersonList;
+import seedu.addressbook.data.tag.Tag;
+
+
+
+
 
 /**
- * Adds a person to the address book.
+ * Adds a player to the address book.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Adds a person to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Adds a player to the address book. "
             + "Contact details can be marked private by prepending 'p' to the prefix.\n\t"
             + "Parameters: NAME [p]p/PHONE [p]e/EMAIL [p]a/ADDRESS  [t/TAG]...\n\t"
             + "Example: " + COMMAND_WORD
             + " John Doe p/98765432 e/johnd@gmail.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney";
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_SUCCESS = "New player added: %1$s";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This player already exists in the address book";
 
     private final Person toAdd;
 

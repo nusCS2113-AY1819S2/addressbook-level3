@@ -13,7 +13,7 @@ public class Team {
     public final String fullTeam;
 
     /**
-     * Validates given Team name.
+     * Validates given team name.
      *
      * @throws IllegalValueException if given team name string is invalid.
      */

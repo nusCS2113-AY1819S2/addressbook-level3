@@ -16,7 +16,7 @@ import seedu.addressbook.commands.ExitCommand;
 import seedu.addressbook.data.team.ReadOnlyTeam;
 import seedu.addressbook.logic.Logic;
 import seedu.addressbook.commands.CommandResult;
-import seedu.addressbook.data.person.ReadOnlyPerson;
+import seedu.addressbook.data.player.ReadOnlyPerson;
 import seedu.addressbook.data.match.ReadOnlyMatch;
 
 

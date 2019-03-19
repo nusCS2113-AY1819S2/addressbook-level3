@@ -6,11 +6,11 @@ import seedu.addressbook.data.match.UniqueMatchList;
 import seedu.addressbook.data.match.UniqueMatchList.DuplicateMatchException;
 import seedu.addressbook.data.match.UniqueMatchList.MatchNotFoundException;
 
-import seedu.addressbook.data.person.Person;
-import seedu.addressbook.data.person.ReadOnlyPerson;
-import seedu.addressbook.data.person.UniquePersonList;
-import seedu.addressbook.data.person.UniquePersonList.DuplicatePersonException;
-import seedu.addressbook.data.person.UniquePersonList.PersonNotFoundException;
+import seedu.addressbook.data.player.Person;
+import seedu.addressbook.data.player.ReadOnlyPerson;
+import seedu.addressbook.data.player.UniquePersonList;
+import seedu.addressbook.data.player.UniquePersonList.DuplicatePersonException;
+import seedu.addressbook.data.player.UniquePersonList.PersonNotFoundException;
 import seedu.addressbook.data.team.ReadOnlyTeam;
 import seedu.addressbook.data.team.Team;
 import seedu.addressbook.data.team.UniqueTeamList;
@@ -29,6 +29,20 @@ public class AddressBook {
     }
 
     /**
+     * Constructs an address book with the given data.
+     *
+     * @param persons external changes to this will not affect this address book
+     * @param matches external changes to this will not affect this address book
+     */
+    public AddressBook(UniquePersonList persons,
+                       UniqueTeamList teams,
+                       UniqueMatchList matches) {
+        this.allPersons = new UniquePersonList(persons);
+        this.allTeams = new UniqueTeamList(teams);
+        this.allMatches = new UniqueMatchList(matches);
+    }
+
+    /**
      * Creates an empty address book.
      */
     public AddressBook() {
@@ -38,30 +52,16 @@ public class AddressBook {
     }
 
     /**
-     * Constructs an address book with the given data.
+     * Adds a player to the address book.
      *
-     * @param persons external changes to this will not affect this address book
-     * @param matches external changes to this will not affect this address book
-     */
-    public AddressBook(UniquePersonList persons,
-                        UniqueTeamList teams,
-                        UniqueMatchList matches) {
-        this.allPersons = new UniquePersonList(persons);
-        this.allTeams = new UniqueTeamList(teams);
-        this.allMatches = new UniqueMatchList(matches);
-    }
-
-    /**
-     * Adds a person to the address book.
-     *
-     * @throws DuplicatePersonException if an equivalent person already exists.
+     * @throws DuplicatePersonException if an equivalent player already exists.
      */
     public void addPerson(Person toAdd) throws DuplicatePersonException {
         allPersons.add(toAdd);
     }
 
     /**
-     * Adds a Team to the address book.
+     * Adds a team to the address book.
      */
     public void addTeam(Team toAdd) throws UniqueTeamList.DuplicateTeamException {
         allTeams.add(toAdd);
@@ -78,7 +78,7 @@ public class AddressBook {
     }
 
     /**
-     * Checks if an equivalent person exists in the address book.
+     * Checks if an equivalent player exists in the address book.
      */
     public boolean containsPerson(ReadOnlyPerson key) {
         return allPersons.contains(key);
@@ -90,17 +90,16 @@ public class AddressBook {
     public boolean containsTeam(ReadOnlyTeam key) {
         return allTeams.contains(key);
     }
-  
+
     /**
      * Checks if an equivalent match exists in the address book.
-     */  
+     */
     public boolean containsMatch(ReadOnlyMatch key) {
         return allMatches.contains(key);
-
     }
 
     /**
-     * Removes the equivalent person from the address book.
+     * Removes the equivalent player from the address book.
      *
      * @throws PersonNotFoundException if no such Person could be found.
      */
@@ -111,7 +110,7 @@ public class AddressBook {
     /**
      * Removes the equivalent match from the address book.
      *
-     * @throws MatchNotFoundException if no such Match could be found.
+     * @throws MatchNotFoundException if no such match could be found.
      */
     public void removeMatch(ReadOnlyMatch toRemove) throws MatchNotFoundException {
         allMatches.remove(toRemove);
@@ -123,14 +122,14 @@ public class AddressBook {
     public void clearMatch() {
         allMatches.clear();
     }
-  
+
     /**
      * Removes the equivalent team from the address book.
      */
     public void removeTeam(ReadOnlyTeam toRemove) throws UniqueTeamList.TeamNotFoundException {
         allTeams.remove(toRemove);
     }
-  
+
     /**
      * Sorts all persons from the address book.
      */
@@ -178,7 +177,7 @@ public class AddressBook {
      * Defensively copied UniqueTeamList of all matches in the address book at the time of the call.
      */
     public UniqueTeamList getAllTeams() {
-        return new UniqueTeamList(allTeams); 
+        return new UniqueTeamList(allTeams);
     }
 
     @Override

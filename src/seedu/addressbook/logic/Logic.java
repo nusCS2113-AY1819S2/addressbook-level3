@@ -7,7 +7,7 @@ import java.util.Optional;
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.AddressBook;
-import seedu.addressbook.data.person.ReadOnlyPerson;
+import seedu.addressbook.data.player.ReadOnlyPerson;
 import seedu.addressbook.data.match.ReadOnlyMatch;
 import seedu.addressbook.data.team.ReadOnlyTeam;
 import seedu.addressbook.parser.Parser;
@@ -23,7 +23,7 @@ public class Logic {
 
 
     /**
-      *The list of person shown to the user most recently.
+      *The list of player shown to the user most recently.
       */
    private List<? extends ReadOnlyPerson> lastPersonShownList = Collections.emptyList();
   
@@ -68,7 +68,7 @@ public class Logic {
     }
 
     /**
-     * Unmodifiable view of the current last person list.
+     * Unmodifiable view of the current last player list.
      */
     public List<ReadOnlyPerson> getLastPersonShownList() {
         return Collections.unmodifiableList(lastPersonShownList);
@@ -90,7 +90,7 @@ public class Logic {
     }
 
     /**
-     * Unmodifiable view of the current last shown list(Team).
+     * Unmodifiable view of the current last shown list(team).
      */
     public List<ReadOnlyTeam> getLastTeamShownList() {
         return Collections.unmodifiableList(lastTeamShownList);

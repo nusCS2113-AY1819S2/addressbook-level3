@@ -10,7 +10,7 @@ import seedu.addressbook.data.team.ReadOnlyTeam;
 
 public class FinanceCommand extends Command {
 
-    public static final String COMMAND_WORD = "finance" ;
+    public static final String COMMAND_WORD = "finance";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
             + "Checks the financial condition of a team identified using it's last displayed index from the League.\n\t"

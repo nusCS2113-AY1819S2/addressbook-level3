@@ -3,13 +3,13 @@ package seedu.addressbook.data.team;
 import seedu.addressbook.data.exception.IllegalValueException;
 
 /**
- * Represents a Team's balance of sponsorship in USD in the address book.
+ * Represents a team's balance of sponsorship in USD in the address book.
  */
 
 public class Sponsor {
 
     public static final String EXAMPLE = "500";
-    public static final String MESSAGE_SPONSOR_CONSTRAINTS = "Team's Sponsorship in USD";
+    public static final String MESSAGE_SPONSOR_CONSTRAINTS = "team's Sponsorship in USD";
     public static final String SPONSOR_VALIDATION_REGEX = "\\d+";
 
     public final String value;

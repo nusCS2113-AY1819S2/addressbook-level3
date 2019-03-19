@@ -1,4 +1,4 @@
-package seedu.addressbook.data.person;
+package seedu.addressbook.data.player;
 
 import java.util.Comparator;
 import seedu.addressbook.common.Utils;
@@ -24,20 +24,20 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Signals that an operation targeting a specified person in the list would fail because
-     * there is no such matching person in the list.
+     * Signals that an operation targeting a specified player in the list would fail because
+     * there is no such matching player in the list.
      */
     public static class PersonNotFoundException extends Exception {}
 
     private final List<Person> internalList = new ArrayList<>();
 
     /**
-     * Constructs empty person list.
+     * Constructs empty player list.
      */
     public UniquePersonList() {}
 
     /**
-     * Constructs a person list with the given persons.
+     * Constructs a player list with the given persons.
      */
     public UniquePersonList(Person... persons) throws DuplicatePersonException {
         final List<Person> initialTags = Arrays.asList(persons);
@@ -77,16 +77,16 @@ public class UniquePersonList implements Iterable<Person> {
 
 
     /**
-     * Checks if the list contains an equivalent person as the given argument.
+     * Checks if the list contains an equivalent player as the given argument.
      */
     public boolean contains(ReadOnlyPerson toCheck) {
         return internalList.contains(toCheck);
     }
 
     /**
-     * Adds a person to the list.
+     * Adds a player to the list.
      *
-     * @throws DuplicatePersonException if the person to add is a duplicate of an existing person in the list.
+     * @throws DuplicatePersonException if the player to add is a duplicate of an existing player in the list.
      */
     public void add(Person toAdd) throws DuplicatePersonException {
         if (contains(toAdd)) {
@@ -96,9 +96,9 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Removes the equivalent person from the list.
+     * Removes the equivalent player from the list.
      *
-     * @throws PersonNotFoundException if no such person could be found in the list.
+     * @throws PersonNotFoundException if no such player could be found in the list.
      */
     public void remove(ReadOnlyPerson toRemove) throws PersonNotFoundException {
         final boolean personFoundAndDeleted = internalList.remove(toRemove);

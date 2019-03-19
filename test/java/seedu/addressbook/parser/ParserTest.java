@@ -5,7 +5,7 @@ import org.junit.Test;
 import seedu.addressbook.commands.*;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.tag.Tag;
-import seedu.addressbook.data.person.*;
+import seedu.addressbook.data.player.*;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -175,7 +175,7 @@ public class ParserTest {
     }
 
     /**
-     * Test add person command
+     * Test add player command
      */
     
     @Test
@@ -208,7 +208,7 @@ public class ParserTest {
         // address can be any string, so no invalid address
         final String addCommandFormatString = "add $s $s $s a/" + Address.EXAMPLE;
 
-        // test each incorrect person data field argument individually
+        // test each incorrect player data field argument individually
         final String[] inputs = {
                 // invalid name
                 String.format(addCommandFormatString, invalidName, validPhoneArg, validEmailArg),
@@ -255,7 +255,7 @@ public class ParserTest {
                 new HashSet<>(Arrays.asList(new Tag("tag1"), new Tag("tag2"), new Tag("tag3")))
             );
         } catch (IllegalValueException ive) {
-            throw new RuntimeException("test person data should be valid by definition");
+            throw new RuntimeException("test player data should be valid by definition");
         }
     }
 

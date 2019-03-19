@@ -1,4 +1,4 @@
-package seedu.addressbook.commands.Match;
+package seedu.addressbook.commands.match;
 
 import java.util.HashSet;
 import java.util.Set;

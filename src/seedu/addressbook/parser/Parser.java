@@ -20,18 +20,18 @@ import seedu.addressbook.commands.FindCommand;
 import seedu.addressbook.commands.HelpCommand;
 import seedu.addressbook.commands.IncorrectCommand;
 import seedu.addressbook.commands.ListCommand;
-import seedu.addressbook.commands.Match.AddMatchCommand;
-import seedu.addressbook.commands.Match.ClearMatchCommand;
-import seedu.addressbook.commands.Match.DeleteMatchCommand;
-import seedu.addressbook.commands.Match.FindMatchCommand;
-import seedu.addressbook.commands.Match.ListMatchCommand;
+import seedu.addressbook.commands.match.AddMatchCommand;
+import seedu.addressbook.commands.match.ClearMatchCommand;
+import seedu.addressbook.commands.match.DeleteMatchCommand;
+import seedu.addressbook.commands.match.FindMatchCommand;
+import seedu.addressbook.commands.match.ListMatchCommand;
 import seedu.addressbook.commands.SortCommand;
-import seedu.addressbook.commands.Team.AddTeam;
-import seedu.addressbook.commands.Team.ClearTeam;
-import seedu.addressbook.commands.Team.DeleteTeam;
-import seedu.addressbook.commands.Team.EditTeam;
-import seedu.addressbook.commands.Team.FindTeam;
-import seedu.addressbook.commands.Team.ListTeam;
+import seedu.addressbook.commands.team.AddTeam;
+import seedu.addressbook.commands.team.ClearTeam;
+import seedu.addressbook.commands.team.DeleteTeam;
+import seedu.addressbook.commands.team.EditTeam;
+import seedu.addressbook.commands.team.FindTeam;
+import seedu.addressbook.commands.team.ListTeam;
 import seedu.addressbook.commands.ViewAllCommand;
 import seedu.addressbook.commands.ViewCommand;
 import seedu.addressbook.data.exception.IllegalValueException;
@@ -196,7 +196,7 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the add person command.
+     * Parses arguments in the context of the add player command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -228,7 +228,7 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the add person command.
+     * Parses arguments in the context of the add player command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -259,7 +259,7 @@ public class Parser {
     }
 
     /**
-     * Extracts the new person's tags from the add command's tag arguments string.
+     * Extracts the new player's tags from the add command's tag arguments string.
      * Extracts the new team's tags from the addTeam command's tag arguments string.
      * Merges duplicate tag strings.
      */
@@ -275,7 +275,7 @@ public class Parser {
 
 
     /**
-     * Parses arguments in the context of the delete person command.
+     * Parses arguments in the context of the delete player command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -421,7 +421,7 @@ public class Parser {
 
 
     /**
-     * Parses arguments in the context of the find person command.
+     * Parses arguments in the context of the find player command.
      *
      * @param args full command args string
      * @return the prepared command

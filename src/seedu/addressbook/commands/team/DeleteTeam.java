@@ -1,4 +1,4 @@
-package seedu.addressbook.commands.Team;
+package seedu.addressbook.commands.team;
 
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
@@ -15,11 +15,11 @@ public class DeleteTeam extends Command {
     public static final String COMMAND_WORD = "delTeam";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
-            + "Deletes the Team identified by the index number used in the last team listing.\n\t"
+            + "Deletes the team identified by the index number used in the last team listing.\n\t"
             + "Parameters: INDEX\n\t"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_TEAM_SUCCESS = "Deleted Team: %1$s";
+    public static final String MESSAGE_DELETE_TEAM_SUCCESS = "Deleted team: %1$s";
 
 
     public DeleteTeam(int targetVisibleIndex) {

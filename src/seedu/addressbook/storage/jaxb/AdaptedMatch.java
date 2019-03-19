@@ -33,7 +33,7 @@ public class AdaptedMatch {
 
 
     /**
-     * Converts a given Match into this class for JAXB use.
+     * Converts a given match into this class for JAXB use.
      *
      * @param source future changes to this will not affect the created AdaptedMatch
      */
@@ -70,7 +70,7 @@ public class AdaptedMatch {
     }
 
     /**
-     * Converts this jaxb-friendly adapted match object into the Match object.
+     * Converts this jaxb-friendly adapted match object into the match object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted match
      */

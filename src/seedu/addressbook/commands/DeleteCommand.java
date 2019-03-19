@@ -1,19 +1,19 @@
 package seedu.addressbook.commands;
 
 import seedu.addressbook.common.Messages;
-import seedu.addressbook.data.person.ReadOnlyPerson;
-import seedu.addressbook.data.person.UniquePersonList.PersonNotFoundException;
+import seedu.addressbook.data.player.ReadOnlyPerson;
+import seedu.addressbook.data.player.UniquePersonList.PersonNotFoundException;
 
 
 /**
- * Deletes a person identified using it's last displayed index from the address book.
+ * Deletes a player identified using it's last displayed index from the address book.
  */
 public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" 
-            + "Deletes the person identified by the index number used in the last person listing.\n\t"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
+            + "Deletes the player identified by the index number used in the last player listing.\n\t"
             + "Parameters: INDEX\n\t"
             + "Example: " + COMMAND_WORD + " 1";
 

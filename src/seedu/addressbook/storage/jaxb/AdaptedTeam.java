@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlElement;
 
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.person.Person;
+import seedu.addressbook.data.player.Person;
 import seedu.addressbook.data.tag.Tag;
 import seedu.addressbook.data.team.*;
 

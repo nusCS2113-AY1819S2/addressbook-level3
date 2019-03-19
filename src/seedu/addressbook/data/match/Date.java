@@ -1,18 +1,18 @@
 package seedu.addressbook.data.match;
 
-import seedu.addressbook.data.exception.IllegalValueException;
-
 import java.util.Arrays;
 import java.util.List;
 
+import seedu.addressbook.data.exception.IllegalValueException;
+
 /**
- * Represents a Match date in the address book.
+ * Represents a match date in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
 public class Date {
 
     public static final String EXAMPLE = "17 MAR 2019";
-    public static final String MESSAGE_DATE_CONSTRAINTS = "Match dates should be spaces or alphanumeric characters";
+    public static final String MESSAGE_DATE_CONSTRAINTS = "match dates should be spaces or alphanumeric characters";
     public static final String DATE_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
     public final String fullDate;

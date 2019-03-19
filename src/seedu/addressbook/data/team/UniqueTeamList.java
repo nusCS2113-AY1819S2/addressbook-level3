@@ -27,20 +27,20 @@ public class UniqueTeamList implements Iterable<Team> {
     }
 
     /**
-     * Signals that an operation targeting a specified Team in the list would fail because
-     * there is no such matching Team in the list.
+     * Signals that an operation targeting a specified team in the list would fail because
+     * there is no such matching team in the list.
      */
     public static class TeamNotFoundException extends Exception {}
 
     private final List<Team> internalList = new ArrayList<>();
 
     /**
-     * Constructs empty Team list.
+     * Constructs empty team list.
      */
     public UniqueTeamList() {}
 
     /**
-     * Constructs a Team list with the given Teams.
+     * Constructs a team list with the given Teams.
      */
     public UniqueTeamList(Team...teams) throws DuplicateTeamException {
         final List<Team> initialTags = Arrays.asList(teams);
@@ -83,7 +83,7 @@ public class UniqueTeamList implements Iterable<Team> {
     }
 
     /**
-     * Adds a Team to the list.
+     * Adds a team to the list.
      */
     public void add(Team toAdd) throws DuplicateTeamException {
         if (contains(toAdd)) {
@@ -93,7 +93,7 @@ public class UniqueTeamList implements Iterable<Team> {
     }
 
     /**
-     * Removes the equivalent Team from the list.
+     * Removes the equivalent team from the list.
      */
     public void remove(ReadOnlyTeam toRemove) throws TeamNotFoundException {
         final boolean TeamFoundAndDeleted = internalList.remove(toRemove);

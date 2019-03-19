@@ -9,7 +9,7 @@ import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.commands.*;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.AddressBook;
-import seedu.addressbook.data.person.*;
+import seedu.addressbook.data.player.*;
 import seedu.addressbook.data.tag.Tag;
 import seedu.addressbook.storage.StorageFile;
 
@@ -171,7 +171,7 @@ public class LogicTest {
         expectedAB.addPerson(toBeAdded);
 
         // setup starting state
-        addressBook.addPerson(toBeAdded); // person already in internal address book
+        addressBook.addPerson(toBeAdded); // player already in internal address book
 
         // execute command and verify result
         assertCommandBehavior(
@@ -214,8 +214,8 @@ public class LogicTest {
 
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
-     * targeting a single person in the last shown list, using visible index.
-     * @param commandWord to test assuming it targets a single person in the last shown list based on visible index.
+     * targeting a single player in the last shown list, using visible index.
+     * @param commandWord to test assuming it targets a single player in the last shown list based on visible index.
      */
     private void assertInvalidIndexBehaviorForCommand(String commandWord) throws Exception {
         String expectedMessage = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
@@ -473,11 +473,11 @@ public class LogicTest {
         }
 
         /**
-         * Generates a valid person using the given seed.
-         * Running this function with the same parameter values guarantees the returned person will have the same state.
+         * Generates a valid player using the given seed.
+         * Running this function with the same parameter values guarantees the returned player will have the same state.
          * Each unique seed will generate a unique Person object.
          *
-         * @param seed used to generate the person data field values
+         * @param seed used to generate the player data field values
          * @param isAllFieldsPrivate determines if private-able fields (phone, email, address) will be private
          */
         Person generatePerson(int seed, boolean isAllFieldsPrivate) throws Exception {
@@ -490,7 +490,7 @@ public class LogicTest {
             );
         }
 
-        /** Generates the correct add command based on the person given */
+        /** Generates the correct add command based on the player given */
         String generateAddCommand(Person p) {
             StringJoiner cmd = new StringJoiner(" ");
 

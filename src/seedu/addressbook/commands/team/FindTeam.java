@@ -1,4 +1,4 @@
-package seedu.addressbook.commands.Team;
+package seedu.addressbook.commands.team;
 
 import java.util.ArrayList;
 import java.util.Collections;

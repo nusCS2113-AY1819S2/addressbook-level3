@@ -1,4 +1,4 @@
-package seedu.addressbook.commands.Team;
+package seedu.addressbook.commands.team;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -15,20 +15,20 @@ import seedu.addressbook.data.team.Team;
 import seedu.addressbook.data.team.UniqueTeamList;
 
 /**
- * Adds a Team to the address book.
+ * Adds a team to the address book.
  */
 
 public class AddTeam extends Command {
 
     public static final String COMMAND_WORD = "addTeam";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Adds a Team to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Adds a team to the address book. "
             + "Parameters: NAME c/COUNTRY s/SPONSORSHIP BALANCE [t/TAG]...\n\t"
             + "Example: " + COMMAND_WORD
             + " Singapore United c/Singapore s/5487 t/Lousy";
 
-    public static final String MESSAGE_SUCCESS = "New Team added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TEAM = "This Team already exists in the address book";
+    public static final String MESSAGE_SUCCESS = "New team added: %1$s";
+    public static final String MESSAGE_DUPLICATE_TEAM = "This team already exists in the address book";
 
     private final Team toAdd;
 
@@ -40,7 +40,7 @@ public class AddTeam extends Command {
     public AddTeam(String name,
                    String country,
                    String sponsor,
-                   Set<String> tags ) throws IllegalValueException {
+                   Set<String> tags) throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));

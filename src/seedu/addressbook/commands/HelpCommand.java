@@ -1,8 +1,16 @@
 package seedu.addressbook.commands;
 
-
-import seedu.addressbook.commands.Match.*;
-import seedu.addressbook.commands.Team.*;
+import seedu.addressbook.commands.match.AddMatchCommand;
+import seedu.addressbook.commands.match.ClearMatchCommand;
+import seedu.addressbook.commands.match.DeleteMatchCommand;
+import seedu.addressbook.commands.match.FindMatchCommand;
+import seedu.addressbook.commands.match.ListMatchCommand;
+import seedu.addressbook.commands.team.AddTeam;
+import seedu.addressbook.commands.team.ClearTeam;
+import seedu.addressbook.commands.team.DeleteTeam;
+import seedu.addressbook.commands.team.EditTeam;
+import seedu.addressbook.commands.team.FindTeam;
+import seedu.addressbook.commands.team.ListTeam;
 
 /**
  * Shows help instructions.
@@ -11,7 +19,7 @@ public class HelpCommand extends Command {
 
     public static final String COMMAND_WORD = "help";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" +"Shows program usage instructions.\n\t"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Shows program usage instructions.\n\t"
             + "Example: " + COMMAND_WORD;
 
     public static final String MESSAGE_ALL_USAGES = AddCommand.MESSAGE_USAGE
