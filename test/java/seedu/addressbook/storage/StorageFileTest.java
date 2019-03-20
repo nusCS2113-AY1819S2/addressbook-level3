@@ -1,6 +1,8 @@
 package seedu.addressbook.storage;
 
 import static org.junit.Assert.assertEquals;
+import static seedu.addressbook.util.TestUtil.assertTextFilesEqual;
+
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
@@ -20,7 +22,6 @@ import seedu.addressbook.data.player.Person;
 import seedu.addressbook.data.player.Phone;
 import seedu.addressbook.data.tag.Tag;
 import seedu.addressbook.storage.StorageFile.StorageOperationException;
-import static seedu.addressbook.util.TestUtil.assertTextFilesEqual;
 
 public class StorageFileTest {
     private static final String TEST_DATA_FOLDER = "test/data/StorageFileTest";
@@ -53,12 +54,12 @@ public class StorageFileTest {
 
     @Test
     public void load_validFormat() throws Exception {
-        AddressBook actualAB = getStorage("ValidData.txt").load();
-        AddressBook expectedAB = getTestAddressBook();
+        AddressBook actualAb = getStorage("ValidData.txt").load();
+        AddressBook expectedAb = getTestAddressBook();
 
         // ensure loaded AddressBook is properly constructed with test data
         // TODO: overwrite equals method in AddressBook class and replace with equals method below
-        assertEquals(actualAB.getAllPersons(), expectedAB.getAllPersons());
+        assertEquals(actualAb.getAllPersons(), expectedAb.getAllPersons());
     }
 
     @Test

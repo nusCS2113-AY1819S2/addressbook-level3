@@ -1,18 +1,35 @@
 package seedu.addressbook.parser;
 
-import org.junit.Before;
-import org.junit.Test;
-import seedu.addressbook.commands.*;
-import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.tag.Tag;
-import seedu.addressbook.data.player.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static seedu.addressbook.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.junit.Assert.*;
-import static seedu.addressbook.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import org.junit.Before;
+import org.junit.Test;
+
+import seedu.addressbook.commands.AddCommand;
+import seedu.addressbook.commands.ClearCommand;
+import seedu.addressbook.commands.Command;
+import seedu.addressbook.commands.DeleteCommand;
+import seedu.addressbook.commands.ExitCommand;
+import seedu.addressbook.commands.FindCommand;
+import seedu.addressbook.commands.HelpCommand;
+import seedu.addressbook.commands.IncorrectCommand;
+import seedu.addressbook.commands.ListCommand;
+import seedu.addressbook.commands.ViewAllCommand;
+import seedu.addressbook.commands.ViewCommand;
+import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.data.player.Address;
+import seedu.addressbook.data.player.Email;
+import seedu.addressbook.data.player.Name;
+import seedu.addressbook.data.player.Person;
+import seedu.addressbook.data.player.Phone;
+import seedu.addressbook.data.player.ReadOnlyPerson;
+import seedu.addressbook.data.tag.Tag;
 
 public class ParserTest {
 
@@ -39,13 +56,12 @@ public class ParserTest {
     /**
      * Test 0-argument commands
      */
-    
     @Test
     public void helpCommand_parsedCorrectly() {
         final String input = "help";
         parseAndAssertCommandType(input, HelpCommand.class);
     }
-    
+
     @Test
     public void clearCommand_parsedCorrectly() {
         final String input = "clear";
@@ -67,7 +83,6 @@ public class ParserTest {
     /**
      * Test ingle index argument commands
      */
-    
     @Test
     public void deleteCommand_noArgs() {
         final String[] inputs = { "delete", "delete " };
@@ -78,10 +93,11 @@ public class ParserTest {
     @Test
     public void deleteCommand_argsIsNotSingleNumber() {
         final String[] inputs = { "delete notAnumber ", "delete 8*wh12", "delete 1 2 3 4 5" };
-        final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
+        final String resultMessage;
+        resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
         parseAndAssertIncorrectWithMessage(resultMessage, inputs);
     }
-    
+
     @Test
     public void deleteCommand_numericArg_indexParsedCorrectly() {
         final int testIndex = 1;
@@ -103,7 +119,7 @@ public class ParserTest {
         final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE);
         parseAndAssertIncorrectWithMessage(resultMessage, inputs);
     }
-    
+
     @Test
     public void viewCommand_numericArg_indexParsedCorrectly() {
         final int testIndex = 2;
@@ -143,8 +159,8 @@ public class ParserTest {
     public void findCommand_invalidArgs() {
         // no keywords
         final String[] inputs = {
-                "find",
-                "find "
+            "find",
+            "find "
         };
         final String resultMessage =
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
@@ -177,13 +193,12 @@ public class ParserTest {
     /**
      * Test add player command
      */
-    
     @Test
     public void addCommand_invalidArgs() {
         final String[] inputs = {
-                "add",
-                "add ",
-                "add wrong args format",
+            "add",
+            "add ",
+            "add wrong args format",
                 // no phone prefix
                 String.format("add $s $s e/$s a/$s", Name.EXAMPLE, Phone.EXAMPLE, Email.EXAMPLE, Address.EXAMPLE),
                 // no email prefix
@@ -244,7 +259,9 @@ public class ParserTest {
         final AddCommand result = parseAndAssertCommandType(input, AddCommand.class);
         assertEquals(result.getPerson(), testPerson);
     }
-
+    /**
+     * generates a test person
+     */
     private static Person generateTestPerson() {
         try {
             return new Person(
@@ -259,6 +276,9 @@ public class ParserTest {
         }
     }
 
+    /**
+     * Converts person to add command string
+     */
     private static String convertPersonToAddCommandString(ReadOnlyPerson person) {
         String addCommand = "add "
                 + person.getName().fullName
