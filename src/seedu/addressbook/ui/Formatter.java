@@ -1,11 +1,11 @@
 package seedu.addressbook.ui;
 
-import seedu.addressbook.data.person.ReadOnlyPerson;
-import seedu.addressbook.data.match.ReadOnlyMatch;
-import seedu.addressbook.data.team.ReadOnlyTeam;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import seedu.addressbook.data.match.ReadOnlyMatch;
+import seedu.addressbook.data.player.ReadOnlyPerson;
+import seedu.addressbook.data.team.ReadOnlyTeam;
 
 /**
  * Used for formatting text for display. e.g. for adding text decorations.
@@ -81,6 +81,4 @@ public class Formatter {
     private static String getIndexedListItem(int visibleIndex, String listItem) {
         return String.format(MESSAGE_INDEXED_LIST_ITEM, visibleIndex, listItem);
     }
-
-
 }

@@ -1,8 +1,10 @@
-package seedu.addressbook.commands;
-
-import seedu.addressbook.data.match.ReadOnlyMatch;
+package seedu.addressbook.commands.match;
 
 import java.util.List;
+
+import seedu.addressbook.commands.Command;
+import seedu.addressbook.commands.CommandResult;
+import seedu.addressbook.data.match.ReadOnlyMatch;
 
 /**
  * Lists all matches in the league tracker to the user.

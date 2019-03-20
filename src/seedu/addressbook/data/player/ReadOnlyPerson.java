@@ -1,4 +1,4 @@
-package seedu.addressbook.data.person;
+package seedu.addressbook.data.player;
 
 import java.util.Set;
 
@@ -17,12 +17,13 @@ public interface ReadOnlyPerson {
 
     /**
      * The returned {@code Set} is a deep copy of the internal {@code Set},
-     * changes on the returned list will not affect the person's internal tags.
+     * changes on the returned list will not affect the player's internal tags.
      */
     Set<Tag> getTags();
 
     /**
-     * Returns true if the values inside this object is same as those of the other (Note: interfaces cannot override .equals)
+     * Returns true if the values inside this object is same as those of the other
+     * (Note: interfaces cannot override .equals)
      */
     default boolean isSameStateAs(ReadOnlyPerson other) {
         return other == this // short circuit if same object
@@ -34,7 +35,7 @@ public interface ReadOnlyPerson {
     }
 
     /**
-     * Formats the person as text, showing all contact details.
+     * Formats the player as text, showing all contact details.
      */
     default String getAsTextShowAll() {
         final StringBuilder builder = new StringBuilder();
@@ -63,7 +64,7 @@ public interface ReadOnlyPerson {
     }
 
     /**
-     * Formats a person as text, showing only non-private contact details.
+     * Formats a player as text, showing only non-private contact details.
      */
     default String getAsTextHidePrivate() {
         final StringBuilder builder = new StringBuilder();

@@ -1,21 +1,24 @@
 package seedu.addressbook.ui;
 
+import static seedu.addressbook.common.Messages.MESSAGE_PROGRAM_LAUNCH_ARGS_USAGE;
+import static seedu.addressbook.common.Messages.MESSAGE_USING_STORAGE_FILE;
+import static seedu.addressbook.common.Messages.MESSAGE_WELCOME;
+
+import java.util.List;
+import java.util.Optional;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+
+import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.commands.ExitCommand;
+import seedu.addressbook.data.match.ReadOnlyMatch;
+import seedu.addressbook.data.player.ReadOnlyPerson;
 import seedu.addressbook.data.team.ReadOnlyTeam;
 import seedu.addressbook.logic.Logic;
-import seedu.addressbook.commands.CommandResult;
-import seedu.addressbook.data.person.ReadOnlyPerson;
-import seedu.addressbook.data.match.ReadOnlyMatch;
 
-import java.util.List;
-import java.util.Optional;
-
-import static seedu.addressbook.common.Messages.*;
 
 /**
  * Main Window of the GUI.
@@ -25,30 +28,33 @@ public class MainWindow {
     private Logic logic;
     private Stoppable mainApp;
 
-    public MainWindow(){
-    }
-
-    public void setLogic(Logic logic){
-        this.logic = logic;
-    }
-
-    public void setMainApp(Stoppable mainApp){
-        this.mainApp = mainApp;
-    }
-
     @FXML
     private TextArea outputConsole;
 
     @FXML
     private TextField commandInput;
 
+    public MainWindow() {
+    }
 
+    public void setLogic(Logic logic) {
+        this.logic = logic;
+    }
+
+    public void setMainApp(Stoppable mainApp) {
+        this.mainApp = mainApp;
+    }
+
+    /**
+     * Handle thw text interface command line
+     * Exits the program if exit is given
+     */
     @FXML
     void onCommand(ActionEvent event) {
         try {
             String userCommandText = commandInput.getText();
             CommandResult result = logic.execute(userCommandText);
-            if(isExitCommand(result)){
+            if (isExitCommand(result)) {
                 exitApp();
                 return;
             }
@@ -75,7 +81,7 @@ public class MainWindow {
     }
 
     /** Clears the output displayPersonResult area */
-    public void clearOutputConsole(){
+    public void clearOutputConsole() {
         outputConsole.clear();
     }
 
@@ -85,18 +91,21 @@ public class MainWindow {
         final Optional<List<? extends ReadOnlyPerson>> resultPersons = result.getRelevantPersons();
         final Optional<List<? extends ReadOnlyTeam>> resultTeams = result.getRelevantTeams();
         final Optional<List<? extends ReadOnlyMatch>> resultMatches = result.getRelevantMatches();
-        if(resultPersons.isPresent()) {
+        if (resultPersons.isPresent()) {
             displayPersonResult(resultPersons.get());
         }
-        if(resultTeams.isPresent()) {
+        if (resultTeams.isPresent()) {
             displayTeamResult(resultTeams.get());
         }
-        if(resultMatches.isPresent()) {
+        if (resultMatches.isPresent()) {
             displayMatch(resultMatches.get());
         }
         display(result.feedbackToUser);
     }
 
+    /**
+     * Displays welcome message with current version , file name generated and file path.
+     */
     public void displayWelcomeMessage(String version, String storageFilePath) {
         String storageFileInfo = String.format(MESSAGE_USING_STORAGE_FILE, storageFilePath);
         display(MESSAGE_WELCOME, version, MESSAGE_PROGRAM_LAUNCH_ARGS_USAGE, storageFileInfo);

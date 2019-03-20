@@ -1,17 +1,25 @@
-package seedu.addressbook.commands.Team;
+package seedu.addressbook.commands.team;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.tag.Tag;
-import seedu.addressbook.data.team.*;
+import seedu.addressbook.data.team.Country;
+import seedu.addressbook.data.team.EditTeamDescriptor;
+import seedu.addressbook.data.team.Name;
+import seedu.addressbook.data.team.ReadOnlyTeam;
+import seedu.addressbook.data.team.Sponsor;
+import seedu.addressbook.data.team.Team;
+import seedu.addressbook.data.team.UniqueTeamList;
 
-import java.util.HashSet;
-import java.util.Set;
+
 
 /**
- * Edits a Team to the address book.
+ * Edits a team to the address book.
  */
 
 public class EditTeam extends Command {
@@ -30,7 +38,7 @@ public class EditTeam extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + "c/" + Country.EXAMPLE;
 
-    public static final String MESSAGE_EDIT_TEAM_SUCCESS = "Edited Team: %1$s";
+    public static final String MESSAGE_EDIT_TEAM_SUCCESS = "Edited team: %1$s";
     public static final String MESSAGE_NOARGS = "At least one field to edit must be provided.\n%1$s";
 
     private final EditTeamDescriptor editTeamDescriptor;
@@ -39,13 +47,13 @@ public class EditTeam extends Command {
                     String name,
                     String country,
                     String sponsor,
-                    Set<String> tags ) throws IllegalValueException {
+                    Set<String> tags) throws IllegalValueException {
         super(targetVisibleIndex);
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        this.editTeamDescriptor = new EditTeamDescriptor(name,country,sponsor,tagSet);
+        this.editTeamDescriptor = new EditTeamDescriptor(name, country, sponsor, tagSet);
     }
 
     @Override
@@ -67,7 +75,7 @@ public class EditTeam extends Command {
     }
 
     /**
-     * Creates and returns a Team with the details of teamToEdit edited with editTeamDescriptor.
+     * Creates and returns a team with the details of teamToEdit edited with editTeamDescriptor.
      */
     private static Team createEditedTeam(ReadOnlyTeam teamToEdit,
                                          EditTeamDescriptor editTeamDescriptor) {
@@ -114,7 +122,7 @@ public class EditTeam extends Command {
     /**
      * Check for new address value.
      */
-    private static  Set<Tag> checkTagset(Set<Tag> newEdit, Set<Tag> oldInfo) {
+    private static Set<Tag> checkTagset(Set<Tag> newEdit, Set<Tag> oldInfo) {
         if (newEdit.isEmpty()) {
             return oldInfo;
         }
@@ -122,4 +130,3 @@ public class EditTeam extends Command {
     }
 
 }
-

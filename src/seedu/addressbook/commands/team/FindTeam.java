@@ -1,10 +1,16 @@
-package seedu.addressbook.commands.Team;
+package seedu.addressbook.commands.team;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.team.ReadOnlyTeam;
 
-import java.util.*;
+
 
 /**
  * Finds and lists all teams in address book whose name contains any of the argument keywords.

@@ -3,7 +3,7 @@ package seedu.addressbook.data.team;
 import seedu.addressbook.data.exception.IllegalValueException;
 
 /**
- * Represents a Team's country in the address book.
+ * Represents a team's country in the address book.
  */
 
 public class Country {

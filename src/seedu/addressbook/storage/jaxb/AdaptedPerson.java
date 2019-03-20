@@ -1,28 +1,37 @@
 package seedu.addressbook.storage.jaxb;
 
-import seedu.addressbook.common.Utils;
-import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.person.*;
-import seedu.addressbook.data.tag.Tag;
-
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlValue;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlValue;
+
+import seedu.addressbook.common.Utils;
+import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.data.player.Address;
+import seedu.addressbook.data.player.Email;
+import seedu.addressbook.data.player.Name;
+import seedu.addressbook.data.player.Person;
+import seedu.addressbook.data.player.Phone;
+import seedu.addressbook.data.player.ReadOnlyPerson;
+import seedu.addressbook.data.tag.Tag;
+
 /**
- * JAXB-friendly adapted person data holder class.
+ * JAXB-friendly adapted player data holder class.
  */
 public class AdaptedPerson {
 
+    /**
+     * JAXB-friendly place holder for information.
+     */
     private static class AdaptedContactDetail {
         @XmlValue
-        public String value;
+        private String value;
         @XmlAttribute(required = true)
-        public boolean isPrivate;
+        private boolean isPrivate;
     }
 
     @XmlElement(required = true)
@@ -89,9 +98,9 @@ public class AdaptedPerson {
     }
 
     /**
-     * Converts this jaxb-friendly adapted person object into the Person object.
+     * Converts this jaxb-friendly adapted player object into the Person object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person
+     * @throws IllegalValueException if there were any data constraints violated in the adapted player
      */
     public Person toModelType() throws IllegalValueException {
         final Set<Tag> tags = new HashSet<>();

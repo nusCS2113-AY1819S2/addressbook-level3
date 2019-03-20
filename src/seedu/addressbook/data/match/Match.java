@@ -7,7 +7,7 @@ import java.util.Set;
 import seedu.addressbook.data.tag.Tag;
 
 /**
- * Represents a Match in the address book.
+ * Represents a match in the address book.
  * Guarantees: details are present and not null, field values are validated.
  */
 public class Match implements ReadOnlyMatch {

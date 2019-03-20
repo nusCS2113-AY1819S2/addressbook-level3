@@ -1,16 +1,20 @@
-package seedu.addressbook.data.person;
+package seedu.addressbook.data.player;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
+
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.DuplicateDataException;
-
-import java.util.*;
 
 /**
  * A list of persons. Does not allow null elements or duplicates.
  *
  * @see Person#equals(Object)
- * @see Utils#elementsAreUnique(Collection)
  */
 public class UniquePersonList implements Iterable<Person> {
 
@@ -24,20 +28,20 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Signals that an operation targeting a specified person in the list would fail because
-     * there is no such matching person in the list.
+     * Signals that an operation targeting a specified player in the list would fail because
+     * there is no such matching player in the list.
      */
     public static class PersonNotFoundException extends Exception {}
 
     private final List<Person> internalList = new ArrayList<>();
 
     /**
-     * Constructs empty person list.
+     * Constructs empty player list.
      */
     public UniquePersonList() {}
 
     /**
-     * Constructs a person list with the given persons.
+     * Constructs a player list with the given persons.
      */
     public UniquePersonList(Person... persons) throws DuplicatePersonException {
         final List<Person> initialTags = Arrays.asList(persons);
@@ -77,16 +81,16 @@ public class UniquePersonList implements Iterable<Person> {
 
 
     /**
-     * Checks if the list contains an equivalent person as the given argument.
+     * Checks if the list contains an equivalent player as the given argument.
      */
     public boolean contains(ReadOnlyPerson toCheck) {
         return internalList.contains(toCheck);
     }
 
     /**
-     * Adds a person to the list.
+     * Adds a player to the list.
      *
-     * @throws DuplicatePersonException if the person to add is a duplicate of an existing person in the list.
+     * @throws DuplicatePersonException if the player to add is a duplicate of an existing player in the list.
      */
     public void add(Person toAdd) throws DuplicatePersonException {
         if (contains(toAdd)) {
@@ -96,9 +100,9 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Removes the equivalent person from the list.
+     * Removes the equivalent player from the list.
      *
-     * @throws PersonNotFoundException if no such person could be found in the list.
+     * @throws PersonNotFoundException if no such player could be found in the list.
      */
     public void remove(ReadOnlyPerson toRemove) throws PersonNotFoundException {
         final boolean personFoundAndDeleted = internalList.remove(toRemove);
@@ -117,9 +121,9 @@ public class UniquePersonList implements Iterable<Person> {
     /**
      * Sort all persons in list by ascending alphabetical order.
      */
-    public void sort(){
-        Comparator<Person> CustomPersonCompare = Comparator.comparing(Person::getName);
-        Collections.sort(internalList,CustomPersonCompare);
+    public void sort() {
+        Comparator<Person> customPersonCompare = Comparator.comparing(Person::getName);
+        Collections.sort(internalList, customPersonCompare);
     }
 
     @Override
@@ -131,8 +135,7 @@ public class UniquePersonList implements Iterable<Person> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniquePersonList // instanceof handles nulls
-                && this.internalList.equals(
-                        ((UniquePersonList) other).internalList));
+                && this.internalList.equals(((UniquePersonList) other).internalList));
     }
 
     @Override

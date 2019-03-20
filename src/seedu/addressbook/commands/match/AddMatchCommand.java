@@ -1,11 +1,18 @@
-package seedu.addressbook.commands;
-
-import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.match.*;
-import seedu.addressbook.data.tag.Tag;
+package seedu.addressbook.commands.match;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import seedu.addressbook.commands.Command;
+import seedu.addressbook.commands.CommandResult;
+import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.data.match.Away;
+import seedu.addressbook.data.match.Date;
+import seedu.addressbook.data.match.Home;
+import seedu.addressbook.data.match.Match;
+import seedu.addressbook.data.match.ReadOnlyMatch;
+import seedu.addressbook.data.match.UniqueMatchList;
+import seedu.addressbook.data.tag.Tag;
 
 /**
  * Adds a match to the address book.

@@ -1,5 +1,7 @@
-package seedu.addressbook.commands;
+package seedu.addressbook.commands.match;
 
+import seedu.addressbook.commands.Command;
+import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.match.ReadOnlyMatch;
 import seedu.addressbook.data.match.UniqueMatchList.MatchNotFoundException;
@@ -17,7 +19,7 @@ public class DeleteMatchCommand extends Command {
             + "Parameters: INDEX\n\t"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_MATCH_SUCCESS = "Deleted Match: %1$s";
+    public static final String MESSAGE_DELETE_MATCH_SUCCESS = "Deleted match: %1$s";
 
 
     public DeleteMatchCommand(int targetVisibleIndex) {

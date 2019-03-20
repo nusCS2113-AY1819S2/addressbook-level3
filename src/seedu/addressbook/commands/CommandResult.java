@@ -1,11 +1,11 @@
 package seedu.addressbook.commands;
 
-import seedu.addressbook.data.match.ReadOnlyMatch;
-import seedu.addressbook.data.person.ReadOnlyPerson;
-import seedu.addressbook.data.team.ReadOnlyTeam;
-
 import java.util.List;
 import java.util.Optional;
+
+import seedu.addressbook.data.match.ReadOnlyMatch;
+import seedu.addressbook.data.player.ReadOnlyPerson;
+import seedu.addressbook.data.team.ReadOnlyTeam;
 
 /**
  * Represents the result of a command execution.
@@ -17,6 +17,7 @@ public class CommandResult {
 
     /** The list of persons that was produced by the command */
     private final List<? extends ReadOnlyPerson> relevantPersons;
+
     /** The list of teams that was produced by the command */
     private final List<? extends ReadOnlyTeam> relevantTeams;
 
@@ -55,7 +56,7 @@ public class CommandResult {
     public Optional<List<? extends ReadOnlyMatch>> getRelevantMatches() {
         return Optional.ofNullable(relevantMatches);
     }
-      
+
     /**
      * Returns list of teams relevant to the command command result, if any.
      */

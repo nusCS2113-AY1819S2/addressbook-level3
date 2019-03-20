@@ -1,20 +1,12 @@
 package seedu.addressbook.data.finance;
 
-import seedu.addressbook.data.person.Person;
-import seedu.addressbook.data.person.ReadOnlyPerson;
-import seedu.addressbook.data.person.UniquePersonList;
-import seedu.addressbook.data.person.UniquePersonList.DuplicatePersonException;
-import seedu.addressbook.data.person.UniquePersonList.PersonNotFoundException;
 import seedu.addressbook.data.team.ReadOnlyTeam;
-import seedu.addressbook.data.team.Team;
 import seedu.addressbook.data.team.Sponsor;
-import seedu.addressbook.data.exception.IllegalValueException;
 
 /**
- * Represents Financial condition for a Team in the League.
+ * Represents Financial condition for a team in the League.
  * Guarantees: details are present and not null, field values are validated.
  */
-
 
 public class Finance {
 
@@ -28,45 +20,44 @@ public class Finance {
         Sponsor sponsorSponsor = team.getSponsor();
         String sponsorString = sponsorSponsor.value;
         this.sponsor = Double.valueOf(sponsorString);
-
-       /**
-        *
-        * wait for variables from other class
-        *
-        *Sponsor sponsorSponsor = team.getSponsor();
-        String venueCostString = sponsorSponsor.value;
-        this.venueCost = Double.valueOf(venueCostString);
-
-        Sponsor sponsorSponsor = team.getSponsor();
-        String playerSalaryString = sponsorSponsor.value;
-        this.playerSalary = Double.valueOf(playerSalaryString);
-
-        Sponsor sponsorSponsor = team.getSponsor();
-        String sponsorString = sponsorSponsor.value;
-        this.sponsor = Double.valueOf(sponsorString);
-        */
+        /**
+         *
+         * wait for variables from other class
+         *
+         *Sponsor sponsorSponsor = team.getSponsor();
+         *String venueCostString = sponsorSponsor.value;
+         *this.venueCost = Double.valueOf(venueCostString);
+         *
+         * Sponsor sponsorSponsor = team.getSponsor();
+         * String playerSalaryString = sponsorSponsor.value;
+         * this.playerSalary = Double.valueOf(playerSalaryString);
+         *
+         * Sponsor sponsorSponsor = team.getSponsor();
+         * String sponsorString = sponsorSponsor.value;
+         * this.sponsor = Double.valueOf(sponsorString);
+         */
     }
 
-    public double getFinance(){
+    public double getFinance() {
         double money;
         money = sponsor - venueCost + playerSalary + ticketIncome;
         return money;
-    };
+    }
 
-    public double getSponsor(){
+    public double getSponsor() {
         return sponsor;
-    };
+    }
 
-    public double getVenueCost(){
+    public double getVenueCost() {
         return venueCost;
-    };
+    }
 
-    public double getPlayerSalary(){
+    public double getPlayerSalary() {
         return playerSalary;
-    };
+    }
 
-    public double getTicketIncome(){
+    public double getTicketIncome() {
         return ticketIncome;
-    };
+    }
 
 }

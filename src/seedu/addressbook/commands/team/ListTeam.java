@@ -1,12 +1,14 @@
-package seedu.addressbook.commands.Team;
+package seedu.addressbook.commands.team;
+
+import java.util.List;
 
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.team.ReadOnlyTeam;
 
-
-import java.util.List;
-
+/**
+ * List all teams
+ */
 public class ListTeam extends Command {
 
     public static final String COMMAND_WORD = "listTeam";
@@ -19,7 +21,6 @@ public class ListTeam extends Command {
     @Override
     public CommandResult execute() {
         List<ReadOnlyTeam> allTeams = addressBook.getAllTeams().immutableListView();
-        return new CommandResult(getMessageForTeamListShownSummary(allTeams),null, allTeams, null);
+        return new CommandResult(getMessageForTeamListShownSummary(allTeams), null, allTeams, null);
     }
 }
-

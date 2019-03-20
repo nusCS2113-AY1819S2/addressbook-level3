@@ -1,8 +1,14 @@
-package seedu.addressbook.commands;
+package seedu.addressbook.commands.match;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import seedu.addressbook.commands.Command;
+import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.match.ReadOnlyMatch;
-
-import java.util.*;
 
 /**
  * Finds and lists all matches in address book with date that contains any of the argument keywords.
@@ -12,7 +18,8 @@ public class FindMatchCommand extends Command {
 
     public static final String COMMAND_WORD = "findmatch";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Finds all matches with date that contains any of "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
+            + "Finds all matches with date that contains any of "
             + "the specified keywords (case-sensitive) and displays them as a list with index numbers.\n\t"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n\t"
             + "Example: " + COMMAND_WORD + " MAR APR JUN";
