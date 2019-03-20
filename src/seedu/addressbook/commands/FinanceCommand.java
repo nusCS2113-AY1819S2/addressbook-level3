@@ -13,7 +13,7 @@ public class FinanceCommand extends Command {
     public static final String COMMAND_WORD = "finance";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
-            + "Checks the financial condition of a team identified using it's last displayed index from the League.\n\t"
+            + "Checks the financial condition of a team identified using its last displayed index from the League.\n\t"
             + "Parameters: INDEX\n\t"
             + "Example: " + COMMAND_WORD + " 1";
 
