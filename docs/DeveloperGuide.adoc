@@ -17,7 +17,10 @@ By: `CS2113-AY1819S2-M11-1`      Since: ``      Licence: ``
 
 == Introduction
 
-The LeagueTracker provides football league operator with an efficient method of managing the current teams that are playing in the season. It features many ways to keep track of the teams and players playing in the league. The LeagueTracker will help manager have an easier time in keeping track of the curretn situation in the football league.
+The LeagueTracker is a CLI (Command Line Interface) application written in OOP fashion with a very basic GUI.
+This application is adapted from AddressBook3. It is created to provide league managers a football league operator with an efficient method of managing the league in the current season. It features many ways to keep track of the teams and players playing in the league. The LeagueTracker will make useful information of the league managed to be more organized and accessible. +
+
+This Developer Guide provides you useful information regarding setting, coding and testing of League Tracker.
 
 == Design
 
@@ -26,7 +29,25 @@ The LeagueTracker provides football league operator with an efficient method of 
 .Architecture Diagram
 image::Architecture.png[width="600"]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+The *_Architecture Diagram_* given above explains the high-level design of the League Tracker.
+Given below is a quick overview of each component. +
+
+*Main* has only one class called Main. It is responsible for:
+
+* At app launch: Initializing the components in the correct sequence, and connects them up with each other.
+
+* At shut down: Shutting down the components.
+
+
+
+*UI* is the User Interface of the App. Users interact with it through a command line interface.
+
+*Logic* is the command executor.
+
+*Data* Holds the data of the League Tracker in-memory.
+
+*Storage* Reads data from, and writes data to the hard disk.
+
 
 
 == Setting up
@@ -39,6 +60,7 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 
 
 === Setting up the project in your computer
+To set up this project on our computer: +
 
 . Fork this repo, and clone the fork to your computer
 . Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
@@ -74,9 +96,9 @@ Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> docume
 
 ==== Updating documentation to match your fork
 
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
+After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level3` repo.
 
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
+If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level3`), you should do the following:
 
 . Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
 
@@ -95,6 +117,67 @@ Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingA
 
 [NOTE]
 Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
+
+
+== Implementation
+
+
+== Documentation
+
+We use asciidoc for writing documentation.
+
+[NOTE]
+We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
+
+=== Editing Documentation
+
+See <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to learn how to render `.adoc` files locally to preview the end result of your edits.
+Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your `.adoc` files in real-time.
+
+=== Publishing Documentation
+
+See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to deploy GitHub Pages using Travis.
+
+=== Converting Documentation to PDF format
+
+We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
+
+Here are the steps to convert the project documentation files to PDF format.
+
+.  Follow the instructions in <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to convert the AsciiDoc files in the `docs/` directory to HTML format.
+.  Go to your generated HTML files in the `build/docs` folder, right click on them and select `Open with` -> `Google Chrome`.
+.  Within Chrome, click on the `Print` option in Chrome's menu.
+.  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
+
+.Saving documentation as PDF files in Chrome
+image::chrome_save_as_pdf.png[width="300"]
+
+== Testing
+
+=== Running Tests
+
+There are three ways to run tests.
+
+[TIP]
+The most reliable way to run tests is the 3rd one. The first two methods might fail some GUI tests due to platform/resolution-specific idiosyncrasies.
+
+*Method 1: Using IntelliJ JUnit test runner*
+
+* To run all tests, right-click on the `src/test/java` folder and choose `Run 'All Tests'`
+* To run a subset of tests, you can right-click on a test package, test class, or a test and choose `Run 'ABC'`
+
+*Method 2: Using Gradle*
+
+* Open a console and run the command `gradlew clean allTests` (Mac/Linux: `./gradlew clean allTests`)
+
+[NOTE]
+See <<UsingGradle#, UsingGradle.adoc>> for more info on how to run tests using Gradle.
+
+*Method 3: Using Gradle (headless)*
+
+Thanks to the https://github.com/TestFX/TestFX[TestFX] library we use, our GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running.
+
+To run tests in headless mode, open a console and run the command `gradlew clean headless allTests` (Mac/Linux: `./gradlew clean headless allTests`)
 
 
 == Dev Ops
@@ -149,25 +232,24 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |League Organiser |add, edit and delete players into the records | Add new player when they join,delete old player when they retire
+|`* * *` |League Organiser |add, edit and delete players into the records | add new player when they join,delete old player when they retire
 
-|`* * *` |League Organiser |add, edit and delete teams into current league| Add new team that move up major league
+|`* * *` |League Organiser |add, edit and delete teams into current league| add new team that move up major league
 
 |`* * *` |League Organiser |list all teams and player. | See all current teams and player
 
-|`* * *` |League Organiser |Able to see the performance of players in the league | Know player's goals scored and Penalties.
+|`* * *` |League Organiser |see the performance of players in the league | know player's goals scored and Penalties.
 
-|`* * *` |League Organiser |Able to see the teams ranking in league | Know which team is currently leading in points
+|`* * *` |League Organiser |see the teams ranking in league | know which team is currently leading in points
 
-|`* * *` |League Organiser |Able to keep track on the future match up for the playing teams| see the match scheduling
+|`* * *` |League Organiser |keep track on the future match up for the playing teams| see the match scheduling
 
-|`* *` |League Organiser | Able to see the statistic of each team | know the percentage of winnings, average of fouls per matches of each team
+|`* * *` |League Organiser |add, edit and delete matches in current league | edit the match schedule
 
-|`* *` |League Organiser |Able to tag injuries of players | know what old injuries player have
+|`* * *` |League Organiser |see the real-time balancing of income of each team | know the financial condition of each team
 
-|`*` |League Organiser |Able to constantly keep track of best player | able to find out the golden leg(best scorer) of the season
+|`* *` |League Organiser |see the statistic of each team | know the percentage of winnings, average of fouls per matches of each team
 
-|`*` |League Organiser | Select certain player to moniter performance | keep track of 'HOT' Players
 
 |=======================================================================
 
@@ -263,7 +345,7 @@ Use Case: Edit Player
 Use case ends.
 
 [appendix]
-==Glossary
+== Glossary
 
 League: a group of football teams which play each other over a period for a championship.
 
@@ -273,47 +355,3 @@ image::transfer.png[]
 
 
 [appendix]
-== Instructions for Manual Testing
-
-Given below are instructions to test the app manually.
-
-[NOTE]
-These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
-
-=== Launch and Shutdown
-
-. Initial launch
-
-.. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
-
-. Saving window preferences
-
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
-
-_{ more test cases ... }_
-
-=== Deleting a person
-
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
-
-_{ more test cases ... }_
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
