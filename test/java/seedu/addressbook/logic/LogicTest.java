@@ -523,7 +523,7 @@ public class LogicTest {
             cmd.add((p.getAddress().isPrivate() ? "pa/" : "a/") + p.getAddress());
 
             Set<Tag> tags = p.getTags();
-            for(Tag t: tags){
+            for (Tag t: tags) {
                 cmd.add("t/" + t.tagName);
             }
 
