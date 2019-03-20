@@ -11,7 +11,12 @@ import javax.xml.bind.annotation.XmlValue;
 
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.player.*;
+import seedu.addressbook.data.player.Address;
+import seedu.addressbook.data.player.Email;
+import seedu.addressbook.data.player.Name;
+import seedu.addressbook.data.player.Person;
+import seedu.addressbook.data.player.Phone;
+import seedu.addressbook.data.player.ReadOnlyPerson;
 import seedu.addressbook.data.tag.Tag;
 
 /**
@@ -24,9 +29,9 @@ public class AdaptedPerson {
      */
     private static class AdaptedContactDetail {
         @XmlValue
-        public String value;
+        private String value;
         @XmlAttribute(required = true)
-        public boolean isPrivate;
+        private boolean isPrivate;
     }
 
     @XmlElement(required = true)

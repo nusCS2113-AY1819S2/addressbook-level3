@@ -12,7 +12,7 @@ import seedu.addressbook.data.tag.Tag;
 public class AdaptedTag {
 
     @XmlValue
-    public String tagName;
+    private String tagName;
 
     /**
      * No-arg constructor for JAXB use.

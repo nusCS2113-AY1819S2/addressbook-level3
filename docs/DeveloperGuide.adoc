@@ -263,7 +263,7 @@ Use Case: Edit Player
 Use case ends.
 
 [appendix]
-==Glossary
+== Glossary
 
 League: a group of football teams which play each other over a period for a championship.
 
