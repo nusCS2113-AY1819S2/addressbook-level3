@@ -8,10 +8,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.player.Person;
-import seedu.addressbook.data.player.UniquePersonList;
 import seedu.addressbook.data.match.Match;
 import seedu.addressbook.data.match.UniqueMatchList;
+import seedu.addressbook.data.player.Person;
+import seedu.addressbook.data.player.UniquePersonList;
 import seedu.addressbook.data.team.Team;
 import seedu.addressbook.data.team.UniqueTeamList;
 
@@ -81,10 +81,11 @@ public class AdaptedAddressBook {
         for (AdaptedTeam team : teams) {
             teamList.add(team.toModelType());
         }
-      
+
         for (AdaptedMatch match : matches) {
             matchList.add(match.toModelType());
         }
+
         return new AddressBook(
                 new UniquePersonList(personList),
                 new UniqueTeamList(teamList),

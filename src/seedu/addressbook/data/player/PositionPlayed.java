@@ -8,7 +8,7 @@ import seedu.addressbook.data.exception.IllegalValueException;
  */
 public class PositionPlayed {
 
-    public static final String example = "Midfielder";
+    public static final String EXAMPLE = "Midfielder";
     public static final String MESSAGE_POSITIONPLAYED_CONSTRAINTS = "Position of a player"
             + "must be spaces or alphanumeric characters";
     public static final String POSITIONPLAYED_VALIDATION_REGEX = "[\\p{Alnum} ]+";

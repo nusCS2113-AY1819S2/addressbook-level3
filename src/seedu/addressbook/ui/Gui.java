@@ -6,8 +6,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import seedu.addressbook.logic.Logic;
 import seedu.addressbook.Main;
+import seedu.addressbook.logic.Logic;
+
 
 /**
  * The GUI of the App
@@ -29,11 +30,17 @@ public class Gui {
         this.version = version;
     }
 
+    /**
+     * Create the main window and display the welcome message on it
+     */
     public void start(Stage stage, Stoppable mainApp) throws IOException {
         mainWindow = createMainWindow(stage, mainApp);
         mainWindow.displayWelcomeMessage(version, logic.getStorageFilePath());
     }
 
+    /**
+     * Create the main window of the league tracker using javaFX
+     */
     private MainWindow createMainWindow(Stage stage, Stoppable mainApp) throws IOException {
         FXMLLoader loader = new FXMLLoader();
 

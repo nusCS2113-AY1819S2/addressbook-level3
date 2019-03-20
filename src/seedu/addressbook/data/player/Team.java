@@ -10,7 +10,8 @@ import seedu.addressbook.data.exception.IllegalValueException;
  */
 public class Team {
     public static final String EXAMPLE = "FC Barcelona";
-    public static final String MESSAGE_TEAM_CONSTRAINTS = "Player's team names should be spaces or alphanumeric characters";
+    public static final String MESSAGE_TEAM_CONSTRAINTS = "Player's team names"
+            + "should be spaces or alphanumeric characters";
     public static final String TEAM_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
     public final String fullTeam;

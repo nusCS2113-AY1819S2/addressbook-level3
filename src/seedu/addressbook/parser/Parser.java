@@ -105,72 +105,72 @@ public class Parser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-            case AddCommand.COMMAND_WORD:
-                return prepareAddPerson(arguments);
+        case AddCommand.COMMAND_WORD:
+            return prepareAddPerson(arguments);
 
-            case AddTeam.COMMAND_WORD:
-                return addTeam(arguments);
+        case AddTeam.COMMAND_WORD:
+            return addTeam(arguments);
 
-            case DeleteCommand.COMMAND_WORD:
-                return prepareDeletePerson(arguments);
+        case DeleteCommand.COMMAND_WORD:
+            return prepareDeletePerson(arguments);
 
-            case DeleteTeam.COMMAND_WORD:
-                return delTeam(arguments);
+        case DeleteTeam.COMMAND_WORD:
+            return delTeam(arguments);
 
-            case ClearCommand.COMMAND_WORD:
-                return new ClearCommand();
+        case ClearCommand.COMMAND_WORD:
+            return new ClearCommand();
 
-            case ClearTeam.COMMAND_WORD:
-                return new ClearTeam();
+        case ClearTeam.COMMAND_WORD:
+            return new ClearTeam();
 
-            case FindCommand.COMMAND_WORD:
-                return prepareFindPerson(arguments);
+        case FindCommand.COMMAND_WORD:
+            return prepareFindPerson(arguments);
 
-            case FindTeam.COMMAND_WORD:
-                return prepareFindTeam(arguments);
+        case FindTeam.COMMAND_WORD:
+            return prepareFindTeam(arguments);
 
-            case FinanceCommand.COMMAND_WORD:
-                return prepareFinance(arguments);
+        case FinanceCommand.COMMAND_WORD:
+            return prepareFinance(arguments);
 
-            case ListCommand.COMMAND_WORD:
-                return new ListCommand();
+        case ListCommand.COMMAND_WORD:
+            return new ListCommand();
 
-            case AddMatchCommand.COMMAND_WORD:
-                return prepareAddMatch(arguments);
+        case AddMatchCommand.COMMAND_WORD:
+            return prepareAddMatch(arguments);
 
-            case DeleteMatchCommand.COMMAND_WORD:
-                return prepareDeleteMatch(arguments);
+        case DeleteMatchCommand.COMMAND_WORD:
+            return prepareDeleteMatch(arguments);
 
-            case ClearMatchCommand.COMMAND_WORD:
-                return new ClearMatchCommand();
+        case ClearMatchCommand.COMMAND_WORD:
+            return new ClearMatchCommand();
 
-            case FindMatchCommand.COMMAND_WORD:
-                return prepareFindMatch(arguments);
+        case FindMatchCommand.COMMAND_WORD:
+            return prepareFindMatch(arguments);
 
-            case ListMatchCommand.COMMAND_WORD:
-                return new ListMatchCommand();
+        case ListMatchCommand.COMMAND_WORD:
+            return new ListMatchCommand();
 
-            case ListTeam.COMMAND_WORD:
-                return new ListTeam();
+        case ListTeam.COMMAND_WORD:
+            return new ListTeam();
 
-            case EditTeam.COMMAND_WORD:
-                return prepareEditTeam(arguments);
+        case EditTeam.COMMAND_WORD:
+            return prepareEditTeam(arguments);
 
-            case SortCommand.COMMAND_WORD:
-                return new SortCommand();
+        case SortCommand.COMMAND_WORD:
+            return new SortCommand();
 
-            case ViewCommand.COMMAND_WORD:
-                return prepareView(arguments);
+        case ViewCommand.COMMAND_WORD:
+            return prepareView(arguments);
 
-            case ViewAllCommand.COMMAND_WORD:
-                return prepareViewAll(arguments);
+        case ViewAllCommand.COMMAND_WORD:
+            return prepareViewAll(arguments);
 
-            case ExitCommand.COMMAND_WORD:
-                return new ExitCommand();
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
 
-            case HelpCommand.COMMAND_WORD: // Fallthrough
-            default:
-                return new HelpCommand();
+        case HelpCommand.COMMAND_WORD: // Fallthrough
+        default:
+            return new HelpCommand();
         }
     }
 

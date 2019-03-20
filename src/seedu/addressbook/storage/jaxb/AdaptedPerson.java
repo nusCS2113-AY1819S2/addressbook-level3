@@ -19,6 +19,9 @@ import seedu.addressbook.data.tag.Tag;
  */
 public class AdaptedPerson {
 
+    /**
+     * JAXB-friendly place holder for information.
+     */
     private static class AdaptedContactDetail {
         @XmlValue
         public String value;
