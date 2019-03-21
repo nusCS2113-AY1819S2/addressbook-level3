@@ -237,8 +237,6 @@ Format : `ListTeamFinance`
 
 Example: +
 `ListTeamFinance` +
-{empty} +
-{empty} +
 
 == Exiting the program
 
