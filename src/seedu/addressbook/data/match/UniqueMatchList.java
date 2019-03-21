@@ -1,15 +1,17 @@
 package seedu.addressbook.data.match;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.DuplicateDataException;
 
-import java.util.*;
-
 /**
  * A list of matches. Does not allow null elements or duplicates.
- *
- * @see Match#equals(Object)
- * @see Utils#elementsAreUnique(Collection)
  */
 public class UniqueMatchList implements Iterable<Match> {
 
@@ -122,13 +124,11 @@ public class UniqueMatchList implements Iterable<Match> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueMatchList // instanceof handles nulls
-                && this.internalList.equals(
-                ((UniqueMatchList) other).internalList));
+                && this.internalList.equals(((UniqueMatchList) other).internalList));
     }
 
     @Override
     public int hashCode() {
         return internalList.hashCode();
     }
-
 }

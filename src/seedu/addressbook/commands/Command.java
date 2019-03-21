@@ -1,14 +1,14 @@
 package seedu.addressbook.commands;
 
-import seedu.addressbook.common.Messages;
-import seedu.addressbook.data.AddressBook;
-import seedu.addressbook.data.person.ReadOnlyPerson;
-import seedu.addressbook.data.match.ReadOnlyMatch;
-import seedu.addressbook.data.team.ReadOnlyTeam;
+import static seedu.addressbook.ui.Gui.DISPLAYED_INDEX_OFFSET;
 
 import java.util.List;
 
-import static seedu.addressbook.ui.Gui.DISPLAYED_INDEX_OFFSET;
+import seedu.addressbook.common.Messages;
+import seedu.addressbook.data.AddressBook;
+import seedu.addressbook.data.match.ReadOnlyMatch;
+import seedu.addressbook.data.player.ReadOnlyPerson;
+import seedu.addressbook.data.team.ReadOnlyTeam;
 
 /**
  * Represents an executable command.
@@ -22,7 +22,7 @@ public abstract class Command {
     private int targetIndex = -1;
 
     /**
-     * @param targetIndex last visible listing index of the target person
+     * @param targetIndex last visible listing index of the target player
      */
     public Command(int targetIndex) {
         this.setTargetIndex(targetIndex);
@@ -47,7 +47,7 @@ public abstract class Command {
     public static String getMessageForMatchListShownSummary(List<? extends ReadOnlyMatch> matchesDisplayed) {
         return String.format(Messages.MESSAGE_MATCHES_LISTED_OVERVIEW, matchesDisplayed.size());
     }
-      
+
     /**
      * Constructs a feedback message to summarise an operation that displayed a listing of Teams.
      */
@@ -58,7 +58,7 @@ public abstract class Command {
     /**
      * Executes the command and returns the result.
      */
-    public CommandResult execute(){
+    public CommandResult execute() {
         throw new UnsupportedOperationException("This method should be implement in child classes");
     }
 
@@ -80,7 +80,7 @@ public abstract class Command {
     }
 
     /**
-     * Extracts the the target person in the last shown list from the given arguments.
+     * Extracts the the target player in the last shown list from the given arguments.
      *
      * @throws IndexOutOfBoundsException if the target index is out of bounds of the last viewed listing
      */

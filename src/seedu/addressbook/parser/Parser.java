@@ -1,14 +1,40 @@
 package seedu.addressbook.parser;
 
-import seedu.addressbook.commands.*;
-import seedu.addressbook.commands.Team.*;
-import seedu.addressbook.data.exception.IllegalValueException;
+import static seedu.addressbook.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static seedu.addressbook.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import seedu.addressbook.commands.AddCommand;
+import seedu.addressbook.commands.ClearCommand;
+import seedu.addressbook.commands.Command;
+import seedu.addressbook.commands.DeleteCommand;
+import seedu.addressbook.commands.ExitCommand;
+import seedu.addressbook.commands.FinanceCommand;
+import seedu.addressbook.commands.FindCommand;
+import seedu.addressbook.commands.HelpCommand;
+import seedu.addressbook.commands.IncorrectCommand;
+import seedu.addressbook.commands.ListCommand;
+import seedu.addressbook.commands.SortCommand;
+import seedu.addressbook.commands.ViewAllCommand;
+import seedu.addressbook.commands.ViewCommand;
+import seedu.addressbook.commands.match.AddMatchCommand;
+import seedu.addressbook.commands.match.ClearMatchCommand;
+import seedu.addressbook.commands.match.DeleteMatchCommand;
+import seedu.addressbook.commands.match.FindMatchCommand;
+import seedu.addressbook.commands.match.ListMatchCommand;
+import seedu.addressbook.commands.team.AddTeam;
+import seedu.addressbook.commands.team.ClearTeam;
+import seedu.addressbook.commands.team.DeleteTeam;
+import seedu.addressbook.commands.team.EditTeam;
+import seedu.addressbook.commands.team.FindTeam;
+import seedu.addressbook.commands.team.ListTeam;
+import seedu.addressbook.data.exception.IllegalValueException;
 
 /**
  * Parses user input.
@@ -39,6 +65,17 @@ public class Parser {
                     + "s/(?<sponsor>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags;
 
+
+    public static final Pattern TEAM_EDIT_DATA_ARGS_FORMAT =
+            Pattern.compile("(?<targetIndex>\\d+)"
+                    + "(( n/(?<name>[^/]+))?)"
+                    + "(( c/(?<country>[^/]+))?)"
+                    + "(( s/(?<sponsor>[^/]+))?)"
+                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags;
+
+    public static final Pattern TEAM_EDIT_DATA_NOARGS_FORMAT =
+            Pattern.compile("(?<targetIndex>\\d+)");
+
     /**
      * Signals that the user input could not be parsed.
      */
@@ -68,75 +105,79 @@ public class Parser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
+        case AddCommand.COMMAND_WORD:
+            return prepareAddPerson(arguments);
 
-            case AddCommand.COMMAND_WORD:
-                return prepareAddPerson(arguments);
+        case AddTeam.COMMAND_WORD:
+            return addTeam(arguments);
 
-            case AddTeam.COMMAND_WORD:
-                return AddTeam(arguments);
+        case DeleteCommand.COMMAND_WORD:
+            return prepareDeletePerson(arguments);
 
-            case DeleteCommand.COMMAND_WORD:
-                return prepareDeletePerson(arguments);
+        case DeleteTeam.COMMAND_WORD:
+            return delTeam(arguments);
 
-            case DeleteTeam.COMMAND_WORD:
-                return DelTeam(arguments);
+        case ClearCommand.COMMAND_WORD:
+            return new ClearCommand();
 
-            case ClearCommand.COMMAND_WORD:
-                return new ClearCommand();
+        case ClearTeam.COMMAND_WORD:
+            return new ClearTeam();
 
-            case ClearTeam.COMMAND_WORD:
-                return new ClearTeam();
+        case FindCommand.COMMAND_WORD:
+            return prepareFindPerson(arguments);
 
-            case FindCommand.COMMAND_WORD:
-                return prepareFindPerson(arguments);
+        case FindTeam.COMMAND_WORD:
+            return prepareFindTeam(arguments);
 
-            case FindTeam.COMMAND_WORD:
-                return prepareFindTeam(arguments);
+        case FinanceCommand.COMMAND_WORD:
+            return prepareFinance(arguments);
 
-            case FinanceCommand.COMMAND_WORD:
-                return prepareFinance(arguments);
+        case ListCommand.COMMAND_WORD:
+            return new ListCommand();
 
-            case ListCommand.COMMAND_WORD:
-                return new ListCommand();
+        case AddMatchCommand.COMMAND_WORD:
+            return prepareAddMatch(arguments);
 
-            case AddMatchCommand.COMMAND_WORD:
-                return prepareAddMatch(arguments);
+        case DeleteMatchCommand.COMMAND_WORD:
+            return prepareDeleteMatch(arguments);
 
-            case DeleteMatchCommand.COMMAND_WORD:
-                return prepareDeleteMatch(arguments);
+        case ClearMatchCommand.COMMAND_WORD:
+            return new ClearMatchCommand();
 
-            case ClearMatchCommand.COMMAND_WORD:
-                return new ClearMatchCommand();
+        case FindMatchCommand.COMMAND_WORD:
+            return prepareFindMatch(arguments);
 
-            case FindMatchCommand.COMMAND_WORD:
-                return prepareFindMatch(arguments);
+        case ListMatchCommand.COMMAND_WORD:
+            return new ListMatchCommand();
 
-            case ListMatchCommand.COMMAND_WORD:
-                return new ListMatchCommand();
+        case ListTeam.COMMAND_WORD:
+            return new ListTeam();
 
-            case ListTeam.COMMAND_WORD:
-                return new ListTeam();
+        case EditTeam.COMMAND_WORD:
+            return prepareEditTeam(arguments);
 
-            case SortCommand.COMMAND_WORD:
-                return new SortCommand();
+        case SortCommand.COMMAND_WORD:
+            return new SortCommand();
 
-            case ViewCommand.COMMAND_WORD:
-                return prepareView(arguments);
+        case ViewCommand.COMMAND_WORD:
+            return prepareView(arguments);
 
-            case ViewAllCommand.COMMAND_WORD:
-                return prepareViewAll(arguments);
+        case ViewAllCommand.COMMAND_WORD:
+            return prepareViewAll(arguments);
 
-            case ExitCommand.COMMAND_WORD:
-                return new ExitCommand();
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
 
-            case HelpCommand.COMMAND_WORD: // Fallthrough
-            default:
-                return new HelpCommand();
+        case HelpCommand.COMMAND_WORD: // Fallthrough
+        default:
+            return new HelpCommand();
         }
     }
 
-
-    private Command AddTeam(String args){
+    /**
+     * Parses arguments in the context of the add team command.
+     */
+    private Command addTeam(String args) {
         final Matcher matcher = TEAM_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
@@ -155,12 +196,12 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the add person command.
+     * Parses arguments in the context of the add player command.
      *
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareAddPerson(String args){
+    private Command prepareAddPerson(String args) {
         final Matcher matcher = PERSON_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
@@ -187,12 +228,12 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the add person command.
+     * Parses arguments in the context of the add player command.
      *
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareAddMatch(String args){
+    private Command prepareAddMatch(String args) {
         final Matcher matcher = MATCH_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
@@ -218,7 +259,8 @@ public class Parser {
     }
 
     /**
-     * Extracts the new person's tags from the add command's tag arguments string.
+     * Extracts the new player's tags from the add command's tag arguments string.
+     * Extracts the new team's tags from the addTeam command's tag arguments string.
      * Merges duplicate tag strings.
      */
     private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
@@ -233,7 +275,7 @@ public class Parser {
 
 
     /**
-     * Parses arguments in the context of the delete person command.
+     * Parses arguments in the context of the delete player command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -259,14 +301,15 @@ public class Parser {
             final int targetIndex = parseArgsAsDisplayedIndex(args);
             return new DeleteMatchCommand(targetIndex);
         } catch (ParseException | NumberFormatException e) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteMatchCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DeleteMatchCommand.MESSAGE_USAGE));
         }
     }
 
     /**
      * Parses arguments in the context of the delete team command.
      */
-    private Command DelTeam(String args) {
+    private Command delTeam(String args) {
         try {
             final int targetIndex = parseArgsAsDisplayedIndex(args);
             return new DeleteTeam(targetIndex);
@@ -291,6 +334,41 @@ public class Parser {
         }
     }
 
+
+    /**
+     * Parses arguments in the context of the Edit command.
+     */
+    private Command prepareEditTeam(String args) {
+
+        final Matcher checkForArgs = TEAM_EDIT_DATA_NOARGS_FORMAT.matcher(args.trim());
+        if (checkForArgs.matches()) {
+            return new IncorrectCommand(String.format(
+                    EditTeam.MESSAGE_NOARGS,
+                    EditTeam.MESSAGE_USAGE));
+        }
+        final Matcher matcher = TEAM_EDIT_DATA_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(
+                    MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditTeam.MESSAGE_USAGE));
+        }
+        try {
+            final int targetIndex = parseArgsAsDisplayedIndex(matcher.group("targetIndex"));
+            return new EditTeam(
+                    targetIndex,
+                    matcher.group("name"),
+                    matcher.group("country"),
+                    matcher.group("sponsor"),
+                    getTagsFromArgs(matcher.group("tagArguments"))
+            );
+        } catch (ParseException | NumberFormatException e) {
+            return new IncorrectCommand(String.format(
+                    MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditTeam.MESSAGE_USAGE));
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+    }
 
     /**
      * Parses arguments in the context of the view command.
@@ -331,7 +409,7 @@ public class Parser {
      *
      * @param args arguments string to parse as index number
      * @return the parsed index number
-     * @throws ParseException if no region of the args string could be found for the index
+     * @throws ParseException        if no region of the args string could be found for the index
      * @throws NumberFormatException the args string region is not a valid number
      */
     private int parseArgsAsDisplayedIndex(String args) throws ParseException, NumberFormatException {
@@ -344,7 +422,7 @@ public class Parser {
 
 
     /**
-     * Parses arguments in the context of the find person command.
+     * Parses arguments in the context of the find player command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -396,5 +474,4 @@ public class Parser {
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindTeam(keywordSet);
     }
- }
-
+}

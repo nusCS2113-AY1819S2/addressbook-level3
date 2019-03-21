@@ -13,20 +13,20 @@ ifdef::env-github[]
 :note-caption: :information_source:
 endif::[]
 
-Welcome to the League Tracker User Guide! You can choose a topic below to find answers about how to use our product.
+Welcome to the League Tracker User Guide! You can choose a topic below to find out how to use our product.
 
-By : `CS2113-AY1819S2-M11-1`	Since: `` Licence:``
+By: `CS2113-AY1819S2-M11-1`	Since: `Jan 2019`
 
 == Introduction
 
-The LeagueTracker is an application that provides you with an efficient method of managing the league in the current season. It features many ways to keep track of information of the teams and players playing in the league. The LeagueTracker will help you have an easier time in storing and keeping track of the current situation in the soccer league.
+The League Tracker is an application that provides you with an efficient method of managing information of a football league. It features easy access and modification of information of teams and players in the league. The League Tracker will help you in keeping track of the current situation in a football league.
 
 This User Guide provides information on the League Tracker installation process and commands of each feature. To get started, you can go to the Quick Start section.
 
 == Quick Start
 
 .  Ensure that you have Java version `9` or later installed in your Computer.
-.  Download the latest `LeagueTracker.jar` \\coming soon
+.  Download the latest `LeagueTracker.jar` (coming soon)
 .  Copy the file to the folder you want to use as the home folder for your League Tracker System.
 .  Double-click the file to start the application. The GUI should appear in a few seconds.
 
@@ -37,9 +37,9 @@ image::Ui.png[]
 +
 image::UiCommandBox.png[]
 
-== Viewing help : `help`
+== Viewing Help
 
-You can view the information of all commands in the League Tracker by using the help cammand.
+You can view the information of all commands in the League Tracker by using the Help command.
 
 Format: `help`
 
@@ -50,86 +50,89 @@ Help is also shown if you enter an incorrect command e.g. `abcd`
 
 == Features
 
-The League Tracker has four main features, the player feature, the team feature, the match feature and the finance feature. Those features help you to manage useful information of your current league in a more convenient and effective way.
+The League Tracker has four main features: player feature, team feature,  match feature and finance feature. These features will help you to manage useful information of your league more conveniently and effectively.
 
 === Players
-The Players Feature in the application helps you to manage useful information of players in the current league. +
+The players feature in the application helps you to manage information of players in the league. +
+{empty} +
 
-==== List Player
-
-You can use the List Player command to see the list of current Players in a selected team. +
-
-Format ：`ListPlayer NameOfTeam` +
-
-Example: +
-`ListPlayer Liverpool`
-
-==== List All Players
-You can use the List All Player command to see the list of all current Players in the whole league. +
-
-Format ：`ListAllPlayer`
-
-==== Add Player
+==== *Add Player*
 You can use the Add Player command to add a new player to the League Tracker. +
 
 Format ：`AddPlayer NAME POSITION AGE GENDER PENALTY GOALSSCORED GOALSASSISTED TEAM RANKINLEAGUE COUNTRY JERSEYNUMBER APPEARANCE HEALTHSTATUS`
 
 Example: +
 `AddPlayer Lionel_Messi RW 31 Male 0 20 20 FC_Barcelona 1 Argentina 10 20 Healthy`
+{empty} +
+{empty} +
 
-==== Delete Player
+==== *Delete Player*
 You can use the Delete Player command to delete an existing player in the League Tracker. +
 
 Format ：`DeletePlayer NAME TEAM`
 
 Example: +
 `DeletePlayer Lionel_Messi FC_Barcelona`+
+{empty} +
+{empty} +
 
-==== Edit Player
-You can use the Edit Player command to edit information of an existing player in the League Tracker. +
-
-Format ：`EditPlayer OLDNAME OLDTEAM POSITION AGE GENDER PENALTY GOALSSCORED GOALSASSISTED TEAM RANKINLEAGUE COUNTRY JERSEYNUMBER APPEARANCE HEALTHSTATUS`
-
-Example: +
-`EditPlayer Lionel_Messi Real_Madrid RW 31 Male 0 20 20 FC_Barcelona 1 Argentina 10 20 Healthy`
-
-==== Display Player Profile
+==== *Display Player Profile*
 You can use the Display Player Profile command to display the whole profile of a selected player. +
 
 Format ：`DisplayProfile NAME TEAM`
 
 Example: +
 `DisplayProfile Lionel_Messi FC_Barcelona`
+{empty} +
+{empty} +
+
+==== *Edit Player*
+You can use the Edit Player command to edit information of an existing player in the League Tracker. +
+
+Format ：`EditPlayer OLDNAME OLDTEAM POSITION AGE GENDER PENALTY GOALSSCORED GOALSASSISTED TEAM RANKINLEAGUE COUNTRY JERSEYNUMBER APPEARANCE HEALTHSTATUS`
+
+Example: +
+`EditPlayer Lionel_Messi Real_Madrid RW 31 Male 0 20 20 FC_Barcelona 1 Argentina 10 20 Healthy`
+{empty} +
+{empty} +
+
+==== *List All Players*
+You can use the List All Player command to see the list of all players in the league. +
+
+Format ：`ListAllPlayer`
+{empty} +
+{empty} +
+
+==== *List Player*
+
+You can use the List Player command to see the list of players in a selected team. +
+
+Format ：`ListPlayer NameOfTeam` +
+
+Example: +
+`ListPlayer Liverpool`
+{empty} +
+{empty} +
 
 === Teams
-The Teams Feature in the application helps you to manage useful information of soccer teams in the current league. +
+The teams feature in the application helps you to manage information of football teams in the league. 
+{empty} +
+{empty} +
 
-==== List Team
-You can use the list Team command to see the list of all current Teams in the league. +
-
-Format : `ListTeam`
-
-==== Add Team
-You can use the Add Team command to add a new Team to the League Tracker. +
+==== *Add Team*
+You can use the Add Team command to add a new team to the League Tracker. +
 
 Format : `AddTeam NAME c/COUNTRY g/GOAL SCORED p/POINTS`
 
 Example: +
  `AddTeam Liverpool c/United Kingdom g/64 p/70` +
- Adds a new Team with the specified details.
+ 
+Adds a new team with the specified details.
+{empty} +
+{empty} +
 
-==== Edit Team
-You can use the Edit Team command to edit information of a Team in League Tracker. +
-Format : `EditTeam INDEX [c/COUNTRY] [g/GOAL SCORED] [p/POINTS]`
-
-Example: +
-
-* `ListTeam` +
-* `EditTeam 1 c/Singapore` +
-Edits the country of the 1st team in the Team list to Singapore.
-
-==== Delete Team
-You can use the Delete Team command to delete an existing Team from League Tracker. +
+==== *Delete Team*
+You can use the Delete Team command to delete an existing team from League Tracker. +
 
 Format : `DelTeam INDEX`
 
@@ -137,61 +140,50 @@ Example: +
 
 * `ListTeam` +
 * `DelTeam 1` +
-Deletes the 1st Team in the Team list.
 
-=== Finance
-The Finance Feature in the application helps you to manage and keep track of financial conditions in the current league. +
+Deletes the 1st team in the team list.
+{empty} +
+{empty} +
 
-
-==== List Team Finance
-You can use the List Team Finance command to view the list of financial condition in USD of all Teams in the current League. +
-
-Format : `ListTeamFinance`
-
-Example: +
-`ListTeamFinance` +
-
-==== Get Team Finance
-You can use the Get Team Finance command to view the financial condition in USD of a Team selected in League Tracker. +
-
-Format : `GetTeamFinance INDEX`
+==== *Edit Team*
+You can use the Edit Team command to edit information of a team in League Tracker. +
+Format : `EditTeam INDEX [c/COUNTRY] [g/GOAL SCORED] [p/POINTS]`
 
 Example: +
 
 * `ListTeam` +
-* `GetTeamFinance 1` +
-Finance of the team selected: 5487.0.
+* `EditTeam 1 c/Singapore` +
 
-==== Get League Finance
-You can use the Get League Finance command to view the total financial income in USD of the current League. +
+Edits the country of the 1st team in the team list to Singapore.
+{empty} +
+{empty} +
 
-Format : `GetLeagueFinance INDEX`
+==== *List Team*
+You can use the list Team command to see the list of all current teams in the league. +
 
-Example: +
-`GetLeagueFinance` +
-Finance of the current league: 5487.0.
+Format : `ListTeam`
+{empty} +
+{empty} +
 
+=== Matches
+The Match Schedule Feature in the application helps you to manage information of matches in the league. 
+{empty} +
+{empty} +
 
-
-=== Match Schedule
-The Match Schedule Feature in the application helps you to manage useful information of matches between teams in the current league. +
-
-==== List Matches
-You can use the List Matches command to see the list of all matches in the current League. +
-
-Format : `ListMatches`
-
-==== Add Matches
-You can use the Add Matches command to add a new Match to the League Tracker. +
+==== *Add Matches*
+You can use the Add Matches command to add a new match to the League Tracker. +
 
 Format : `AddMatch dd/mm/yyyy h/hometeam a/awayteam`
 
 Example: +
  `AddMatch 28/02/2019 h/Fulham a/Chelsea` +
- Adds a new Match with the specified details.
  
-==== Delete Matches
-You can use the Delete Matches command to delete an existing Match from League Tracker. +
+Adds a new match with the specified details.
+{empty} +
+{empty} +
+ 
+==== *Delete Matches*
+You can use the Delete Matches command to delete an existing match from League Tracker. +
 
 Format : `DeleteMatch INDEX`
 
@@ -199,11 +191,56 @@ Example: +
 
 * `ListMatches` +
 * `DeleteMatch 1` +
-Deletes the 1st Match in the Match list.
 
-== Exiting the program : `exit`
+Deletes the 1st match in the match list.
+{empty} +
+{empty} +
 
-You can use the Exit command to exits the program. +
+==== *List Matches*
+You can use the List Matches command to see the list of all matches in the current league. +
+
+Format : `ListMatches`
+{empty} +
+{empty} +
+
+=== Finance
+The Finance Feature in the application helps you to manage and keep track of financial conditions in the league.
+{empty} +
+{empty} +
+
+==== *Get League Finance*
+You can use the Get League Finance command to view the total financial income in USD of the league. +
+
+Format : `GetLeagueFinance`
+
+Example: +
+`GetLeagueFinance`
+{empty} +
+{empty} +
+
+==== *Get Team Finance*
+You can use the Get Team Finance command to view the financial condition in USD of a selected team in League Tracker. +
+
+Format : `GetTeamFinance INDEX`
+
+Example: +
+
+* `ListTeam` +
+* `GetTeamFinance 1`
+{empty} +
+{empty} +
+
+==== *List Team Finance*
+You can use the List Team Finance command to view the list of financial condition in USD of all Teams in the league. +
+
+Format : `ListTeamFinance`
+
+Example: +
+`ListTeamFinance` +
+
+== Exiting the program
+
+You can use the Exit command to exit the program. +
 
 Format: `exit`
 
@@ -215,33 +252,35 @@ You do not need to save data manually. League tracker data are saved in a file c
 
 == FAQ
 
-Q: How do I transfer my data to another Computer?
+*Q: How do I transfer my data to another Computer?* +
+
 A: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous LeagueTracker folder.
 
 == Command Summary
 
 === Players
-*List Players in a Team* : `ListPlayer` +
-*List all Players in the league* : `ListAllPlayer` +
-*Add a Player to League* : `AddPlayer` +
-*Delete a Player from League* : `DeletePlayer` +
-*Edit a Player's Profile* : `EditPlayer` +
-*Display a Player's Profile* : `DisplayProfile`
 
+Add a Player to League : `AddPlayer` +
+Delete a Player from League : `DeletePlayer` +
+Display a Player's Profile : `DisplayProfile` +
+Edit a Player's Profile : `EditPlayer` +
+List all Players in the league : `ListAllPlayer` +
+List Players in a Team : `ListPlayer`
 
 === Teams
-*List Team in League* : `ListTeam` +
-*Add Team to League* : `AddTeam` +
-*Edit Team's Profile* : `EditTeam` +
-*Delete Team from League* : `DelTeam`
 
-=== Finance
-*List Team Finance* : `ListTeamFinance` +
-*Get Team Finance* : `GetTeamFinance` +
-*Get League Finance* : `GetLeagueFinance` +
-
+Add Team to League : `AddTeam` +
+Delete Team from League : `DelTeam` +
+Edit Team's Profile : `EditTeam` +
+List Team in League : `ListTeam`
 
 === Match Schedule
-*List Matches in League* : `ListMatches` +
-*Add Match to League* : `AddMatch` +
-*Delete Match from League* : `DeleteMatch`
+Add Match to League : `AddMatch` +
+Delete Match from League : `DeleteMatch` +
+List Matches in League : `ListMatches`
+
+=== Finance
+Get League Finance : `GetLeagueFinance` +
+Get Team Finance : `GetTeamFinance` +
+List Team Finance : `ListTeamFinance`
+

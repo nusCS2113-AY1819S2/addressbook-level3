@@ -1,10 +1,15 @@
 package seedu.addressbook.data.team;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
 
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.DuplicateDataException;
-
-import java.util.*;
 
 /**
  * A list of Teams. Does not allow null elements or duplicates.
@@ -22,20 +27,20 @@ public class UniqueTeamList implements Iterable<Team> {
     }
 
     /**
-     * Signals that an operation targeting a specified Team in the list would fail because
-     * there is no such matching Team in the list.
+     * Signals that an operation targeting a specified team in the list would fail because
+     * there is no such matching team in the list.
      */
     public static class TeamNotFoundException extends Exception {}
 
     private final List<Team> internalList = new ArrayList<>();
 
     /**
-     * Constructs empty Team list.
+     * Constructs empty team list.
      */
     public UniqueTeamList() {}
 
     /**
-     * Constructs a Team list with the given Teams.
+     * Constructs a team list with the given Teams.
      */
     public UniqueTeamList(Team...teams) throws DuplicateTeamException {
         final List<Team> initialTags = Arrays.asList(teams);
@@ -78,7 +83,7 @@ public class UniqueTeamList implements Iterable<Team> {
     }
 
     /**
-     * Adds a Team to the list.
+     * Adds a team to the list.
      */
     public void add(Team toAdd) throws DuplicateTeamException {
         if (contains(toAdd)) {
@@ -88,11 +93,11 @@ public class UniqueTeamList implements Iterable<Team> {
     }
 
     /**
-     * Removes the equivalent Team from the list.
+     * Removes the equivalent team from the list.
      */
     public void remove(ReadOnlyTeam toRemove) throws TeamNotFoundException {
-        final boolean TeamFoundAndDeleted = internalList.remove(toRemove);
-        if (!TeamFoundAndDeleted) {
+        final boolean teamFoundAndDeleted = internalList.remove(toRemove);
+        if (!teamFoundAndDeleted) {
             throw new TeamNotFoundException();
         }
     }
@@ -107,9 +112,20 @@ public class UniqueTeamList implements Iterable<Team> {
     /**
      * Sort all Teams in list by ascending alphabetical order.
      */
-    public void sort(){
-        Comparator<Team> CustomTeamCompare = Comparator.comparing(Team::getName);
-        Collections.sort(internalList,CustomTeamCompare);
+    public void sort() {
+        Comparator<Team> customTeamCompare = Comparator.comparing(Team::getName);
+        Collections.sort(internalList, customTeamCompare);
+    }
+
+    /**
+     * Removes the equivalent team from the list.
+     */
+    public void edit(ReadOnlyTeam toRemove, Team toReplace) throws TeamNotFoundException {
+        final boolean teamFoundAndDeleted = internalList.remove(toRemove);
+        if (!teamFoundAndDeleted) {
+            throw new TeamNotFoundException();
+        }
+        internalList.add(toReplace);
     }
 
     @Override
@@ -121,14 +137,11 @@ public class UniqueTeamList implements Iterable<Team> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueTeamList // instanceof handles nulls
-                && this.internalList.equals(
-                         ((UniqueTeamList) other).internalList));
+                && this.internalList.equals(((UniqueTeamList) other).internalList));
     }
 
     @Override
     public int hashCode() {
         return internalList.hashCode();
     }
-
-
 }

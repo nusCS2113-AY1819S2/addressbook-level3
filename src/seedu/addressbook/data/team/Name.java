@@ -1,18 +1,18 @@
 package seedu.addressbook.data.team;
 
-import seedu.addressbook.data.exception.IllegalValueException;
-
 import java.util.Arrays;
 import java.util.List;
 
+import seedu.addressbook.data.exception.IllegalValueException;
+
 /**
- * Represents a Team's name in the address book.
+ * Represents a team's name in the address book.
  */
 
 public class Name implements Comparable<Name> {
 
     public static final String EXAMPLE = "Singapore United";
-    public static final String MESSAGE_NAME_CONSTRAINTS = "Team names should be spaces or alphanumeric characters";
+    public static final String MESSAGE_NAME_CONSTRAINTS = "team names should be spaces or alphanumeric characters";
     public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
     public final String fullName;
@@ -29,7 +29,7 @@ public class Name implements Comparable<Name> {
     }
 
     /**
-     * Returns true if a given string is a valid person name.
+     * Returns true if a given string is a valid team name.
      */
     public static boolean isValidName(String test) {
         return test.matches(NAME_VALIDATION_REGEX);
@@ -60,7 +60,8 @@ public class Name implements Comparable<Name> {
     }
 
     @Override
-    public int compareTo(Name name){ return this.fullName.compareToIgnoreCase(name.fullName);
+    public int compareTo(Name name) {
+        return this.fullName.compareToIgnoreCase(name.fullName);
     }
 
 }

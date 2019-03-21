@@ -32,15 +32,12 @@ image::Architecture.png[width="600"]
 The *_Architecture Diagram_* given above explains the high-level design of the League Tracker.
 Given below is a quick overview of each component. +
 
-*Main* has only one class called Main. It is responsible for:
+*Main* has only one class called `Main`. It is responsible for:
 
 * At app launch: Initializing the components in the correct sequence, and connects them up with each other.
 
 * At shut down: Shutting down the components.
 
-
-
-*UI* is the User Interface of the App. Users interact with it through a command line interface.
 
 *Logic* is the command executor.
 
@@ -48,6 +45,18 @@ Given below is a quick overview of each component. +
 
 *Storage* Reads data from, and writes data to the hard disk.
 
+=== Logic Component
+ [to be edited]
+
+=== Data Component
+ [to be edited]
+
+=== Storage Component
+ [to be edited]
+
+=== Common Classes
+Classes used by multiple components (eg.Utils.java) are collated in the `seedu.addressbook.common` package.
+(`main` > `src` > `seedu` > `addressbook` > `common`)
 
 
 == Setting up
@@ -122,21 +131,39 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 == Implementation
 
 
+
 == Documentation
-
-We use asciidoc for writing documentation.
-
-[NOTE]
-We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
+Following AddressBook3, our League Tracker uses AsciiDoc for writing documentation.We choose AsciiDoc as it provides both a human-readable,
+plain-text writing format as well as a text processor and toolchain that are able to translate AsciiDoc documents into different formats(called backend),
+including HTML,DocBook and PDF.
 
 === Editing Documentation
-
-See <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to learn how to render `.adoc` files locally to preview the end result of your edits.
-Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your `.adoc` files in real-time.
+In your IntelliJ IDE, open `Main` > `docs` > `templates` and select the documentation file (eg. `DeveloperGuide.adoc`) to open and edit.
+IntelliJ IDE will notify to download the AsciiDoc Plugin. With the plugin, a preview of the documentation will be shown on the screen when the documentation is being
+edited for ease of developers.
 
 === Publishing Documentation
+Auto-publishing of documentations has been enabled in League Tracker using Travis CI. A guide of doing so is provided below.
 
-See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to deploy GitHub Pages using Travis.
+1. Ensure that you have set up Travis CI properly for the project.
+
+2. On Github, create a new user account give this account collaborator and admin access to the repo.
+   Using this account, generate a personal access token using this link: https://github.com/settings/tokens/new
+
+[TIP]
+Personal access tokens serve as passwords so they must be kept secret to protect your accounts. Delete and regenerate if it is leaked.
+
+[TIP]
+We use a new user account to generate the token for team projects to prevent team members from gaining access to other team members' repos.
+    If you are the only one with write access to the repo, you can use your own account to generate the token.
+
+   * Add a description for the token. (e.g. Travis CI - auto-publishing)
+   * Check the `public repo` checkbox.
+   * Click `Generate Token` to grant access for Travis CI to the repo of the project.
+
+.Generating personal token for auto-publishing on Github
+image::generate_token.png[width="600"]
+
 
 === Converting Documentation to PDF format
 
@@ -144,7 +171,7 @@ We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for convert
 
 Here are the steps to convert the project documentation files to PDF format.
 
-.  Follow the instructions in <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to convert the AsciiDoc files in the `docs/` directory to HTML format.
+.  Use asciidoctor to convert AsciiDoc files in docs to HTML format. Generated HTML files can be found in `build/docs`.
 .  Go to your generated HTML files in the `build/docs` folder, right click on them and select `Open with` -> `Google Chrome`.
 .  Within Chrome, click on the `Print` option in Chrome's menu.
 .  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
@@ -261,6 +288,8 @@ _{More to be added}_
 . Quality requirement: The system should be efficient enough for organiser to quickly updat and keep track of the teams playing in the league.
 . Performance requirements: The system should be able to present the information in an orgainised format as the data could be confusing.
 . Project scope: The product is developed solely for the use of league organiser.
+. Computer Environment: The product should work on any mainstream OS as long as it has Java 8 (revision 1.8.0_201 or higher) installed.
+. UI Justifiability: A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 _{More to be added}_
 
@@ -347,11 +376,15 @@ Use case ends.
 [appendix]
 == Glossary
 
-League: a group of football teams which play each other over a period for a championship.
+*League*: a group of football teams which play each other over a period for a championship.
 
-Transfer: the action taken whenever a player under contract moves between clubs. It refers to the transferring of a player's registration from one association football club to another.
+*Transfer*: the action taken whenever a player under contract moves between clubs. It refers to the transferring of a player's registration from one association football club to another.
 
-image::transfer.png[]
+image::transfer.png[width="300"]
+
+*Jersey Number*: a number allocated to each player in a team to uniquely identify the player. Jersey Numbers usually range from 1 to 35 and will be printed at the back
+                 of players' jerseys during matches for identification purposes.
+
+*Mainstream OS*: Windows, Linux, Unix, OS-X
 
 
-[appendix]

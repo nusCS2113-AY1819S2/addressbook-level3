@@ -1,18 +1,26 @@
 package seedu.addressbook.storage.jaxb;
 
-
-import seedu.addressbook.common.Utils;
-import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.person.Person;
-import seedu.addressbook.data.tag.Tag;
-import seedu.addressbook.data.team.*;
-
-import javax.xml.bind.annotation.XmlElement;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.xml.bind.annotation.XmlElement;
+
+import seedu.addressbook.common.Utils;
+import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.data.player.Person;
+import seedu.addressbook.data.tag.Tag;
+import seedu.addressbook.data.team.Country;
+import seedu.addressbook.data.team.Name;
+import seedu.addressbook.data.team.ReadOnlyTeam;
+import seedu.addressbook.data.team.Sponsor;
+import seedu.addressbook.data.team.Team;
+
+
+/**
+ * JAXB-friendly adapted team data holder class.
+ */
 public class AdaptedTeam {
     @XmlElement(required = true)
     private String name;

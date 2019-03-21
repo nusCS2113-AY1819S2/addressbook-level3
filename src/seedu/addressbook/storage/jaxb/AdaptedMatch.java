@@ -1,15 +1,20 @@
 package seedu.addressbook.storage.jaxb;
 
-import seedu.addressbook.common.Utils;
-import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.match.*;
-import seedu.addressbook.data.tag.Tag;
-
-import javax.xml.bind.annotation.XmlElement;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import javax.xml.bind.annotation.XmlElement;
+
+import seedu.addressbook.common.Utils;
+import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.data.match.Away;
+import seedu.addressbook.data.match.Date;
+import seedu.addressbook.data.match.Home;
+import seedu.addressbook.data.match.Match;
+import seedu.addressbook.data.match.ReadOnlyMatch;
+import seedu.addressbook.data.tag.Tag;
 
 /**
  * JAXB-friendly adapted match data holder class.
@@ -33,7 +38,7 @@ public class AdaptedMatch {
 
 
     /**
-     * Converts a given Match into this class for JAXB use.
+     * Converts a given match into this class for JAXB use.
      *
      * @param source future changes to this will not affect the created AdaptedMatch
      */
@@ -70,7 +75,7 @@ public class AdaptedMatch {
     }
 
     /**
-     * Converts this jaxb-friendly adapted match object into the Match object.
+     * Converts this jaxb-friendly adapted match object into the match object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted match
      */

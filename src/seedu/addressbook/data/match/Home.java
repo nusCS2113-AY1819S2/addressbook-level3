@@ -1,18 +1,19 @@
 package seedu.addressbook.data.match;
 
-import seedu.addressbook.data.exception.IllegalValueException;
-
 import java.util.Arrays;
 import java.util.List;
 
+import seedu.addressbook.data.exception.IllegalValueException;
+
 /**
- * Represents a Match home team in the address book.
+ * Represents a match home team in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidHome(String)}
  */
 public class Home {
 
     public static final String EXAMPLE = "West Ham";
-    public static final String MESSAGE_HOME_CONSTRAINTS = "Match home teams should be spaces or alphanumeric characters";
+    public static final String MESSAGE_HOME_CONSTRAINTS = "match home teams"
+            + "should be spaces or alphanumeric characters";
     public static final String HOME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
     public final String fullHome;

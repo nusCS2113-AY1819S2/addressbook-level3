@@ -1,18 +1,20 @@
 package seedu.addressbook.storage.jaxb;
 
-import seedu.addressbook.data.AddressBook;
-import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.person.Person;
-import seedu.addressbook.data.person.UniquePersonList;
-import seedu.addressbook.data.match.Match;
-import seedu.addressbook.data.match.UniqueMatchList;
-import seedu.addressbook.data.team.Team;
-import seedu.addressbook.data.team.UniqueTeamList;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.util.ArrayList;
-import java.util.List;
+
+import seedu.addressbook.data.AddressBook;
+import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.data.match.Match;
+import seedu.addressbook.data.match.UniqueMatchList;
+import seedu.addressbook.data.player.Person;
+import seedu.addressbook.data.player.UniquePersonList;
+import seedu.addressbook.data.team.Team;
+import seedu.addressbook.data.team.UniqueTeamList;
+
 
 /**
  * JAXB-friendly adapted address book data holder class.
@@ -64,7 +66,7 @@ public class AdaptedAddressBook {
 
     /**
      * Converts this jaxb-friendly {@code AdaptedAddressBook} object into the corresponding(@code AddressBook} object.
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person
+     * @throws IllegalValueException if there were any data constraints violated in the adapted player
      * @throws IllegalValueException if there were any data constraints violated in the adapted match
      */
     public AddressBook toModelType() throws IllegalValueException {
@@ -79,10 +81,11 @@ public class AdaptedAddressBook {
         for (AdaptedTeam team : teams) {
             teamList.add(team.toModelType());
         }
-      
+
         for (AdaptedMatch match : matches) {
             matchList.add(match.toModelType());
         }
+
         return new AddressBook(
                 new UniquePersonList(personList),
                 new UniqueTeamList(teamList),
