@@ -31,8 +31,7 @@ public class AdaptedAddressBook {
     @XmlElement
     private List<AdaptedMatch> matches = new ArrayList<>();
 
-    @XmlElement
-    private List<AdaptedFinance> finances = new ArrayList<>();
+
 
     /**
      * No-arg constructor for JAXB use.
@@ -47,11 +46,11 @@ public class AdaptedAddressBook {
     public AdaptedAddressBook(AddressBook source) {
         persons = new ArrayList<>();
         matches = new ArrayList<>();
-        finances = new ArrayList<>();
+
         source.getAllPersons().forEach(person -> persons.add(new AdaptedPerson(person)));
         source.getAllMatches().forEach(match -> matches.add(new AdaptedMatch(match)));
         source.getAllTeams().forEach(team -> teams.add(new AdaptedTeam(team)));
-        source.getAllFinances().forEach(finance -> finances.add(new AdaptedFinance(finance)));
+
     }
 
 
@@ -66,8 +65,8 @@ public class AdaptedAddressBook {
     public boolean isAnyRequiredFieldMissing() {
         return persons.stream().anyMatch(AdaptedPerson::isAnyRequiredFieldMissing)
                 || matches.stream().anyMatch(AdaptedMatch::isAnyRequiredFieldMissing)
-                || teams.stream().anyMatch(AdaptedTeam::isAnyRequiredFieldMissing)
-                || finances.stream().anyMatch(AdaptedFinance::isAnyRequiredFieldMissing);
+                || teams.stream().anyMatch(AdaptedTeam::isAnyRequiredFieldMissing);
+
     }
 
 
@@ -94,9 +93,7 @@ public class AdaptedAddressBook {
             matchList.add(match.toModelType());
         }
 
-        for (AdaptedFinance finance : finances) {
-            financeList.add(finance.toModelType());
-        }
+
 
         return new AddressBook(
                 new UniquePersonList(personList),

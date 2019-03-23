@@ -32,12 +32,7 @@ public class Finance implements ReadOnlyFinance {
     private Histogram histogram;
 
     public static final int NUMBER_OF_QUARTER = 4;
-
-    public Finance(String teamName, String histogram, double money){
-        teamName = this.teamName;
-        histogram = this.histogram.getHistogramString();
-        money = this.sponsorMoney;
-    }
+    
 
     public Finance(ReadOnlyTeam team) {
 
