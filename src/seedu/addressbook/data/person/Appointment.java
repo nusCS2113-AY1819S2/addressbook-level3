@@ -57,9 +57,11 @@ public class Appointment implements Comparable<Appointment>{
         return appointmentDate.hashCode();
     }
 
+    //@@author WuPeiHsuan
     /**compare name for sorting function*/
     @Override
     public int compareTo(Appointment appointment) {
         return this.appointmentDate.compareTo(appointment.appointmentDate);
     }
+    //@@author
 }
