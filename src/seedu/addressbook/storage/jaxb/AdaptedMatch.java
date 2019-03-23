@@ -31,7 +31,7 @@ public class AdaptedMatch {
 
     @XmlElement (required = true)
     private String homeSales;
-    @XmlElement  (required = true)
+    @XmlElement (required = true)
     private String awaySales;
     @XmlElement
     private List<AdaptedPerson> goalScored = new ArrayList<>();
@@ -66,7 +66,7 @@ public class AdaptedMatch {
         }
 
         ownGoalScored = new ArrayList<>();
-        for (Person person : source.getOwnGoalScorers()){
+        for (Person person : source.getOwnGoalScorers()) {
             ownGoalScored.add(new AdaptedPerson(person));
         }
     }

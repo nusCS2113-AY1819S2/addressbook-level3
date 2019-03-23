@@ -52,20 +52,20 @@ public interface ReadOnlyMatch {
         builder.append(getHome())
                 .append(" Away: ");
         builder.append(getAway());
-        if (!getHomeSales().value.isEmpty()){
+        if (!getHomeSales().value.isEmpty()) {
             builder.append(" Home Sales: ")
                     .append(getHomeSales());
             builder.append(" Away Sales: ")
                     .append(getAwaySales());
             builder.append(" Goal Scorers: ");
-            if (getGoalScorers().isEmpty()){
+            if (getGoalScorers().isEmpty()) {
                 builder.append("none");
             }
             for (Person goalScorer : getGoalScorers()) {
                 builder.append(goalScorer);
             }
             builder.append(" Own Goals: ");
-            if (getOwnGoalScorers().isEmpty()){
+            if (getOwnGoalScorers().isEmpty()) {
                 builder.append("none");
             }
             for (Person ownGoalScorer : getOwnGoalScorers()) {
