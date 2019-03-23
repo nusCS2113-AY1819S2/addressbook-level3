@@ -9,6 +9,7 @@ import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.match.ReadOnlyMatch;
 import seedu.addressbook.data.player.ReadOnlyPerson;
 import seedu.addressbook.data.team.ReadOnlyTeam;
+import seedu.addressbook.data.finance.ReadOnlyFinance;
 
 /**
  * Represents an executable command.
@@ -18,6 +19,7 @@ public abstract class Command {
     protected List<? extends ReadOnlyPerson> relevantPersons;
     protected List<? extends ReadOnlyMatch> relevantMatches;
     protected List<? extends ReadOnlyTeam> relevantTeams;
+    protected List<? extends ReadOnlyFinance> relevantFinances;
 
     private int targetIndex = -1;
 
@@ -55,6 +57,10 @@ public abstract class Command {
         return String.format(Messages.MESSAGE_TEAMS_LISTED_OVERVIEW, teamsDisplayed.size());
     }
 
+    public static String getMessageForFinanceListShownSummary(List<? extends ReadOnlyFinance> financesDisplayed) {
+        return String.format(Messages.MESSAGE_FINANCES_LISTED_OVERVIEW, financesDisplayed.size());
+    }
+
     /**
      * Executes the command and returns the result.
      */
@@ -72,11 +78,13 @@ public abstract class Command {
     public void setData(AddressBook addressBook,
                         List<? extends ReadOnlyPerson> relevantPersons,
                         List<? extends ReadOnlyTeam> relevantTeams,
-                        List<? extends ReadOnlyMatch> relevantMatches) {
+                        List<? extends ReadOnlyMatch> relevantMatches,
+                        List<? extends ReadOnlyFinance> relevantFinances) {
         this.addressBook = addressBook;
         this.relevantPersons = relevantPersons;
         this.relevantTeams = relevantTeams;
         this.relevantMatches = relevantMatches;
+        this.relevantFinances = relevantFinances;
     }
 
     /**
@@ -94,6 +102,10 @@ public abstract class Command {
 
     protected ReadOnlyTeam getTargetTeam() throws IndexOutOfBoundsException {
         return relevantTeams.get(getTargetIndex() - DISPLAYED_INDEX_OFFSET);
+    }
+
+    protected ReadOnlyFinance getTargetFinance() throws IndexOutOfBoundsException {
+        return relevantFinances.get(getTargetIndex() - DISPLAYED_INDEX_OFFSET);
     }
 
     public int getTargetIndex() {

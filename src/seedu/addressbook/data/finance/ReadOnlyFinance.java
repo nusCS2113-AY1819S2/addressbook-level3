@@ -1,6 +1,8 @@
 package seedu.addressbook.data.finance;
 
 
+import seedu.addressbook.data.tag.Tag;
+
 import java.util.Set;
 
 /**
@@ -30,5 +32,12 @@ public interface ReadOnlyFinance {
                 && other.getFinance() == this.getFinance());
     }
 
+    default String getAsTextShowAll() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getTeamName().trim())
+                .append(" | Finance: USD");
+        builder.append(getFinance());
+        return builder.toString();
 
+    }
 }

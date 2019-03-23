@@ -1,8 +1,9 @@
-package seedu.addressbook.commands;
+package seedu.addressbook.commands.finance;
 
+import seedu.addressbook.commands.Command;
+import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.finance.Finance;
-import seedu.addressbook.data.finance.ReadOnlyFinance;
 import seedu.addressbook.data.team.ReadOnlyTeam;
 
 import seedu.addressbook.data.team.Team;

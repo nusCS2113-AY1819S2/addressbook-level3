@@ -10,6 +10,7 @@ import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.match.ReadOnlyMatch;
 import seedu.addressbook.data.player.ReadOnlyPerson;
 import seedu.addressbook.data.team.ReadOnlyTeam;
+import seedu.addressbook.data.finance.ReadOnlyFinance;
 import seedu.addressbook.parser.Parser;
 import seedu.addressbook.storage.StorageFile;
 
@@ -35,6 +36,11 @@ public class Logic {
      * The list of team shown to the user most recently.
      */
     private List<? extends ReadOnlyTeam> lastTeamShownList = Collections.emptyList();
+
+    /**
+     * The list of team shown to the user most recently.
+     */
+    private List<? extends ReadOnlyFinance> lastFinanceShownList = Collections.emptyList();
 
     public Logic() throws Exception {
         setStorage(initializeStorage());
@@ -121,7 +127,8 @@ public class Logic {
         command.setData(addressBook,
                 lastPersonShownList,
                 lastTeamShownList,
-                lastMatchList);
+                lastMatchList,
+                lastFinanceShownList);
         CommandResult result = command.execute();
         storage.save(addressBook);
         return result;
@@ -135,12 +142,15 @@ public class Logic {
         final Optional<List<? extends ReadOnlyPerson>> personList = result.getRelevantPersons();
         final Optional<List<? extends ReadOnlyTeam>> teamList = result.getRelevantTeams();
         final Optional<List<? extends ReadOnlyMatch>> matchList = result.getRelevantMatches();
+        final Optional<List<? extends ReadOnlyFinance>> financeList = result.getRelevantFinances();
         if (personList.isPresent()) {
             lastPersonShownList = personList.get();
         } else if (teamList.isPresent()) {
             lastTeamShownList = teamList.get();
         } else if (matchList.isPresent()) {
             lastMatchList = matchList.get();
+        } else if (financeList.isPresent()) {
+            lastFinanceShownList = financeList.get();
         }
     }
 }

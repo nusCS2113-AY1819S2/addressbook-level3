@@ -15,6 +15,9 @@ import seedu.addressbook.data.team.ReadOnlyTeam;
 import seedu.addressbook.data.team.Team;
 import seedu.addressbook.data.team.UniqueTeamList;
 
+import seedu.addressbook.data.finance.Finance;
+import seedu.addressbook.data.finance.UniqueFinanceList;
+
 /**
  * Represents the entire address book. Contains the data of the address book.
  */
@@ -23,6 +26,7 @@ public class AddressBook {
     private final UniquePersonList allPersons;
     private final UniqueTeamList allTeams;
     private final UniqueMatchList allMatches;
+    private final UniqueFinanceList allFinances;
 
     /**
      * Creates an empty address book.
@@ -31,6 +35,7 @@ public class AddressBook {
         allPersons = new UniquePersonList();
         allMatches = new UniqueMatchList();
         allTeams = new UniqueTeamList();
+        allFinances = new UniqueFinanceList();
     }
 
     /**
@@ -41,10 +46,12 @@ public class AddressBook {
      */
     public AddressBook(UniquePersonList persons,
                        UniqueTeamList teams,
-                       UniqueMatchList matches) {
+                       UniqueMatchList matches,
+                       UniqueFinanceList finances) {
         this.allPersons = new UniquePersonList(persons);
         this.allTeams = new UniqueTeamList(teams);
         this.allMatches = new UniqueMatchList(matches);
+        this.allFinances = new UniqueFinanceList(finances);
     }
 
     public static AddressBook empty() {
@@ -66,7 +73,6 @@ public class AddressBook {
     public void addTeam(Team toAdd) throws UniqueTeamList.DuplicateTeamException {
         allTeams.add(toAdd);
     }
-
 
     /**
      * Adds a match to the address book.
@@ -177,6 +183,23 @@ public class AddressBook {
      */
     public UniqueTeamList getAllTeams() {
         return new UniqueTeamList(allTeams);
+    }
+
+    /**
+     * Defensively copied UniqueFinanceList of all finances in the address book at the time of the call.
+     */
+    public UniqueFinanceList getAllFinances() {
+        return new UniqueFinanceList(allFinances);
+    }
+
+    /**
+     * Refresh all finances to match all existing teams in the address book at the time of the call.
+     */
+    public void refreshFinance() throws UniqueFinanceList.DuplicateFinanceException {
+        allFinances.clear();
+        for(ReadOnlyTeam aTeam : allTeams.immutableListView()) {
+            allFinances.add(new Finance(aTeam));
+        }
     }
 
     @Override

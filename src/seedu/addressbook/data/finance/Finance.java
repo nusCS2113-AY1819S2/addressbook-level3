@@ -6,6 +6,7 @@ import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.match.UniqueMatchList;
 import seedu.addressbook.data.team.ReadOnlyTeam;
 import seedu.addressbook.data.team.Name;
+import seedu.addressbook.data.team.Team;
 import seedu.addressbook.data.team.Sponsor;
 import seedu.addressbook.data.match.ReadOnlyMatch;
 
@@ -27,10 +28,16 @@ public class Finance implements ReadOnlyFinance {
     private double quarterThree = 0;
     private double quarterFour = 0;
 
+
     private Histogram histogram;
 
     public static final int NUMBER_OF_QUARTER = 4;
 
+    public Finance(String teamName, String histogram, double money){
+        teamName = this.teamName;
+        histogram = this.histogram.getHistogramString();
+        money = this.sponsorMoney;
+    }
 
     public Finance(ReadOnlyTeam team) {
 
@@ -47,9 +54,9 @@ public class Finance implements ReadOnlyFinance {
         /**
          * Retrieve all matches in the address book whose homes is the target team's home.
          */
-        /**
-        String homeString = teamName;
-        final List<ReadOnlyMatch> matchesFound = getMatchesWithHome(homeString);
+
+        //String homeString = teamName;
+        //final List<ReadOnlyMatch> matchesFound = getMatchesWithHome(homeString);
 
         /**
          * Retrieve ticket price and turnout rate from all matches found.
@@ -61,7 +68,6 @@ public class Finance implements ReadOnlyFinance {
             double ticketBox = price * turnout;
             ticketIncome += ticketBox;
         }
-
 
 
         /**

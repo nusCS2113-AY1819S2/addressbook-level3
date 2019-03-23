@@ -14,7 +14,8 @@ import seedu.addressbook.data.player.Person;
 import seedu.addressbook.data.player.UniquePersonList;
 import seedu.addressbook.data.team.Team;
 import seedu.addressbook.data.team.UniqueTeamList;
-
+import seedu.addressbook.data.finance.Finance;
+import seedu.addressbook.data.finance.UniqueFinanceList;
 
 /**
  * JAXB-friendly adapted address book data holder class.
@@ -30,6 +31,9 @@ public class AdaptedAddressBook {
     @XmlElement
     private List<AdaptedMatch> matches = new ArrayList<>();
 
+    @XmlElement
+    private List<AdaptedFinance> finances = new ArrayList<>();
+
     /**
      * No-arg constructor for JAXB use.
      */
@@ -43,9 +47,11 @@ public class AdaptedAddressBook {
     public AdaptedAddressBook(AddressBook source) {
         persons = new ArrayList<>();
         matches = new ArrayList<>();
+        finances = new ArrayList<>();
         source.getAllPersons().forEach(person -> persons.add(new AdaptedPerson(person)));
         source.getAllMatches().forEach(match -> matches.add(new AdaptedMatch(match)));
         source.getAllTeams().forEach(team -> teams.add(new AdaptedTeam(team)));
+        source.getAllFinances().forEach(finance -> finances.add(new AdaptedFinance(finance)));
     }
 
 
@@ -60,7 +66,8 @@ public class AdaptedAddressBook {
     public boolean isAnyRequiredFieldMissing() {
         return persons.stream().anyMatch(AdaptedPerson::isAnyRequiredFieldMissing)
                 || matches.stream().anyMatch(AdaptedMatch::isAnyRequiredFieldMissing)
-                || teams.stream().anyMatch(AdaptedTeam::isAnyRequiredFieldMissing);
+                || teams.stream().anyMatch(AdaptedTeam::isAnyRequiredFieldMissing)
+                || finances.stream().anyMatch(AdaptedFinance::isAnyRequiredFieldMissing);
     }
 
 
@@ -73,6 +80,7 @@ public class AdaptedAddressBook {
         final List<Person> personList = new ArrayList<>();
         final List<Team> teamList = new ArrayList<>();
         final List<Match> matchList = new ArrayList<>();
+        final List<Finance> financeList = new ArrayList<>();
 
         for (AdaptedPerson person : persons) {
             personList.add(person.toModelType());
@@ -86,9 +94,14 @@ public class AdaptedAddressBook {
             matchList.add(match.toModelType());
         }
 
+        for (AdaptedFinance finance : finances) {
+            financeList.add(finance.toModelType());
+        }
+
         return new AddressBook(
                 new UniquePersonList(personList),
                 new UniqueTeamList(teamList),
-                new UniqueMatchList(matchList));
+                new UniqueMatchList(matchList),
+                new UniqueFinanceList(financeList));
     }
 }

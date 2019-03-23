@@ -6,6 +6,7 @@ import java.util.Optional;
 import seedu.addressbook.data.match.ReadOnlyMatch;
 import seedu.addressbook.data.player.ReadOnlyPerson;
 import seedu.addressbook.data.team.ReadOnlyTeam;
+import seedu.addressbook.data.finance.ReadOnlyFinance;
 
 /**
  * Represents the result of a command execution.
@@ -24,22 +25,28 @@ public class CommandResult {
     /** The list of matches that was produced by the command */
     private final List<? extends ReadOnlyMatch> relevantMatches;
 
+    /** The list of finances that was produced by the command */
+    private final List<? extends ReadOnlyFinance> relevantFinances;
+
     /** Constructor for result which do not return any list*/
     public CommandResult(String feedbackToUser) {
         this.feedbackToUser = feedbackToUser;
         relevantPersons = null;
         relevantTeams = null;
         relevantMatches = null;
+        relevantFinances = null;
     }
 
     public CommandResult(String feedbackToUser,
                          List<? extends ReadOnlyPerson> relevantPersons,
                          List<? extends ReadOnlyTeam> relevantTeams,
-                         List<? extends ReadOnlyMatch> relevantMatches) {
+                         List<? extends ReadOnlyMatch> relevantMatches,
+                         List<? extends ReadOnlyFinance> relevantFinances) {
         this.feedbackToUser = feedbackToUser;
         this.relevantPersons = relevantPersons;
         this.relevantTeams = relevantTeams;
         this.relevantMatches = relevantMatches;
+        this.relevantFinances = relevantFinances;
     }
 
 
@@ -62,6 +69,13 @@ public class CommandResult {
      */
     public Optional<List<? extends ReadOnlyTeam>> getRelevantTeams() {
         return Optional.ofNullable(relevantTeams);
+    }
+
+    /**
+     * Returns list of finances relevant to the command command result, if any.
+     */
+    public Optional<List<? extends ReadOnlyFinance>> getRelevantFinances() {
+        return Optional.ofNullable(relevantFinances);
     }
 
 }

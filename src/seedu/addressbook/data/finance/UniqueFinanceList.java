@@ -75,9 +75,10 @@ public class UniqueFinanceList implements Iterable<Finance> {
         return internalList.contains(toCheck);
     }
 
+
     /**
      * Adds a finance to the list.
-     */
+    */
     public void add(Finance toAdd) throws UniqueFinanceList.DuplicateFinanceException {
         if (contains(toAdd)) {
             throw new UniqueFinanceList.DuplicateFinanceException();
