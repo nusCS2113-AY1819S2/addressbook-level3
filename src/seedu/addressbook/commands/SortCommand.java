@@ -29,11 +29,59 @@ public class SortCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        addressBook.sorted(attribute);
 
+        final List<ReadOnlyPerson> personsFound = getPersonsSortedByStatus();
+
+        addressBook.sorted(attribute);
         List<ReadOnlyPerson> allPersons = addressBook.getAllPersons().immutableListView();
+
+        if(attribute.equals("status")) {
+            return new CommandResult(getMessageForPersonListShownSummary(personsFound), personsFound);
+        }
         return new CommandResult(getMessageForPersonSortShownSummary(allPersons, attribute), allPersons);
 
+    }
+
+    private List<ReadOnlyPerson> getPersonsSortedByStatus() {
+        final List<ReadOnlyPerson> matchedPersons = new ArrayList<>();
+        for (ReadOnlyPerson person : addressBook.getAllPersons()) {
+            final String getStatus = person.getStatus().toString();
+            if (getStatus.equals("Critical")) {
+                matchedPersons.add(person);
+            }
+        }
+        for (ReadOnlyPerson person : addressBook.getAllPersons()) {
+            final String getStatus = person.getStatus().toString();
+            if (getStatus.equals("Waiting for Surgery")) {
+                matchedPersons.add(person);
+            }
+        }
+        for (ReadOnlyPerson person : addressBook.getAllPersons()) {
+            final String getStatus = person.getStatus().toString();
+            if (getStatus.equals("Life-support")) {
+                matchedPersons.add(person);
+            }
+        }
+        for (ReadOnlyPerson person : addressBook.getAllPersons()) {
+            final String getStatus = person.getStatus().toString();
+            if (getStatus.equals("Waiting for doctor appointment")) {
+                matchedPersons.add(person);
+            }
+        }
+        for (ReadOnlyPerson person : addressBook.getAllPersons()) {
+            final String getStatus = person.getStatus().toString();
+            if (getStatus.equals("Therapy")) {
+                matchedPersons.add(person);
+            }
+        }
+        for (ReadOnlyPerson person : addressBook.getAllPersons()) {
+            final String getStatus = person.getStatus().toString();
+            if (getStatus.equals("Observation")) {
+                matchedPersons.add(person);
+            }
+        }
+
+        return matchedPersons;
     }
 }
 //@@author
