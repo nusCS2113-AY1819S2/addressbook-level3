@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.addressbook.data.tag.Tag;
+import seedu.addressbook.data.player.Person;
 
 /**
  * Represents a match in the address book.
@@ -15,24 +15,32 @@ public class Match implements ReadOnlyMatch {
     private Date date;
     private Home home;
     private Away away;
+    private TicketSales homeSales;
+    private TicketSales awaySales;
 
-    private final Set<Tag> tags = new HashSet<>();
+    private final Set<Person> goalScorers = new HashSet<>();
+    private final Set<Person> ownGoalScorers = new HashSet<>();
 
     /**
      * Assumption: Every field must be present and not null.
      */
-    public Match(Date date, Home home, Away away, Set<Tag> tags) {
+    public Match(Date date, Home home, Away away, TicketSales homeSales, TicketSales awaySales,
+                 Set<Person> goalScorers, Set<Person> ownGoalScorers) {
         this.date = date;
         this.home = home;
         this.away = away;
-        this.tags.addAll(tags);
+        this.homeSales = homeSales;
+        this.awaySales = awaySales;
+        this.goalScorers.addAll(goalScorers);
+        this.ownGoalScorers.addAll(ownGoalScorers);
     }
 
     /**
      * Copy constructor.
      */
     public Match(ReadOnlyMatch source) {
-        this(source.getDate(), source.getHome(), source.getAway(), source.getTags());
+        this(source.getDate(), source.getHome(), source.getAway(), source.getHomeSales(),
+                source.getAwaySales(), source.getGoalScorers(), source.getOwnGoalScorers());
     }
 
     @Override
@@ -51,16 +59,36 @@ public class Match implements ReadOnlyMatch {
     }
 
     @Override
-    public Set<Tag> getTags() {
-        return new HashSet<>(tags);
+    public TicketSales getHomeSales() {
+        return homeSales;
+    }
+
+    @Override
+    public TicketSales getAwaySales() {
+        return awaySales;
+    }
+
+    @Override
+    public Set<Person> getGoalScorers() {
+        return new HashSet<>(goalScorers);
+    }
+
+    @Override
+    public Set<Person> getOwnGoalScorers() {
+        return new HashSet<>(ownGoalScorers);
     }
 
     /**
-     * Replaces this match's tags with the tags in {@code replacement}.
+     * Replaces this match's goalScorers with the goalScorers in {@code replacement}.
      */
-    public void setTags(Set<Tag> replacement) {
-        tags.clear();
-        tags.addAll(replacement);
+    public void setGoalScorers(Set<Person> replacement) {
+        goalScorers.clear();
+        goalScorers.addAll(replacement);
+    }
+
+    public void setOwnGoalScorers(Set<Person> replacement) {
+        ownGoalScorers.clear();
+        ownGoalScorers.addAll(replacement);
     }
 
     @Override
@@ -73,7 +101,8 @@ public class Match implements ReadOnlyMatch {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(date, home, away, tags);
+        return Objects.hash(date, home, away, homeSales, awaySales,
+                goalScorers, ownGoalScorers);
     }
 
     @Override

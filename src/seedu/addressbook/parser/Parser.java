@@ -243,8 +243,7 @@ public class Parser {
             return new AddMatchCommand(
                     matcher.group("date"),
                     matcher.group("home"),
-                    matcher.group("away"),
-                    getTagsFromArgs(matcher.group("tagArguments"))
+                    matcher.group("away")
             );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());

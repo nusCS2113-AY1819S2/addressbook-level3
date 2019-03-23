@@ -72,9 +72,7 @@ public class AdaptedTeam {
                 return true;
             }
         }
-        // second call only happens if phone/email/address are all not null
-        return Utils.isAnyNull(name, country)
-                || Utils.isAnyNull(country);
+        return Utils.isAnyNull(name, country);
     }
 
     /**
