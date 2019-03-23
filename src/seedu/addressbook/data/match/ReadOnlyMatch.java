@@ -2,7 +2,7 @@ package seedu.addressbook.data.match;
 
 import java.util.Set;
 
-import seedu.addressbook.data.tag.Tag;
+import seedu.addressbook.data.player.Person;
 
 /**
  * A read-only immutable interface for a match in the addressbook.
@@ -16,11 +16,17 @@ public interface ReadOnlyMatch {
 
     Away getAway();
 
+    TicketSales getHomeSales();
+
+    TicketSales getAwaySales();
+
     /**
      * The returned {@code Set} is a deep copy of the internal {@code Set},
      * changes on the returned list will not affect the match's internal tags.
      */
-    Set<Tag> getTags();
+    Set<Person> getGoalScorers();
+
+    Set<Person> getOwnGoalScorers();
 
     /**
      * Returns true if the values inside this object is same as those of the other
@@ -31,7 +37,9 @@ public interface ReadOnlyMatch {
                 || (other != null // this is first to avoid NPE below
                 && other.getDate().equals(this.getDate()) // state checks here onwards
                 && other.getHome().equals(this.getHome())
-                && other.getAway().equals(this.getAway()));
+                && other.getAway().equals(this.getAway())
+                && other.getHomeSales().equals(this.getHomeSales())
+                && other.getAwaySales().equals(this.getAwaySales()));
     }
 
     /**
@@ -43,10 +51,26 @@ public interface ReadOnlyMatch {
                 .append(" Home: ");
         builder.append(getHome())
                 .append(" Away: ");
-        builder.append(getAway())
-                .append(" Tags: ");
-        for (Tag tag : getTags()) {
-            builder.append(tag);
+        builder.append(getAway());
+        if (!getHomeSales().value.isEmpty()) {
+            builder.append(" Home Sales: ")
+                    .append(getHomeSales());
+            builder.append(" Away Sales: ")
+                    .append(getAwaySales());
+            builder.append(" Goal Scorers: ");
+            if (getGoalScorers().isEmpty()) {
+                builder.append("none");
+            }
+            for (Person goalScorer : getGoalScorers()) {
+                builder.append(goalScorer);
+            }
+            builder.append(" Own Goals: ");
+            if (getOwnGoalScorers().isEmpty()) {
+                builder.append("none");
+            }
+            for (Person ownGoalScorer : getOwnGoalScorers()) {
+                builder.append(ownGoalScorer);
+            }
         }
         return builder.toString();
     }

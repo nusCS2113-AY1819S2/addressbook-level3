@@ -1,7 +1,6 @@
 package seedu.addressbook.commands.match;
 
 import java.util.HashSet;
-import java.util.Set;
 
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
@@ -11,8 +10,8 @@ import seedu.addressbook.data.match.Date;
 import seedu.addressbook.data.match.Home;
 import seedu.addressbook.data.match.Match;
 import seedu.addressbook.data.match.ReadOnlyMatch;
+import seedu.addressbook.data.match.TicketSales;
 import seedu.addressbook.data.match.UniqueMatchList;
-import seedu.addressbook.data.tag.Tag;
 
 /**
  * Adds a match to the address book.
@@ -38,17 +37,15 @@ public class AddMatchCommand extends Command {
      */
     public AddMatchCommand(String date,
                       String home,
-                      String away,
-                      Set<String> tags) throws IllegalValueException {
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(new Tag(tagName));
-        }
+                      String away) throws IllegalValueException {
         this.toAdd = new Match(
                 new Date(date),
                 new Home(home),
                 new Away(away),
-                tagSet
+                new TicketSales(""),
+                new TicketSales(""),
+                new HashSet<>(),
+                new HashSet<>()
         );
     }
 

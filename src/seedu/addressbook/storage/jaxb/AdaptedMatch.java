@@ -14,7 +14,8 @@ import seedu.addressbook.data.match.Date;
 import seedu.addressbook.data.match.Home;
 import seedu.addressbook.data.match.Match;
 import seedu.addressbook.data.match.ReadOnlyMatch;
-import seedu.addressbook.data.tag.Tag;
+import seedu.addressbook.data.match.TicketSales;
+import seedu.addressbook.data.player.Person;
 
 /**
  * JAXB-friendly adapted match data holder class.
@@ -28,8 +29,14 @@ public class AdaptedMatch {
     @XmlElement(required = true)
     private String away;
 
+    @XmlElement (required = true)
+    private String homeSales;
+    @XmlElement (required = true)
+    private String awaySales;
     @XmlElement
-    private List<AdaptedTag> tagged = new ArrayList<>();
+    private List<AdaptedPerson> goalScored = new ArrayList<>();
+    @XmlElement
+    private List<AdaptedPerson> ownGoalScored = new ArrayList<>();
 
     /**
      * No-arg constructor for JAXB use.
@@ -49,9 +56,18 @@ public class AdaptedMatch {
 
         away = source.getAway().fullAway;
 
-        tagged = new ArrayList<>();
-        for (Tag tag : source.getTags()) {
-            tagged.add(new AdaptedTag(tag));
+        homeSales = source.getHomeSales().value;
+
+        awaySales = source.getAwaySales().value;
+
+        goalScored = new ArrayList<>();
+        for (Person person : source.getGoalScorers()) {
+            goalScored.add(new AdaptedPerson(person));
+        }
+
+        ownGoalScored = new ArrayList<>();
+        for (Person person : source.getOwnGoalScorers()) {
+            ownGoalScored.add(new AdaptedPerson(person));
         }
     }
 
@@ -64,14 +80,18 @@ public class AdaptedMatch {
      * so we check for that.
      */
     public boolean isAnyRequiredFieldMissing() {
-        for (AdaptedTag tag : tagged) {
-            if (tag.isAnyRequiredFieldMissing()) {
+        for (AdaptedPerson person : goalScored) {
+            if (person.isAnyRequiredFieldMissing()) {
+                return true;
+            }
+        }
+        for (AdaptedPerson person : ownGoalScored) {
+            if (person.isAnyRequiredFieldMissing()) {
                 return true;
             }
         }
         // second call only happens if home/away are all not null
-        return Utils.isAnyNull(date, home, away)
-                || Utils.isAnyNull(home, away);
+        return Utils.isAnyNull(date, home, away, homeSales, awaySales);
     }
 
     /**
@@ -80,13 +100,19 @@ public class AdaptedMatch {
      * @throws IllegalValueException if there were any data constraints violated in the adapted match
      */
     public Match toModelType() throws IllegalValueException {
-        final Set<Tag> tags = new HashSet<>();
-        for (AdaptedTag tag : tagged) {
-            tags.add(tag.toModelType());
+        final Set<Person> goalScorers = new HashSet<>();
+        for (AdaptedPerson person : goalScored) {
+            goalScorers.add(person.toModelType());
+        }
+        final Set<Person> ownGoalScorers = new HashSet<>();
+        for (AdaptedPerson person : ownGoalScored) {
+            ownGoalScorers.add(person.toModelType());
         }
         final Date date = new Date(this.date);
         final Home home = new Home(this.home);
         final Away away = new Away(this.away);
-        return new Match(date, home, away, tags);
+        final TicketSales homeSales = new TicketSales(this.homeSales);
+        final TicketSales awaySales = new TicketSales(this.awaySales);
+        return new Match(date, home, away, homeSales, awaySales, goalScorers, ownGoalScorers);
     }
 }
