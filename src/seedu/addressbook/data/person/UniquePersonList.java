@@ -123,7 +123,8 @@ public class UniquePersonList implements Iterable<Person> {
         return internalList.size();
     }
 
-    /*
+    //@@author WuPeiHsuan
+    /**
      * Sorts all persons in list by name.
      */
     public void SortByName(){
@@ -152,6 +153,7 @@ public class UniquePersonList implements Iterable<Person> {
         };
         Collections.sort(internalList, person);
     }
+    //@@author
 
     @Override
     public Iterator<Person> iterator() {

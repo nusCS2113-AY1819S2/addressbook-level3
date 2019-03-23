@@ -5,6 +5,8 @@ import seedu.addressbook.data.exception.IllegalValueException;
 import java.util.Arrays;
 import java.util.List;
 
+//@@author WuPeiHsuan
+
 public class Status implements Comparable<Status>{
 
     public static final String EXAMPLE = "Observation";
@@ -62,3 +64,4 @@ public class Status implements Comparable<Status>{
     }
 
 }
+//@@author
