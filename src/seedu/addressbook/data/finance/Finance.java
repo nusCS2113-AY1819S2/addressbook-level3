@@ -73,8 +73,8 @@ public class Finance implements ReadOnlyFinance {
          * this.playerSalary = Double.valueOf(playerSalaryString);
          */
     }
-    
 
+    
     @Override
     public double getFinance() {
         double money;
