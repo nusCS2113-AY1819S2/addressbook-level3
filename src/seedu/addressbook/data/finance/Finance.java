@@ -73,22 +73,7 @@ public class Finance implements ReadOnlyFinance {
          * this.playerSalary = Double.valueOf(playerSalaryString);
          */
     }
-
-    /**
-     * Retrieve all matches in the address book whose homes is the target team's home.
-     */
-    /**
-    private List<ReadOnlyMatch> getMatchesWithHome(String home) {
-        final List<ReadOnlyMatch> matchedMatches = new ArrayList<>();
-        for (ReadOnlyMatch match : addressBook.getAllMatches()) {
-            final String wordsInHome = match.getHome().toString();
-            if (wordsInHome.equals(home)) {
-                matchedMatches.add(match);
-            }
-        }
-        return matchedMatches;
-    }
-     */
+    
 
     @Override
     public double getFinance() {
