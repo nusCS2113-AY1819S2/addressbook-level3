@@ -140,8 +140,4 @@ public class UniqueTeamList implements Iterable<Team> {
                 && this.internalList.equals(((UniqueTeamList) other).internalList));
     }
 
-    @Override
-    public int hashCode() {
-        return internalList.hashCode();
-    }
 }

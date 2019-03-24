@@ -3,6 +3,7 @@ package seedu.addressbook.ui;
 import java.util.ArrayList;
 import java.util.List;
 
+import seedu.addressbook.data.finance.ReadOnlyFinance;
 import seedu.addressbook.data.match.ReadOnlyMatch;
 import seedu.addressbook.data.player.ReadOnlyPerson;
 import seedu.addressbook.data.team.ReadOnlyTeam;
@@ -60,6 +61,15 @@ public class Formatter {
             formattedMatches.add(match.getAsTextShowAll());
         }
         return format(asIndexedList(formattedMatches));
+    }
+
+    /** Formats the given list of finances for displaying to the user. */
+    public String formatFinanceResult(List<? extends ReadOnlyFinance> finances) {
+        final List<String> formattedFinances = new ArrayList<>();
+        for (ReadOnlyFinance finance : finances) {
+            formattedFinances.add(finance.getAsTextShowAll());
+        }
+        return format(asIndexedList(formattedFinances));
     }
 
     /** Formats a list of strings as an indexed list. */

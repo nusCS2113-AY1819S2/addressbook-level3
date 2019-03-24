@@ -1,8 +1,11 @@
-package seedu.addressbook.commands;
+package seedu.addressbook.commands.finance;
 
+import seedu.addressbook.commands.Command;
+import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.finance.Finance;
 import seedu.addressbook.data.team.ReadOnlyTeam;
+
 
 /**
  * check the financial profit in USD of a team identified using it's last displayed index from the League.
@@ -30,7 +33,8 @@ public class FinanceCommand extends Command {
             final ReadOnlyTeam target = getTargetTeam();
             Finance finance = new Finance(target);
             double money = finance.getFinance();
-            return new CommandResult(MESSAGE_SUCCESS + " " + money);
+            String histogramString = finance.getHistogramString();
+            return new CommandResult(MESSAGE_SUCCESS + " " + money + ":\n" + histogramString);
 
         } catch (IndexOutOfBoundsException ie) {
             return new CommandResult(Messages.MESSAGE_INVALID_TEAM_DISPLAYED_INDEX);

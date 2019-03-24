@@ -15,7 +15,6 @@ import seedu.addressbook.commands.ClearCommand;
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.DeleteCommand;
 import seedu.addressbook.commands.ExitCommand;
-import seedu.addressbook.commands.FinanceCommand;
 import seedu.addressbook.commands.FindCommand;
 import seedu.addressbook.commands.HelpCommand;
 import seedu.addressbook.commands.IncorrectCommand;
@@ -23,6 +22,8 @@ import seedu.addressbook.commands.ListCommand;
 import seedu.addressbook.commands.SortCommand;
 import seedu.addressbook.commands.ViewAllCommand;
 import seedu.addressbook.commands.ViewCommand;
+import seedu.addressbook.commands.finance.FinanceCommand;
+import seedu.addressbook.commands.finance.ListFinanceCommand;
 import seedu.addressbook.commands.match.AddMatchCommand;
 import seedu.addressbook.commands.match.ClearMatchCommand;
 import seedu.addressbook.commands.match.DeleteMatchCommand;
@@ -152,6 +153,9 @@ public class Parser {
 
         case ListTeam.COMMAND_WORD:
             return new ListTeam();
+
+        case ListFinanceCommand.COMMAND_WORD:
+            return new ListFinanceCommand();
 
         case EditTeam.COMMAND_WORD:
             return prepareEditTeam(arguments);

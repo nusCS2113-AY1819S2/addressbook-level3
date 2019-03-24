@@ -15,6 +15,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_TEAM_DISPLAYED_INDEX = "The team index provided is invalid";
     public static final String MESSAGE_TEAM_NOT_IN_ADDRESSBOOK = "team could not be found in address book";
     public static final String MESSAGE_TEAMS_LISTED_OVERVIEW = "%1$d teams listed!";
+    public static final String MESSAGE_FINANCES_LISTED_OVERVIEW = "%1$d finances listed!";
     public static final String MESSAGE_PROGRAM_LAUNCH_ARGS_USAGE = "Launch command format: "
             + "java seedu.addressbook.Main [STORAGE_FILE_PATH]";
     public static final String MESSAGE_WELCOME = "Welcome to your League Tracker!";

@@ -42,7 +42,7 @@ public class FindTeam extends Command {
     @Override
     public CommandResult execute() {
         final List<ReadOnlyTeam> teamsFound = getTeamsWithNameContainingAnyKeyword(keywords);
-        return new CommandResult(getMessageForTeamListShownSummary(teamsFound), null, teamsFound, null);
+        return new CommandResult(getMessageForTeamListShownSummary(teamsFound), null, teamsFound, null, null);
     }
 
     /**

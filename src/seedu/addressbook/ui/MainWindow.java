@@ -14,6 +14,7 @@ import javafx.scene.control.TextField;
 
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.commands.ExitCommand;
+import seedu.addressbook.data.finance.ReadOnlyFinance;
 import seedu.addressbook.data.match.ReadOnlyMatch;
 import seedu.addressbook.data.player.ReadOnlyPerson;
 import seedu.addressbook.data.team.ReadOnlyTeam;
@@ -91,6 +92,7 @@ public class MainWindow {
         final Optional<List<? extends ReadOnlyPerson>> resultPersons = result.getRelevantPersons();
         final Optional<List<? extends ReadOnlyTeam>> resultTeams = result.getRelevantTeams();
         final Optional<List<? extends ReadOnlyMatch>> resultMatches = result.getRelevantMatches();
+        final Optional<List<? extends ReadOnlyFinance>> resultFinances = result.getRelevantFinances();
         if (resultPersons.isPresent()) {
             displayPersonResult(resultPersons.get());
         }
@@ -99,6 +101,9 @@ public class MainWindow {
         }
         if (resultMatches.isPresent()) {
             displayMatch(resultMatches.get());
+        }
+        if (resultFinances.isPresent()) {
+            displayFinanceResult(resultFinances.get());
         }
         display(result.feedbackToUser);
     }
@@ -132,6 +137,14 @@ public class MainWindow {
      */
     private void displayTeamResult(List<? extends ReadOnlyTeam> teams) {
         display(new Formatter().formatTeamResult(teams));
+    }
+
+    /**
+     * Displays the list of finances in the output displayFinanceResult area, formatted as an indexed list.
+     * Private details are hidden.
+     */
+    private void displayFinanceResult(List<? extends ReadOnlyFinance> finances) {
+        display(new Formatter().formatFinanceResult(finances));
     }
 
     /**

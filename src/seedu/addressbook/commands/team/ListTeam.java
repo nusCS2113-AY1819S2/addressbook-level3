@@ -21,6 +21,6 @@ public class ListTeam extends Command {
     @Override
     public CommandResult execute() {
         List<ReadOnlyTeam> allTeams = addressBook.getAllTeams().immutableListView();
-        return new CommandResult(getMessageForTeamListShownSummary(allTeams), null, allTeams, null);
+        return new CommandResult(getMessageForTeamListShownSummary(allTeams), null, allTeams, null, null);
     }
 }

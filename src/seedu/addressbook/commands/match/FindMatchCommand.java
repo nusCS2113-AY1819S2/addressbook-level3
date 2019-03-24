@@ -40,7 +40,7 @@ public class FindMatchCommand extends Command {
     @Override
     public CommandResult execute() {
         final List<ReadOnlyMatch> matchesFound = getMatchesWithDateContainingAnyKeyword(keywords);
-        return new CommandResult(getMessageForMatchListShownSummary(matchesFound), null, null, matchesFound);
+        return new CommandResult(getMessageForMatchListShownSummary(matchesFound), null, null, matchesFound, null);
     }
 
     /**

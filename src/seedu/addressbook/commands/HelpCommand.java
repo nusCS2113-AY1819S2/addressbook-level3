@@ -1,5 +1,7 @@
 package seedu.addressbook.commands;
 
+import seedu.addressbook.commands.finance.FinanceCommand;
+import seedu.addressbook.commands.finance.ListFinanceCommand;
 import seedu.addressbook.commands.match.AddMatchCommand;
 import seedu.addressbook.commands.match.ClearMatchCommand;
 import seedu.addressbook.commands.match.DeleteMatchCommand;
@@ -37,6 +39,7 @@ public class HelpCommand extends Command {
             + "\n" + ViewCommand.MESSAGE_USAGE
             + "\n" + ViewAllCommand.MESSAGE_USAGE
             + "\n" + FinanceCommand.MESSAGE_USAGE
+            + "\n" + ListFinanceCommand.MESSAGE_USAGE
             + "\n" + AddMatchCommand.MESSAGE_USAGE
             + "\n" + DeleteMatchCommand.MESSAGE_USAGE
             + "\n" + ClearMatchCommand.MESSAGE_USAGE
