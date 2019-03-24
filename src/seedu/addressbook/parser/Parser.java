@@ -22,6 +22,8 @@ import seedu.addressbook.commands.ListCommand;
 import seedu.addressbook.commands.SortCommand;
 import seedu.addressbook.commands.ViewAllCommand;
 import seedu.addressbook.commands.ViewCommand;
+import seedu.addressbook.commands.finance.FinanceCommand;
+import seedu.addressbook.commands.finance.ListFinanceCommand;
 import seedu.addressbook.commands.match.AddMatchCommand;
 import seedu.addressbook.commands.match.ClearMatchCommand;
 import seedu.addressbook.commands.match.DeleteMatchCommand;
@@ -33,8 +35,6 @@ import seedu.addressbook.commands.team.DeleteTeam;
 import seedu.addressbook.commands.team.EditTeam;
 import seedu.addressbook.commands.team.FindTeam;
 import seedu.addressbook.commands.team.ListTeam;
-import seedu.addressbook.commands.finance.FinanceCommand;
-import seedu.addressbook.commands.finance.ListFinanceCommand;
 import seedu.addressbook.data.exception.IllegalValueException;
 
 /**

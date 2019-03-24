@@ -6,7 +6,7 @@ import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.finance.Finance;
 import seedu.addressbook.data.team.ReadOnlyTeam;
 
-import seedu.addressbook.data.team.Team;
+
 /**
  * check the financial profit in USD of a team identified using it's last displayed index from the League.
  */

@@ -7,10 +7,10 @@ import java.util.Optional;
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.AddressBook;
+import seedu.addressbook.data.finance.ReadOnlyFinance;
 import seedu.addressbook.data.match.ReadOnlyMatch;
 import seedu.addressbook.data.player.ReadOnlyPerson;
 import seedu.addressbook.data.team.ReadOnlyTeam;
-import seedu.addressbook.data.finance.ReadOnlyFinance;
 import seedu.addressbook.parser.Parser;
 import seedu.addressbook.storage.StorageFile;
 

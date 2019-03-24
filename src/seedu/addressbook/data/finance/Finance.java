@@ -1,14 +1,8 @@
 package seedu.addressbook.data.finance;
 
-import java.util.*;
-
-import seedu.addressbook.data.AddressBook;
-import seedu.addressbook.data.match.UniqueMatchList;
-import seedu.addressbook.data.team.ReadOnlyTeam;
 import seedu.addressbook.data.team.Name;
-import seedu.addressbook.data.team.Team;
+import seedu.addressbook.data.team.ReadOnlyTeam;
 import seedu.addressbook.data.team.Sponsor;
-import seedu.addressbook.data.match.ReadOnlyMatch;
 
 
 /**
@@ -16,6 +10,8 @@ import seedu.addressbook.data.match.ReadOnlyMatch;
  * Guarantees: details are present and not null, field values are validated.
  */
 public class Finance implements ReadOnlyFinance {
+
+    public static final int NUMBER_OF_QUARTER = 4;
 
     private String teamName;
     private double sponsorMoney = 0;
@@ -31,13 +27,11 @@ public class Finance implements ReadOnlyFinance {
 
     private Histogram histogram;
 
-    public static final int NUMBER_OF_QUARTER = 4;
-    
 
     public Finance(ReadOnlyTeam team) {
 
         Name name = team.getName();
-        teamName = name.fullName;
+        this.teamName = name.fullName;
 
         Sponsor sponsor = team.getSponsor();
         String sponsorString = sponsor.value;
@@ -56,14 +50,15 @@ public class Finance implements ReadOnlyFinance {
         /**
          * Retrieve ticket price and turnout rate from all matches found.
          */
-/**
+        /**
         for (ReadOnlyMatch match : matchesOfTeam) {
             double price = 1;//match.getPrice();
             double turnout = 2;//match.getTurnout();
             double ticketBox = price * turnout;
             ticketIncome += ticketBox;
-        }
 
+        }
+         */
 
         /**
          *
@@ -82,7 +77,7 @@ public class Finance implements ReadOnlyFinance {
     /**
      * Retrieve all matches in the address book whose homes is the target team's home.
      */
-/**
+    /**
     private List<ReadOnlyMatch> getMatchesWithHome(String home) {
         final List<ReadOnlyMatch> matchedMatches = new ArrayList<>();
         for (ReadOnlyMatch match : addressBook.getAllMatches()) {
@@ -93,7 +88,7 @@ public class Finance implements ReadOnlyFinance {
         }
         return matchedMatches;
     }
-*/
+     */
 
     @Override
     public double getFinance() {
@@ -103,7 +98,9 @@ public class Finance implements ReadOnlyFinance {
     }
 
     @Override
-    public String getTeamName() { return teamName; }
+    public String getTeamName() {
+        return teamName;
+    }
 
     @Override
     public double getSponsor() {
@@ -128,7 +125,7 @@ public class Finance implements ReadOnlyFinance {
     }
 
     @Override
-    public String getHistogramString(){
+    public String getHistogramString() {
         return histogram.getHistogramString();
     }
 

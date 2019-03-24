@@ -14,10 +14,10 @@ import javafx.scene.control.TextField;
 
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.commands.ExitCommand;
+import seedu.addressbook.data.finance.ReadOnlyFinance;
 import seedu.addressbook.data.match.ReadOnlyMatch;
 import seedu.addressbook.data.player.ReadOnlyPerson;
 import seedu.addressbook.data.team.ReadOnlyTeam;
-import seedu.addressbook.data.finance.ReadOnlyFinance;
 import seedu.addressbook.logic.Logic;
 
 

@@ -3,10 +3,10 @@ package seedu.addressbook.commands;
 import java.util.List;
 import java.util.Optional;
 
+import seedu.addressbook.data.finance.ReadOnlyFinance;
 import seedu.addressbook.data.match.ReadOnlyMatch;
 import seedu.addressbook.data.player.ReadOnlyPerson;
 import seedu.addressbook.data.team.ReadOnlyTeam;
-import seedu.addressbook.data.finance.ReadOnlyFinance;
 
 /**
  * Represents the result of a command execution.

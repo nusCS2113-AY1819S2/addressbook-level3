@@ -6,10 +6,10 @@ import java.util.List;
 
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.AddressBook;
+import seedu.addressbook.data.finance.ReadOnlyFinance;
 import seedu.addressbook.data.match.ReadOnlyMatch;
 import seedu.addressbook.data.player.ReadOnlyPerson;
 import seedu.addressbook.data.team.ReadOnlyTeam;
-import seedu.addressbook.data.finance.ReadOnlyFinance;
 
 /**
  * Represents an executable command.

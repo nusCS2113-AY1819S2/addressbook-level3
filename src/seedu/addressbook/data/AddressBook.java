@@ -1,5 +1,7 @@
 package seedu.addressbook.data;
 
+import seedu.addressbook.data.finance.Finance;
+import seedu.addressbook.data.finance.UniqueFinanceList;
 import seedu.addressbook.data.match.Match;
 import seedu.addressbook.data.match.ReadOnlyMatch;
 import seedu.addressbook.data.match.UniqueMatchList;
@@ -14,9 +16,6 @@ import seedu.addressbook.data.player.UniquePersonList.PersonNotFoundException;
 import seedu.addressbook.data.team.ReadOnlyTeam;
 import seedu.addressbook.data.team.Team;
 import seedu.addressbook.data.team.UniqueTeamList;
-
-import seedu.addressbook.data.finance.Finance;
-import seedu.addressbook.data.finance.UniqueFinanceList;
 
 /**
  * Represents the entire address book. Contains the data of the address book.
@@ -197,7 +196,7 @@ public class AddressBook {
      */
     public void refreshFinance() throws UniqueFinanceList.DuplicateFinanceException {
         allFinances.clear();
-        for(ReadOnlyTeam aTeam : allTeams.immutableListView()) {
+        for (ReadOnlyTeam aTeam : allTeams.immutableListView()) {
             allFinances.add(new Finance(aTeam));
         }
     }

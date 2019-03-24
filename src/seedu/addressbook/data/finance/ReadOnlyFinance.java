@@ -1,10 +1,6 @@
 package seedu.addressbook.data.finance;
 
 
-import seedu.addressbook.data.tag.Tag;
-
-import java.util.Set;
-
 /**
  * A read-only immutable interface for a finance in the league.
  * Implementations should guarantee: details are present and not null, field values are validated.

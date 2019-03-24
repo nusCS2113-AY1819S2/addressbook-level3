@@ -3,10 +3,10 @@ package seedu.addressbook.ui;
 import java.util.ArrayList;
 import java.util.List;
 
+import seedu.addressbook.data.finance.ReadOnlyFinance;
 import seedu.addressbook.data.match.ReadOnlyMatch;
 import seedu.addressbook.data.player.ReadOnlyPerson;
 import seedu.addressbook.data.team.ReadOnlyTeam;
-import seedu.addressbook.data.finance.ReadOnlyFinance;
 
 /**
  * Used for formatting text for display. e.g. for adding text decorations.

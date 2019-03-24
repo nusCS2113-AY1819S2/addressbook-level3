@@ -1,13 +1,19 @@
 package seedu.addressbook.data.finance;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.DuplicateDataException;
-import seedu.addressbook.data.team.ReadOnlyTeam;
-import seedu.addressbook.data.team.Team;
-import seedu.addressbook.data.team.UniqueTeamList;
 
-import java.util.*;
 
+/**
+ * A list of matches. Does not allow null elements or duplicates.
+ */
 public class UniqueFinanceList implements Iterable<Finance> {
 
     /**
@@ -133,7 +139,7 @@ public class UniqueFinanceList implements Iterable<Finance> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniqueTeamList // instanceof handles nulls
+                || (other instanceof UniqueFinanceList // instanceof handles nulls
                 && this.internalList.equals(((UniqueFinanceList) other).internalList));
     }
 

@@ -1,12 +1,12 @@
 package seedu.addressbook.commands.finance;
 
+import java.util.List;
+
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.finance.ReadOnlyFinance;
 import seedu.addressbook.data.finance.UniqueFinanceList;
-import seedu.addressbook.data.team.ReadOnlyTeam;
 
-import java.util.List;
 
 /**
  * Lists all finances.
@@ -26,7 +26,7 @@ public class ListFinanceCommand extends Command {
     public CommandResult execute() {
         try {
             addressBook.refreshFinance();
-        } catch (UniqueFinanceList.DuplicateFinanceException dfe){
+        } catch (UniqueFinanceList.DuplicateFinanceException dfe) {
             return new CommandResult(MESSAGE_FINANCE_REFRESH_PROBLEM);
         }
         List<ReadOnlyFinance> allFinances = addressBook.getAllFinances().immutableListView();
