@@ -74,7 +74,6 @@ public class Finance implements ReadOnlyFinance {
          */
     }
 
-    
     @Override
     public double getFinance() {
         double money;
