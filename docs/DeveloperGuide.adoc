@@ -336,15 +336,18 @@ HashMap is used because memory is not a serious issue for this program as the pr
   
 ===== Aspect: File format to keep account information in local storage
 
-* **Alternative 1:** Use a JSON file to store the username password pairs .
-** Pros: More compatible with HashMap and have a smaller size compared with XML.
-** Cons: Larger file size compared with CSV.
-* ** Alternative 2:** Use a CSV file to store the username password pairs.
-** Pros: Smallest in file size.
-** Cons: complicated to convert to/from HashMap. 
-* ** Alternative 2:** Use a XML file to store the username password pairs
-** Pros: More compatible with HashMap. 
-** Cons: Largest in file size.
+* **Alternative 1 (current choice):** Use a Java Properties file to store the username password pairs .
+** Pros: High readability, easy to implement as it only requires java.util package to work, small in file size.
+** Cons: Does not support hierarchical data structure well.
+* **Alternative 2:** Use a JSON file to store the username password pairs .
+** Pros: Key-vaule pair format, similar to HashMap.
+** Cons: Large in file size.
+* ** Alternative 3:** Use a CSV file to store the username password pairs.
+** Pros: Small in file size.
+** Cons: Complicated to convert to/from HashMap. 
+* ** Alternative 4:** Use a XML file to store the username password pairs
+** Pros: Compatible with HashMap. 
+** Cons: Large in file size.
 
 === Add appointment feature 
 ==== Current Implementation
