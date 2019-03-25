@@ -41,8 +41,18 @@ Login is required in order to use the address book
 
 Examples:
 
-* `login guanlong 12345` +
-Logged in as guanlong if the account and password are correct.
+* `login Doe 12345` +
+Logged in as Doe if the account and password are correct.
+
+== Register a new account: `register`
+
+Allow the user to register a new account in the system +
+Format: `register username password`
+
+Examples:
+
+*`register Doe 12345` +
+A new account is registered if the username chosen has not been registered before.
 
 == Adding a person: `add`
 
