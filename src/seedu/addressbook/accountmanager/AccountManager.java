@@ -1,7 +1,11 @@
 package seedu.addressbook.accountmanager;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Properties;
 
 public class AccountManager {
 
@@ -18,8 +22,7 @@ public class AccountManager {
 
     public AccountManager(){
         this.loginStatus = false;
-        this.accounts.put("guanlong", "12345");
-        this.accounts.put("doctorA", "doctorA");
+        loadAccounts();
     }
 
     public void setLoginStatus(boolean newStatus){
@@ -65,5 +68,32 @@ public class AccountManager {
 
     private void register(String username, String password){
         accounts.put(username, password);
+    }
+    public void storeAccounts()
+    {
+        try {
+            Properties accountsFile = new Properties();
+            for (Map.Entry<String, String> entry: this.accounts.entrySet()){
+                accountsFile.put(entry.getKey(), entry.getValue());
+            }
+            accountsFile.store(new FileOutputStream("accounts.properties"), null);
+        } catch (IOException e)
+        {
+
+        }
+
+    }
+    private void loadAccounts()
+    {
+        try {
+            Properties accountsFile = new Properties();
+            accountsFile.load(new FileInputStream("accounts.properties"));
+            for (String key : accountsFile.stringPropertyNames()){
+                this.accounts.put(key, accountsFile.get(key).toString());
+            }
+        }catch (IOException e)
+        {
+
+        }
     }
 }
