@@ -70,6 +70,7 @@ public class MainWindow {
     }
 
     private void exitApp() throws Exception {
+        accountManager.storeAccounts();
         mainApp.stop();
     }
 
