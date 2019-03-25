@@ -51,7 +51,7 @@ Format: `register username password`
 
 Examples:
 
-*`register Doe 12345` +
+* `register Doe 12345` +
 A new account is registered if the username chosen has not been registered before.
 
 == Adding a person: `add`
