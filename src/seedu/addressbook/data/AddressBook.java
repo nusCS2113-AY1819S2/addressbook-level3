@@ -57,12 +57,36 @@ public class AddressBook {
     public void removePerson(ReadOnlyPerson toRemove) throws PersonNotFoundException {
         allPersons.remove(toRemove);
     }
+    //@@author WuPeiHsuan
+    /**
+     * Sorts all persons from the address book.
+     */
+
+    public void sorted(String attribute) {
+        attribute = attribute.trim();
+        switch (attribute) {
+            case "name":
+                allPersons.SortByName();
+                break;
+            case "appointment":
+                allPersons.SortByAppointment();
+                break;
+            case "status":
+                allPersons.SortByStatus();
+                break;
+        }
+    }
+    //@@author
 
     /**
      * Clears all persons from the address book.
      */
     public void clear() {
         allPersons.clear();
+    }
+
+    public int size() {
+        return allPersons.size();
     }
 
     /**

@@ -29,14 +29,31 @@ Format: `help`
 Help is also shown if you enter an incorrect command e.g. `abcd`
 ====
 
+== Login to the system : `login`
+
+Allow the user to login to the system +
+Format: `login username password`
+
+[NOTE]
+====
+Login is required in order to use the address book
+====
+
+Examples:
+
+* `login guanlong 12345` +
+Logged in as guanlong if the account and password are correct.
+
 == Adding a person: `add`
 
 Adds a person to the address book. +
-Format: `add NAME [p]p/PHONE_NUMBER [p]e/EMAIL [p]a/ADDRESS [t/TAG]...`
+Format: `add NAME [p]p/PHONE_NUMBER [p]e/EMAIL [p]a/ADDRESS m/APPOINTMENTDATE d/DOCTORNAME s/STATUS [t/TAG]...`
 
 ****
 Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional,
 items with `...` after them can have multiple instances. Order of parameters are fixed.
+
+Note that the appointment date must be in the format of YYYY MM DD, in other for the DoctorAppointment Command to work.
 
 Put a `p` before the phone / email / address prefixes to mark it as `private`. `private` details can only
 be seen using the `viewall` command.
@@ -46,13 +63,48 @@ Persons can have any number of tags (including 0)
 
 Examples:
 
-* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01`
-* `add Betsy Crowe pp/1234567 e/betsycrowe@gmail.com pa/Newgate Prison t/criminal t/friend`
+* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01 m/2009 12 11 d/DoctorTan s/observation`
+* `add Betsy Crowe pp/1234567 e/betsycrowe@gmail.com pa/Newgate Prison m/2011 21 04 d/DoctorTan s/observation t/criminal t/friend`
+
+== Finding out the current length of the address book : `length`
+
+Shows the number of entries in the address book. +
+Format: `length`
 
 == Listing all persons : `list`
 
 Shows a list of all persons in the address book. +
 Format: `list`
+
+== Referring person indicated by user : `refer`
+
+Refer person to a doctor if there is only one entry and shows a list of all persons in the address book with the keyword if there are multiple entries. +
+Format: `refer John`
+
+== Listing all persons in sorted order : `sort`
+
+Shows a list of all persons sorted by desired attribute in alphabetical order in the address book. +
+Desired attribute could be name, appointment or status. +
+Format: `sort DESIRED_ATTRIBUTE`
+
+Examples:
+
+* `sort name` +
+Shows a list of all persons sorted by name in alphabetical order in the address book. 
+
+* `sort status` +
+Shows a list of all persons sorted by status in alphabetical order in the address book. 
+
+== Listing all appointments of a Doctor : `DoctorAppointments`
+
+Displays a list of all persons who have appointments with a specific doctor. 
+The list of persons are sorted by on chronological order of their appointment dates.
+For easy-readability, only the name and appointment date of each person is displayed.
+
+Examples: 
+
+* `DoctorAppointments DoctorTan` +
+Shows a list of all patients who have appointments with DoctorTan.
 
 == Finding all persons containing any keyword in their name: `find`
 
