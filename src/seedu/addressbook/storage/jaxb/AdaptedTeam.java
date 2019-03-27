@@ -1,21 +1,16 @@
 package seedu.addressbook.storage.jaxb;
 
+import seedu.addressbook.common.Utils;
+import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.data.player.Player;
+import seedu.addressbook.data.tag.Tag;
+import seedu.addressbook.data.team.*;
+
+import javax.xml.bind.annotation.XmlElement;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import javax.xml.bind.annotation.XmlElement;
-
-import seedu.addressbook.common.Utils;
-import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.player.Person;
-import seedu.addressbook.data.tag.Tag;
-import seedu.addressbook.data.team.Country;
-import seedu.addressbook.data.team.Name;
-import seedu.addressbook.data.team.ReadOnlyTeam;
-import seedu.addressbook.data.team.Sponsor;
-import seedu.addressbook.data.team.Team;
 
 
 /**
@@ -29,7 +24,7 @@ public class AdaptedTeam {
     @XmlElement(required = true)
     private String sponsor;
     @XmlElement
-    private List<AdaptedPerson> playerlist = new ArrayList<>();
+    private List<AdaptedPlayer> playerlist = new ArrayList<>();
     @XmlElement
     private List<AdaptedTag> tagged = new ArrayList<>();
 
@@ -48,8 +43,8 @@ public class AdaptedTeam {
         sponsor = source.getSponsor().toString();
 
         playerlist = new ArrayList<>();
-        for (Person person : source.getPlayers()) {
-            playerlist.add(new AdaptedPerson(person));
+        for (Player player : source.getPlayers()) {
+            playerlist.add(new AdaptedPlayer(player));
         }
 
         tagged = new ArrayList<>();
@@ -80,9 +75,9 @@ public class AdaptedTeam {
      */
     public Team toModelType() throws IllegalValueException {
         final Set<Tag> tags = new HashSet<>();
-        final Set<Person> players = new HashSet<>();
-        for (AdaptedPerson person : playerlist) {
-            players.add(person.toModelType());
+        final Set<Player> players = new HashSet<>();
+        for (AdaptedPlayer player : playerlist) {
+            players.add(player.toModelType());
         }
         for (AdaptedTag tag : tagged) {
             tags.add(tag.toModelType());

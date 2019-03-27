@@ -1,9 +1,9 @@
 package seedu.addressbook.data.player;
 
+import seedu.addressbook.data.exception.IllegalValueException;
+
 import java.util.Arrays;
 import java.util.List;
-
-import seedu.addressbook.data.exception.IllegalValueException;
 
 /**
  * Represents a player's name in the address book.
@@ -22,6 +22,7 @@ public class Name implements Comparable<Name> {
      *
      * @throws IllegalValueException if given name string is invalid.
      */
+
     public Name(String name) throws IllegalValueException {
         name = name.trim();
         if (!isValidName(name)) {

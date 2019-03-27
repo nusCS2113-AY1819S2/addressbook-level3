@@ -8,28 +8,50 @@ import seedu.addressbook.data.exception.IllegalValueException;
 
 public class Appearance {
 
-    public static final int EXAMPLE = 30;
+    public static final String EXAMPLE = "30";
     public static final String MESSAGE_APPEARANCE_CONSTRAINTS = "No. of appearance of a player must be an integer";
+    public static final String APPEARANCE_VALIDATION_REGEX = "\\d+";
 
 
-    public final int fullAppearance;
+    public final String value;
     /**
      * Validates given appearance number.
      *
      * @throws IllegalValueException if given Number of Appearance integer is invalid.
      */
 
-    public Appearance (int appearance) throws IllegalValueException {
+    public Appearance (String appearance) throws IllegalValueException {
+        appearance = appearance.trim();
         if (!isValidApp(appearance)) {
             throw new IllegalValueException(MESSAGE_APPEARANCE_CONSTRAINTS);
         }
-        this.fullAppearance = appearance;
+        this.value = appearance;
     }
 
     /**
      * Returns true if a given integer is a valid jersey number.
      */
-    public static boolean isValidApp(int test) {
-        return (test > 0 && test < 35);
+    public static boolean isValidApp(String test) {
+        int temp = Integer.parseInt(test);
+        return (test.matches(APPEARANCE_VALIDATION_REGEX)&& temp >= 0 && temp < 100);
     }
+
+
+    @Override
+    public String toString() {
+        return value;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Appearance // instanceof handles nulls
+                && this.value.equals(((Appearance) other).value)); // state check
+    }
+
+    @Override
+    public int hashCode() {
+        return value.hashCode();
+    }
+
 }

@@ -1,22 +1,22 @@
 package seedu.addressbook.commands;
 
-import static seedu.addressbook.ui.Gui.DISPLAYED_INDEX_OFFSET;
-
-import java.util.List;
-
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.finance.ReadOnlyFinance;
 import seedu.addressbook.data.match.ReadOnlyMatch;
-import seedu.addressbook.data.player.ReadOnlyPerson;
+import seedu.addressbook.data.player.ReadOnlyPlayer;
 import seedu.addressbook.data.team.ReadOnlyTeam;
+
+import java.util.List;
+
+import static seedu.addressbook.ui.Gui.DISPLAYED_INDEX_OFFSET;
 
 /**
  * Represents an executable command.
  */
 public abstract class Command {
     protected AddressBook addressBook;
-    protected List<? extends ReadOnlyPerson> relevantPersons;
+    protected List<? extends ReadOnlyPlayer> relevantPlayers;
     protected List<? extends ReadOnlyMatch> relevantMatches;
     protected List<? extends ReadOnlyTeam> relevantTeams;
     protected List<? extends ReadOnlyFinance> relevantFinances;
@@ -34,13 +34,13 @@ public abstract class Command {
     }
 
     /**
-     * Constructs a feedback message to summarise an operation that displayed a listing of persons.
+     * Constructs a feedback message to summarise an operation that displayed a listing of players.
      *
-     * @param personsDisplayed used to generate summary
+     * @param playersDisplayed used to generate summary
      * @return summary message for persons displayed
      */
-    public static String getMessageForPersonListShownSummary(List<? extends ReadOnlyPerson> personsDisplayed) {
-        return String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, personsDisplayed.size());
+    public static String getMessageForPlayerListShownSummary(List<? extends ReadOnlyPlayer> playersDisplayed) {
+        return String.format(Messages.MESSAGE_PLAYERS_LISTED_OVERVIEW, playersDisplayed.size());
     }
 
     /**
@@ -76,12 +76,12 @@ public abstract class Command {
      */
 
     public void setData(AddressBook addressBook,
-                        List<? extends ReadOnlyPerson> relevantPersons,
+                        List<? extends ReadOnlyPlayer> relevantPlayers,
                         List<? extends ReadOnlyTeam> relevantTeams,
                         List<? extends ReadOnlyMatch> relevantMatches,
                         List<? extends ReadOnlyFinance> relevantFinances) {
         this.addressBook = addressBook;
-        this.relevantPersons = relevantPersons;
+        this.relevantPlayers = relevantPlayers;
         this.relevantTeams = relevantTeams;
         this.relevantMatches = relevantMatches;
         this.relevantFinances = relevantFinances;
@@ -92,8 +92,9 @@ public abstract class Command {
      *
      * @throws IndexOutOfBoundsException if the target index is out of bounds of the last viewed listing
      */
-    protected ReadOnlyPerson getTargetPerson() throws IndexOutOfBoundsException {
-        return relevantPersons.get(getTargetIndex() - DISPLAYED_INDEX_OFFSET);
+
+    protected ReadOnlyPlayer getTargetPlayer() throws IndexOutOfBoundsException {
+        return relevantPlayers.get(getTargetIndex() - DISPLAYED_INDEX_OFFSET);
     }
 
     protected ReadOnlyMatch getTargetMatch() throws IndexOutOfBoundsException {

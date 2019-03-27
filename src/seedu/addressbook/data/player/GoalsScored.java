@@ -7,28 +7,47 @@ import seedu.addressbook.data.exception.IllegalValueException;
  */
 public class GoalsScored {
 
-    public static final int EXAMPLE = 10;
+    public static final String EXAMPLE = "1";
     public static final String MESSAGE_GS_CONSTRAINTS = "No.of goals scored for a player must be an integer";
+    public static final String GS_VALIDATION_REGEX = "\\d+";
+    public final String value;
 
-    public final int fullGs;
     /**
      * Validates given goals scored.
      *
      * @throws IllegalValueException if given goals scored integer is invalid.
      */
 
-    public GoalsScored (int gs) throws IllegalValueException {
+    public GoalsScored (String gs) throws IllegalValueException {
+        gs = gs.trim();
         if (!isValidGs(gs)) {
             throw new IllegalValueException(MESSAGE_GS_CONSTRAINTS);
         }
-        this.fullGs = gs;
+        this.value = gs;
     }
 
     /**
      * Returns true if a given integer is a valid goals scored number.
      */
-    public static boolean isValidGs(int test) {
-        return (test >= 0 && test < 100);
+    public static boolean isValidGs(String test) {
+        int temp = Integer.parseInt(test);
+        return (test.matches(GS_VALIDATION_REGEX)&& temp >= 0 && temp < 100);
     }
 
+    @Override
+    public String toString() {
+        return value;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof GoalsScored // instanceof handles nulls
+                && this.value.equals(((GoalsScored) other).value)); // state check
+    }
+
+    @Override
+    public int hashCode() {
+        return value.hashCode();
+    }
 }

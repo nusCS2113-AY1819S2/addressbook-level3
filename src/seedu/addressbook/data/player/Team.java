@@ -1,9 +1,9 @@
 package seedu.addressbook.data.player;
 
+import seedu.addressbook.data.exception.IllegalValueException;
+
 import java.util.Arrays;
 import java.util.List;
-
-import seedu.addressbook.data.exception.IllegalValueException;
 
 /**
  * Represents a player's team in the address book.
@@ -11,8 +11,8 @@ import seedu.addressbook.data.exception.IllegalValueException;
 public class Team {
     public static final String EXAMPLE = "FC Barcelona";
     public static final String MESSAGE_TEAM_CONSTRAINTS = "Player's team names"
-            + "should be spaces or alphanumeric characters";
-    public static final String TEAM_VALIDATION_REGEX = "[\\p{Alnum} ]+";
+            + "can be anything.+";
+    public static final String TEAM_VALIDATION_REGEX = ".+";
 
     public final String fullTeam;
 

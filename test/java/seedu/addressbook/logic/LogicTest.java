@@ -16,24 +16,14 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.addressbook.commands.AddCommand;
-import seedu.addressbook.commands.ClearCommand;
+import seedu.addressbook.commands.player.*;
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
-import seedu.addressbook.commands.DeleteCommand;
 import seedu.addressbook.commands.ExitCommand;
-import seedu.addressbook.commands.FindCommand;
 import seedu.addressbook.commands.HelpCommand;
-import seedu.addressbook.commands.ViewAllCommand;
-import seedu.addressbook.commands.ViewCommand;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.AddressBook;
-import seedu.addressbook.data.player.Address;
-import seedu.addressbook.data.player.Email;
-import seedu.addressbook.data.player.Name;
-import seedu.addressbook.data.player.Person;
-import seedu.addressbook.data.player.Phone;
-import seedu.addressbook.data.player.ReadOnlyPerson;
+import seedu.addressbook.data.player.*;
 import seedu.addressbook.data.tag.Tag;
 import seedu.addressbook.storage.StorageFile;
 
@@ -62,7 +52,7 @@ public class LogicTest {
         //Constructor is called in the setup() method which executes before every test, no need to call it here again.
 
         //Confirm the last shown list is empty
-        assertEquals(Collections.emptyList(), logic.getLastPersonShownList());
+        assertEquals(Collections.emptyList(), logic.getLastPlayerShownList());
     }
 
     @Test
@@ -91,29 +81,29 @@ public class LogicTest {
     private void assertCommandBehavior(String inputCommand,
                                       String expectedMessage,
                                       AddressBook expectedAddressBook,
-                                      boolean isRelevantPersonsExpected,
-                                      List<? extends ReadOnlyPerson> lastPersonList) throws Exception {
+                                      boolean isRelevantPlayersExpected,
+                                      List<? extends ReadOnlyPlayer> lastPlayerList) throws Exception {
 
         //Execute the command
         CommandResult r = logic.execute(inputCommand);
 
         //Confirm the result contains the right data
         assertEquals(expectedMessage, r.feedbackToUser);
-        assertEquals(r.getRelevantPersons().isPresent(), isRelevantPersonsExpected);
-        if (isRelevantPersonsExpected) {
-            assertEquals(lastPersonList, r.getRelevantPersons().get());
+        assertEquals(r.getRelevantPlayers().isPresent(), isRelevantPlayersExpected);
+        if (isRelevantPlayersExpected) {
+            assertEquals(lastPlayerList, r.getRelevantPlayers().get());
         }
 
         //Confirm the state of data is as expected
         assertEquals(expectedAddressBook, addressBook);
-        assertEquals(lastPersonList, logic.getLastPersonShownList());
+        assertEquals(lastPlayerList, logic.getLastPlayerShownList());
         assertEquals(addressBook, saveFile.load());
     }
 
 
     @Test
     public void execute_unknownCommandWord() throws Exception {
-        String unknownCommand = "uicfhmowqewca";
+        String unknownCommand = "thisisnonsensebutyeahwhocares";
         assertCommandBehavior(unknownCommand, HelpCommand.MESSAGE_ALL_USAGES);
     }
 
@@ -130,10 +120,10 @@ public class LogicTest {
     @Test
     public void execute_clear() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        addressBook.addPerson(helper.generatePerson(1, true));
-        addressBook.addPerson(helper.generatePerson(2, true));
-        addressBook.addPerson(helper.generatePerson(3, true));
-
+        addressBook.addPlayer(helper.generatePlayer(1));
+        addressBook.addPlayer(helper.generatePlayer(2));
+        addressBook.addPlayer(helper.generatePlayer(3));
+        addressBook.addPlayer(helper.generatePlayer(4));
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, AddressBook.empty(),
                 false, Collections.emptyList());
     }
@@ -144,17 +134,75 @@ public class LogicTest {
         assertCommandBehavior(
                 "add wrong args wrong args", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid, address", expectedMessage);
+                "add Valid Name Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam.butNoPositionPrefix ctry/China" +
+                        "jn/9 app/0 hs/Healthy", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
+                "add Valid Name p/Striker 30 sal/20000 gs/0 ga/0 tm/validTeam.butNoAgePrefix ctry/China" +
+                        "jn/9 app/0 hs/Healthy", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
+                "add Valid Name p/Striker a/30 20000 gs/0 ga/0 tm/validTeam.butNoSalaryPrefix ctry/China" +
+                        "jn/9 app/0 hs/Healthy", expectedMessage);
+        assertCommandBehavior(
+                "add Valid Name p/Striker a/30 sal/20000 0 ga/0 tm/validTeam.butNoGoalsScoredPrefix ctry/China" +
+                        "jn/9 app/0 hs/Healthy", expectedMessage);
+        assertCommandBehavior(
+                "add Valid Name p/Striker a/30 sal/20000 gs/0 0 tm/validTeam.butNoGoalsAssistedPrefix ctry/China" +
+                        "jn/9 app/0 hs/Healthy", expectedMessage);
+        assertCommandBehavior(
+                "add Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 validTeam.butNoPrefix ctry/China" +
+                        "jn/9 app/0 hs/Healthy", expectedMessage);
+        assertCommandBehavior(
+                "add Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam.butNoCountryPrefix China" +
+                        "jn/9 app/0 hs/Healthy", expectedMessage);
+        assertCommandBehavior(
+                "add Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam.butNoJerseyNumberPrefix ctry/China" +
+                        "9 app/0 hs/Healthy", expectedMessage);
+        assertCommandBehavior(
+                "add Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam.butNoAppearancePrefix ctry/China" +
+                        "jn/9 0 hs/Healthy", expectedMessage);
+        assertCommandBehavior(
+                "add Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam.butNoHealthStatusPrefix ctry/China" +
+                        "jn/9 app/0 Healthy", expectedMessage);
+        // need another test function for addFast
+        }
+
+    @Test
+    public void execute_addFast_invalidArgsFormat() throws Exception{
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFastCommand.MESSAGE_USAGE);
+
+        assertCommandBehavior(
+                "addFast ValidName Striker a/30 sal/20000 tm/FC_NUS.butNoPositionPrefix ctry/Singapore jn/10",
+                expectedMessage);
+
+        assertCommandBehavior(
+                "addFast ValidName p/Striker 30 sal/20000 tm/FC_NUS.butNoAgePrefix ctry/Singapore jn/10",
+                expectedMessage);
+
+        assertCommandBehavior(
+                "addFast ValidName p/Striker a/30 20000 tm/FC_NUS.butNoSalaryPrefix ctry/Singapore jn/10",
+                expectedMessage);
+
+        assertCommandBehavior(
+                "addFast ValidName p/Striker a/30 sal/20000 FC_NUS.butNoPrefix ctry/Singapore jn/10",
+                expectedMessage);
+
+        assertCommandBehavior(
+                "addFast ValidName p/Striker a/30 sal/20000 tm/FC_NUS.butNoCountryPrefix Singapore jn/10",
+                expectedMessage);
+
+        assertCommandBehavior(
+                "addFast ValidName p/Striker a/30 sal/20000 tm/FC_NUS.butNoJerseyNumberPrefix ctry/Singapore 10",
+                expectedMessage);
+
     }
 
+"add Valid Name Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam.butNoPositionPrefix ctry/China" +
+        "jn/9 app/0 hs/Healthy"
     @Test
     public void execute_add_invalidPersonData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] p/12345 e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add []\\[;] p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam.butNoPositionPrefix ctry/China" +
+                        "jn/9 app/0 hs/Healthy", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
                 "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", Phone.MESSAGE_PHONE_CONSTRAINTS);
         assertCommandBehavior(
@@ -195,7 +243,7 @@ public class LogicTest {
         // execute command and verify result
         assertCommandBehavior(
                 helper.generateAddCommand(toBeAdded),
-                AddCommand.MESSAGE_DUPLICATE_PERSON,
+                AddCommand.MESSAGE_DUPLICATE_PLAYER,
                 expectedAb,
                 false,
                 Collections.emptyList());
@@ -219,17 +267,7 @@ public class LogicTest {
                               expectedList);
     }
 
-    @Test
-    public void execute_view_invalidArgsFormat() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE);
-        assertCommandBehavior("view ", expectedMessage);
-        assertCommandBehavior("view arg not number", expectedMessage);
-    }
 
-    @Test
-    public void execute_view_invalidIndex() throws Exception {
-        assertInvalidIndexBehaviorForCommand("view");
-    }
 
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
@@ -237,11 +275,11 @@ public class LogicTest {
      * @param commandWord to test assuming it targets a single player in the last shown list based on visible index.
      */
     private void assertInvalidIndexBehaviorForCommand(String commandWord) throws Exception {
-        String expectedMessage = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+        String expectedMessage = Messages.MESSAGE_INVALID_PLAYER_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
         List<Person> lastPersonList = helper.generatePersonList(false, true);
 
-        logic.setLastPersonShownList(lastPersonList);
+        logic.setLastPlayerShownList(lastPersonList);
 
         assertCommandBehavior(commandWord + " -1", expectedMessage, AddressBook.empty(), false, lastPersonList);
         assertCommandBehavior(commandWord + " 0", expectedMessage, AddressBook.empty(), false, lastPersonList);
@@ -249,46 +287,22 @@ public class LogicTest {
 
     }
 
-    @Test
-    public void execute_view_onlyShowsNonPrivate() throws Exception {
-
-        TestDataHelper helper = new TestDataHelper();
-        Person p1 = helper.generatePerson(1, true);
-        Person p2 = helper.generatePerson(2, false);
-        List<Person> lastPersonList = helper.generatePersonList(p1, p2);
-        AddressBook expectedAb = helper.generateAddressBook(lastPersonList);
-        helper.addToAddressBook(addressBook, lastPersonList);
-
-        logic.setLastPersonShownList(lastPersonList);
-
-        assertCommandBehavior("view 1",
-                              String.format(ViewCommand.MESSAGE_VIEW_PERSON_DETAILS, p1.getAsTextHidePrivate()),
-                              expectedAb,
-                              false,
-                              lastPersonList);
-
-        assertCommandBehavior("view 2",
-                              String.format(ViewCommand.MESSAGE_VIEW_PERSON_DETAILS, p2.getAsTextHidePrivate()),
-                              expectedAb,
-                              false,
-                              lastPersonList);
-    }
 
     @Test
     public void execute_tryToViewMissingPerson_errorMessage() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Person p1 = helper.generatePerson(1, false);
-        Person p2 = helper.generatePerson(2, false);
+        Person p1 = helper.generatePlayer(1, false);
+        Person p2 = helper.generatePlayer(2, false);
         List<Person> lastPersonList = helper.generatePersonList(p1, p2);
 
         AddressBook expectedAb = new AddressBook();
         expectedAb.addPerson(p2);
 
         addressBook.addPerson(p2);
-        logic.setLastPersonShownList(lastPersonList);
+        logic.setLastPlayerShownList(lastPersonList);
 
         assertCommandBehavior("view 1",
-                              Messages.MESSAGE_PERSON_NOT_IN_ADDRESSBOOK,
+                              Messages.MESSAGE_PLAYER_NOT_IN_LEAGUE,
                               expectedAb,
                               false,
                               lastPersonList);
@@ -307,44 +321,20 @@ public class LogicTest {
     }
 
     @Test
-    public void execute_viewAll_alsoShowsPrivate() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Person p1 = helper.generatePerson(1, true);
-        Person p2 = helper.generatePerson(2, false);
-        List<Person> lastPersonList = helper.generatePersonList(p1, p2);
-        AddressBook expectedAb = helper.generateAddressBook(lastPersonList);
-        helper.addToAddressBook(addressBook, lastPersonList);
-
-        logic.setLastPersonShownList(lastPersonList);
-
-        assertCommandBehavior("viewall 1",
-                            String.format(ViewCommand.MESSAGE_VIEW_PERSON_DETAILS, p1.getAsTextShowAll()),
-                            expectedAb,
-                            false,
-                            lastPersonList);
-
-        assertCommandBehavior("viewall 2",
-                            String.format(ViewCommand.MESSAGE_VIEW_PERSON_DETAILS, p2.getAsTextShowAll()),
-                            expectedAb,
-                            false,
-                            lastPersonList);
-    }
-
-    @Test
     public void execute_tryToViewAllPersonMissingInAddressBook_errorMessage() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Person p1 = helper.generatePerson(1, false);
-        Person p2 = helper.generatePerson(2, false);
+        Person p1 = helper.generatePlayer(1, false);
+        Person p2 = helper.generatePlayer(2, false);
         List<Person> lastPersonList = helper.generatePersonList(p1, p2);
 
         AddressBook expectedAb = new AddressBook();
         expectedAb.addPerson(p1);
 
         addressBook.addPerson(p1);
-        logic.setLastPersonShownList(lastPersonList);
+        logic.setLastPlayerShownList(lastPersonList);
 
         assertCommandBehavior("viewall 2",
-                                Messages.MESSAGE_PERSON_NOT_IN_ADDRESSBOOK,
+                                Messages.MESSAGE_PLAYER_NOT_IN_LEAGUE,
                                 expectedAb,
                                 false,
                                 lastPersonList);
@@ -365,9 +355,9 @@ public class LogicTest {
     @Test
     public void execute_delete_removesCorrectPerson() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Person p1 = helper.generatePerson(1, false);
-        Person p2 = helper.generatePerson(2, true);
-        Person p3 = helper.generatePerson(3, true);
+        Person p1 = helper.generatePlayer(1, false);
+        Person p2 = helper.generatePlayer(2, true);
+        Person p3 = helper.generatePlayer(3, true);
 
         List<Person> threePersons = helper.generatePersonList(p1, p2, p3);
 
@@ -376,10 +366,10 @@ public class LogicTest {
 
 
         helper.addToAddressBook(addressBook, threePersons);
-        logic.setLastPersonShownList(threePersons);
+        logic.setLastPlayerShownList(threePersons);
 
         assertCommandBehavior("delete 2",
-                                String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, p2),
+                                String.format(DeleteCommand.MESSAGE_DELETE_PLAYER_SUCCESS, p2),
                                 expectedAb,
                                 false,
                                 threePersons);
@@ -389,9 +379,9 @@ public class LogicTest {
     public void execute_delete_missingInAddressBook() throws Exception {
 
         TestDataHelper helper = new TestDataHelper();
-        Person p1 = helper.generatePerson(1, false);
-        Person p2 = helper.generatePerson(2, true);
-        Person p3 = helper.generatePerson(3, true);
+        Person p1 = helper.generatePlayer(1, false);
+        Person p2 = helper.generatePlayer(2, true);
+        Person p3 = helper.generatePlayer(3, true);
 
         List<Person> threePersons = helper.generatePersonList(p1, p2, p3);
 
@@ -400,10 +390,10 @@ public class LogicTest {
 
         helper.addToAddressBook(addressBook, threePersons);
         addressBook.removePerson(p2);
-        logic.setLastPersonShownList(threePersons);
+        logic.setLastPlayerShownList(threePersons);
 
         assertCommandBehavior("delete 2",
-                                Messages.MESSAGE_PERSON_NOT_IN_ADDRESSBOOK,
+                                Messages.MESSAGE_PLAYER_NOT_IN_LEAGUE,
                                 expectedAb,
                                 false,
                                 threePersons);
@@ -499,14 +489,17 @@ public class LogicTest {
          * Each unique seed will generate a unique Person object.
          *
          * @param seed used to generate the player data field values
-         * @param isAllFieldsPrivate determines if private-able fields (phone, email, address) will be private
-         */
-        Person generatePerson(int seed, boolean isAllFieldsPrivate) throws Exception {
-            return new Person(
+         *
+         * */
+        Player generatePlayer(int seed) throws Exception {
+            return new Player(
                     new Name("Person " + seed),
-                    new Phone("" + Math.abs(seed), isAllFieldsPrivate),
-                    new Email(seed + "@email", isAllFieldsPrivate),
-                    new Address("House of " + seed, isAllFieldsPrivate),
+                    new PositionPlayed("Position" + seed),
+                    new Age(""+ Math.abs(seed)),
+                    new Salary(""+Math.abs(seed)),
+                    new Team("Team"+Math.abs(seed)),
+                    new Country("Country"+Math.abs(seed)),
+                    new JerseyNumber(""+(Math.abs(seed)%35)),
                     new HashSet<>(Arrays.asList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))))
             );
         }
@@ -589,7 +582,7 @@ public class LogicTest {
             List<Person> persons = new ArrayList<>();
             int i = 1;
             for (Boolean p: isPrivateStatuses) {
-                persons.add(generatePerson(i++, p));
+                persons.add(generatePlayer(i++, p));
             }
             return persons;
         }

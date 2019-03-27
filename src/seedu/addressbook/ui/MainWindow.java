@@ -1,24 +1,21 @@
 package seedu.addressbook.ui;
 
-import static seedu.addressbook.common.Messages.MESSAGE_PROGRAM_LAUNCH_ARGS_USAGE;
-import static seedu.addressbook.common.Messages.MESSAGE_USING_STORAGE_FILE;
-import static seedu.addressbook.common.Messages.MESSAGE_WELCOME;
-
-import java.util.List;
-import java.util.Optional;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.commands.ExitCommand;
 import seedu.addressbook.data.finance.ReadOnlyFinance;
 import seedu.addressbook.data.match.ReadOnlyMatch;
-import seedu.addressbook.data.player.ReadOnlyPerson;
+import seedu.addressbook.data.player.ReadOnlyPlayer;
 import seedu.addressbook.data.team.ReadOnlyTeam;
 import seedu.addressbook.logic.Logic;
+
+import java.util.List;
+import java.util.Optional;
+
+import static seedu.addressbook.common.Messages.*;
 
 
 /**
@@ -81,7 +78,7 @@ public class MainWindow {
         commandInput.setText("");
     }
 
-    /** Clears the output displayPersonResult area */
+    /** Clears the output displayPlayerResult area */
     public void clearOutputConsole() {
         outputConsole.clear();
     }
@@ -89,12 +86,12 @@ public class MainWindow {
     /** Displays the result of a command execution to the user. */
     public void displayResult(CommandResult result) {
         clearOutputConsole();
-        final Optional<List<? extends ReadOnlyPerson>> resultPersons = result.getRelevantPersons();
+        final Optional<List<? extends ReadOnlyPlayer>> resultPlayers = result.getRelevantPlayers();
         final Optional<List<? extends ReadOnlyTeam>> resultTeams = result.getRelevantTeams();
         final Optional<List<? extends ReadOnlyMatch>> resultMatches = result.getRelevantMatches();
         final Optional<List<? extends ReadOnlyFinance>> resultFinances = result.getRelevantFinances();
-        if (resultPersons.isPresent()) {
-            displayPersonResult(resultPersons.get());
+        if (resultPlayers.isPresent()) {
+            displayPlayerResult(resultPlayers.get());
         }
         if (resultTeams.isPresent()) {
             displayTeamResult(resultTeams.get());
@@ -124,15 +121,15 @@ public class MainWindow {
     }
 
     /**
-     * Displays the list of persons in the output displayPersonResult area, formatted as an indexed list.
+     * Displays the list of players in the output displayPlayerResult area, formatted as an indexed list.
      * Private contact details are hidden.
      */
-    private void displayPersonResult(List<? extends ReadOnlyPerson> persons) {
-        display(new Formatter().formatPersonResult(persons));
+    private void displayPlayerResult(List<? extends ReadOnlyPlayer> players) {
+        display(new Formatter().formatPersonResult(players));
     }
 
     /**
-     * Displays the list of teams in the output displayPersonResult area, formatted as an indexed list.
+     * Displays the list of teams in the output displayPlayerResult area, formatted as an indexed list.
      * Private contact details are hidden.
      */
     private void displayTeamResult(List<? extends ReadOnlyTeam> teams) {
@@ -148,7 +145,7 @@ public class MainWindow {
     }
 
     /**
-     * Displays the given messages on the output displayPersonResult area, after formatting appropriately.
+     * Displays the given messages on the output displayPlayerResult area, after formatting appropriately.
      */
     private void display(String... messages) {
         outputConsole.setText(outputConsole.getText() + new Formatter().format(messages));

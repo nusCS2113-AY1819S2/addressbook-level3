@@ -1,25 +1,16 @@
 package seedu.addressbook.storage;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Reader;
-import java.io.Writer;
-
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import seedu.addressbook.data.AddressBook;
+import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.storage.jaxb.AdaptedAddressBook;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-
-import seedu.addressbook.data.AddressBook;
-import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.storage.jaxb.AdaptedAddressBook;
+import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * Represents the file used to store address book data.
@@ -27,7 +18,7 @@ import seedu.addressbook.storage.jaxb.AdaptedAddressBook;
 public class StorageFile {
 
     /** Default file path used if the user doesn't provide the file name. */
-    public static final String DEFAULT_STORAGE_FILEPATH = "addressbook.txt";
+    public static final String DEFAULT_STORAGE_FILEPATH = "league_tracker.txt";
 
     /* Note: Note the use of nested classes below.
      * More info https://docs.oracle.com/javase/tutorial/java/javaOO/nested.html

@@ -11,24 +11,22 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-import seedu.addressbook.commands.AddCommand;
-import seedu.addressbook.commands.ClearCommand;
+import seedu.addressbook.commands.player.AddCommand;
+import seedu.addressbook.commands.player.ClearCommand;
 import seedu.addressbook.commands.Command;
-import seedu.addressbook.commands.DeleteCommand;
+import seedu.addressbook.commands.player.DeleteCommand;
 import seedu.addressbook.commands.ExitCommand;
-import seedu.addressbook.commands.FindCommand;
+import seedu.addressbook.commands.player.FindCommand;
 import seedu.addressbook.commands.HelpCommand;
 import seedu.addressbook.commands.IncorrectCommand;
-import seedu.addressbook.commands.ListCommand;
-import seedu.addressbook.commands.ViewAllCommand;
-import seedu.addressbook.commands.ViewCommand;
+import seedu.addressbook.commands.player.ListCommand;
+import seedu.addressbook.commands.player.ViewAllCommand;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.player.Address;
 import seedu.addressbook.data.player.Email;
 import seedu.addressbook.data.player.Name;
 import seedu.addressbook.data.player.Person;
 import seedu.addressbook.data.player.Phone;
-import seedu.addressbook.data.player.ReadOnlyPerson;
 import seedu.addressbook.data.tag.Tag;
 
 public class ParserTest {
@@ -103,28 +101,6 @@ public class ParserTest {
         final int testIndex = 1;
         final String input = "delete " + testIndex;
         final DeleteCommand result = parseAndAssertCommandType(input, DeleteCommand.class);
-        assertEquals(result.getTargetIndex(), testIndex);
-    }
-
-    @Test
-    public void viewCommand_noArgs() {
-        final String[] inputs = { "view", "view " };
-        final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE);
-        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
-    }
-
-    @Test
-    public void viewCommand_argsIsNotSingleNumber() {
-        final String[] inputs = { "view notAnumber ", "view 8*wh12", "view 1 2 3 4 5" };
-        final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE);
-        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
-    }
-
-    @Test
-    public void viewCommand_numericArg_indexParsedCorrectly() {
-        final int testIndex = 2;
-        final String input = "view " + testIndex;
-        final ViewCommand result = parseAndAssertCommandType(input, ViewCommand.class);
         assertEquals(result.getTargetIndex(), testIndex);
     }
 
@@ -244,7 +220,7 @@ public class ParserTest {
         final Person testPerson = generateTestPerson();
         final String input = convertPersonToAddCommandString(testPerson);
         final AddCommand result = parseAndAssertCommandType(input, AddCommand.class);
-        assertEquals(result.getPerson(), testPerson);
+        assertEquals(result.getPlayer(), testPerson);
     }
 
     @Test
@@ -257,7 +233,7 @@ public class ParserTest {
         }
 
         final AddCommand result = parseAndAssertCommandType(input, AddCommand.class);
-        assertEquals(result.getPerson(), testPerson);
+        assertEquals(result.getPlayer(), testPerson);
     }
     /**
      * generates a test person

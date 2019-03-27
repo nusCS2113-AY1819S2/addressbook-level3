@@ -1,10 +1,10 @@
 package seedu.addressbook.data.match;
 
+import seedu.addressbook.data.player.Player;
+
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-
-import seedu.addressbook.data.player.Person;
 
 /**
  * Represents a match in the address book.
@@ -18,14 +18,14 @@ public class Match implements ReadOnlyMatch {
     private TicketSales homeSales;
     private TicketSales awaySales;
 
-    private final Set<Person> goalScorers = new HashSet<>();
-    private final Set<Person> ownGoalScorers = new HashSet<>();
+    private final Set<Player> goalScorers = new HashSet<>();
+    private final Set<Player> ownGoalScorers = new HashSet<>();
 
     /**
      * Assumption: Every field must be present and not null.
      */
     public Match(Date date, Home home, Away away, TicketSales homeSales, TicketSales awaySales,
-                 Set<Person> goalScorers, Set<Person> ownGoalScorers) {
+                 Set<Player> goalScorers, Set<Player> ownGoalScorers) {
         this.date = date;
         this.home = home;
         this.away = away;
@@ -69,24 +69,24 @@ public class Match implements ReadOnlyMatch {
     }
 
     @Override
-    public Set<Person> getGoalScorers() {
+    public Set<Player> getGoalScorers() {
         return new HashSet<>(goalScorers);
     }
 
     @Override
-    public Set<Person> getOwnGoalScorers() {
+    public Set<Player> getOwnGoalScorers() {
         return new HashSet<>(ownGoalScorers);
     }
 
     /**
      * Replaces this match's goalScorers with the goalScorers in {@code replacement}.
      */
-    public void setGoalScorers(Set<Person> replacement) {
+    public void setGoalScorers(Set<Player> replacement) {
         goalScorers.clear();
         goalScorers.addAll(replacement);
     }
 
-    public void setOwnGoalScorers(Set<Person> replacement) {
+    public void setOwnGoalScorers(Set<Player> replacement) {
         ownGoalScorers.clear();
         ownGoalScorers.addAll(replacement);
     }

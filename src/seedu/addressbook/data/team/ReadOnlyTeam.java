@@ -1,9 +1,9 @@
 package seedu.addressbook.data.team;
 
-import java.util.Set;
-
-import seedu.addressbook.data.player.Person;
+import seedu.addressbook.data.player.Player;
 import seedu.addressbook.data.tag.Tag;
+
+import java.util.Set;
 
 /**
  * A read-only immutable interface for a team in the league tracker.
@@ -15,7 +15,7 @@ public interface ReadOnlyTeam {
     Name getName();
     Country getCountry();
     Sponsor getSponsor();
-    Set<Person> getPlayers();
+    Set<Player> getPlayers();
 
     /**
      * changes on the returned list will not affect the team's internal tags.
