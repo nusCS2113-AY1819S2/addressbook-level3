@@ -1,27 +1,22 @@
 package seedu.addressbook.storage;
 
-import static org.junit.Assert.assertEquals;
-import static seedu.addressbook.util.TestUtil.assertTextFilesEqual;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+import org.junit.rules.TemporaryFolder;
+import seedu.addressbook.data.AddressBook;
+import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.data.player.*;
+import seedu.addressbook.data.tag.Tag;
+import seedu.addressbook.storage.StorageFile.StorageOperationException;
 
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import org.junit.rules.TemporaryFolder;
-
-import seedu.addressbook.data.AddressBook;
-import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.player.Address;
-import seedu.addressbook.data.player.Email;
-import seedu.addressbook.data.player.Name;
-import seedu.addressbook.data.player.Person;
-import seedu.addressbook.data.player.Phone;
-import seedu.addressbook.data.tag.Tag;
-import seedu.addressbook.storage.StorageFile.StorageOperationException;
+import static org.junit.Assert.assertEquals;
+import static seedu.addressbook.util.TestUtil.assertTextFilesEqual;
 
 public class StorageFileTest {
     private static final String TEST_DATA_FOLDER = "test/data/StorageFileTest";
@@ -59,7 +54,7 @@ public class StorageFileTest {
 
         // ensure loaded AddressBook is properly constructed with test data
         // TODO: overwrite equals method in AddressBook class and replace with equals method below
-        assertEquals(actualAb.getAllPersons(), expectedAb.getAllPersons());
+        assertEquals(actualAb.getAllPlayers(), expectedAb.getAllPlayers());
     }
 
     @Test
@@ -97,15 +92,29 @@ public class StorageFileTest {
 
     private AddressBook getTestAddressBook() throws Exception {
         AddressBook ab = new AddressBook();
-        ab.addPerson(new Person(new Name("John Doe"),
-                                new Phone("98765432", false),
-                                new Email("johnd@gmail.com", false),
-                                new Address("John street, block 123, #01-01", false),
+        ab.addPlayer(new Player(new Name("Lionel Messi"),
+                                new PositionPlayed("RW"),
+                                new Age("30"),
+                                new Salary("20000000"),
+                                new GoalsScored("30"),
+                                new GoalsAssisted("20"),
+                                new Team("FC Barcelona"),
+                                new Country("Argentina"),
+                                new JerseyNumber("10"),
+                                new Appearance("54"),
+                                new HealthStatus("Healthy"),
                                 Collections.emptySet()));
-        ab.addPerson(new Person(new Name("Betsy Crowe"),
-                                new Phone("1234567", true),
-                                new Email("betsycrowe@gmail.com", false),
-                                new Address("Newgate Prison", true),
+        ab.addPlayer(new Player(new Name("Luis Suarez"),
+                                new PositionPlayed("Striker"),
+                                new Age("32"),
+                                new Salary("20000000"),
+                                new GoalsScored("30"),
+                                new GoalsAssisted("20"),
+                                new Team("FC Barcelona"),
+                                new Country("Argentina"),
+                                new JerseyNumber("10"),
+                                new Appearance("54"),
+                                new HealthStatus("Healthy"),
                                 new HashSet<>(Arrays.asList(new Tag("friend"), new Tag("criminal")))));
         return ab;
     }

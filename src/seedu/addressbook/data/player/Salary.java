@@ -21,7 +21,6 @@ public class Salary {
          * @throws IllegalValueException if given salary string is invalid.
          */
         public Salary(String salary) throws IllegalValueException {
-
             salary = salary.trim();
             if (!isValidSalary(salary)) {
                 throw new IllegalValueException(MESSAGE_Salary_CONSTRAINTS);
@@ -33,7 +32,8 @@ public class Salary {
          * Checks if a given string is a valid player salary.
          */
         public static boolean isValidSalary(String test) {
-            return test.matches(SALARY_VALIDATION_REGEX);
+            int i = Integer.parseInt(test);
+            return (test.matches(SALARY_VALIDATION_REGEX) && i>=0);
         }
 
         @Override

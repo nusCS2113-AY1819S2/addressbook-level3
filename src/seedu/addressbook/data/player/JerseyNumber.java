@@ -8,7 +8,7 @@ import seedu.addressbook.data.exception.IllegalValueException;
 public class JerseyNumber {
 
     public static final String EXAMPLE = "10";
-    public static final String MESSAGE_JN_CONSTRAINTS = "Jersey Number of a player must be an integer";
+    public static final String MESSAGE_JN_CONSTRAINTS = "Jersey Number of a player must be an integer between 1 and 35";
     public static final String JN_VALIDATION_REGEX = "\\d+";
 
     public final String value;
@@ -33,8 +33,12 @@ public class JerseyNumber {
      * Returns true if a given integer is a valid jersey number.
      */
     public static boolean isValidJn(String test) {
-        int temp = Integer.parseInt(test);
-        return (test.matches(JN_VALIDATION_REGEX)&& temp >= 0 && temp < 35);
+        try {
+            int temp = Integer.parseInt(test);
+            return (test.matches(JN_VALIDATION_REGEX) && temp >= 1 && temp < 35);
+        }catch (NumberFormatException nfe){
+            return false;
+        }
     }
 
     @Override

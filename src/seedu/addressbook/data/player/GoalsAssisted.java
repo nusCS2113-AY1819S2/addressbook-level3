@@ -8,7 +8,7 @@ import seedu.addressbook.data.exception.IllegalValueException;
 public class GoalsAssisted {
 
     public static final String EXAMPLE = "1";
-    public static final String MESSAGE_GA_CONSTRAINTS = "No.of assists for a player must be an integer";
+    public static final String MESSAGE_GA_CONSTRAINTS = "No.of assists for a player must be a non-negative integer";
     public static final String GA_VALIDATION_REGEX = "\\d+";
 
     public final String value;
@@ -32,8 +32,12 @@ public class GoalsAssisted {
      */
 
     public static boolean isValidGa(String test) {
-        int temp = Integer.parseInt(test);
-        return (test.matches(GA_VALIDATION_REGEX)&& temp >= 0 && temp < 100);
+        try {
+            int temp = Integer.parseInt(test);
+            return (test.matches(GA_VALIDATION_REGEX)&& temp >= 0 );
+        } catch(NumberFormatException nfe){
+            return false;
+        }
     }
 
     @Override

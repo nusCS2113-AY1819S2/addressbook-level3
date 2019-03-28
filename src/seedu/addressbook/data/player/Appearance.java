@@ -9,7 +9,7 @@ import seedu.addressbook.data.exception.IllegalValueException;
 public class Appearance {
 
     public static final String EXAMPLE = "30";
-    public static final String MESSAGE_APPEARANCE_CONSTRAINTS = "No. of appearance of a player must be an integer";
+    public static final String MESSAGE_APPEARANCE_CONSTRAINTS = "No.of appearance of a player must be a non-negative integer";
     public static final String APPEARANCE_VALIDATION_REGEX = "\\d+";
 
 
@@ -32,8 +32,12 @@ public class Appearance {
      * Returns true if a given integer is a valid jersey number.
      */
     public static boolean isValidApp(String test) {
-        int temp = Integer.parseInt(test);
-        return (test.matches(APPEARANCE_VALIDATION_REGEX)&& temp >= 0 && temp < 100);
+        try {
+            int temp = Integer.parseInt(test);
+            return (test.matches(APPEARANCE_VALIDATION_REGEX) && temp >= 0);
+        }catch (NumberFormatException nfe){
+            return false;
+        }
     }
 
 
