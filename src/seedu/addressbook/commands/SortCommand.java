@@ -4,6 +4,8 @@ import seedu.addressbook.data.AddressBook;
 
 import seedu.addressbook.data.person.ReadOnlyPerson;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.lang.*;
 
@@ -22,6 +24,8 @@ public class SortCommand extends Command {
 
     public final String attribute;
 
+    public DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy MM d");
+
     public SortCommand(String attribute) {
         this.attribute = attribute;
     }
@@ -30,13 +34,18 @@ public class SortCommand extends Command {
     @Override
     public CommandResult execute() {
 
-        final List<ReadOnlyPerson> personsFound = getPersonsSortedByStatus();
+        final List<ReadOnlyPerson> personsSortedByStatus = getPersonsSortedByStatus();
+
+        final List<ReadOnlyPerson> personsSortedByDate = getPersonsSortedByDate();
+
 
         addressBook.sorted(attribute);
         List<ReadOnlyPerson> allPersons = addressBook.getAllPersons().immutableListView();
 
         if(attribute.equals("status")) {
-            return new CommandResult(getMessageForPersonListShownSummary(personsFound), personsFound);
+            return new CommandResult(getMessageForPersonListShownSummary(personsSortedByStatus), personsSortedByStatus );
+        }else if(attribute.equals("appointment")){
+            return new CommandResult(getMessageForPersonListShownSummary(personsSortedByDate), personsSortedByDate);
         }
         return new CommandResult(getMessageForPersonSortShownSummary(allPersons, attribute), allPersons);
 
@@ -81,6 +90,17 @@ public class SortCommand extends Command {
             }
         }
 
+        return matchedPersons;
+    }
+
+    private List<ReadOnlyPerson> getPersonsSortedByDate() {
+        final List<ReadOnlyPerson> matchedPersons = new ArrayList<>();
+        for (ReadOnlyPerson person : addressBook.getAllPersons()) {
+                LocalDate date = LocalDate.parse(person.getAppointment().toString(), formatter);
+                person.setLocalDate(date);
+                matchedPersons.add(person);
+        }
+        Collections.sort(matchedPersons, new SortDate());
         return matchedPersons;
     }
 }

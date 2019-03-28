@@ -3,6 +3,8 @@ package seedu.addressbook.data.person;
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.DuplicateDataException;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /**
@@ -29,6 +31,8 @@ public class UniquePersonList implements Iterable<Person> {
     public static class PersonNotFoundException extends Exception {}
 
     private final List<Person> internalList = new ArrayList<>();
+
+
 
     /**
      * Constructs empty person list.
@@ -143,6 +147,7 @@ public class UniquePersonList implements Iterable<Person> {
             return appointment1.compareTo(appointment2);
         };
         Collections.sort(internalList, person);
+
     }
 
     public void SortByStatus(){
