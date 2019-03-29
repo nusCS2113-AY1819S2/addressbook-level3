@@ -33,7 +33,7 @@ public class GoalsScored {
         try {
             int temp = Integer.parseInt(test);
             return (test.matches(GS_VALIDATION_REGEX) && temp >= 0);
-        } catch (NumberFormatException nfe){
+        } catch (NumberFormatException nfe) {
             return false;
         }
 

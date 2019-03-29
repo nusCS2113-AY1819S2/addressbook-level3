@@ -11,15 +11,25 @@ import java.util.Set;
 public interface ReadOnlyPlayer {
 
     Name getName();
+
     PositionPlayed getPositionPlayed();
+
     Salary getSalary();
+
     Age getAge();
+
     GoalsScored getGoalsScored();
+
     GoalsAssisted getGoalsAssisted();
+
     Team getTeam();
+
     Country getCountry();
+
     JerseyNumber getJerseyNumber();
+
     Appearance getAppearance();
+
     HealthStatus getHealthStatus();
 
     /**
@@ -55,32 +65,15 @@ public interface ReadOnlyPlayer {
     default String getAsTextShowAll() {
         final StringBuilder builder = new StringBuilder();
 
-        builder.append("\n")
-                .append("Name: ")
-                .append(getName())                                     // name
-                .append("  |  Position Played: ")                      // position
-                .append(getPositionPlayed())
-                .append("  |  Age: ")                                  // age
-                .append(getAge())
-                .append("  |  Salary: ")                                 //salary
-                .append(getSalary())
-                .append("\n")
-                .append("Goals scored: ")                       // goals scored
-                .append(getGoalsScored())
-                .append("  |  Goals assisted: ")                     // goals assisted
-                .append(getGoalsAssisted())
-                .append("  |  Team: ")                                // Team
-                .append(getTeam())
-                .append("  |  Country: ")                            // country
-                .append(getCountry())
-                .append("\n")
-                .append("Jersey Number: ")                      //Jersey Number
-                .append(getJerseyNumber())
-                .append("  |  Appearance: ")                        // Appearance
-                .append(getAppearance())
-                .append("  |  HealthStatus: ")                      //Health Status
-                .append(getHealthStatus())
-                .append(" | Tags: ");
+        builder.append("\n").append("Name: ").append(getName()).append("  |  Position Played: ")
+                .append(getPositionPlayed()).append("  |  Age: ").append(getAge()).append("  |  Salary: ")
+                .append(getSalary()).append("\n").append("Goals scored: ").append(getGoalsScored())
+                .append("  |  Goals assisted: ").append(getGoalsAssisted()).append("  |  Team: ")
+                .append(getTeam()).append("  |  Country: ").append(getCountry())
+                .append("\n").append("Jersey Number: ").append(getJerseyNumber())
+                .append("  |  Appearance: ").append(getAppearance()).append("  |  HealthStatus: ")
+                .append(getHealthStatus()).append(" | Tags: ");
+        
         for (Tag tag : getTags()) {
             builder.append(tag);
         }

@@ -37,7 +37,7 @@ public class Age {
         try {
             int temp = Integer.parseInt(test);
             return (test.matches(AGE_VALIDATION_REGEX) && temp > 0 && temp < 100);
-        } catch (NumberFormatException nfe){
+        } catch (NumberFormatException nfe) {
             return false;
         }
     }

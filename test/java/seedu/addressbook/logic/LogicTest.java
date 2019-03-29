@@ -222,7 +222,7 @@ public class LogicTest {
 //        assertCommandBehavior(
 //                "addPlayer Valid Name p/Striker a/800 sal/20000 gs/0 ga/0 tm/validTeam ctry/China jn/9 app/0 hs/Healthy", Age.MESSAGE_AGE_CONSTRAINTS);
         assertCommandBehavior(
-                "addPlayer Valid Name p/Striker a/30 sal/zero gs/0 ga/0 tm/validTeam ctry/China jn/9 app/0 hs/Healthy", Salary.MESSAGE_Salary_CONSTRAINTS);
+                "addPlayer Valid Name p/Striker a/30 sal/zero gs/0 ga/0 tm/validTeam ctry/China jn/9 app/0 hs/Healthy", Salary.MESSAGE_SALARY_CONSTRAINTS);
         assertCommandBehavior(
                 "addPlayer Valid Name p/Striker a/30 sal/20000 gs/zero ga/0 tm/validTeam ctry/China jn/9 app/0 hs/Healthy", GoalsScored.MESSAGE_GS_CONSTRAINTS);
         assertCommandBehavior(

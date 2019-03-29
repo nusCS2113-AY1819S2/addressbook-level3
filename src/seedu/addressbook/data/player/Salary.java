@@ -9,7 +9,7 @@ import seedu.addressbook.data.exception.IllegalValueException;
 public class Salary {
 
     public static final String EXAMPLE = "100000";
-    public static final String MESSAGE_Salary_CONSTRAINTS = "Player salary should be a positive number";
+    public static final String MESSAGE_SALARY_CONSTRAINTS = "Player salary should be a positive number";
     public static final String SALARY_VALIDATION_REGEX = "\\d+";
 
     public final String value;
@@ -23,7 +23,7 @@ public class Salary {
     public Salary(String salary) throws IllegalValueException {
         salary = salary.trim();
         if (!isValidSalary(salary)) {
-            throw new IllegalValueException(MESSAGE_Salary_CONSTRAINTS);
+            throw new IllegalValueException(MESSAGE_SALARY_CONSTRAINTS);
         }
         this.value = salary;
     }

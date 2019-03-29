@@ -279,12 +279,12 @@ public class Parser {
         }
     }
 
-//    /**
-//     * Checks whether the private prefix of a contact detail in the add command's arguments string is present.
-//     */
-//    private static boolean isPrivatePrefixPresent(String matchedPrefix) {
-//        return matchedPrefix.equals("p");
-//    }
+    //    /**
+    //     * Checks whether the private prefix of a contact detail in the add command's arguments string is present.
+    //     */
+    //    private static boolean isPrivatePrefixPresent(String matchedPrefix) {
+    //        return matchedPrefix.equals("p");
+    //    }
 
     /**
      * Extracts the new player's tags from the add command's tag arguments string.

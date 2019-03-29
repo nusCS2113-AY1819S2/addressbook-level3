@@ -61,13 +61,14 @@ public class Player implements ReadOnlyPlayer {
 
     /**
      * User Default Constructor
-     *  allow user to create a player with some attributes as default value
+     * allow user to create a player with some attributes as default value
      */
 
-    public Player (Name name, PositionPlayed positionPlayed, Age age, Salary salary, Team team,
-                   Country country, JerseyNumber jerseyNumber, Set<Tag> tags) throws IllegalValueException {
-        this(name,positionPlayed,age,salary,new GoalsScored("0"),new GoalsAssisted("0"),team,country,jerseyNumber,new Appearance("0"),
-                new HealthStatus("Healthy"),tags);
+    public Player(Name name, PositionPlayed positionPlayed, Age age, Salary salary, Team team,
+                  Country country, JerseyNumber jerseyNumber, Set<Tag> tags) throws IllegalValueException {
+        this(name, positionPlayed, age, salary, new GoalsScored("0"),
+                new GoalsAssisted("0"), team, country, jerseyNumber, new Appearance("0"),
+                new HealthStatus("Healthy"), tags);
     }
 
 
@@ -149,7 +150,7 @@ public class Player implements ReadOnlyPlayer {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, positionPlayed, age,salary, goalsScored, goalsAssisted, team, country, jerseyNumber,
+        return Objects.hash(name, positionPlayed, age, salary, goalsScored, goalsAssisted, team, country, jerseyNumber,
                 appearance, healthStatus, tags);
     }
 

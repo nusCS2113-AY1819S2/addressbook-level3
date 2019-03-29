@@ -35,7 +35,7 @@ public class GoalsAssisted {
         try {
             int temp = Integer.parseInt(test);
             return (test.matches(GA_VALIDATION_REGEX) && temp >= 0);
-        } catch (NumberFormatException nfe){
+        } catch (NumberFormatException nfe) {
             return false;
         }
     }

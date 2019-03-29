@@ -42,7 +42,8 @@ public class AddFastCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddFastCommand(String name, String position, String age, String salary, String team, String country, String jerseyNumber,
+    public AddFastCommand(String name, String position, String age, String salary,
+                          String team, String country, String jerseyNumber,
                       Set<String> tags) throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
