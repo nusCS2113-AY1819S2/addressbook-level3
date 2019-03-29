@@ -124,39 +124,61 @@ public class LogicTest {
     @Test
     public void execute_add_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
+
+        // anyhow argument
         assertCommandBehavior(
-                "add wrong args wrong args", expectedMessage);
+                "addPlayer wrong args wrong args", expectedMessage);
+
+        //no position prefix
         assertCommandBehavior(
                 "addPlayer Valid Name Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam.butNoPositionPrefix ctry/China" +
                         "jn/9 app/0 hs/Healthy", expectedMessage);
+
+        //no age prefix
         assertCommandBehavior(
                 "addPlayer Valid Name p/Striker 30 sal/20000 gs/0 ga/0 tm/validTeam.butNoAgePrefix ctry/China" +
                         "jn/9 app/0 hs/Healthy", expectedMessage);
+
+        //no salary prefix
         assertCommandBehavior(
                 "addPlayer Valid Name p/Striker a/30 20000 gs/0 ga/0 tm/validTeam.butNoSalaryPrefix ctry/China" +
                         "jn/9 app/0 hs/Healthy", expectedMessage);
+
+        //no goals scored prefix
         assertCommandBehavior(
                 "addPlayer Valid Name p/Striker a/30 sal/20000 0 ga/0 tm/validTeam.butNoGoalsScoredPrefix ctry/China" +
                         "jn/9 app/0 hs/Healthy", expectedMessage);
+
+        //no goals assisted prefix
         assertCommandBehavior(
                 "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 0 tm/validTeam.butNoGoalsAssistedPrefix ctry/China" +
                         "jn/9 app/0 hs/Healthy", expectedMessage);
+
+        //no team prefix
         assertCommandBehavior(
                 "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 validTeam.butNoPrefix ctry/China" +
                         "jn/9 app/0 hs/Healthy", expectedMessage);
+
+        //no country prefix
         assertCommandBehavior(
                 "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam.butNoCountryPrefix China" +
                         "jn/9 app/0 hs/Healthy", expectedMessage);
+
+        //no jersey number prefix
         assertCommandBehavior(
                 "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam.butNoJerseyNumberPrefix ctry/China" +
                         "9 app/0 hs/Healthy", expectedMessage);
+
+        //no appearance prefix
         assertCommandBehavior(
                 "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam.butNoAppearancePrefix ctry/China" +
                         "jn/9 0 hs/Healthy", expectedMessage);
+
+        //no health status prefix
         assertCommandBehavior(
                 "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam.butNoHealthStatusPrefix ctry/China" +
                         "jn/9 app/0 Healthy", expectedMessage);
-        // need another test function for addFast
+
         }
 
     @Test
