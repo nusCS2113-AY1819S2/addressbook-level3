@@ -162,57 +162,58 @@ public class ParserTest {
     @Test
     public void addCommand_invalidArgs() {
         final String[] inputs = {
-            "add",
-            "add ",
-            "add wrong args format",
+            "addPlayer",
+            "addPlayer ",
+            "addPlayer wrong args format",
                 // no position prefix
-                String.format("addPlayer $s $s a/$s sal/$s gs/$s ga/$s tm/$s ctry/$s jn/$s app/$s hs/$s", Name.EXAMPLE,
+                String.format("addPlayer %1$s %2$s a/%3$s sal/%4$s gs/%5$s ga/%6$s tm/%7$s ctry/%8$s jn/%9$s app/%10$s hs/%11$s", Name.EXAMPLE,
                         PositionPlayed.EXAMPLE, Age.EXAMPLE, Salary.EXAMPLE,GoalsScored.EXAMPLE,GoalsAssisted.EXAMPLE,
                         Team.EXAMPLE,Country.EXAMPLE, JerseyNumber.EXAMPLE,Appearance.EXAMPLE,HealthStatus.EXAMPLE),
+
                 // no age prefix
-                String.format("addPlayer $s p/$s $s sal/$s gs/$s ga/$s tm/$s ctry/$s jn/$s app/$s hs/$s", Name.EXAMPLE,
+                String.format("addPlayer %1$s p/%2$s %3$s sal/%4$s gs/%5$s ga/%6$s tm/%7$s ctry/%8$s jn/%9$s app/%10$s hs/%11$s", Name.EXAMPLE,
                         PositionPlayed.EXAMPLE, Age.EXAMPLE, Salary.EXAMPLE,GoalsScored.EXAMPLE,GoalsAssisted.EXAMPLE,
                         Team.EXAMPLE,Country.EXAMPLE, JerseyNumber.EXAMPLE,Appearance.EXAMPLE,HealthStatus.EXAMPLE),
+
                 // no salary prefix
-                String.format("addPlayer $s p/$s a/$s $s gs/$s ga/$s tm/$s ctry/$s jn/$s app/$s hs/$s", Name.EXAMPLE,
+                String.format("addPlayer %1$s p/%2$s a/%3$s %4$s gs/%5$s ga/%6$s tm/%7$s ctry/%8$s jn/%9$s app/%10$s hs/%11$s", Name.EXAMPLE,
                         PositionPlayed.EXAMPLE, Age.EXAMPLE, Salary.EXAMPLE,GoalsScored.EXAMPLE,GoalsAssisted.EXAMPLE,
                         Team.EXAMPLE,Country.EXAMPLE, JerseyNumber.EXAMPLE,Appearance.EXAMPLE,HealthStatus.EXAMPLE),
 
                 //no GoalsScored prefix
-                String.format("addPlayer $s p/$s a/$s sal/$s $s ga/$s tm/$s ctry/$s jn/$s app/$s hs/$s", Name.EXAMPLE,
+                String.format("addPlayer %1$s p/%2$s a/%3$s sal/%4$s %5$s ga/%6$s tm/%7$s ctry/%8$s jn/%9$s app/%10$s hs/%11$s", Name.EXAMPLE,
                         PositionPlayed.EXAMPLE, Age.EXAMPLE, Salary.EXAMPLE,GoalsScored.EXAMPLE,GoalsAssisted.EXAMPLE,
                         Team.EXAMPLE,Country.EXAMPLE, JerseyNumber.EXAMPLE,Appearance.EXAMPLE,HealthStatus.EXAMPLE),
 
                 //no GoalsAssisted prefix
-                String.format("addPlayer $s p/$s a/$s sal/$s gs/$s $s tm/$s ctry/$s jn/$s app/$s hs/$s", Name.EXAMPLE,
+                String.format("addPlayer %1$s p/%2$s a/%3$s sal/%4$s gs/%5$s %6$s tm/%7$s ctry/%8$s jn/%9$s app/%10$s hs/%11$s", Name.EXAMPLE,
                         PositionPlayed.EXAMPLE, Age.EXAMPLE, Salary.EXAMPLE,GoalsScored.EXAMPLE,GoalsAssisted.EXAMPLE,
                         Team.EXAMPLE,Country.EXAMPLE, JerseyNumber.EXAMPLE,Appearance.EXAMPLE,HealthStatus.EXAMPLE),
 
                 //no Team prefix
-                String.format("addPlayer $s p/$s a/$s sal/$s gs/$s ga/$s $s ctry/$s jn/$s app/$s hs/$s", Name.EXAMPLE,
+                String.format("addPlayer %1$s p/%2$s a/%3$s sal/%4$s gs/%5$s ga/%6$s %7$s ctry/%8$s jn/%9$s app/%10$s hs/%11$s", Name.EXAMPLE,
                         PositionPlayed.EXAMPLE, Age.EXAMPLE, Salary.EXAMPLE,GoalsScored.EXAMPLE,GoalsAssisted.EXAMPLE,
                         Team.EXAMPLE,Country.EXAMPLE, JerseyNumber.EXAMPLE,Appearance.EXAMPLE,HealthStatus.EXAMPLE),
 
                 //no Country prefix
-                String.format("addPlayer $s p/$s a/$s sal/$s gs/$s ga/$s tm/$s $s jn/$s app/$s hs/$s", Name.EXAMPLE,
+                String.format("addPlayer %1$s p/%2$s a/%3$s sal/%4$s gs/%5$s ga/%6$s tm/%7$s %8$s jn/%9$s app/%10$s hs/%11$s", Name.EXAMPLE,
                         PositionPlayed.EXAMPLE, Age.EXAMPLE, Salary.EXAMPLE,GoalsScored.EXAMPLE,GoalsAssisted.EXAMPLE,
                         Team.EXAMPLE,Country.EXAMPLE, JerseyNumber.EXAMPLE,Appearance.EXAMPLE,HealthStatus.EXAMPLE),
 
                 //no JerseyNumber prefix
-                String.format("addPlayer $s p/$s a/$s sal/$s gs/$s ga/$s tm/$s ctry/$s $s app/$s hs/$s", Name.EXAMPLE,
+                String.format("addPlayer %1$s p/%2$s a/%3$s sal/%4$s gs/%5$s ga/%6$s tm/%7$s ctry/%8$s %9$s app/%10$s hs/%11$s", Name.EXAMPLE,
                         PositionPlayed.EXAMPLE, Age.EXAMPLE, Salary.EXAMPLE,GoalsScored.EXAMPLE,GoalsAssisted.EXAMPLE,
                         Team.EXAMPLE,Country.EXAMPLE, JerseyNumber.EXAMPLE,Appearance.EXAMPLE,HealthStatus.EXAMPLE),
 
                 //no Appearance prefix
-                String.format("addPlayer $s p/$s a/$s sal/$s gs/$s ga/$s tm/$s ctry/$s jn/$s $s hs/$s", Name.EXAMPLE,
+                String.format("addPlayer %1$s p/%2$s a/%3$s sal/%4$s gs/%5$s ga/%6$s tm/%7$s ctry/%8$s jn/%9$s %10$s hs/%11$s", Name.EXAMPLE,
                         PositionPlayed.EXAMPLE, Age.EXAMPLE, Salary.EXAMPLE,GoalsScored.EXAMPLE,GoalsAssisted.EXAMPLE,
                         Team.EXAMPLE,Country.EXAMPLE, JerseyNumber.EXAMPLE,Appearance.EXAMPLE,HealthStatus.EXAMPLE),
 
                 //no HealthStatus prefix
-                String.format("addPlayer $s p/$s a/$s sal/$s gs/$s ga/$s tm/$s ctry/$s jn/$s app/$s $s", Name.EXAMPLE,
+                String.format("addPlayer %1$s p/%2$s a/%3$s sal/%4$s gs/%5$s ga/%6$s tm/%7$s ctry/%8$s jn/%9$s app/%10$s %11$s", Name.EXAMPLE,
                         PositionPlayed.EXAMPLE, Age.EXAMPLE, Salary.EXAMPLE,GoalsScored.EXAMPLE,GoalsAssisted.EXAMPLE,
                         Team.EXAMPLE,Country.EXAMPLE, JerseyNumber.EXAMPLE,Appearance.EXAMPLE,HealthStatus.EXAMPLE),
-
         };
         final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         parseAndAssertIncorrectWithMessage(resultMessage, inputs);
@@ -226,7 +227,7 @@ public class ParserTest {
         final String validName = Name.EXAMPLE;     //name
         final String invalidAgeArg = "a/not_numbers";
         final String validAgeArg = "a/"+ Age.EXAMPLE;        //age
-        final String invalidSalaryArg = "sal/not_number" + Salary.EXAMPLE;
+        final String invalidSalaryArg = "sal/not_number";
         final String validSalaryArg = "sal/"+ Salary.EXAMPLE;    //salary
         final String invalidGSArg = "gs/not_number";
         final String validGSArg = "gs/"+ GoalsScored.EXAMPLE;     //gs
@@ -242,8 +243,8 @@ public class ParserTest {
         // PositionPlayer, Team, Country and HealthStatus can be any string, so no invalid address
         // name, age, salary, gs, ga, jn, app
 
-        final String addCommandFormatString = "addPlayer $s "+ PositionPlayed.EXAMPLE +" $s $s $s $s " + Team.EXAMPLE + " "
-                + Country.EXAMPLE + " $s $s " + HealthStatus.EXAMPLE ;
+        final String addCommandFormatString = "addPlayer %1$s "+ "p/"+PositionPlayed.EXAMPLE +" %2$s %3$s %4$s %5$s " +"tm/"+
+                Team.EXAMPLE + " ctry/"+ Country.EXAMPLE + " %6$s %7$s " +"hs/"+HealthStatus.EXAMPLE+ " ";
 
         // test each incorrect player data field argument individually
         final String[] inputs = {
@@ -289,6 +290,8 @@ public class ParserTest {
         final AddCommand result = parseAndAssertCommandType(input, AddCommand.class);
         assertEquals(result.getPlayer(), testPlayer);
     }
+
+
     /**
      * generates a test player
      */
@@ -319,16 +322,16 @@ public class ParserTest {
     private static String convertPlayerToAddCommandString(ReadOnlyPlayer player) {
         String addCommand = "addPlayer "
                 + player.getName().fullName
-                + player.getPositionPlayed().fullPosition
-                + player.getAge().value
-                + player.getSalary().value
-                + player.getGoalsScored().value
-                + player.getGoalsAssisted().value
-                + player.getTeam().fullTeam
-                + player.getCountry().fullCountry
-                + player.getJerseyNumber().value
-                + player.getAppearance().value
-                + player.getHealthStatus().fullHs;
+                + " p/"+ player.getPositionPlayed().fullPosition
+                + " a/"+ player.getAge().value
+                + " sal/"+player.getSalary().value
+                + " gs/"+player.getGoalsScored().value
+                + " ga/"+player.getGoalsAssisted().value
+                + " tm/"+player.getTeam().fullTeam
+                + " ctry/"+player.getCountry().fullCountry
+                + " jn/"+ player.getJerseyNumber().value
+                + " app/"+player.getAppearance().value
+                + " hs/"+player.getHealthStatus().fullHs;
         for (Tag tag : player.getTags()) {
             addCommand += " t/" + tag.tagName;
         }
@@ -356,9 +359,12 @@ public class ParserTest {
      * @param expectedCommandClass expected class of returned command
      * @return the parsed command object
      */
+
     private <T extends Command> T parseAndAssertCommandType(String input, Class<T> expectedCommandClass) {
         final Command result = parser.parseCommand(input);
         assertTrue(result.getClass().isAssignableFrom(expectedCommandClass));
         return (T) result;
     }
+
+
 }

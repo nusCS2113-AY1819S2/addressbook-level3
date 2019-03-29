@@ -19,9 +19,9 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE =
             COMMAND_WORD + ":\n" + "Adds a player to the League Tracker. "+ "\n"
             + "Parameters:\n" +
-            " NAME p/POSITION \n" +
-            " a/AGE \n" +
-            " sal/SALARY \n" +
+            "NAME p/POSITION \n" +
+            "a/AGE \n" +
+            "sal/SALARY \n" +
             "gs/GOALS_SCORED \n" +
             "ga/GOALS_ASSISTED \n" +
             "tm/TEAM \n" +

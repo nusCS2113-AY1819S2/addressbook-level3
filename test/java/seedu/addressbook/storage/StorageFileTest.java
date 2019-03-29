@@ -7,13 +7,10 @@ import org.junit.rules.TemporaryFolder;
 import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.player.*;
-import seedu.addressbook.data.tag.Tag;
 import seedu.addressbook.storage.StorageFile.StorageOperationException;
 
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.addressbook.util.TestUtil.assertTextFilesEqual;
@@ -92,6 +89,7 @@ public class StorageFileTest {
 
     private AddressBook getTestAddressBook() throws Exception {
         AddressBook ab = new AddressBook();
+
         ab.addPlayer(new Player(new Name("Lionel Messi"),
                                 new PositionPlayed("RW"),
                                 new Age("30"),
@@ -104,6 +102,7 @@ public class StorageFileTest {
                                 new Appearance("54"),
                                 new HealthStatus("Healthy"),
                                 Collections.emptySet()));
+
         ab.addPlayer(new Player(new Name("Luis Suarez"),
                                 new PositionPlayed("Striker"),
                                 new Age("32"),
@@ -111,11 +110,11 @@ public class StorageFileTest {
                                 new GoalsScored("30"),
                                 new GoalsAssisted("20"),
                                 new Team("FC Barcelona"),
-                                new Country("Argentina"),
-                                new JerseyNumber("10"),
+                                new Country("Uruguay"),
+                                new JerseyNumber("9"),
                                 new Appearance("54"),
                                 new HealthStatus("Healthy"),
-                                new HashSet<>(Arrays.asList(new Tag("friend"), new Tag("criminal")))));
+                                Collections.emptySet()));
         return ab;
     }
 }

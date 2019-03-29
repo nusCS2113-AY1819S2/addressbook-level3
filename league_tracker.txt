@@ -2,7 +2,7 @@
 <AddressBook>
     <players>
         <name>Lionel Messi</name>
-        <position>RW </position>
+        <position>RW</position>
         <age>31</age>
         <salary>30000000</salary>
         <goalsScored>30</goalsScored>

@@ -20,12 +20,12 @@ public class AddFastCommand extends Command{
     public static final String MESSAGE_USAGE =
             COMMAND_WORD + ":\n" + "Adds a player to the League Tracker. "+ "\n"
                     + "Parameters:\n" +
-                    " NAME p/POSITION \n" +
-                    " a/AGE \n" +
-                    " sal/SALARY \n" +
+                    "NAME p/POSITION \n" +
+                    "a/AGE \n" +
+                    "sal/SALARY \n" +
                     "tm/TEAM \n" +
                     "ctry/COUNTRY \n" +
-                    " jn/JERSEY_NUMBER \n" +
+                    "jn/JERSEY_NUMBER \n" +
                     "[t/TAG]...\n\t"
                     + "Example: " + COMMAND_WORD
                     + " Lionel Messi p/RW a/31 sal/20000000 tm/FC_BARCELONA ctry/Argentina jn/10" +

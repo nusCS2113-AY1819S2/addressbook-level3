@@ -1,17 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <AddressBook>
-    <persons>
-        <name>John Doe</name>
-        <phone isPrivate="false">98765432</phone>
-        <email isPrivate="false">johnd@gmail.com</email>
-        <address isPrivate="false">John street, block 123, #01-01</address>
-    </persons>
-    <persons>
-        <name>Betsy Crowe</name>
-        <phone isPrivate="true">1234567</phone>
-        <email isPrivate="false">betsycrowe@gmail.com</email>
-        <address isPrivate="true">Newgate Prison</address>
-        <tagged>friend</tagged>
-        <tagged>criminal</tagged>
-    </persons>
+    <players>
+        <name>Lionel Messi</name>
+        <position>RW</position>
+        <age>30</age>
+        <salary>20000000</salary>
+        <goalsScored>30</goalsScored>
+        <goalsAssisted>20</goalsAssisted>
+        <team>FC Barcelona</team>
+        <country>Argentina</country>
+        <jerseyNumber>10</jerseyNumber>
+        <appearance>54</appearance>
+        <healthStatus>Healthy</healthStatus>
+    </players>
+    <players>
+        <name>Luis Suarez</name>
+        <position>Striker </position>
+        <age>32</age>
+        <salary>20000000</salary>
+        <goalsScored>30</goalsScored>
+        <goalsAssisted>20</goalsAssisted>
+        <team>FC Barcelona</team>
+        <country>Uruguay</country>
+        <jerseyNumber>9</jerseyNumber>
+        <appearance>54</appearance>
+        <healthStatus>Healthy</healthStatus>
+    </players>
 </AddressBook>

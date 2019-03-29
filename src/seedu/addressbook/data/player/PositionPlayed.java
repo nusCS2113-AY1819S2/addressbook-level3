@@ -22,6 +22,7 @@ public class PositionPlayed {
      */
 
     public PositionPlayed (String position) throws IllegalValueException {
+        position = position.trim();
         if (!isValidPosition(position)) {
             throw new IllegalValueException(MESSAGE_POSITIONPLAYED_CONSTRAINTS);
         }

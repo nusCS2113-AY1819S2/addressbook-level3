@@ -133,28 +133,28 @@ public class LogicTest {
                 "addPlayer Valid Name p/Striker 30 sal/20000 gs/0 ga/0 tm/validTeam.butNoAgePrefix ctry/China" +
                         "jn/9 app/0 hs/Healthy", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name p/Striker a/30 20000 gs/0 ga/0 tm/validTeam.butNoSalaryPrefix ctry/China" +
+                "addPlayer Valid Name p/Striker a/30 20000 gs/0 ga/0 tm/validTeam.butNoSalaryPrefix ctry/China" +
                         "jn/9 app/0 hs/Healthy", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name p/Striker a/30 sal/20000 0 ga/0 tm/validTeam.butNoGoalsScoredPrefix ctry/China" +
+                "addPlayer Valid Name p/Striker a/30 sal/20000 0 ga/0 tm/validTeam.butNoGoalsScoredPrefix ctry/China" +
                         "jn/9 app/0 hs/Healthy", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name p/Striker a/30 sal/20000 gs/0 0 tm/validTeam.butNoGoalsAssistedPrefix ctry/China" +
+                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 0 tm/validTeam.butNoGoalsAssistedPrefix ctry/China" +
                         "jn/9 app/0 hs/Healthy", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 validTeam.butNoPrefix ctry/China" +
+                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 validTeam.butNoPrefix ctry/China" +
                         "jn/9 app/0 hs/Healthy", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam.butNoCountryPrefix China" +
+                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam.butNoCountryPrefix China" +
                         "jn/9 app/0 hs/Healthy", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam.butNoJerseyNumberPrefix ctry/China" +
+                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam.butNoJerseyNumberPrefix ctry/China" +
                         "9 app/0 hs/Healthy", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam.butNoAppearancePrefix ctry/China" +
+                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam.butNoAppearancePrefix ctry/China" +
                         "jn/9 0 hs/Healthy", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam.butNoHealthStatusPrefix ctry/China" +
+                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam.butNoHealthStatusPrefix ctry/China" +
                         "jn/9 app/0 Healthy", expectedMessage);
         // need another test function for addFast
         }
@@ -191,14 +191,14 @@ public class LogicTest {
 
 
     @Test
-    public void execute_add_invalidPersonData() throws Exception {
+    public void execute_add_invalidPlayerData() throws Exception {
         assertCommandBehavior(
                 "addPlayer []\\[;] p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam ctry/China" +
                         "jn/9 app/0 hs/Healthy", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
                 "addPlayer Valid Name p/Striker a/thirty sal/20000 gs/0 ga/0 tm/validTeam ctry/China jn/9 app/0 hs/Healthy", Age.MESSAGE_AGE_CONSTRAINTS);
-        assertCommandBehavior(
-                "addPlayer Valid Name p/Striker a/800 sal/20000 gs/0 ga/0 tm/validTeam ctry/China jn/9 app/0 hs/Healthy", Age.MESSAGE_AGE_CONSTRAINTS);
+//        assertCommandBehavior(
+//                "addPlayer Valid Name p/Striker a/800 sal/20000 gs/0 ga/0 tm/validTeam ctry/China jn/9 app/0 hs/Healthy", Age.MESSAGE_AGE_CONSTRAINTS);
         assertCommandBehavior(
                 "addPlayer Valid Name p/Striker a/30 sal/zero gs/0 ga/0 tm/validTeam ctry/China jn/9 app/0 hs/Healthy", Salary.MESSAGE_Salary_CONSTRAINTS);
         assertCommandBehavior(
@@ -210,9 +210,9 @@ public class LogicTest {
         assertCommandBehavior(
                 "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam ctry/China jn/nine app/0 hs/Healthy", JerseyNumber.MESSAGE_JN_CONSTRAINTS);
         assertCommandBehavior(
-                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/zero tm/validTeam ctry/China jn/9 app/zero hs/Healthy", Appearance.MESSAGE_APPEARANCE_CONSTRAINTS);
+                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam ctry/China jn/9 app/zero hs/Healthy", Appearance.MESSAGE_APPEARANCE_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam ctry/China jn/9 app/0 hs/Healthy t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
     }
 
     @Test
@@ -489,7 +489,7 @@ public class LogicTest {
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             Set<Tag> tags = new HashSet<>(Arrays.asList(tag1, tag2));
-            return new Player(name, positionPlayed,age,sal,goalsScored,goalsAssisted,team,country,jerseyNumber,appearance,healthStatus,tags);
+            return new Player(name,positionPlayed,age,sal,goalsScored,goalsAssisted,team,country,jerseyNumber,appearance,healthStatus,tags);
         }
 
         /**
@@ -519,16 +519,16 @@ public class LogicTest {
 
             cmd.add("addPlayer");
             cmd.add(p.getName().toString());
-            cmd.add(p.getPositionPlayed().toString());
-            cmd.add(p.getAge().toString());
-            cmd.add(p.getSalary().toString());
-            cmd.add(p.getGoalsScored().toString());
-            cmd.add(p.getGoalsAssisted().toString());
-            cmd.add(p.getTeam().toString());
-            cmd.add(p.getCountry().toString());
-            cmd.add(p.getJerseyNumber().toString());
-            cmd.add(p.getAppearance().toString());
-            cmd.add(p.getHealthStatus().toString());
+            cmd.add(" p/"+p.getPositionPlayed().toString());
+            cmd.add(" a/"+p.getAge().toString());
+            cmd.add(" sal/"+p.getSalary().toString());
+            cmd.add(" gs/"+p.getGoalsScored().toString());
+            cmd.add(" ga/"+p.getGoalsAssisted().toString());
+            cmd.add(" tm/"+p.getTeam().toString());
+            cmd.add(" ctry/"+p.getCountry().toString());
+            cmd.add(" jn/"+p.getJerseyNumber().toString());
+            cmd.add(" app/"+p.getAppearance().toString());
+            cmd.add(" hs/"+p.getHealthStatus().toString());
             Set<Tag> tags = p.getTags();
             for (Tag t: tags) {
                 cmd.add("t/" + t.tagName);
