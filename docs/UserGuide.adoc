@@ -65,6 +65,8 @@ items with `...` after them can have multiple instances. Order of parameters are
 
 Note that the appointment date must be in the format of YYYY MM DD, in other for the DoctorAppointment Command to work.
 
+The status must be any of following status: Critical / Waiting for Surgery / Life-support / Waiting for doctor appointment / Therapy / Observation.
+
 Put a `p` before the phone / email / address prefixes to mark it as `private`. `private` details can only
 be seen using the `viewall` command.
 
@@ -73,8 +75,8 @@ Persons can have any number of tags (including 0)
 
 Examples:
 
-* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01 m/2009 12 11 d/DoctorTan s/observation`
-* `add Betsy Crowe pp/1234567 e/betsycrowe@gmail.com pa/Newgate Prison m/2011 21 04 d/DoctorTan s/observation t/criminal t/friend`
+* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01 m/2009 12 11 d/DoctorTan s/Observation`
+* `add Betsy Crowe pp/1234567 e/betsycrowe@gmail.com pa/Newgate Prison m/2011 21 04 d/DoctorTan s/Observation t/criminal t/friend`
 
 == Finding out the current length of the address book : `length`
 
@@ -103,7 +105,11 @@ Examples:
 Shows a list of all persons sorted by name in alphabetical order in the address book. 
 
 * `sort status` +
-Shows a list of all persons sorted by status in alphabetical order in the address book. 
+Shows a list of all persons sorted by status according to the degree of urgency in the address book.
+The sequence of the status in this order is as follows: Critical, Waiting for Surgery, Life-support, Waiting for doctor appointment, Therapy and Observation.
+
+* `sort appointment` +
+Shows a list of all persons sorted by appointment date in chronological order in the address book.
 
 == Listing all appointments of a Doctor : `DoctorAppointments`
 
