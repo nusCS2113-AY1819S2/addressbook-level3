@@ -17,7 +17,7 @@ public class Messages {
     public static final String MESSAGE_TEAMS_LISTED_OVERVIEW = "%1$d teams listed!";
     public static final String MESSAGE_FINANCES_LISTED_OVERVIEW = "%1$d finances listed!";
     public static final String MESSAGE_PROGRAM_LAUNCH_ARGS_USAGE = "Launch command format: "
-            + "To start, you can type 'help' for a detailed instruction on using League Tracker";
+            + "To start, type 'help' for a detailed instruction on using League Tracker";
     public static final String MESSAGE_WELCOME = "Welcome to your League Tracker!";
     public static final String MESSAGE_USING_STORAGE_FILE = "Using storage file : %1$s";
 }

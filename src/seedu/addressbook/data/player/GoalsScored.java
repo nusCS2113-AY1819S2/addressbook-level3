@@ -8,7 +8,7 @@ import seedu.addressbook.data.exception.IllegalValueException;
 public class GoalsScored {
 
     public static final String EXAMPLE = "1";
-    public static final String MESSAGE_GS_CONSTRAINTS = "No.of goals scored for a player must be a non-negative integer";
+    public static final String MESSAGE_GS_CONSTRAINTS = "No.of goals scored must be a non-negative integer";
     public static final String GS_VALIDATION_REGEX = "\\d+";
     public final String value;
 
@@ -29,12 +29,11 @@ public class GoalsScored {
     /**
      * Returns true if a given integer is a valid goals scored number.
      */
-    public static boolean isValidGs(String test)  {
-
+    public static boolean isValidGs(String test) {
         try {
             int temp = Integer.parseInt(test);
-            return (test.matches(GS_VALIDATION_REGEX)&& temp >= 0);
-        } catch(NumberFormatException nfe){
+            return (test.matches(GS_VALIDATION_REGEX) && temp >= 0);
+        } catch (NumberFormatException nfe){
             return false;
         }
 

@@ -55,7 +55,8 @@ public class AdaptedPlayer {
     /**
      * No-arg constructor for JAXB use.
      */
-    public AdaptedPlayer() {}
+    public AdaptedPlayer() {
+    }
 
 
     /**
@@ -84,7 +85,7 @@ public class AdaptedPlayer {
 
     /**
      * Returns true if any required field is missing.
-     *
+     * <p>
      * JAXB does not enforce (required = true) without a given XML schema.
      * Since we do most of our validation using the data class constructors, the only extra logic we need
      * is to ensure that every xml element in the document is present. JAXB sets missing elements as null,
@@ -98,7 +99,8 @@ public class AdaptedPlayer {
             }
         }
         // second call only happens if phone/email/address are all not null
-        return Utils.isAnyNull(name, position, age,salary,goalsScored,goalsAssisted,team,country,jerseyNumber,appearance,healthStatus);
+        return Utils.isAnyNull(name, position, age, salary, goalsScored, goalsAssisted, team, country, jerseyNumber,
+                appearance, healthStatus);
     }
 
     /**
@@ -123,6 +125,7 @@ public class AdaptedPlayer {
         final Appearance appearance = new Appearance(this.appearance);
         final HealthStatus healthStatus = new HealthStatus(this.healthStatus);
 
-        return new Player(name, positionPlayed,age,salary,goalsScored,goalsAssisted,team,country,jerseyNumber,appearance,healthStatus, tags);
+        return new Player(name, positionPlayed, age, salary, goalsScored, goalsAssisted,
+                team, country, jerseyNumber, appearance, healthStatus, tags);
     }
 }

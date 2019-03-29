@@ -34,10 +34,10 @@ public class Age {
      */
     public static boolean isValidAge(String test) {
 
-        try{
-        int temp = Integer.parseInt(test);
-        return (test.matches(AGE_VALIDATION_REGEX)&& temp > 0 && temp < 100);
-        }catch(NumberFormatException nfe){
+        try {
+            int temp = Integer.parseInt(test);
+            return (test.matches(AGE_VALIDATION_REGEX) && temp > 0 && temp < 100);
+        } catch (NumberFormatException nfe){
             return false;
         }
     }

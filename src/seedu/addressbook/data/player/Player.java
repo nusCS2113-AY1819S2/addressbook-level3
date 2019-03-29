@@ -31,8 +31,9 @@ public class Player implements ReadOnlyPlayer {
      * Assumption: Every field must be present and not null.
      */
 
-    public Player(Name name, PositionPlayed positionPlayed, Age age, Salary salary, GoalsScored goalsScored, GoalsAssisted goalsAssisted,
-                  Team team, Country country, JerseyNumber jerseyNumber, Appearance appearance, HealthStatus healthStatus,Set<Tag> tags) {
+    public Player(Name name, PositionPlayed positionPlayed, Age age, Salary salary, GoalsScored goalsScored,
+                  GoalsAssisted goalsAssisted, Team team, Country country, JerseyNumber jerseyNumber,
+                  Appearance appearance, HealthStatus healthStatus, Set<Tag> tags) {
         this.name = name;
         this.positionPlayed = positionPlayed;
         this.age = age;
@@ -52,8 +53,10 @@ public class Player implements ReadOnlyPlayer {
      * Copy constructor.
      */
     public Player(ReadOnlyPlayer source) {
-        this(source.getName(), source.getPositionPlayed(), source.getAge(), source.getSalary(),source.getGoalsScored(),source.getGoalsAssisted(),
-             source.getTeam(),source.getCountry(),source.getJerseyNumber(),source.getAppearance(),source.getHealthStatus(), source.getTags());
+        this(source.getName(), source.getPositionPlayed(), source.getAge(), source.getSalary(),
+                source.getGoalsScored(), source.getGoalsAssisted(), source.getTeam(),
+                source.getCountry(), source.getJerseyNumber(), source.getAppearance(),
+                source.getHealthStatus(), source.getTags());
     }
 
     /**

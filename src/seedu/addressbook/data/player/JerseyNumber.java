@@ -34,7 +34,7 @@ public class JerseyNumber {
         try {
             int temp = Integer.parseInt(test);
             return (test.matches(JN_VALIDATION_REGEX) && temp >= 1 && temp < 35);
-        }catch (NumberFormatException nfe){
+        } catch (NumberFormatException nfe) {
             return false;
         }
     }

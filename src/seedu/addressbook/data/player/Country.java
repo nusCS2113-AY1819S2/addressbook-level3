@@ -9,7 +9,7 @@ import java.util.List;
  * Represents country of a player made in the address book.
  */
 
-public class Country implements Comparable<Country>{
+public class Country implements Comparable<Country> {
     public static final String EXAMPLE = "Spain";
     public static final String MESSAGE_COUNTRY_CONSTRAINTS = "Country name should be a string";
     public static final String COUNTRY_VALIDATION_REGEX = "[\\p{Alnum} ]+";

@@ -57,42 +57,29 @@ public interface ReadOnlyPlayer {
 
         builder.append("\n")
                 .append("Name: ")
-               .append(getName())                                     // name
-
+                .append(getName())                                     // name
                 .append("  |  Position Played: ")                      // position
                 .append(getPositionPlayed())
-
                 .append("  |  Age: ")                                  // age
                 .append(getAge())
-
                 .append("  |  Salary: ")                                 //salary
                 .append(getSalary())
-
                 .append("\n")
-
                 .append("Goals scored: ")                       // goals scored
                 .append(getGoalsScored())
-
                 .append("  |  Goals assisted: ")                     // goals assisted
                 .append(getGoalsAssisted())
-
                 .append("  |  Team: ")                                // Team
                 .append(getTeam())
-
                 .append("  |  Country: ")                            // country
                 .append(getCountry())
-
                 .append("\n")
-
                 .append("Jersey Number: ")                      //Jersey Number
                 .append(getJerseyNumber())
-
                 .append("  |  Appearance: ")                        // Appearance
                 .append(getAppearance())
-
                 .append("  |  HealthStatus: ")                      //Health Status
                 .append(getHealthStatus())
-
                 .append(" | Tags: ");
         for (Tag tag : getTags()) {
             builder.append(tag);

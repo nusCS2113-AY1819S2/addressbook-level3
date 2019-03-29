@@ -34,8 +34,8 @@ public class GoalsAssisted {
     public static boolean isValidGa(String test) {
         try {
             int temp = Integer.parseInt(test);
-            return (test.matches(GA_VALIDATION_REGEX)&& temp >= 0 );
-        } catch(NumberFormatException nfe){
+            return (test.matches(GA_VALIDATION_REGEX) && temp >= 0);
+        } catch (NumberFormatException nfe){
             return false;
         }
     }
