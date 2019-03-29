@@ -23,7 +23,6 @@ public class Age {
 
     public Age (String age) throws IllegalValueException {
         age = age.trim();
-
         if (!isValidAge(age)) {
             throw new IllegalValueException(MESSAGE_AGE_CONSTRAINTS);
         }

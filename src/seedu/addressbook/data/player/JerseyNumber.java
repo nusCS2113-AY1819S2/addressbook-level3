@@ -20,9 +20,7 @@ public class JerseyNumber {
      */
 
     public JerseyNumber (String jn) throws IllegalValueException {
-
         jn = jn.trim();
-
         if (!isValidJn(jn)) {
             throw new IllegalValueException(MESSAGE_JN_CONSTRAINTS);
         }

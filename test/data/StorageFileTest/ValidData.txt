@@ -4,7 +4,7 @@
         <name>Lionel Messi</name>
         <position>RW</position>
         <age>30</age>
-        <salary>20000000</salary>
+        <salary>200</salary>
         <goalsScored>30</goalsScored>
         <goalsAssisted>20</goalsAssisted>
         <team>FC Barcelona</team>
@@ -15,9 +15,9 @@
     </players>
     <players>
         <name>Luis Suarez</name>
-        <position>Striker </position>
+        <position>Striker</position>
         <age>32</age>
-        <salary>20000000</salary>
+        <salary>200</salary>
         <goalsScored>30</goalsScored>
         <goalsAssisted>20</goalsAssisted>
         <team>FC Barcelona</team>

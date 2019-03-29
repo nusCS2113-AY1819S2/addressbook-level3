@@ -32,8 +32,12 @@ public class Salary {
          * Checks if a given string is a valid player salary.
          */
         public static boolean isValidSalary(String test) {
-            int i = Integer.parseInt(test);
-            return (test.matches(SALARY_VALIDATION_REGEX) && i>=0);
+            try {
+                int i = Integer.parseInt(test);
+                return (test.matches(SALARY_VALIDATION_REGEX) && i>=0);
+            } catch(NumberFormatException nfe){
+                return false;
+            }
         }
 
         @Override
