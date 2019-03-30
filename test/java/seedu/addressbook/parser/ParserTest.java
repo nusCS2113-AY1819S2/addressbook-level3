@@ -178,61 +178,71 @@ public class ParserTest {
     public void addCommand_invalidArgs() {
         final String[] inputs = {"addPlayer", "addPlayer ", "addPlayer wrong args format",
                 // no position prefix
-                String.format("addPlayer %1$s %2$s a/%3$s sal/%4$s gs/%5$s ga/%6$s tm/%7$s ctry/%8$s jn/%9$s app/%10$s hs/%11$s",
+                String.format("addPlayer %1$s %2$s a/%3$s sal/%4$s gs/%5$s "
+                                + "ga/%6$s tm/%7$s ctry/%8$s jn/%9$s app/%10$s hs/%11$s",
                         Name.EXAMPLE, PositionPlayed.EXAMPLE, Age.EXAMPLE, Salary.EXAMPLE, GoalsScored.EXAMPLE,
                         GoalsAssisted.EXAMPLE, Team.EXAMPLE, Country.EXAMPLE, JerseyNumber.EXAMPLE, Appearance.EXAMPLE,
                         HealthStatus.EXAMPLE),
 
                 // no age prefix
-                String.format("addPlayer %1$s p/%2$s %3$s sal/%4$s gs/%5$s ga/%6$s tm/%7$s ctry/%8$s jn/%9$s app/%10$s hs/%11$s",
+                String.format("addPlayer %1$s p/%2$s %3$s sal/%4$s gs/%5$s "
+                                + "ga/%6$s tm/%7$s ctry/%8$s jn/%9$s app/%10$s hs/%11$s",
                         Name.EXAMPLE, PositionPlayed.EXAMPLE, Age.EXAMPLE, Salary.EXAMPLE, GoalsScored.EXAMPLE,
                         GoalsAssisted.EXAMPLE, Team.EXAMPLE, Country.EXAMPLE, JerseyNumber.EXAMPLE, Appearance.EXAMPLE,
                         HealthStatus.EXAMPLE),
 
                 // no salary prefix
-                String.format("addPlayer %1$s p/%2$s a/%3$s %4$s gs/%5$s ga/%6$s tm/%7$s ctry/%8$s jn/%9$s app/%10$s hs/%11$s",
+                String.format("addPlayer %1$s p/%2$s a/%3$s %4$s gs/%5$s "
+                                + "ga/%6$s tm/%7$s ctry/%8$s jn/%9$s app/%10$s hs/%11$s",
                         Name.EXAMPLE, PositionPlayed.EXAMPLE, Age.EXAMPLE, Salary.EXAMPLE, GoalsScored.EXAMPLE,
                         GoalsAssisted.EXAMPLE, Team.EXAMPLE, Country.EXAMPLE, JerseyNumber.EXAMPLE, Appearance.EXAMPLE,
                         HealthStatus.EXAMPLE),
 
                 //no GoalsScored prefix
-                String.format("addPlayer %1$s p/%2$s a/%3$s sal/%4$s %5$s ga/%6$s tm/%7$s ctry/%8$s jn/%9$s app/%10$s hs/%11$s",
+                String.format("addPlayer %1$s p/%2$s a/%3$s sal/%4$s %5$s "
+                                + "ga/%6$s tm/%7$s ctry/%8$s jn/%9$s app/%10$s hs/%11$s",
                         Name.EXAMPLE, PositionPlayed.EXAMPLE, Age.EXAMPLE, Salary.EXAMPLE, GoalsScored.EXAMPLE,
                         GoalsAssisted.EXAMPLE, Team.EXAMPLE, Country.EXAMPLE, JerseyNumber.EXAMPLE, Appearance.EXAMPLE,
                         HealthStatus.EXAMPLE),
 
                 //no GoalsAssisted prefix
-                String.format("addPlayer %1$s p/%2$s a/%3$s sal/%4$s gs/%5$s %6$s tm/%7$s ctry/%8$s jn/%9$s app/%10$s hs/%11$s",
+                String.format("addPlayer %1$s p/%2$s a/%3$s sal/%4$s gs/%5$s "
+                                + "%6$s tm/%7$s ctry/%8$s jn/%9$s app/%10$s hs/%11$s",
                         Name.EXAMPLE, PositionPlayed.EXAMPLE, Age.EXAMPLE, Salary.EXAMPLE, GoalsScored.EXAMPLE,
                         GoalsAssisted.EXAMPLE, Team.EXAMPLE, Country.EXAMPLE, JerseyNumber.EXAMPLE, Appearance.EXAMPLE,
                         HealthStatus.EXAMPLE),
 
                 //no Team prefix
-                String.format("addPlayer %1$s p/%2$s a/%3$s sal/%4$s gs/%5$s ga/%6$s %7$s ctry/%8$s jn/%9$s app/%10$s hs/%11$s",
+                String.format("addPlayer %1$s p/%2$s a/%3$s sal/%4$s gs/%5$s "
+                                + "ga/%6$s %7$s ctry/%8$s jn/%9$s app/%10$s hs/%11$s",
                         Name.EXAMPLE, PositionPlayed.EXAMPLE, Age.EXAMPLE, Salary.EXAMPLE, GoalsScored.EXAMPLE,
                         GoalsAssisted.EXAMPLE, Team.EXAMPLE, Country.EXAMPLE, JerseyNumber.EXAMPLE, Appearance.EXAMPLE,
                         HealthStatus.EXAMPLE),
 
                 //no Country prefix
-                String.format("addPlayer %1$s p/%2$s a/%3$s sal/%4$s gs/%5$s ga/%6$s tm/%7$s %8$s jn/%9$s app/%10$s hs/%11$s",
+                String.format("addPlayer %1$s p/%2$s a/%3$s sal/%4$s gs/%5$s "
+                                + "ga/%6$s tm/%7$s %8$s jn/%9$s app/%10$s hs/%11$s",
                         Name.EXAMPLE, PositionPlayed.EXAMPLE, Age.EXAMPLE, Salary.EXAMPLE, GoalsScored.EXAMPLE,
                         GoalsAssisted.EXAMPLE, Team.EXAMPLE, Country.EXAMPLE, JerseyNumber.EXAMPLE, Appearance.EXAMPLE,
                         HealthStatus.EXAMPLE),
 
                 //no JerseyNumber prefix
-                String.format("addPlayer %1$s p/%2$s a/%3$s sal/%4$s gs/%5$s ga/%6$s tm/%7$s ctry/%8$s %9$s app/%10$s hs/%11$s",
-                        Name.EXAMPLE, PositionPlayed.EXAMPLE, Age.EXAMPLE, Salary.EXAMPLE, GoalsScored.EXAMPLE,
+                String.format("addPlayer %1$s p/%2$s a/%3$s sal/%4$s gs/%5$s "
+                                + "ga/%6$s tm/%7$s ctry/%8$s %9$s app/%10$s hs/%11$s", Name.EXAMPLE,
+                        PositionPlayed.EXAMPLE, Age.EXAMPLE, Salary.EXAMPLE, GoalsScored.EXAMPLE,
                         GoalsAssisted.EXAMPLE, Team.EXAMPLE, Country.EXAMPLE, JerseyNumber.EXAMPLE, Appearance.EXAMPLE,
                         HealthStatus.EXAMPLE),
 
                 //no Appearance prefix
-                String.format("addPlayer %1$s p/%2$s a/%3$s sal/%4$s gs/%5$s ga/%6$s tm/%7$s ctry/%8$s jn/%9$s %10$s hs/%11$s",
+                String.format("addPlayer %1$s p/%2$s a/%3$s sal/%4$s gs/%5$s "
+                                + "ga/%6$s tm/%7$s ctry/%8$s jn/%9$s %10$s hs/%11$s",
                         Name.EXAMPLE, PositionPlayed.EXAMPLE, Age.EXAMPLE, Salary.EXAMPLE, GoalsScored.EXAMPLE,
                         GoalsAssisted.EXAMPLE, Team.EXAMPLE, Country.EXAMPLE, JerseyNumber.EXAMPLE, Appearance.EXAMPLE,
                         HealthStatus.EXAMPLE),
 
                 //no HealthStatus prefix
-                String.format("addPlayer %1$s p/%2$s a/%3$s sal/%4$s gs/%5$s ga/%6$s tm/%7$s ctry/%8$s jn/%9$s app/%10$s %11$s",
+                String.format("addPlayer %1$s p/%2$s a/%3$s sal/%4$s gs/%5$s "
+                                + "ga/%6$s tm/%7$s ctry/%8$s jn/%9$s app/%10$s %11$s",
                         Name.EXAMPLE, PositionPlayed.EXAMPLE, Age.EXAMPLE, Salary.EXAMPLE, GoalsScored.EXAMPLE,
                         GoalsAssisted.EXAMPLE, Team.EXAMPLE, Country.EXAMPLE, JerseyNumber.EXAMPLE, Appearance.EXAMPLE,
                         HealthStatus.EXAMPLE),
