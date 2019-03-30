@@ -1,24 +1,48 @@
 package seedu.addressbook.logic;
 
+import static junit.framework.TestCase.assertEquals;
+import static seedu.addressbook.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.StringJoiner;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
+
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.commands.ExitCommand;
 import seedu.addressbook.commands.HelpCommand;
-import seedu.addressbook.commands.player.*;
+import seedu.addressbook.commands.player.AddCommand;
+import seedu.addressbook.commands.player.AddFastCommand;
+import seedu.addressbook.commands.player.ClearCommand;
+import seedu.addressbook.commands.player.DeleteCommand;
+import seedu.addressbook.commands.player.FindCommand;
+import seedu.addressbook.commands.player.ViewAllCommand;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.AddressBook;
-import seedu.addressbook.data.player.*;
+import seedu.addressbook.data.player.Age;
+import seedu.addressbook.data.player.Appearance;
+import seedu.addressbook.data.player.Country;
+import seedu.addressbook.data.player.GoalsAssisted;
+import seedu.addressbook.data.player.GoalsScored;
+import seedu.addressbook.data.player.HealthStatus;
+import seedu.addressbook.data.player.JerseyNumber;
+import seedu.addressbook.data.player.Name;
+import seedu.addressbook.data.player.Player;
+import seedu.addressbook.data.player.PositionPlayed;
+import seedu.addressbook.data.player.ReadOnlyPlayer;
+import seedu.addressbook.data.player.Salary;
+import seedu.addressbook.data.player.Team;
 import seedu.addressbook.data.tag.Tag;
 import seedu.addressbook.storage.StorageFile;
-
-import java.util.*;
-
-import static junit.framework.TestCase.assertEquals;
-import static seedu.addressbook.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 public class LogicTest {
 
@@ -58,6 +82,7 @@ public class LogicTest {
     /**
      * Executes the command and confirms that the result message is correct.
      * Both the 'address book' and the 'last shown list' are expected to be empty.
+     *
      * @see #assertCommandBehavior(String, String, AddressBook, boolean, List)
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
@@ -67,15 +92,15 @@ public class LogicTest {
     /**
      * Executes the command and confirms that the result message is correct and
      * also confirms that the following three parts of the Logic object's state are as expected:<br>
-     *      - the internal address book data are same as those in the {@code expectedAddressBook} <br>
-     *      - the internal 'last shown list' matches the {@code expectedLastList} <br>
-     *      - the storage file content matches data in {@code expectedAddressBook} <br>
+     * - the internal address book data are same as those in the {@code expectedAddressBook} <br>
+     * - the internal 'last shown list' matches the {@code expectedLastList} <br>
+     * - the storage file content matches data in {@code expectedAddressBook} <br>
      */
     private void assertCommandBehavior(String inputCommand,
-                                      String expectedMessage,
-                                      AddressBook expectedAddressBook,
-                                      boolean isRelevantPlayersExpected,
-                                      List<? extends ReadOnlyPlayer> lastPlayerList) throws Exception {
+                                       String expectedMessage,
+                                       AddressBook expectedAddressBook,
+                                       boolean isRelevantPlayersExpected,
+                                       List<? extends ReadOnlyPlayer> lastPlayerList) throws Exception {
 
         //Execute the command
         CommandResult r = logic.execute(inputCommand);
@@ -131,58 +156,57 @@ public class LogicTest {
 
         //no position prefix
         assertCommandBehavior(
-                "addPlayer Valid Name Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam.butNoPositionPrefix ctry/China" +
-                        "jn/9 app/0 hs/Healthy", expectedMessage);
+                "addPlayer Valid Name Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam.butNoPositionPrefix ctry/China"
+                        + "jn/9 app/0 hs/Healthy", expectedMessage);
 
         //no age prefix
         assertCommandBehavior(
-                "addPlayer Valid Name p/Striker 30 sal/20000 gs/0 ga/0 tm/validTeam.butNoAgePrefix ctry/China" +
-                        "jn/9 app/0 hs/Healthy", expectedMessage);
+                "addPlayer Valid Name p/Striker 30 sal/20000 gs/0 ga/0 tm/validTeam.butNoAgePrefix ctry/China"
+                        + "jn/9 app/0 hs/Healthy", expectedMessage);
 
         //no salary prefix
         assertCommandBehavior(
-                "addPlayer Valid Name p/Striker a/30 20000 gs/0 ga/0 tm/validTeam.butNoSalaryPrefix ctry/China" +
-                        "jn/9 app/0 hs/Healthy", expectedMessage);
+                "addPlayer Valid Name p/Striker a/30 20000 gs/0 ga/0 tm/validTeam.butNoSalaryPrefix ctry/China"
+                        + "jn/9 app/0 hs/Healthy", expectedMessage);
 
         //no goals scored prefix
         assertCommandBehavior(
-                "addPlayer Valid Name p/Striker a/30 sal/20000 0 ga/0 tm/validTeam.butNoGoalsScoredPrefix ctry/China" +
-                        "jn/9 app/0 hs/Healthy", expectedMessage);
+                "addPlayer Valid Name p/Striker a/30 sal/20000 0 ga/0 tm/validTeam.butNoGoalsScoredPrefix ctry/China"
+                        + "jn/9 app/0 hs/Healthy", expectedMessage);
 
         //no goals assisted prefix
         assertCommandBehavior(
-                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 0 tm/validTeam.butNoGoalsAssistedPrefix ctry/China" +
-                        "jn/9 app/0 hs/Healthy", expectedMessage);
+                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 0 tm/validTeam.butNoGoalsAssistedPrefix ctry/China"
+                        + "jn/9 app/0 hs/Healthy", expectedMessage);
 
         //no team prefix
         assertCommandBehavior(
-                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 validTeam.butNoPrefix ctry/China" +
-                        "jn/9 app/0 hs/Healthy", expectedMessage);
+                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 validTeam.butNoPrefix ctry/China"
+                        + "jn/9 app/0 hs/Healthy", expectedMessage);
 
         //no country prefix
         assertCommandBehavior(
-                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam.butNoCountryPrefix China" +
-                        "jn/9 app/0 hs/Healthy", expectedMessage);
+                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam.butNoCountryPrefix China"
+                        + "jn/9 app/0 hs/Healthy", expectedMessage);
 
         //no jersey number prefix
         assertCommandBehavior(
-                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam.butNoJerseyNumberPrefix ctry/China" +
-                        "9 app/0 hs/Healthy", expectedMessage);
+                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam.butNoJerseyNumberPrefix ctry/China"
+                        + "9 app/0 hs/Healthy", expectedMessage);
 
         //no appearance prefix
         assertCommandBehavior(
-                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam.butNoAppearancePrefix ctry/China" +
-                        "jn/9 0 hs/Healthy", expectedMessage);
+                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam.butNoAppearancePrefix ctry/China"
+                        + "jn/9 0 hs/Healthy", expectedMessage);
 
         //no health status prefix
         assertCommandBehavior(
-                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam.butNoHealthStatusPrefix ctry/China" +
-                        "jn/9 app/0 Healthy", expectedMessage);
-
-        }
+                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam.butNoHealthStatusPrefix ctry/China"
+                        + "jn/9 app/0 Healthy", expectedMessage);
+    }
 
     @Test
-    public void execute_addFast_invalidArgsFormat() throws Exception{
+    public void execute_addFast_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFastCommand.MESSAGE_USAGE);
 
         assertCommandBehavior(
@@ -215,26 +239,34 @@ public class LogicTest {
     @Test
     public void execute_add_invalidPlayerData() throws Exception {
         assertCommandBehavior(
-                "addPlayer []\\[;] p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam ctry/China" +
-                        "jn/9 app/0 hs/Healthy", Name.MESSAGE_NAME_CONSTRAINTS);
+                "addPlayer []\\[;] p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam ctry/China"
+                        + "jn/9 app/0 hs/Healthy", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "addPlayer Valid Name p/Striker a/thirty sal/20000 gs/0 ga/0 tm/validTeam ctry/China jn/9 app/0 hs/Healthy", Age.MESSAGE_AGE_CONSTRAINTS);
+                "addPlayer Valid Name p/Striker a/thirty sal/20000 gs/0 ga/0 tm/validTeam ctry/China "
+                        + "jn/9 app/0 hs/Healthy", Age.MESSAGE_AGE_CONSTRAINTS);
 //        assertCommandBehavior(
 //                "addPlayer Valid Name p/Striker a/800 sal/20000 gs/0 ga/0 tm/validTeam ctry/China jn/9 app/0 hs/Healthy", Age.MESSAGE_AGE_CONSTRAINTS);
         assertCommandBehavior(
-                "addPlayer Valid Name p/Striker a/30 sal/zero gs/0 ga/0 tm/validTeam ctry/China jn/9 app/0 hs/Healthy", Salary.MESSAGE_SALARY_CONSTRAINTS);
+                "addPlayer Valid Name p/Striker a/30 sal/zero gs/0 ga/0 tm/validTeam ctry/China "
+                        + "jn/9 app/0 hs/Healthy", Salary.MESSAGE_SALARY_CONSTRAINTS);
         assertCommandBehavior(
-                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/zero ga/0 tm/validTeam ctry/China jn/9 app/0 hs/Healthy", GoalsScored.MESSAGE_GS_CONSTRAINTS);
+                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/zero ga/0 tm/validTeam ctry/China "
+                        + "jn/9 app/0 hs/Healthy", GoalsScored.MESSAGE_GS_CONSTRAINTS);
         assertCommandBehavior(
-                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/zero tm/validTeam ctry/China jn/9 app/0 hs/Healthy", GoalsAssisted.MESSAGE_GA_CONSTRAINTS);
+                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/zero tm/validTeam ctry/China "
+                        + "jn/9 app/0 hs/Healthy", GoalsAssisted.MESSAGE_GA_CONSTRAINTS);
         assertCommandBehavior(
-                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam ctry/China jn/50 app/0 hs/Healthy", JerseyNumber.MESSAGE_JN_CONSTRAINTS);
+                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam ctry/China "
+                        + "jn/50 app/0 hs/Healthy", JerseyNumber.MESSAGE_JN_CONSTRAINTS);
         assertCommandBehavior(
-                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam ctry/China jn/nine app/0 hs/Healthy", JerseyNumber.MESSAGE_JN_CONSTRAINTS);
+                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam ctry/China "
+                        + "jn/nine app/0 hs/Healthy", JerseyNumber.MESSAGE_JN_CONSTRAINTS);
         assertCommandBehavior(
-                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam ctry/China jn/9 app/zero hs/Healthy", Appearance.MESSAGE_APPEARANCE_CONSTRAINTS);
+                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam ctry/China "
+                        + "jn/9 app/zero hs/Healthy", Appearance.MESSAGE_APPEARANCE_CONSTRAINTS);
         assertCommandBehavior(
-                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam ctry/China jn/9 app/0 hs/Healthy t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam ctry/China "
+                        + "jn/9 app/0 hs/Healthy t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
     }
 
     @Test
@@ -247,10 +279,10 @@ public class LogicTest {
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                              String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
-                              expectedAb,
-                              false,
-                              Collections.emptyList());
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAb,
+                false,
+                Collections.emptyList());
 
     }
 
@@ -286,17 +318,17 @@ public class LogicTest {
         helper.addToAddressBook(addressBook, 2);
 
         assertCommandBehavior("list",
-                              Command.getMessageForPlayerListShownSummary(expectedList),
-                              expectedAb,
-                              true,
-                              expectedList);
+                Command.getMessageForPlayerListShownSummary(expectedList),
+                expectedAb,
+                true,
+                expectedList);
     }
-
 
 
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
      * targeting a single player in the last shown list, using visible index.
+     *
      * @param commandWord to test assuming it targets a single player in the last shown list based on visible index.
      */
     private void assertInvalidIndexBehaviorForCommand(String commandWord) throws Exception {
@@ -358,10 +390,10 @@ public class LogicTest {
         logic.setLastPlayerShownList(lastPlayerList);
 
         assertCommandBehavior("viewall 2",
-                                Messages.MESSAGE_PLAYER_NOT_IN_LEAGUE,
-                                expectedAb,
-                                false,
-                                lastPlayerList);
+                Messages.MESSAGE_PLAYER_NOT_IN_LEAGUE,
+                expectedAb,
+                false,
+                lastPlayerList);
     }
 
     @Test
@@ -392,10 +424,10 @@ public class LogicTest {
         logic.setLastPlayerShownList(threePlayers);
 
         assertCommandBehavior("delete 2",
-                                String.format(DeleteCommand.MESSAGE_DELETE_PLAYER_SUCCESS, p2),
-                                expectedAb,
-                                false,
-                                threePlayers);
+                String.format(DeleteCommand.MESSAGE_DELETE_PLAYER_SUCCESS, p2),
+                expectedAb,
+                false,
+                threePlayers);
     }
 
     @Test
@@ -416,10 +448,10 @@ public class LogicTest {
         logic.setLastPlayerShownList(threePlayers);
 
         assertCommandBehavior("delete 2",
-                                Messages.MESSAGE_PLAYER_NOT_IN_LEAGUE,
-                                expectedAb,
-                                false,
-                                threePlayers);
+                Messages.MESSAGE_PLAYER_NOT_IN_LEAGUE,
+                expectedAb,
+                false,
+                threePlayers);
     }
 
     @Test
@@ -442,10 +474,10 @@ public class LogicTest {
         helper.addToAddressBook(addressBook, fourPlayers);
 
         assertCommandBehavior("find KEY",
-                                Command.getMessageForPlayerListShownSummary(expectedList),
-                                expectedAb,
-                                true,
-                                expectedList);
+                Command.getMessageForPlayerListShownSummary(expectedList),
+                expectedAb,
+                true,
+                expectedList);
     }
 
     @Test
@@ -462,10 +494,10 @@ public class LogicTest {
         helper.addToAddressBook(addressBook, fourPlayers);
 
         assertCommandBehavior("find KEY",
-                                Command.getMessageForPlayerListShownSummary(expectedList),
-                                expectedAb,
-                                true,
-                                expectedList);
+                Command.getMessageForPlayerListShownSummary(expectedList),
+                expectedAb,
+                true,
+                expectedList);
     }
 
     @Test
@@ -482,10 +514,10 @@ public class LogicTest {
         helper.addToAddressBook(addressBook, fourPlayers);
 
         assertCommandBehavior("find KEY rAnDoM",
-                                Command.getMessageForPlayerListShownSummary(expectedList),
-                                expectedAb,
-                                true,
-                                expectedList);
+                Command.getMessageForPlayerListShownSummary(expectedList),
+                expectedAb,
+                true,
+                expectedList);
     }
 
     /**
@@ -511,7 +543,8 @@ public class LogicTest {
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             Set<Tag> tags = new HashSet<>(Arrays.asList(tag1, tag2));
-            return new Player(name,positionPlayed,age,sal,goalsScored,goalsAssisted,team,country,jerseyNumber,appearance,healthStatus,tags);
+            return new Player(name, positionPlayed, age, sal, goalsScored, goalsAssisted,
+                    team, country, jerseyNumber, appearance, healthStatus, tags);
         }
 
         /**
@@ -520,39 +553,40 @@ public class LogicTest {
          * Each unique seed will generate a unique Person object.
          *
          * @param seed used to generate the player data field values
-         *
-         * */
+         */
         Player generatePlayer(int seed) throws Exception {
             return new Player(
                     new Name("Player " + seed),
                     new PositionPlayed("Position" + seed),
-                    new Age(""+ Math.abs(seed)),
-                    new Salary(""+Math.abs(seed)),
-                    new Team("Team"+Math.abs(seed)),
-                    new Country("Country"+Math.abs(seed)),
-                    new JerseyNumber(""+(Math.abs(seed)%35)),
+                    new Age("" + Math.abs(seed)),
+                    new Salary("" + Math.abs(seed)),
+                    new Team("Team" + Math.abs(seed)),
+                    new Country("Country" + Math.abs(seed)),
+                    new JerseyNumber("" + (Math.abs(seed) % 35)),
                     new HashSet<>(Arrays.asList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))))
             );
         }
 
-        /** Generates the correct add command based on the player given */
+        /**
+         * Generates the correct add command based on the player given
+         */
         String generateAddCommand(Player p) {
             StringJoiner cmd = new StringJoiner(" ");
 
             cmd.add("addPlayer");
             cmd.add(p.getName().toString());
-            cmd.add(" p/"+p.getPositionPlayed().toString());
-            cmd.add(" a/"+p.getAge().toString());
-            cmd.add(" sal/"+p.getSalary().toString());
-            cmd.add(" gs/"+p.getGoalsScored().toString());
-            cmd.add(" ga/"+p.getGoalsAssisted().toString());
-            cmd.add(" tm/"+p.getTeam().toString());
-            cmd.add(" ctry/"+p.getCountry().toString());
-            cmd.add(" jn/"+p.getJerseyNumber().toString());
-            cmd.add(" app/"+p.getAppearance().toString());
-            cmd.add(" hs/"+p.getHealthStatus().toString());
+            cmd.add(" p/" + p.getPositionPlayed().toString());
+            cmd.add(" a/" + p.getAge().toString());
+            cmd.add(" sal/" + p.getSalary().toString());
+            cmd.add(" gs/" + p.getGoalsScored().toString());
+            cmd.add(" ga/" + p.getGoalsAssisted().toString());
+            cmd.add(" tm/" + p.getTeam().toString());
+            cmd.add(" ctry/" + p.getCountry().toString());
+            cmd.add(" jn/" + p.getJerseyNumber().toString());
+            cmd.add(" app/" + p.getAppearance().toString());
+            cmd.add(" hs/" + p.getHealthStatus().toString());
             Set<Tag> tags = p.getTags();
-            for (Tag t: tags) {
+            for (Tag t : tags) {
                 cmd.add("t/" + t.tagName);
             }
             return cmd.toString();
@@ -560,6 +594,7 @@ public class LogicTest {
 
         /**
          * Generates an AddressBook with auto-generated persons.
+         *
          * @param num to indicate the number of player profiles that should be included in the League Tracker.
          */
         AddressBook generateAddressBook(int num) throws Exception {
@@ -579,8 +614,9 @@ public class LogicTest {
 
         /**
          * Adds auto-generated Person objects to the given AddressBook
+         *
          * @param addressBook The AddressBook to which the Persons will be added
-         * @param num to indicate the number of players profiles that should exist in the League Tracker.
+         * @param num         to indicate the number of players profiles that should exist in the League Tracker.
          */
         void addToAddressBook(AddressBook addressBook, int num) throws Exception {
             addToAddressBook(addressBook, generatePlayerList(num));
@@ -590,7 +626,7 @@ public class LogicTest {
          * Adds the given list of Persons to the given AddressBook
          */
         void addToAddressBook(AddressBook addressBook, List<Player> playersToAdd) throws Exception {
-            for (Player p: playersToAdd) {
+            for (Player p : playersToAdd) {
                 addressBook.addPlayer(p);
             }
         }
@@ -600,7 +636,7 @@ public class LogicTest {
          */
         List<Player> generatePlayerList(Player... players) throws Exception {
             List<Player> personList = new ArrayList<>();
-            for (Player p: players) {
+            for (Player p : players) {
                 personList.add(p);
             }
             return personList;
@@ -611,7 +647,7 @@ public class LogicTest {
          */
         List<Player> generatePlayerList(int num) throws Exception {
             List<Player> players = new ArrayList<>();
-            for (int j=1;j<=num;j++) {
+            for (int j = 1; j <= num; j++) {
                 players.add(generatePlayer(j));
             }
             return players;
