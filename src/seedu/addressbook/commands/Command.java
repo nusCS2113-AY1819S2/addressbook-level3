@@ -1,15 +1,16 @@
 package seedu.addressbook.commands;
 
-import static seedu.addressbook.ui.Gui.DISPLAYED_INDEX_OFFSET;
-
-import java.util.List;
-
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.finance.ReadOnlyFinance;
 import seedu.addressbook.data.match.ReadOnlyMatch;
 import seedu.addressbook.data.player.ReadOnlyPlayer;
 import seedu.addressbook.data.team.ReadOnlyTeam;
+
+
+import java.util.List;
+
+import static seedu.addressbook.ui.Gui.DISPLAYED_INDEX_OFFSET;
 
 
 
