@@ -20,8 +20,8 @@ public class Player implements ReadOnlyPlayer {
     private Age age;
     private GoalsScored goalsScored;
     private GoalsAssisted goalsAssisted;
-    private Team team;
-    private Country country;
+    private TeamName teamName;
+    private Nationality nationality;
     private JerseyNumber jerseyNumber;
     private Appearance appearance;
     private HealthStatus healthStatus;
@@ -33,7 +33,7 @@ public class Player implements ReadOnlyPlayer {
      */
 
     public Player(Name name, PositionPlayed positionPlayed, Age age, Salary salary, GoalsScored goalsScored,
-                  GoalsAssisted goalsAssisted, Team team, Country country, JerseyNumber jerseyNumber,
+                  GoalsAssisted goalsAssisted, TeamName teamName, Nationality nationality, JerseyNumber jerseyNumber,
                   Appearance appearance, HealthStatus healthStatus, Set<Tag> tags) {
         this.name = name;
         this.positionPlayed = positionPlayed;
@@ -41,8 +41,8 @@ public class Player implements ReadOnlyPlayer {
         this.salary = salary;
         this.goalsScored = goalsScored;
         this.goalsAssisted = goalsAssisted;
-        this.team = team;
-        this.country = country;
+        this.teamName = teamName;
+        this.nationality = nationality;
         this.jerseyNumber = jerseyNumber;
         this.appearance = appearance;
         this.healthStatus = healthStatus;
@@ -55,8 +55,8 @@ public class Player implements ReadOnlyPlayer {
      */
     public Player(ReadOnlyPlayer source) {
         this(source.getName(), source.getPositionPlayed(), source.getAge(), source.getSalary(),
-                source.getGoalsScored(), source.getGoalsAssisted(), source.getTeam(),
-                source.getCountry(), source.getJerseyNumber(), source.getAppearance(),
+                source.getGoalsScored(), source.getGoalsAssisted(), source.getTeamName(),
+                source.getNationality(), source.getJerseyNumber(), source.getAppearance(),
                 source.getHealthStatus(), source.getTags());
     }
 
@@ -65,10 +65,10 @@ public class Player implements ReadOnlyPlayer {
      * allow user to create a player with some attributes as default value
      */
 
-    public Player(Name name, PositionPlayed positionPlayed, Age age, Salary salary, Team team,
-                  Country country, JerseyNumber jerseyNumber, Set<Tag> tags) throws IllegalValueException {
+    public Player(Name name, PositionPlayed positionPlayed, Age age, Salary salary, TeamName teamName,
+                  Nationality nationality, JerseyNumber jerseyNumber, Set<Tag> tags) throws IllegalValueException {
         this(name, positionPlayed, age, salary, new GoalsScored("0"),
-                new GoalsAssisted("0"), team, country, jerseyNumber, new Appearance("0"),
+                new GoalsAssisted("0"), teamName, nationality, jerseyNumber, new Appearance("0"),
                 new HealthStatus("Healthy"), tags);
     }
 
@@ -104,13 +104,13 @@ public class Player implements ReadOnlyPlayer {
     }
 
     @Override
-    public Team getTeam() {
-        return team;
+    public TeamName getTeamName() {
+        return teamName;
     }
 
     @Override
-    public Country getCountry() {
-        return country;
+    public Nationality getNationality() {
+        return nationality;
     }
 
     @Override
@@ -151,7 +151,7 @@ public class Player implements ReadOnlyPlayer {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, positionPlayed, age, salary, goalsScored, goalsAssisted, team, country, jerseyNumber,
+        return Objects.hash(name, positionPlayed, age, salary, goalsScored, goalsAssisted, teamName, nationality, jerseyNumber,
                 appearance, healthStatus, tags);
     }
 

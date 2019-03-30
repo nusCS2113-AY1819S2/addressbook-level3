@@ -7,14 +7,14 @@ import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.player.Age;
-import seedu.addressbook.data.player.Country;
+import seedu.addressbook.data.player.Nationality;
 import seedu.addressbook.data.player.JerseyNumber;
 import seedu.addressbook.data.player.Name;
 import seedu.addressbook.data.player.Player;
 import seedu.addressbook.data.player.PositionPlayed;
 import seedu.addressbook.data.player.ReadOnlyPlayer;
 import seedu.addressbook.data.player.Salary;
-import seedu.addressbook.data.player.Team;
+import seedu.addressbook.data.player.TeamName;
 import seedu.addressbook.data.player.UniquePlayerList;
 import seedu.addressbook.data.tag.Tag;
 
@@ -32,8 +32,8 @@ public class AddFastCommand extends Command {
                     + "NAME p/POSITION \n"
                     + "a/AGE \n"
                     + "sal/SALARY \n"
-                    + "tm/TEAM \n"
-                    + "ctry/COUNTRY \n"
+                    + "tm/TEAM_NAME \n"
+                    + "ctry/NATIONALITY \n"
                     + "jn/JERSEY_NUMBER \n"
                     + "[t/TAG]...\n\t"
                     + "Example: "
@@ -52,7 +52,7 @@ public class AddFastCommand extends Command {
      * @throws IllegalValueException if any of the raw values are invalid
      */
     public AddFastCommand(String name, String position, String age, String salary,
-                          String team, String country, String jerseyNumber,
+                          String teamName, String nationality, String jerseyNumber,
                       Set<String> tags) throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
@@ -63,8 +63,8 @@ public class AddFastCommand extends Command {
                 new PositionPlayed(position),
                 new Age(age),
                 new Salary(salary),
-                new Team(team),
-                new Country(country),
+                new TeamName(teamName),
+                new Nationality(nationality),
                 new JerseyNumber(jerseyNumber),
                 tagSet
         );

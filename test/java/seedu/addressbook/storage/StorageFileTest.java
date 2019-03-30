@@ -15,7 +15,7 @@ import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.player.Age;
 import seedu.addressbook.data.player.Appearance;
-import seedu.addressbook.data.player.Country;
+import seedu.addressbook.data.player.Nationality;
 import seedu.addressbook.data.player.GoalsAssisted;
 import seedu.addressbook.data.player.GoalsScored;
 import seedu.addressbook.data.player.HealthStatus;
@@ -24,7 +24,7 @@ import seedu.addressbook.data.player.Name;
 import seedu.addressbook.data.player.Player;
 import seedu.addressbook.data.player.PositionPlayed;
 import seedu.addressbook.data.player.Salary;
-import seedu.addressbook.data.player.Team;
+import seedu.addressbook.data.player.TeamName;
 import seedu.addressbook.storage.StorageFile.StorageOperationException;
 
 public class StorageFileTest {
@@ -108,8 +108,8 @@ public class StorageFileTest {
                                 new Salary("200"),
                                 new GoalsScored("30"),
                                 new GoalsAssisted("20"),
-                                new Team("FC Barcelona"),
-                                new Country("Argentina"),
+                                new TeamName("FC Barcelona"),
+                                new Nationality("Argentina"),
                                 new JerseyNumber("10"),
                                 new Appearance("54"),
                                 new HealthStatus("Healthy"),
@@ -121,8 +121,8 @@ public class StorageFileTest {
                                 new Salary("200"),
                                 new GoalsScored("30"),
                                 new GoalsAssisted("20"),
-                                new Team("FC Barcelona"),
-                                new Country("Uruguay"),
+                                new TeamName("FC Barcelona"),
+                                new Nationality("Uruguay"),
                                 new JerseyNumber("9"),
                                 new Appearance("54"),
                                 new HealthStatus("Healthy"),

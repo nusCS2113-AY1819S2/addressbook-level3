@@ -8,7 +8,7 @@ import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.player.Age;
 import seedu.addressbook.data.player.Appearance;
-import seedu.addressbook.data.player.Country;
+import seedu.addressbook.data.player.Nationality;
 import seedu.addressbook.data.player.GoalsAssisted;
 import seedu.addressbook.data.player.GoalsScored;
 import seedu.addressbook.data.player.HealthStatus;
@@ -18,7 +18,7 @@ import seedu.addressbook.data.player.Player;
 import seedu.addressbook.data.player.PositionPlayed;
 import seedu.addressbook.data.player.ReadOnlyPlayer;
 import seedu.addressbook.data.player.Salary;
-import seedu.addressbook.data.player.Team;
+import seedu.addressbook.data.player.TeamName;
 import seedu.addressbook.data.player.UniquePlayerList;
 import seedu.addressbook.data.tag.Tag;
 
@@ -39,8 +39,8 @@ public class AddCommand extends Command {
             + "sal/SALARY \n"
             + "gs/GOALS_SCORED \n"
             + "ga/GOALS_ASSISTED \n"
-            + "tm/TEAM \n"
-            + "ctry/COUNTRY \n"
+            + "tm/TEAM_NAME \n"
+            + "ctry/NATIONALITY \n"
             + "jn/JERSEY_NUMBER \n"
             + "app/APPEARANCE \n"
             + "hs/ HEALTH_STATUS \n"
@@ -62,7 +62,7 @@ public class AddCommand extends Command {
      */
 
     public AddCommand(String name, String position, String age, String salary, String goalsScored, String goalsAssisted,
-                      String team, String country, String jerseyNumber, String appearance, String healthStatus,
+                      String teamName, String nationality, String jerseyNumber, String appearance, String healthStatus,
                       Set<String> tags) throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
@@ -75,8 +75,8 @@ public class AddCommand extends Command {
                 new Salary(salary),
                 new GoalsScored(goalsScored),
                 new GoalsAssisted(goalsAssisted),
-                new Team(team),
-                new Country(country),
+                new TeamName(teamName),
+                new Nationality(nationality),
                 new JerseyNumber(jerseyNumber),
                 new Appearance(appearance),
                 new HealthStatus(healthStatus),

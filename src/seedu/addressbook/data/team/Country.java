@@ -9,7 +9,7 @@ import seedu.addressbook.data.exception.IllegalValueException;
 public class Country {
 
     public static final String EXAMPLE = "Singapore";
-    public static final String MESSAGE_COUNTRY_CONSTRAINTS = "Country names should be alphanumeric";
+    public static final String MESSAGE_COUNTRY_CONSTRAINTS = "Nationality names should be alphanumeric";
     public static final String COUNTRY_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
     public final String value;

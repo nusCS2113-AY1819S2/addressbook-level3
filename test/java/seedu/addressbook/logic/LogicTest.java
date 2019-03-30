@@ -30,7 +30,7 @@ import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.player.Age;
 import seedu.addressbook.data.player.Appearance;
-import seedu.addressbook.data.player.Country;
+import seedu.addressbook.data.player.Nationality;
 import seedu.addressbook.data.player.GoalsAssisted;
 import seedu.addressbook.data.player.GoalsScored;
 import seedu.addressbook.data.player.HealthStatus;
@@ -40,7 +40,7 @@ import seedu.addressbook.data.player.Player;
 import seedu.addressbook.data.player.PositionPlayed;
 import seedu.addressbook.data.player.ReadOnlyPlayer;
 import seedu.addressbook.data.player.Salary;
-import seedu.addressbook.data.player.Team;
+import seedu.addressbook.data.player.TeamName;
 import seedu.addressbook.data.tag.Tag;
 import seedu.addressbook.storage.StorageFile;
 
@@ -190,10 +190,10 @@ public class LogicTest {
                         + "ga/0 validTeam.butNoPrefix ctry/China "
                         + "jn/9 app/0 hs/Healthy", expectedMessage);
 
-        //no country prefix
+        //no nationality prefix
         assertCommandBehavior(
                 "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 "
-                        + "ga/0 tm/validTeam.butNoCountryPrefix China "
+                        + "ga/0 tm/validTeam.butNoNationalityPrefix China "
                         + "jn/9 app/0 hs/Healthy", expectedMessage);
 
         //no jersey number prefix
@@ -236,7 +236,7 @@ public class LogicTest {
                 expectedMessage);
 
         assertCommandBehavior(
-                "addFast ValidName p/Striker a/30 sal/20000 tm/FC_NUS.butNoCountryPrefix Singapore jn/10",
+                "addFast ValidName p/Striker a/30 sal/20000 tm/FC_NUS.butNoNationalityPrefix Singapore jn/10",
                 expectedMessage);
 
         assertCommandBehavior(
@@ -521,8 +521,8 @@ public class LogicTest {
             Salary sal = new Salary("2000000");
             GoalsScored goalsScored = new GoalsScored("30");
             GoalsAssisted goalsAssisted = new GoalsAssisted("20");
-            Team team = new Team("FC Barcelona");
-            Country country = new Country("Argentina");
+            TeamName teamName = new TeamName("FC Barcelona");
+            Nationality nationality = new Nationality("Argentina");
             JerseyNumber jerseyNumber = new JerseyNumber("10");
             Appearance appearance = new Appearance("54");
             HealthStatus healthStatus = new HealthStatus("Healthy");
@@ -531,7 +531,7 @@ public class LogicTest {
             Tag tag2 = new Tag("tag2");
             Set<Tag> tags = new HashSet<>(Arrays.asList(tag1, tag2));
             return new Player(name, positionPlayed, age, sal, goalsScored, goalsAssisted,
-                    team, country, jerseyNumber, appearance, healthStatus, tags);
+                    teamName, nationality, jerseyNumber, appearance, healthStatus, tags);
         }
 
         /**
@@ -547,8 +547,8 @@ public class LogicTest {
                     new PositionPlayed("Position" + seed),
                     new Age("" + Math.abs(seed)),
                     new Salary("" + Math.abs(seed)),
-                    new Team("Team" + Math.abs(seed)),
-                    new Country("Country" + Math.abs(seed)),
+                    new TeamName("TeamName" + Math.abs(seed)),
+                    new Nationality("Nationality" + Math.abs(seed)),
                     new JerseyNumber("" + (Math.abs(seed) % 35)),
                     new HashSet<>(Arrays.asList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))))
             );
@@ -567,8 +567,8 @@ public class LogicTest {
             cmd.add(" sal/" + p.getSalary().toString());
             cmd.add(" gs/" + p.getGoalsScored().toString());
             cmd.add(" ga/" + p.getGoalsAssisted().toString());
-            cmd.add(" tm/" + p.getTeam().toString());
-            cmd.add(" ctry/" + p.getCountry().toString());
+            cmd.add(" tm/" + p.getTeamName().toString());
+            cmd.add(" ctry/" + p.getNationality().toString());
             cmd.add(" jn/" + p.getJerseyNumber().toString());
             cmd.add(" app/" + p.getAppearance().toString());
             cmd.add(" hs/" + p.getHealthStatus().toString());
@@ -649,8 +649,8 @@ public class LogicTest {
                     new PositionPlayed("Striker"),
                     new Age("25"),
                     new Salary("20000"),
-                    new Team("FC Barcelona"),
-                    new Country("Argentina"),
+                    new TeamName("FC Barcelona"),
+                    new Nationality("Argentina"),
                     new JerseyNumber("10"),
                     Collections.singleton(new Tag("tag"))
             );
