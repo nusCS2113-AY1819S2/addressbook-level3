@@ -32,12 +32,12 @@ public class AdaptedPlayer {
     /**
      * JAXB-friendly place holder for information.
      */
-//    private static class AdaptedPlayerDetail {
-//        @XmlValue
-//        private String value;
-//        @XmlAttribute(required = true)
-//        private boolean isPrivate;
-//    }
+    //    private static class AdaptedPlayerDetail {
+    //        @XmlValue
+    //        private String value;
+    //        @XmlAttribute(required = true)
+    //        private boolean isPrivate;
+    //    }
 
     @XmlElement(required = true)
     private String name;

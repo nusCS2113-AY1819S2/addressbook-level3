@@ -1,8 +1,9 @@
 package seedu.addressbook.data.match;
 
+import java.util.Set;
+
 import seedu.addressbook.data.player.Player;
 
-import java.util.Set;
 
 /**
  * A read-only immutable interface for a match in the addressbook.
