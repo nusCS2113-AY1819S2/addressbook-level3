@@ -255,15 +255,15 @@ public class ParserTest {
     public void addCommand_invalidPlayerDataInArgs() {
         // name, age, salary, gs, ga, jn and appearance are the ones that need to be tested
         final String invalidName = "[]\\[;]";
-        final String validName = Name.EXAMPLE;     //name
+        final String validName = Name.EXAMPLE;
         final String invalidAgeArg = "a/not_numbers";
-        final String validAgeArg = "a/" + Age.EXAMPLE;        //age
+        final String validAgeArg = "a/" + Age.EXAMPLE;
         final String invalidSalaryArg = "sal/not_number";
-        final String validSalaryArg = "sal/" + Salary.EXAMPLE;    //salary
+        final String validSalaryArg = "sal/" + Salary.EXAMPLE;
         final String invalidGsArg = "gs/not_number";
-        final String validGsArg = "gs/" + GoalsScored.EXAMPLE;     //gs
+        final String validGsArg = "gs/" + GoalsScored.EXAMPLE;
         final String invalidGaArg = "ga/not_number";
-        final String validGaArg = "ga/" + GoalsAssisted.EXAMPLE;    //ga
+        final String validGaArg = "ga/" + GoalsAssisted.EXAMPLE;
         final String invalidJnArg = "jn/not_number";
         final String validJnArg = "jn/" + JerseyNumber.EXAMPLE;
         final String invalidAppearanceArg = "app/not_number";
