@@ -24,12 +24,12 @@ import seedu.addressbook.commands.player.ViewAllCommand;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.player.Age;
 import seedu.addressbook.data.player.Appearance;
-import seedu.addressbook.data.player.Nationality;
 import seedu.addressbook.data.player.GoalsAssisted;
 import seedu.addressbook.data.player.GoalsScored;
 import seedu.addressbook.data.player.HealthStatus;
 import seedu.addressbook.data.player.JerseyNumber;
 import seedu.addressbook.data.player.Name;
+import seedu.addressbook.data.player.Nationality;
 import seedu.addressbook.data.player.Player;
 import seedu.addressbook.data.player.PositionPlayed;
 import seedu.addressbook.data.player.ReadOnlyPlayer;
@@ -181,71 +181,71 @@ public class ParserTest {
                 String.format("addPlayer %1$s %2$s a/%3$s sal/%4$s gs/%5$s "
                                 + "ga/%6$s tm/%7$s ctry/%8$s jn/%9$s app/%10$s hs/%11$s",
                         Name.EXAMPLE, PositionPlayed.EXAMPLE, Age.EXAMPLE, Salary.EXAMPLE, GoalsScored.EXAMPLE,
-                        GoalsAssisted.EXAMPLE, TeamName.EXAMPLE, Nationality.EXAMPLE, JerseyNumber.EXAMPLE, Appearance.EXAMPLE,
-                        HealthStatus.EXAMPLE),
+                        GoalsAssisted.EXAMPLE, TeamName.EXAMPLE, Nationality.EXAMPLE,
+                        JerseyNumber.EXAMPLE, Appearance.EXAMPLE, HealthStatus.EXAMPLE),
 
                 // no age prefix
                 String.format("addPlayer %1$s p/%2$s %3$s sal/%4$s gs/%5$s "
                                 + "ga/%6$s tm/%7$s ctry/%8$s jn/%9$s app/%10$s hs/%11$s",
                         Name.EXAMPLE, PositionPlayed.EXAMPLE, Age.EXAMPLE, Salary.EXAMPLE, GoalsScored.EXAMPLE,
-                        GoalsAssisted.EXAMPLE, TeamName.EXAMPLE, Nationality.EXAMPLE, JerseyNumber.EXAMPLE, Appearance.EXAMPLE,
-                        HealthStatus.EXAMPLE),
+                        GoalsAssisted.EXAMPLE, TeamName.EXAMPLE, Nationality.EXAMPLE,
+                        JerseyNumber.EXAMPLE, Appearance.EXAMPLE, HealthStatus.EXAMPLE),
 
                 // no salary prefix
                 String.format("addPlayer %1$s p/%2$s a/%3$s %4$s gs/%5$s "
                                 + "ga/%6$s tm/%7$s ctry/%8$s jn/%9$s app/%10$s hs/%11$s",
                         Name.EXAMPLE, PositionPlayed.EXAMPLE, Age.EXAMPLE, Salary.EXAMPLE, GoalsScored.EXAMPLE,
-                        GoalsAssisted.EXAMPLE, TeamName.EXAMPLE, Nationality.EXAMPLE, JerseyNumber.EXAMPLE, Appearance.EXAMPLE,
-                        HealthStatus.EXAMPLE),
+                        GoalsAssisted.EXAMPLE, TeamName.EXAMPLE, Nationality.EXAMPLE,
+                        JerseyNumber.EXAMPLE, Appearance.EXAMPLE, HealthStatus.EXAMPLE),
 
                 //no GoalsScored prefix
                 String.format("addPlayer %1$s p/%2$s a/%3$s sal/%4$s %5$s "
                                 + "ga/%6$s tm/%7$s ctry/%8$s jn/%9$s app/%10$s hs/%11$s",
                         Name.EXAMPLE, PositionPlayed.EXAMPLE, Age.EXAMPLE, Salary.EXAMPLE, GoalsScored.EXAMPLE,
-                        GoalsAssisted.EXAMPLE, TeamName.EXAMPLE, Nationality.EXAMPLE, JerseyNumber.EXAMPLE, Appearance.EXAMPLE,
-                        HealthStatus.EXAMPLE),
+                        GoalsAssisted.EXAMPLE, TeamName.EXAMPLE, Nationality.EXAMPLE,
+                        JerseyNumber.EXAMPLE, Appearance.EXAMPLE, HealthStatus.EXAMPLE),
 
                 //no GoalsAssisted prefix
                 String.format("addPlayer %1$s p/%2$s a/%3$s sal/%4$s gs/%5$s "
                                 + "%6$s tm/%7$s ctry/%8$s jn/%9$s app/%10$s hs/%11$s",
                         Name.EXAMPLE, PositionPlayed.EXAMPLE, Age.EXAMPLE, Salary.EXAMPLE, GoalsScored.EXAMPLE,
-                        GoalsAssisted.EXAMPLE, TeamName.EXAMPLE, Nationality.EXAMPLE, JerseyNumber.EXAMPLE, Appearance.EXAMPLE,
-                        HealthStatus.EXAMPLE),
+                        GoalsAssisted.EXAMPLE, TeamName.EXAMPLE, Nationality.EXAMPLE,
+                        JerseyNumber.EXAMPLE, Appearance.EXAMPLE, HealthStatus.EXAMPLE),
 
                 //no TeamName prefix
                 String.format("addPlayer %1$s p/%2$s a/%3$s sal/%4$s gs/%5$s "
                                 + "ga/%6$s %7$s ctry/%8$s jn/%9$s app/%10$s hs/%11$s",
                         Name.EXAMPLE, PositionPlayed.EXAMPLE, Age.EXAMPLE, Salary.EXAMPLE, GoalsScored.EXAMPLE,
-                        GoalsAssisted.EXAMPLE, TeamName.EXAMPLE, Nationality.EXAMPLE, JerseyNumber.EXAMPLE, Appearance.EXAMPLE,
-                        HealthStatus.EXAMPLE),
+                        GoalsAssisted.EXAMPLE, TeamName.EXAMPLE, Nationality.EXAMPLE,
+                        JerseyNumber.EXAMPLE, Appearance.EXAMPLE, HealthStatus.EXAMPLE),
 
                 //no Nationality prefix
                 String.format("addPlayer %1$s p/%2$s a/%3$s sal/%4$s gs/%5$s "
                                 + "ga/%6$s tm/%7$s %8$s jn/%9$s app/%10$s hs/%11$s",
                         Name.EXAMPLE, PositionPlayed.EXAMPLE, Age.EXAMPLE, Salary.EXAMPLE, GoalsScored.EXAMPLE,
-                        GoalsAssisted.EXAMPLE, TeamName.EXAMPLE, Nationality.EXAMPLE, JerseyNumber.EXAMPLE, Appearance.EXAMPLE,
-                        HealthStatus.EXAMPLE),
+                        GoalsAssisted.EXAMPLE, TeamName.EXAMPLE, Nationality.EXAMPLE,
+                        JerseyNumber.EXAMPLE, Appearance.EXAMPLE, HealthStatus.EXAMPLE),
 
                 //no JerseyNumber prefix
                 String.format("addPlayer %1$s p/%2$s a/%3$s sal/%4$s gs/%5$s "
                                 + "ga/%6$s tm/%7$s ctry/%8$s %9$s app/%10$s hs/%11$s", Name.EXAMPLE,
                         PositionPlayed.EXAMPLE, Age.EXAMPLE, Salary.EXAMPLE, GoalsScored.EXAMPLE,
-                        GoalsAssisted.EXAMPLE, TeamName.EXAMPLE, Nationality.EXAMPLE, JerseyNumber.EXAMPLE, Appearance.EXAMPLE,
-                        HealthStatus.EXAMPLE),
+                        GoalsAssisted.EXAMPLE, TeamName.EXAMPLE, Nationality.EXAMPLE,
+                        JerseyNumber.EXAMPLE, Appearance.EXAMPLE, HealthStatus.EXAMPLE),
 
                 //no Appearance prefix
                 String.format("addPlayer %1$s p/%2$s a/%3$s sal/%4$s gs/%5$s "
                                 + "ga/%6$s tm/%7$s ctry/%8$s jn/%9$s %10$s hs/%11$s",
                         Name.EXAMPLE, PositionPlayed.EXAMPLE, Age.EXAMPLE, Salary.EXAMPLE, GoalsScored.EXAMPLE,
-                        GoalsAssisted.EXAMPLE, TeamName.EXAMPLE, Nationality.EXAMPLE, JerseyNumber.EXAMPLE, Appearance.EXAMPLE,
-                        HealthStatus.EXAMPLE),
+                        GoalsAssisted.EXAMPLE, TeamName.EXAMPLE, Nationality.EXAMPLE,
+                        JerseyNumber.EXAMPLE, Appearance.EXAMPLE, HealthStatus.EXAMPLE),
 
                 //no HealthStatus prefix
                 String.format("addPlayer %1$s p/%2$s a/%3$s sal/%4$s gs/%5$s "
                                 + "ga/%6$s tm/%7$s ctry/%8$s jn/%9$s app/%10$s %11$s",
                         Name.EXAMPLE, PositionPlayed.EXAMPLE, Age.EXAMPLE, Salary.EXAMPLE, GoalsScored.EXAMPLE,
-                        GoalsAssisted.EXAMPLE, TeamName.EXAMPLE, Nationality.EXAMPLE, JerseyNumber.EXAMPLE, Appearance.EXAMPLE,
-                        HealthStatus.EXAMPLE),
+                        GoalsAssisted.EXAMPLE, TeamName.EXAMPLE, Nationality.EXAMPLE,
+                        JerseyNumber.EXAMPLE, Appearance.EXAMPLE, HealthStatus.EXAMPLE),
         };
         final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         parseAndAssertIncorrectWithMessage(resultMessage, inputs);
