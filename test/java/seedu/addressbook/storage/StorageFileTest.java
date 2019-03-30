@@ -1,19 +1,31 @@
 package seedu.addressbook.storage;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import org.junit.rules.TemporaryFolder;
-import seedu.addressbook.data.AddressBook;
-import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.player.*;
-import seedu.addressbook.storage.StorageFile.StorageOperationException;
+import static org.junit.Assert.assertEquals;
+import static seedu.addressbook.util.TestUtil.assertTextFilesEqual;
 
 import java.nio.file.Paths;
 import java.util.Collections;
 
-import static org.junit.Assert.assertEquals;
-import static seedu.addressbook.util.TestUtil.assertTextFilesEqual;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+import org.junit.rules.TemporaryFolder;
+
+import seedu.addressbook.data.AddressBook;
+import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.data.player.Age;
+import seedu.addressbook.data.player.Appearance;
+import seedu.addressbook.data.player.Country;
+import seedu.addressbook.data.player.GoalsAssisted;
+import seedu.addressbook.data.player.GoalsScored;
+import seedu.addressbook.data.player.HealthStatus;
+import seedu.addressbook.data.player.JerseyNumber;
+import seedu.addressbook.data.player.Name;
+import seedu.addressbook.data.player.Player;
+import seedu.addressbook.data.player.PositionPlayed;
+import seedu.addressbook.data.player.Salary;
+import seedu.addressbook.data.player.Team;
+import seedu.addressbook.storage.StorageFile.StorageOperationException;
 
 public class StorageFileTest {
     private static final String TEST_DATA_FOLDER = "test/data/StorageFileTest";

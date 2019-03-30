@@ -156,52 +156,62 @@ public class LogicTest {
 
         //no position prefix
         assertCommandBehavior(
-                "addPlayer Valid Name Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam.butNoPositionPrefix ctry/China"
+                "addPlayer Valid Name Striker a/30 sal/20000 gs/0 "
+                        + "ga/0 tm/validTeam.butNoPositionPrefix ctry/China "
                         + "jn/9 app/0 hs/Healthy", expectedMessage);
 
         //no age prefix
         assertCommandBehavior(
-                "addPlayer Valid Name p/Striker 30 sal/20000 gs/0 ga/0 tm/validTeam.butNoAgePrefix ctry/China"
+                "addPlayer Valid Name p/Striker 30 sal/20000 gs/0 "
+                        + "ga/0 tm/validTeam.butNoAgePrefix ctry/China "
                         + "jn/9 app/0 hs/Healthy", expectedMessage);
 
         //no salary prefix
         assertCommandBehavior(
-                "addPlayer Valid Name p/Striker a/30 20000 gs/0 ga/0 tm/validTeam.butNoSalaryPrefix ctry/China"
+                "addPlayer Valid Name p/Striker a/30 20000 gs/0 "
+                        + "ga/0 tm/validTeam.butNoSalaryPrefix ctry/China "
                         + "jn/9 app/0 hs/Healthy", expectedMessage);
 
         //no goals scored prefix
         assertCommandBehavior(
-                "addPlayer Valid Name p/Striker a/30 sal/20000 0 ga/0 tm/validTeam.butNoGoalsScoredPrefix ctry/China"
+                "addPlayer Valid Name p/Striker a/30 sal/20000 0 "
+                        + "ga/0 tm/validTeam.butNoGoalsScoredPrefix ctry/China "
                         + "jn/9 app/0 hs/Healthy", expectedMessage);
 
         //no goals assisted prefix
         assertCommandBehavior(
-                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 0 tm/validTeam.butNoGoalsAssistedPrefix ctry/China"
+                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 "
+                        + "0 tm/validTeam.butNoGoalsAssistedPrefix ctry/China "
                         + "jn/9 app/0 hs/Healthy", expectedMessage);
 
         //no team prefix
         assertCommandBehavior(
-                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 validTeam.butNoPrefix ctry/China"
+                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 "
+                        + "ga/0 validTeam.butNoPrefix ctry/China "
                         + "jn/9 app/0 hs/Healthy", expectedMessage);
 
         //no country prefix
         assertCommandBehavior(
-                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam.butNoCountryPrefix China"
+                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 "
+                        + "ga/0 tm/validTeam.butNoCountryPrefix China "
                         + "jn/9 app/0 hs/Healthy", expectedMessage);
 
         //no jersey number prefix
         assertCommandBehavior(
-                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam.butNoJerseyNumberPrefix ctry/China"
+                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 "
+                        + "ga/0 tm/validTeam.butNoJerseyNumberPrefix ctry/China "
                         + "9 app/0 hs/Healthy", expectedMessage);
 
         //no appearance prefix
         assertCommandBehavior(
-                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam.butNoAppearancePrefix ctry/China"
+                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 "
+                        + "ga/0 tm/validTeam.butNoAppearancePrefix ctry/China "
                         + "jn/9 0 hs/Healthy", expectedMessage);
 
         //no health status prefix
         assertCommandBehavior(
-                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam.butNoHealthStatusPrefix ctry/China"
+                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 "
+                        + "ga/0 tm/validTeam.butNoHealthStatusPrefix ctry/China "
                         + "jn/9 app/0 Healthy", expectedMessage);
     }
 
@@ -244,8 +254,6 @@ public class LogicTest {
         assertCommandBehavior(
                 "addPlayer Valid Name p/Striker a/thirty sal/20000 gs/0 ga/0 tm/validTeam ctry/China "
                         + "jn/9 app/0 hs/Healthy", Age.MESSAGE_AGE_CONSTRAINTS);
-//        assertCommandBehavior(
-//                "addPlayer Valid Name p/Striker a/800 sal/20000 gs/0 ga/0 tm/validTeam ctry/China jn/9 app/0 hs/Healthy", Age.MESSAGE_AGE_CONSTRAINTS);
         assertCommandBehavior(
                 "addPlayer Valid Name p/Striker a/30 sal/zero gs/0 ga/0 tm/validTeam ctry/China "
                         + "jn/9 app/0 hs/Healthy", Salary.MESSAGE_SALARY_CONSTRAINTS);
@@ -342,27 +350,6 @@ public class LogicTest {
         assertCommandBehavior(commandWord + " 0", expectedMessage, AddressBook.empty(), false, lastPlayerList);
         assertCommandBehavior(commandWord + " 3", expectedMessage, AddressBook.empty(), false, lastPlayerList);
     }
-
-
-//    @Test
-//    public void execute_tryToViewMissingPerson_errorMessage() throws Exception {
-//        TestDataHelper helper = new TestDataHelper();
-//        Player p1 = helper.generatePlayer(1);
-//        Player p2 = helper.generatePlayer(2);
-//        List<Player> lastPlayerList = helper.generatePlayerList(p1, p2);
-//
-//        AddressBook expectedAb = new AddressBook();
-//        expectedAb.addPlayer(p2);
-//
-//        addressBook.addPlayer(p2);
-//        logic.setLastPlayerShownList(lastPlayerList);
-//
-//        assertCommandBehavior("view 1",
-//                              Messages.MESSAGE_PLAYER_NOT_IN_LEAGUE,
-//                              expectedAb,
-//                              false,
-//                              lastPlayerList);
-//    }
 
     @Test
     public void execute_viewAll_invalidArgsFormat() throws Exception {

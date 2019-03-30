@@ -142,10 +142,7 @@ public class ParserTest {
     @Test
     public void findCommand_invalidArgs() {
         // no keywords
-        final String[] inputs = {
-                "find",
-                "find "
-        };
+        final String[] inputs = {"find", "find "};
         final String resultMessage =
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
         parseAndAssertIncorrectWithMessage(resultMessage, inputs);
@@ -179,10 +176,7 @@ public class ParserTest {
      */
     @Test
     public void addCommand_invalidArgs() {
-        final String[] inputs = {
-                "addPlayer",
-                "addPlayer ",
-                "addPlayer wrong args format",
+        final String[] inputs = {"addPlayer", "addPlayer ", "addPlayer wrong args format",
                 // no position prefix
                 String.format("addPlayer %1$s %2$s a/%3$s sal/%4$s gs/%5$s ga/%6$s tm/%7$s ctry/%8$s jn/%9$s app/%10$s hs/%11$s",
                         Name.EXAMPLE, PositionPlayed.EXAMPLE, Age.EXAMPLE, Salary.EXAMPLE, GoalsScored.EXAMPLE,
@@ -250,19 +244,18 @@ public class ParserTest {
     @Test
     public void addCommand_invalidPlayerDataInArgs() {
         // name, age, salary, gs, ga, jn and appearance are the ones that need to be tested
-
         final String invalidName = "[]\\[;]";
         final String validName = Name.EXAMPLE;     //name
         final String invalidAgeArg = "a/not_numbers";
         final String validAgeArg = "a/" + Age.EXAMPLE;        //age
         final String invalidSalaryArg = "sal/not_number";
         final String validSalaryArg = "sal/" + Salary.EXAMPLE;    //salary
-        final String invalidGSArg = "gs/not_number";
-        final String validGSArg = "gs/" + GoalsScored.EXAMPLE;     //gs
-        final String invalidGAArg = "ga/not_number";
-        final String validGAArg = "ga/" + GoalsAssisted.EXAMPLE;    //ga
-        final String invalidJNArg = "jn/not_number";
-        final String validJNArg = "jn/" + JerseyNumber.EXAMPLE;
+        final String invalidGsArg = "gs/not_number";
+        final String validGsArg = "gs/" + GoalsScored.EXAMPLE;     //gs
+        final String invalidGaArg = "ga/not_number";
+        final String validGaArg = "ga/" + GoalsAssisted.EXAMPLE;    //ga
+        final String invalidJnArg = "jn/not_number";
+        final String validJnArg = "jn/" + JerseyNumber.EXAMPLE;
         final String invalidAppearanceArg = "app/not_number";
         final String validAppearanceArg = "app/" + Appearance.EXAMPLE;
 
@@ -271,35 +264,37 @@ public class ParserTest {
         // PositionPlayer, Team, Country and HealthStatus can be any string, so no invalid address
         // name, age, salary, gs, ga, jn, app
 
-        final String addCommandFormatString = "addPlayer %1$s " + "p/" + PositionPlayed.EXAMPLE + " %2$s %3$s %4$s %5$s " + "tm/" +
-                Team.EXAMPLE + " ctry/" + Country.EXAMPLE + " %6$s %7$s " + "hs/" + HealthStatus.EXAMPLE + " ";
+        final String addCommandFormatString = "addPlayer %1$s " + "p/"
+                + PositionPlayed.EXAMPLE + " %2$s %3$s %4$s %5$s " + "tm/"
+                + Team.EXAMPLE + " ctry/" + Country.EXAMPLE + " %6$s %7$s " + "hs/"
+                + HealthStatus.EXAMPLE + " ";
 
         // test each incorrect player data field argument individually
         final String[] inputs = {
                 // invalid name
-                String.format(addCommandFormatString, invalidName, validAgeArg, validSalaryArg, validGSArg,
-                        validGAArg, validJNArg, validAppearanceArg),
+                String.format(addCommandFormatString, invalidName, validAgeArg, validSalaryArg, validGsArg,
+                        validGaArg, validJnArg, validAppearanceArg),
                 // invalid age
-                String.format(addCommandFormatString, validName, invalidAgeArg, validSalaryArg, validGSArg,
-                        validGAArg, validJNArg, validAppearanceArg),
+                String.format(addCommandFormatString, validName, invalidAgeArg, validSalaryArg, validGsArg,
+                        validGaArg, validJnArg, validAppearanceArg),
                 // invalid salary
-                String.format(addCommandFormatString, validName, validAgeArg, invalidSalaryArg, validGSArg,
-                        validGAArg, validJNArg, validAppearanceArg),
+                String.format(addCommandFormatString, validName, validAgeArg, invalidSalaryArg, validGsArg,
+                        validGaArg, validJnArg, validAppearanceArg),
                 // invalid GS
-                String.format(addCommandFormatString, validName, validAgeArg, validSalaryArg, invalidGSArg,
-                        validGAArg, validJNArg, validAppearanceArg),
+                String.format(addCommandFormatString, validName, validAgeArg, validSalaryArg, invalidGsArg,
+                        validGaArg, validJnArg, validAppearanceArg),
                 // invalid GA
-                String.format(addCommandFormatString, validName, validAgeArg, validSalaryArg, validGSArg,
-                        invalidGAArg, validJNArg, validAppearanceArg),
+                String.format(addCommandFormatString, validName, validAgeArg, validSalaryArg, validGsArg,
+                        invalidGaArg, validJnArg, validAppearanceArg),
                 // invalid JN
-                String.format(addCommandFormatString, validName, validAgeArg, validSalaryArg, validGSArg,
-                        validGAArg, invalidJNArg, validAppearanceArg),
+                String.format(addCommandFormatString, validName, validAgeArg, validSalaryArg, validGsArg,
+                        validGaArg, invalidJnArg, validAppearanceArg),
                 // invalid Appearance
-                String.format(addCommandFormatString, validName, validAgeArg, validSalaryArg, validGSArg,
-                        validGAArg, validJNArg, invalidAppearanceArg),
+                String.format(addCommandFormatString, validName, validAgeArg, validSalaryArg, validGsArg,
+                        validGaArg, validJnArg, invalidAppearanceArg),
                 // invalid tag
-                String.format(addCommandFormatString, validName, validAgeArg, validSalaryArg, validGSArg,
-                        validGAArg, validJNArg, validAppearanceArg) + " " + invalidTagArg
+                String.format(addCommandFormatString, validName, validAgeArg, validSalaryArg, validGsArg,
+                        validGaArg, validJnArg, validAppearanceArg) + " " + invalidTagArg
         };
         for (String input : inputs) {
             parseAndAssertCommandType(input, IncorrectCommand.class);
