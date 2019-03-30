@@ -112,8 +112,8 @@ public class AdaptedPlayer {
             }
         }
         // second call only happens if phone/email/address are all not null
-        return Utils.isAnyNull(name, position, age, salary, goalsScored, goalsAssisted, teamName, nationality, jerseyNumber,
-                appearance, healthStatus);
+        return Utils.isAnyNull(name, position, age, salary, goalsScored,
+                goalsAssisted, teamName, nationality, jerseyNumber, appearance, healthStatus);
     }
 
     /**
