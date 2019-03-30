@@ -1,8 +1,8 @@
 package seedu.addressbook.data.player;
 
-import seedu.addressbook.data.tag.Tag;
-
 import java.util.Set;
+
+import seedu.addressbook.data.tag.Tag;
 
 /**
  * A read-only immutable interface for a Player in a football league.
@@ -73,7 +73,6 @@ public interface ReadOnlyPlayer {
                 .append("\n").append("Jersey Number: ").append(getJerseyNumber())
                 .append("  |  Appearance: ").append(getAppearance()).append("  |  HealthStatus: ")
                 .append(getHealthStatus()).append(" | Tags: ");
-        
         for (Tag tag : getTags()) {
             builder.append(tag);
         }

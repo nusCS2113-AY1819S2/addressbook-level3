@@ -1,9 +1,10 @@
 package seedu.addressbook.data.player;
 
-import seedu.addressbook.data.exception.IllegalValueException;
-
 import java.util.Arrays;
 import java.util.List;
+
+import seedu.addressbook.data.exception.IllegalValueException;
+
 
 /**
  * Represents country of a player made in the address book.

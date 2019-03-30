@@ -1,5 +1,9 @@
 package seedu.addressbook.logic;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.AddressBook;
@@ -9,10 +13,6 @@ import seedu.addressbook.data.player.ReadOnlyPlayer;
 import seedu.addressbook.data.team.ReadOnlyTeam;
 import seedu.addressbook.parser.Parser;
 import seedu.addressbook.storage.StorageFile;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
 
 /**
  * Represents the main Logic of the AddressBook.

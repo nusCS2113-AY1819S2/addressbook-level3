@@ -1,10 +1,11 @@
 package seedu.addressbook.commands.player;
 
+import java.util.List;
+
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.player.ReadOnlyPlayer;
 
-import java.util.List;
 
 /**
  * Lists all players in the league to the user.

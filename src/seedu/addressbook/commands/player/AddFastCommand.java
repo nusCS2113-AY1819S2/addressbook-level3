@@ -1,13 +1,23 @@
 package seedu.addressbook.commands.player;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.player.*;
+import seedu.addressbook.data.player.Country;
+import seedu.addressbook.data.player.Name;
+import seedu.addressbook.data.player.Team;
+import seedu.addressbook.data.player.Age;
+import seedu.addressbook.data.player.JerseyNumber;
+import seedu.addressbook.data.player.Player;
+import seedu.addressbook.data.player.PositionPlayed;
+import seedu.addressbook.data.player.ReadOnlyPlayer;
+import seedu.addressbook.data.player.Salary;
+import seedu.addressbook.data.player.UniquePlayerList;
 import seedu.addressbook.data.tag.Tag;
 
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Adds a player to the address book.

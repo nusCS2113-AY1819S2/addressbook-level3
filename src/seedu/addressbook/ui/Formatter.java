@@ -1,12 +1,12 @@
 package seedu.addressbook.ui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import seedu.addressbook.data.finance.ReadOnlyFinance;
 import seedu.addressbook.data.match.ReadOnlyMatch;
 import seedu.addressbook.data.player.ReadOnlyPlayer;
 import seedu.addressbook.data.team.ReadOnlyTeam;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Used for formatting text for display. e.g. for adding text decorations.

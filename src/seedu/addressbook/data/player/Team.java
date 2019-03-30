@@ -1,9 +1,9 @@
 package seedu.addressbook.data.player;
 
-import seedu.addressbook.data.exception.IllegalValueException;
-
 import java.util.Arrays;
 import java.util.List;
+
+import seedu.addressbook.data.exception.IllegalValueException;
 
 /**
  * Represents a player's team in the address book.

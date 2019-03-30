@@ -1,10 +1,14 @@
 package seedu.addressbook.commands.player;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.player.ReadOnlyPlayer;
-
-import java.util.*;
 
 /**
  * Finds and lists all players in the league whose name contains any of the argument keywords.

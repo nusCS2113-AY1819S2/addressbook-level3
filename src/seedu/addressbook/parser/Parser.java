@@ -1,18 +1,41 @@
 package seedu.addressbook.parser;
 
-import seedu.addressbook.commands.*;
-import seedu.addressbook.commands.finance.FinanceCommand;
-import seedu.addressbook.commands.finance.ListFinanceCommand;
-import seedu.addressbook.commands.match.*;
-import seedu.addressbook.commands.player.*;
-import seedu.addressbook.commands.team.*;
-import seedu.addressbook.data.exception.IllegalValueException;
+import static seedu.addressbook.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static seedu.addressbook.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import seedu.addressbook.commands.Command;
+import seedu.addressbook.commands.ExitCommand;
+import seedu.addressbook.commands.HelpCommand;
+import seedu.addressbook.commands.IncorrectCommand;
+import seedu.addressbook.commands.finance.FinanceCommand;
+import seedu.addressbook.commands.finance.ListFinanceCommand;
+import seedu.addressbook.commands.match.AddMatchCommand;
+import seedu.addressbook.commands.match.ClearMatchCommand;
+import seedu.addressbook.commands.match.DeleteMatchCommand;
+import seedu.addressbook.commands.match.FindMatchCommand;
+import seedu.addressbook.commands.match.ListMatchCommand;
+import seedu.addressbook.commands.player.AddCommand;
+import seedu.addressbook.commands.player.AddFastCommand;
+import seedu.addressbook.commands.player.ClearCommand;
+import seedu.addressbook.commands.player.DeleteCommand;
+import seedu.addressbook.commands.player.FindCommand;
+import seedu.addressbook.commands.player.ListCommand;
+import seedu.addressbook.commands.player.SortCommand;
+import seedu.addressbook.commands.player.ViewAllCommand;
+import seedu.addressbook.commands.team.AddTeam;
+import seedu.addressbook.commands.team.ClearTeam;
+import seedu.addressbook.commands.team.DeleteTeam;
+import seedu.addressbook.commands.team.EditTeam;
+import seedu.addressbook.commands.team.FindTeam;
+import seedu.addressbook.commands.team.ListTeam;
+import seedu.addressbook.data.exception.IllegalValueException;
 
 /**
  * Parses user input.

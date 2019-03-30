@@ -1,11 +1,12 @@
 package seedu.addressbook.data.team;
 
-import seedu.addressbook.data.player.Player;
-import seedu.addressbook.data.tag.Tag;
-
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+
+import seedu.addressbook.data.player.Player;
+import seedu.addressbook.data.tag.Tag;
+
 
 /**
  * Represents a team in the address book.

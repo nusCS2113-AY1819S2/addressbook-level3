@@ -1,9 +1,15 @@
 package seedu.addressbook.data.player;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
+
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.DuplicateDataException;
-
-import java.util.*;
 
 /**
  * A list of players. Does not allow null elements or duplicates.

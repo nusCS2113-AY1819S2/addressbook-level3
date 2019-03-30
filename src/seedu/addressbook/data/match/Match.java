@@ -1,10 +1,11 @@
 package seedu.addressbook.data.match;
 
-import seedu.addressbook.data.player.Player;
-
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+
+import seedu.addressbook.data.player.Player;
+
 
 /**
  * Represents a match in the address book.
