@@ -5,7 +5,7 @@ import java.util.List;
 
 import seedu.addressbook.data.finance.ReadOnlyFinance;
 import seedu.addressbook.data.match.ReadOnlyMatch;
-import seedu.addressbook.data.player.ReadOnlyPerson;
+import seedu.addressbook.data.player.ReadOnlyPlayer;
 import seedu.addressbook.data.team.ReadOnlyTeam;
 
 /**
@@ -37,14 +37,15 @@ public class Formatter {
         return sb.toString();
     }
 
-    /** Formats the given list of persons for displaying to the user. */
-    public String formatPersonResult(List<? extends ReadOnlyPerson> persons) {
+    /** Formats the given list of players for displaying to the user. */
+    public String formatPersonResult(List<? extends ReadOnlyPlayer> players) {
         final List<String> formattedPersons = new ArrayList<>();
-        for (ReadOnlyPerson person : persons) {
-            formattedPersons.add(person.getAsTextHidePrivate());
+        for (ReadOnlyPlayer player : players) {
+            formattedPersons.add(player.getAsTextShowAll());
         }
         return format(asIndexedList(formattedPersons));
     }
+
     /** Formats the given list of teams for displaying to the user. */
     public String formatTeamResult(List<? extends ReadOnlyTeam> teams) {
         final List<String> formattedTeams = new ArrayList<>();

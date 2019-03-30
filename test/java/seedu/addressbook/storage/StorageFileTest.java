@@ -4,9 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static seedu.addressbook.util.TestUtil.assertTextFilesEqual;
 
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -15,12 +13,18 @@ import org.junit.rules.TemporaryFolder;
 
 import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.player.Address;
-import seedu.addressbook.data.player.Email;
+import seedu.addressbook.data.player.Age;
+import seedu.addressbook.data.player.Appearance;
+import seedu.addressbook.data.player.Country;
+import seedu.addressbook.data.player.GoalsAssisted;
+import seedu.addressbook.data.player.GoalsScored;
+import seedu.addressbook.data.player.HealthStatus;
+import seedu.addressbook.data.player.JerseyNumber;
 import seedu.addressbook.data.player.Name;
-import seedu.addressbook.data.player.Person;
-import seedu.addressbook.data.player.Phone;
-import seedu.addressbook.data.tag.Tag;
+import seedu.addressbook.data.player.Player;
+import seedu.addressbook.data.player.PositionPlayed;
+import seedu.addressbook.data.player.Salary;
+import seedu.addressbook.data.player.Team;
 import seedu.addressbook.storage.StorageFile.StorageOperationException;
 
 public class StorageFileTest {
@@ -59,7 +63,7 @@ public class StorageFileTest {
 
         // ensure loaded AddressBook is properly constructed with test data
         // TODO: overwrite equals method in AddressBook class and replace with equals method below
-        assertEquals(actualAb.getAllPersons(), expectedAb.getAllPersons());
+        assertEquals(actualAb.getAllPlayers(), expectedAb.getAllPlayers());
     }
 
     @Test
@@ -97,16 +101,32 @@ public class StorageFileTest {
 
     private AddressBook getTestAddressBook() throws Exception {
         AddressBook ab = new AddressBook();
-        ab.addPerson(new Person(new Name("John Doe"),
-                                new Phone("98765432", false),
-                                new Email("johnd@gmail.com", false),
-                                new Address("John street, block 123, #01-01", false),
+
+        ab.addPlayer(new Player(new Name("Lionel Messi"),
+                                new PositionPlayed("RW"),
+                                new Age("30"),
+                                new Salary("200"),
+                                new GoalsScored("30"),
+                                new GoalsAssisted("20"),
+                                new Team("FC Barcelona"),
+                                new Country("Argentina"),
+                                new JerseyNumber("10"),
+                                new Appearance("54"),
+                                new HealthStatus("Healthy"),
                                 Collections.emptySet()));
-        ab.addPerson(new Person(new Name("Betsy Crowe"),
-                                new Phone("1234567", true),
-                                new Email("betsycrowe@gmail.com", false),
-                                new Address("Newgate Prison", true),
-                                new HashSet<>(Arrays.asList(new Tag("friend"), new Tag("criminal")))));
+
+        ab.addPlayer(new Player(new Name("Luis Suarez"),
+                                new PositionPlayed("Striker"),
+                                new Age("32"),
+                                new Salary("200"),
+                                new GoalsScored("30"),
+                                new GoalsAssisted("20"),
+                                new Team("FC Barcelona"),
+                                new Country("Uruguay"),
+                                new JerseyNumber("9"),
+                                new Appearance("54"),
+                                new HealthStatus("Healthy"),
+                                Collections.emptySet()));
         return ab;
     }
 }

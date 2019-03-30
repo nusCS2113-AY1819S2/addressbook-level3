@@ -22,6 +22,7 @@ public class Name implements Comparable<Name> {
      *
      * @throws IllegalValueException if given name string is invalid.
      */
+
     public Name(String name) throws IllegalValueException {
         name = name.trim();
         if (!isValidName(name)) {

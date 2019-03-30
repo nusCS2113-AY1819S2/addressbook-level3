@@ -10,18 +10,10 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.addressbook.commands.AddCommand;
-import seedu.addressbook.commands.ClearCommand;
 import seedu.addressbook.commands.Command;
-import seedu.addressbook.commands.DeleteCommand;
 import seedu.addressbook.commands.ExitCommand;
-import seedu.addressbook.commands.FindCommand;
 import seedu.addressbook.commands.HelpCommand;
 import seedu.addressbook.commands.IncorrectCommand;
-import seedu.addressbook.commands.ListCommand;
-import seedu.addressbook.commands.SortCommand;
-import seedu.addressbook.commands.ViewAllCommand;
-import seedu.addressbook.commands.ViewCommand;
 import seedu.addressbook.commands.finance.FinanceCommand;
 import seedu.addressbook.commands.finance.ListFinanceCommand;
 import seedu.addressbook.commands.match.AddMatchCommand;
@@ -29,6 +21,14 @@ import seedu.addressbook.commands.match.ClearMatchCommand;
 import seedu.addressbook.commands.match.DeleteMatchCommand;
 import seedu.addressbook.commands.match.FindMatchCommand;
 import seedu.addressbook.commands.match.ListMatchCommand;
+import seedu.addressbook.commands.player.AddCommand;
+import seedu.addressbook.commands.player.AddFastCommand;
+import seedu.addressbook.commands.player.ClearCommand;
+import seedu.addressbook.commands.player.DeleteCommand;
+import seedu.addressbook.commands.player.FindCommand;
+import seedu.addressbook.commands.player.ListCommand;
+import seedu.addressbook.commands.player.SortCommand;
+import seedu.addressbook.commands.player.ViewAllCommand;
 import seedu.addressbook.commands.team.AddTeam;
 import seedu.addressbook.commands.team.ClearTeam;
 import seedu.addressbook.commands.team.DeleteTeam;
@@ -47,12 +47,29 @@ public class Parser {
     public static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
-    public static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+    public static final Pattern PLAYER_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
-                    + " (?<isPhonePrivate>p?)p/(?<phone>[^/]+)"
-                    + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
-                    + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
+                    + "p/(?<position>[^/]+)"
+                    + "a/(?<age>[^/]+)"
+                    + "sal/(?<salary>[^/]+)"
+                    + "gs/(?<goalsScored>[^/]+)"
+                    + "ga/(?<goalsAssisted>[^/]+)"
+                    + "tm/(?<team>[^/]+)"
+                    + "ctry/(?<country>[^/]+)"
+                    + "jn/(?<jerseyNumber>[^/]+)"
+                    + "app/(?<appearance>[^/]+)"
+                    + "hs/(?<healthStatus>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+
+    public static final Pattern PLAYERFAST_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<name>[^/]+)"
+                    + "p/(?<position>[^/]+)"
+                    + "a/(?<age>[^/]+)"
+                    + "sal/(?<salary>[^/]+)"
+                    + "tm/(?<team>[^/]+)"
+                    + "ctry/(?<country>[^/]+)"
+                    + "jn/(?<jerseyNumber>[^/]+)"
+                    + "(?<tagArguments>(?: t/[^/]+)*)");
 
     public static final Pattern MATCH_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<date>[^/]+)"
@@ -107,13 +124,16 @@ public class Parser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
         case AddCommand.COMMAND_WORD:
-            return prepareAddPerson(arguments);
+            return prepareAddPlayer(arguments);
+
+        case AddFastCommand.COMMAND_WORD:
+            return prepareAddFastPlayer(arguments);
 
         case AddTeam.COMMAND_WORD:
             return addTeam(arguments);
 
         case DeleteCommand.COMMAND_WORD:
-            return prepareDeletePerson(arguments);
+            return prepareDeletePlayer(arguments);
 
         case DeleteTeam.COMMAND_WORD:
             return delTeam(arguments);
@@ -163,9 +183,6 @@ public class Parser {
         case SortCommand.COMMAND_WORD:
             return new SortCommand();
 
-        case ViewCommand.COMMAND_WORD:
-            return prepareView(arguments);
-
         case ViewAllCommand.COMMAND_WORD:
             return prepareViewAll(arguments);
 
@@ -173,6 +190,7 @@ public class Parser {
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD: // Fallthrough
+
         default:
             return new HelpCommand();
         }
@@ -205,8 +223,8 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareAddPerson(String args) {
-        final Matcher matcher = PERSON_DATA_ARGS_FORMAT.matcher(args.trim());
+    private Command prepareAddPlayer(String args) {
+        final Matcher matcher = PLAYER_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
@@ -214,16 +232,46 @@ public class Parser {
         try {
             return new AddCommand(
                     matcher.group("name"),
+                    matcher.group("position"),
+                    matcher.group("age"),
+                    matcher.group("salary"),
+                    matcher.group("goalsScored"),
+                    matcher.group("goalsAssisted"),
+                    matcher.group("team"),
+                    matcher.group("country"),
+                    matcher.group("jerseyNumber"),
+                    matcher.group("appearance"),
+                    matcher.group("healthStatus"),
+                    getTagsFromArgs(matcher.group("tagArguments"))
+            );
 
-                    matcher.group("phone"),
-                    isPrivatePrefixPresent(matcher.group("isPhonePrivate")),
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+    }
 
-                    matcher.group("email"),
-                    isPrivatePrefixPresent(matcher.group("isEmailPrivate")),
 
-                    matcher.group("address"),
-                    isPrivatePrefixPresent(matcher.group("isAddressPrivate")),
-
+    /**
+     * Parses arguments in the context of the addFast player command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareAddFastPlayer(String args) {
+        final Matcher matcher = PLAYERFAST_DATA_ARGS_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFastCommand.MESSAGE_USAGE));
+        }
+        try {
+            return new AddFastCommand(
+                    matcher.group("name"),
+                    matcher.group("position"),
+                    matcher.group("age"),
+                    matcher.group("salary"),
+                    matcher.group("team"),
+                    matcher.group("country"),
+                    matcher.group("jerseyNumber"),
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
         } catch (IllegalValueException ive) {
@@ -231,8 +279,9 @@ public class Parser {
         }
     }
 
+
     /**
-     * Parses arguments in the context of the add player command.
+     * Parses arguments in the context of the add match command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -254,18 +303,19 @@ public class Parser {
         }
     }
 
-    /**
-     * Checks whether the private prefix of a contact detail in the add command's arguments string is present.
-     */
-    private static boolean isPrivatePrefixPresent(String matchedPrefix) {
-        return matchedPrefix.equals("p");
-    }
+    //    /**
+    //     * Checks whether the private prefix of a contact detail in the add command's arguments string is present.
+    //     */
+    //    private static boolean isPrivatePrefixPresent(String matchedPrefix) {
+    //        return matchedPrefix.equals("p");
+    //    }
 
     /**
      * Extracts the new player's tags from the add command's tag arguments string.
      * Extracts the new team's tags from the addTeam command's tag arguments string.
      * Merges duplicate tag strings.
      */
+
     private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
         // no tags
         if (tagArguments.isEmpty()) {
@@ -283,7 +333,7 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareDeletePerson(String args) {
+    private Command prepareDeletePlayer(String args) {
         try {
             final int targetIndex = parseArgsAsDisplayedIndex(args);
             return new DeleteCommand(targetIndex);
@@ -373,22 +423,6 @@ public class Parser {
         }
     }
 
-    /**
-     * Parses arguments in the context of the view command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareView(String args) {
-
-        try {
-            final int targetIndex = parseArgsAsDisplayedIndex(args);
-            return new ViewCommand(targetIndex);
-        } catch (ParseException | NumberFormatException e) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    ViewCommand.MESSAGE_USAGE));
-        }
-    }
 
     /**
      * Parses arguments in the context of the view all command.

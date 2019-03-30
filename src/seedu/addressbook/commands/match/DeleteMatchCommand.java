@@ -37,7 +37,7 @@ public class DeleteMatchCommand extends Command {
         } catch (IndexOutOfBoundsException ie) {
             return new CommandResult(Messages.MESSAGE_INVALID_MATCH_DISPLAYED_INDEX);
         } catch (MatchNotFoundException mnfe) {
-            return new CommandResult(Messages.MESSAGE_MATCH_NOT_IN_ADDRESSBOOK);
+            return new CommandResult(Messages.MESSAGE_MATCH_NOT_IN_LEAGUE_TRACKER);
         }
     }
 

@@ -1,7 +1,9 @@
-package seedu.addressbook.commands;
+package seedu.addressbook.commands.player;
 
+import seedu.addressbook.commands.Command;
+import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.common.Messages;
-import seedu.addressbook.data.player.ReadOnlyPerson;
+import seedu.addressbook.data.player.ReadOnlyPlayer;
 
 
 /**
@@ -17,7 +19,7 @@ public class ViewAllCommand extends Command {
             + "Parameters: INDEX\n\t"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_VIEW_PERSON_DETAILS = "Viewing player: %1$s";
+    public static final String MESSAGE_VIEW_PLAYER_DETAILS = "Viewing player: %1$s";
 
 
     public ViewAllCommand(int targetVisibleIndex) {
@@ -28,13 +30,13 @@ public class ViewAllCommand extends Command {
     @Override
     public CommandResult execute() {
         try {
-            final ReadOnlyPerson target = getTargetPerson();
-            if (!addressBook.containsPerson(target)) {
-                return new CommandResult(Messages.MESSAGE_PERSON_NOT_IN_ADDRESSBOOK);
+            final ReadOnlyPlayer target = getTargetPlayer();
+            if (!addressBook.containsPlayer(target)) {
+                return new CommandResult(Messages.MESSAGE_PLAYER_NOT_IN_LEAGUE);
             }
-            return new CommandResult(String.format(MESSAGE_VIEW_PERSON_DETAILS, target.getAsTextShowAll()));
+            return new CommandResult(String.format(MESSAGE_VIEW_PLAYER_DETAILS, target.getAsTextShowAll()));
         } catch (IndexOutOfBoundsException ie) {
-            return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            return new CommandResult(Messages.MESSAGE_INVALID_PLAYER_DISPLAYED_INDEX);
         }
     }
 }

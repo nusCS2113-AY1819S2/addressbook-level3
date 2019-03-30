@@ -16,24 +16,31 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.addressbook.commands.AddCommand;
-import seedu.addressbook.commands.ClearCommand;
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
-import seedu.addressbook.commands.DeleteCommand;
 import seedu.addressbook.commands.ExitCommand;
-import seedu.addressbook.commands.FindCommand;
 import seedu.addressbook.commands.HelpCommand;
-import seedu.addressbook.commands.ViewAllCommand;
-import seedu.addressbook.commands.ViewCommand;
+import seedu.addressbook.commands.player.AddCommand;
+import seedu.addressbook.commands.player.AddFastCommand;
+import seedu.addressbook.commands.player.ClearCommand;
+import seedu.addressbook.commands.player.DeleteCommand;
+import seedu.addressbook.commands.player.FindCommand;
+import seedu.addressbook.commands.player.ViewAllCommand;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.AddressBook;
-import seedu.addressbook.data.player.Address;
-import seedu.addressbook.data.player.Email;
+import seedu.addressbook.data.player.Age;
+import seedu.addressbook.data.player.Appearance;
+import seedu.addressbook.data.player.Country;
+import seedu.addressbook.data.player.GoalsAssisted;
+import seedu.addressbook.data.player.GoalsScored;
+import seedu.addressbook.data.player.HealthStatus;
+import seedu.addressbook.data.player.JerseyNumber;
 import seedu.addressbook.data.player.Name;
-import seedu.addressbook.data.player.Person;
-import seedu.addressbook.data.player.Phone;
-import seedu.addressbook.data.player.ReadOnlyPerson;
+import seedu.addressbook.data.player.Player;
+import seedu.addressbook.data.player.PositionPlayed;
+import seedu.addressbook.data.player.ReadOnlyPlayer;
+import seedu.addressbook.data.player.Salary;
+import seedu.addressbook.data.player.Team;
 import seedu.addressbook.data.tag.Tag;
 import seedu.addressbook.storage.StorageFile;
 
@@ -62,7 +69,7 @@ public class LogicTest {
         //Constructor is called in the setup() method which executes before every test, no need to call it here again.
 
         //Confirm the last shown list is empty
-        assertEquals(Collections.emptyList(), logic.getLastPersonShownList());
+        assertEquals(Collections.emptyList(), logic.getLastPlayerShownList());
     }
 
     @Test
@@ -75,6 +82,7 @@ public class LogicTest {
     /**
      * Executes the command and confirms that the result message is correct.
      * Both the 'address book' and the 'last shown list' are expected to be empty.
+     *
      * @see #assertCommandBehavior(String, String, AddressBook, boolean, List)
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
@@ -84,36 +92,36 @@ public class LogicTest {
     /**
      * Executes the command and confirms that the result message is correct and
      * also confirms that the following three parts of the Logic object's state are as expected:<br>
-     *      - the internal address book data are same as those in the {@code expectedAddressBook} <br>
-     *      - the internal 'last shown list' matches the {@code expectedLastList} <br>
-     *      - the storage file content matches data in {@code expectedAddressBook} <br>
+     * - the internal address book data are same as those in the {@code expectedAddressBook} <br>
+     * - the internal 'last shown list' matches the {@code expectedLastList} <br>
+     * - the storage file content matches data in {@code expectedAddressBook} <br>
      */
     private void assertCommandBehavior(String inputCommand,
-                                      String expectedMessage,
-                                      AddressBook expectedAddressBook,
-                                      boolean isRelevantPersonsExpected,
-                                      List<? extends ReadOnlyPerson> lastPersonList) throws Exception {
+                                       String expectedMessage,
+                                       AddressBook expectedAddressBook,
+                                       boolean isRelevantPlayersExpected,
+                                       List<? extends ReadOnlyPlayer> lastPlayerList) throws Exception {
 
         //Execute the command
         CommandResult r = logic.execute(inputCommand);
 
         //Confirm the result contains the right data
         assertEquals(expectedMessage, r.feedbackToUser);
-        assertEquals(r.getRelevantPersons().isPresent(), isRelevantPersonsExpected);
-        if (isRelevantPersonsExpected) {
-            assertEquals(lastPersonList, r.getRelevantPersons().get());
+        assertEquals(r.getRelevantPlayers().isPresent(), isRelevantPlayersExpected);
+        if (isRelevantPlayersExpected) {
+            assertEquals(lastPlayerList, r.getRelevantPlayers().get());
         }
 
         //Confirm the state of data is as expected
         assertEquals(expectedAddressBook, addressBook);
-        assertEquals(lastPersonList, logic.getLastPersonShownList());
+        assertEquals(lastPlayerList, logic.getLastPlayerShownList());
         assertEquals(addressBook, saveFile.load());
     }
 
 
     @Test
     public void execute_unknownCommandWord() throws Exception {
-        String unknownCommand = "uicfhmowqewca";
+        String unknownCommand = "thisisnonsensebutyeahwhocares";
         assertCommandBehavior(unknownCommand, HelpCommand.MESSAGE_ALL_USAGES);
     }
 
@@ -130,10 +138,10 @@ public class LogicTest {
     @Test
     public void execute_clear() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        addressBook.addPerson(helper.generatePerson(1, true));
-        addressBook.addPerson(helper.generatePerson(2, true));
-        addressBook.addPerson(helper.generatePerson(3, true));
-
+        addressBook.addPlayer(helper.generatePlayer(1));
+        addressBook.addPlayer(helper.generatePlayer(2));
+        addressBook.addPlayer(helper.generatePlayer(3));
+        addressBook.addPlayer(helper.generatePlayer(4));
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, AddressBook.empty(),
                 false, Collections.emptyList());
     }
@@ -141,43 +149,148 @@ public class LogicTest {
     @Test
     public void execute_add_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
+
+        // anyhow argument
         assertCommandBehavior(
-                "add wrong args wrong args", expectedMessage);
+                "addPlayer wrong args wrong args", expectedMessage);
+
+        //no position prefix
         assertCommandBehavior(
-                "add Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid, address", expectedMessage);
+                "addPlayer Valid Name Striker a/30 sal/20000 gs/0 "
+                        + "ga/0 tm/validTeam.butNoPositionPrefix ctry/China "
+                        + "jn/9 app/0 hs/Healthy", expectedMessage);
+
+        //no age prefix
         assertCommandBehavior(
-                "add Valid Name p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
+                "addPlayer Valid Name p/Striker 30 sal/20000 gs/0 "
+                        + "ga/0 tm/validTeam.butNoAgePrefix ctry/China "
+                        + "jn/9 app/0 hs/Healthy", expectedMessage);
+
+        //no salary prefix
         assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
+                "addPlayer Valid Name p/Striker a/30 20000 gs/0 "
+                        + "ga/0 tm/validTeam.butNoSalaryPrefix ctry/China "
+                        + "jn/9 app/0 hs/Healthy", expectedMessage);
+
+        //no goals scored prefix
+        assertCommandBehavior(
+                "addPlayer Valid Name p/Striker a/30 sal/20000 0 "
+                        + "ga/0 tm/validTeam.butNoGoalsScoredPrefix ctry/China "
+                        + "jn/9 app/0 hs/Healthy", expectedMessage);
+
+        //no goals assisted prefix
+        assertCommandBehavior(
+                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 "
+                        + "0 tm/validTeam.butNoGoalsAssistedPrefix ctry/China "
+                        + "jn/9 app/0 hs/Healthy", expectedMessage);
+
+        //no team prefix
+        assertCommandBehavior(
+                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 "
+                        + "ga/0 validTeam.butNoPrefix ctry/China "
+                        + "jn/9 app/0 hs/Healthy", expectedMessage);
+
+        //no country prefix
+        assertCommandBehavior(
+                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 "
+                        + "ga/0 tm/validTeam.butNoCountryPrefix China "
+                        + "jn/9 app/0 hs/Healthy", expectedMessage);
+
+        //no jersey number prefix
+        assertCommandBehavior(
+                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 "
+                        + "ga/0 tm/validTeam.butNoJerseyNumberPrefix ctry/China "
+                        + "9 app/0 hs/Healthy", expectedMessage);
+
+        //no appearance prefix
+        assertCommandBehavior(
+                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 "
+                        + "ga/0 tm/validTeam.butNoAppearancePrefix ctry/China "
+                        + "jn/9 0 hs/Healthy", expectedMessage);
+
+        //no health status prefix
+        assertCommandBehavior(
+                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 "
+                        + "ga/0 tm/validTeam.butNoHealthStatusPrefix ctry/China "
+                        + "jn/9 app/0 Healthy", expectedMessage);
     }
 
     @Test
-    public void execute_add_invalidPersonData() throws Exception {
-        assertCommandBehavior(
-                "add []\\[;] p/12345 e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
-        assertCommandBehavior(
-                "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", Phone.MESSAGE_PHONE_CONSTRAINTS);
-        assertCommandBehavior(
-                "add Valid Name p/12345 e/notAnEmail a/valid, address", Email.MESSAGE_EMAIL_CONSTRAINTS);
-        assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+    public void execute_addFast_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFastCommand.MESSAGE_USAGE);
 
+        assertCommandBehavior(
+                "addFast ValidName Striker a/30 sal/20000 tm/FC_NUS.butNoPositionPrefix ctry/Singapore jn/10",
+                expectedMessage);
+
+        assertCommandBehavior(
+                "addFast ValidName p/Striker 30 sal/20000 tm/FC_NUS.butNoAgePrefix ctry/Singapore jn/10",
+                expectedMessage);
+
+        assertCommandBehavior(
+                "addFast ValidName p/Striker a/30 20000 tm/FC_NUS.butNoSalaryPrefix ctry/Singapore jn/10",
+                expectedMessage);
+
+        assertCommandBehavior(
+                "addFast ValidName p/Striker a/30 sal/20000 FC_NUS.butNoPrefix ctry/Singapore jn/10",
+                expectedMessage);
+
+        assertCommandBehavior(
+                "addFast ValidName p/Striker a/30 sal/20000 tm/FC_NUS.butNoCountryPrefix Singapore jn/10",
+                expectedMessage);
+
+        assertCommandBehavior(
+                "addFast ValidName p/Striker a/30 sal/20000 tm/FC_NUS.butNoJerseyNumberPrefix ctry/Singapore 10",
+                expectedMessage);
+
+    }
+
+
+    @Test
+    public void execute_add_invalidPlayerData() throws Exception {
+        assertCommandBehavior(
+                "addPlayer []\\[;] p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam ctry/China"
+                        + "jn/9 app/0 hs/Healthy", Name.MESSAGE_NAME_CONSTRAINTS);
+        assertCommandBehavior(
+                "addPlayer Valid Name p/Striker a/thirty sal/20000 gs/0 ga/0 tm/validTeam ctry/China "
+                        + "jn/9 app/0 hs/Healthy", Age.MESSAGE_AGE_CONSTRAINTS);
+        assertCommandBehavior(
+                "addPlayer Valid Name p/Striker a/30 sal/zero gs/0 ga/0 tm/validTeam ctry/China "
+                        + "jn/9 app/0 hs/Healthy", Salary.MESSAGE_SALARY_CONSTRAINTS);
+        assertCommandBehavior(
+                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/zero ga/0 tm/validTeam ctry/China "
+                        + "jn/9 app/0 hs/Healthy", GoalsScored.MESSAGE_GS_CONSTRAINTS);
+        assertCommandBehavior(
+                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/zero tm/validTeam ctry/China "
+                        + "jn/9 app/0 hs/Healthy", GoalsAssisted.MESSAGE_GA_CONSTRAINTS);
+        assertCommandBehavior(
+                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam ctry/China "
+                        + "jn/50 app/0 hs/Healthy", JerseyNumber.MESSAGE_JN_CONSTRAINTS);
+        assertCommandBehavior(
+                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam ctry/China "
+                        + "jn/nine app/0 hs/Healthy", JerseyNumber.MESSAGE_JN_CONSTRAINTS);
+        assertCommandBehavior(
+                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam ctry/China "
+                        + "jn/9 app/zero hs/Healthy", Appearance.MESSAGE_APPEARANCE_CONSTRAINTS);
+        assertCommandBehavior(
+                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam ctry/China "
+                        + "jn/9 app/0 hs/Healthy t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
     }
 
     @Test
     public void execute_add_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Person toBeAdded = helper.adam();
+        Player toBeAdded = helper.messi();
         AddressBook expectedAb = new AddressBook();
-        expectedAb.addPerson(toBeAdded);
+        expectedAb.addPlayer(toBeAdded);
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                              String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
-                              expectedAb,
-                              false,
-                              Collections.emptyList());
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAb,
+                false,
+                Collections.emptyList());
 
     }
 
@@ -185,17 +298,17 @@ public class LogicTest {
     public void execute_addDuplicate_notAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Person toBeAdded = helper.adam();
+        Player toBeAdded = helper.messi();
         AddressBook expectedAb = new AddressBook();
-        expectedAb.addPerson(toBeAdded);
+        expectedAb.addPlayer(toBeAdded);
 
         // setup starting state
-        addressBook.addPerson(toBeAdded); // player already in internal address book
+        addressBook.addPlayer(toBeAdded); // player already in internal address book
 
         // execute command and verify result
         assertCommandBehavior(
                 helper.generateAddCommand(toBeAdded),
-                AddCommand.MESSAGE_DUPLICATE_PERSON,
+                AddCommand.MESSAGE_DUPLICATE_PLAYER,
                 expectedAb,
                 false,
                 Collections.emptyList());
@@ -206,92 +319,36 @@ public class LogicTest {
     public void execute_list_showsAllPersons() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
-        AddressBook expectedAb = helper.generateAddressBook(false, true);
-        List<? extends ReadOnlyPerson> expectedList = expectedAb.getAllPersons().immutableListView();
+        AddressBook expectedAb = helper.generateAddressBook(2);
+        List<? extends ReadOnlyPlayer> expectedList = expectedAb.getAllPlayers().immutableListView();
 
         // prepare address book state
-        helper.addToAddressBook(addressBook, false, true);
+        helper.addToAddressBook(addressBook, 2);
 
         assertCommandBehavior("list",
-                              Command.getMessageForPersonListShownSummary(expectedList),
-                              expectedAb,
-                              true,
-                              expectedList);
+                Command.getMessageForPlayerListShownSummary(expectedList),
+                expectedAb,
+                true,
+                expectedList);
     }
 
-    @Test
-    public void execute_view_invalidArgsFormat() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE);
-        assertCommandBehavior("view ", expectedMessage);
-        assertCommandBehavior("view arg not number", expectedMessage);
-    }
-
-    @Test
-    public void execute_view_invalidIndex() throws Exception {
-        assertInvalidIndexBehaviorForCommand("view");
-    }
 
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
      * targeting a single player in the last shown list, using visible index.
+     *
      * @param commandWord to test assuming it targets a single player in the last shown list based on visible index.
      */
     private void assertInvalidIndexBehaviorForCommand(String commandWord) throws Exception {
-        String expectedMessage = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+        String expectedMessage = Messages.MESSAGE_INVALID_PLAYER_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
-        List<Person> lastPersonList = helper.generatePersonList(false, true);
+        List<Player> lastPlayerList = helper.generatePlayerList(2);
 
-        logic.setLastPersonShownList(lastPersonList);
+        logic.setLastPlayerShownList(lastPlayerList);
 
-        assertCommandBehavior(commandWord + " -1", expectedMessage, AddressBook.empty(), false, lastPersonList);
-        assertCommandBehavior(commandWord + " 0", expectedMessage, AddressBook.empty(), false, lastPersonList);
-        assertCommandBehavior(commandWord + " 3", expectedMessage, AddressBook.empty(), false, lastPersonList);
-
-    }
-
-    @Test
-    public void execute_view_onlyShowsNonPrivate() throws Exception {
-
-        TestDataHelper helper = new TestDataHelper();
-        Person p1 = helper.generatePerson(1, true);
-        Person p2 = helper.generatePerson(2, false);
-        List<Person> lastPersonList = helper.generatePersonList(p1, p2);
-        AddressBook expectedAb = helper.generateAddressBook(lastPersonList);
-        helper.addToAddressBook(addressBook, lastPersonList);
-
-        logic.setLastPersonShownList(lastPersonList);
-
-        assertCommandBehavior("view 1",
-                              String.format(ViewCommand.MESSAGE_VIEW_PERSON_DETAILS, p1.getAsTextHidePrivate()),
-                              expectedAb,
-                              false,
-                              lastPersonList);
-
-        assertCommandBehavior("view 2",
-                              String.format(ViewCommand.MESSAGE_VIEW_PERSON_DETAILS, p2.getAsTextHidePrivate()),
-                              expectedAb,
-                              false,
-                              lastPersonList);
-    }
-
-    @Test
-    public void execute_tryToViewMissingPerson_errorMessage() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Person p1 = helper.generatePerson(1, false);
-        Person p2 = helper.generatePerson(2, false);
-        List<Person> lastPersonList = helper.generatePersonList(p1, p2);
-
-        AddressBook expectedAb = new AddressBook();
-        expectedAb.addPerson(p2);
-
-        addressBook.addPerson(p2);
-        logic.setLastPersonShownList(lastPersonList);
-
-        assertCommandBehavior("view 1",
-                              Messages.MESSAGE_PERSON_NOT_IN_ADDRESSBOOK,
-                              expectedAb,
-                              false,
-                              lastPersonList);
+        assertCommandBehavior(commandWord + " -1", expectedMessage, AddressBook.empty(), false, lastPlayerList);
+        assertCommandBehavior(commandWord + " 0", expectedMessage, AddressBook.empty(), false, lastPlayerList);
+        assertCommandBehavior(commandWord + " 3", expectedMessage, AddressBook.empty(), false, lastPlayerList);
     }
 
     @Test
@@ -307,47 +364,23 @@ public class LogicTest {
     }
 
     @Test
-    public void execute_viewAll_alsoShowsPrivate() throws Exception {
+    public void execute_tryToViewAllPlayerMissingInAddressBook_errorMessage() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Person p1 = helper.generatePerson(1, true);
-        Person p2 = helper.generatePerson(2, false);
-        List<Person> lastPersonList = helper.generatePersonList(p1, p2);
-        AddressBook expectedAb = helper.generateAddressBook(lastPersonList);
-        helper.addToAddressBook(addressBook, lastPersonList);
-
-        logic.setLastPersonShownList(lastPersonList);
-
-        assertCommandBehavior("viewall 1",
-                            String.format(ViewCommand.MESSAGE_VIEW_PERSON_DETAILS, p1.getAsTextShowAll()),
-                            expectedAb,
-                            false,
-                            lastPersonList);
-
-        assertCommandBehavior("viewall 2",
-                            String.format(ViewCommand.MESSAGE_VIEW_PERSON_DETAILS, p2.getAsTextShowAll()),
-                            expectedAb,
-                            false,
-                            lastPersonList);
-    }
-
-    @Test
-    public void execute_tryToViewAllPersonMissingInAddressBook_errorMessage() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Person p1 = helper.generatePerson(1, false);
-        Person p2 = helper.generatePerson(2, false);
-        List<Person> lastPersonList = helper.generatePersonList(p1, p2);
+        Player p1 = helper.generatePlayer(1);
+        Player p2 = helper.generatePlayer(2);
+        List<Player> lastPlayerList = helper.generatePlayerList(p1, p2);
 
         AddressBook expectedAb = new AddressBook();
-        expectedAb.addPerson(p1);
+        expectedAb.addPlayer(p1);
 
-        addressBook.addPerson(p1);
-        logic.setLastPersonShownList(lastPersonList);
+        addressBook.addPlayer(p1);
+        logic.setLastPlayerShownList(lastPlayerList);
 
         assertCommandBehavior("viewall 2",
-                                Messages.MESSAGE_PERSON_NOT_IN_ADDRESSBOOK,
-                                expectedAb,
-                                false,
-                                lastPersonList);
+                Messages.MESSAGE_PLAYER_NOT_IN_LEAGUE,
+                expectedAb,
+                false,
+                lastPlayerList);
     }
 
     @Test
@@ -365,48 +398,47 @@ public class LogicTest {
     @Test
     public void execute_delete_removesCorrectPerson() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Person p1 = helper.generatePerson(1, false);
-        Person p2 = helper.generatePerson(2, true);
-        Person p3 = helper.generatePerson(3, true);
+        Player p1 = helper.generatePlayer(1);
+        Player p2 = helper.generatePlayer(2);
+        Player p3 = helper.generatePlayer(3);
 
-        List<Person> threePersons = helper.generatePersonList(p1, p2, p3);
+        List<Player> threePlayers = helper.generatePlayerList(p1, p2, p3);
 
-        AddressBook expectedAb = helper.generateAddressBook(threePersons);
-        expectedAb.removePerson(p2);
+        AddressBook expectedAb = helper.generateAddressBook(threePlayers);
+        expectedAb.removePlayer(p2);
 
-
-        helper.addToAddressBook(addressBook, threePersons);
-        logic.setLastPersonShownList(threePersons);
+        helper.addToAddressBook(addressBook, threePlayers);
+        logic.setLastPlayerShownList(threePlayers);
 
         assertCommandBehavior("delete 2",
-                                String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, p2),
-                                expectedAb,
-                                false,
-                                threePersons);
+                String.format(DeleteCommand.MESSAGE_DELETE_PLAYER_SUCCESS, p2),
+                expectedAb,
+                false,
+                threePlayers);
     }
 
     @Test
     public void execute_delete_missingInAddressBook() throws Exception {
 
         TestDataHelper helper = new TestDataHelper();
-        Person p1 = helper.generatePerson(1, false);
-        Person p2 = helper.generatePerson(2, true);
-        Person p3 = helper.generatePerson(3, true);
+        Player p1 = helper.generatePlayer(1);
+        Player p2 = helper.generatePlayer(2);
+        Player p3 = helper.generatePlayer(3);
 
-        List<Person> threePersons = helper.generatePersonList(p1, p2, p3);
+        List<Player> threePlayers = helper.generatePlayerList(p1, p2, p3);
 
-        AddressBook expectedAb = helper.generateAddressBook(threePersons);
-        expectedAb.removePerson(p2);
+        AddressBook expectedAb = helper.generateAddressBook(threePlayers);
+        expectedAb.removePlayer(p2);
 
-        helper.addToAddressBook(addressBook, threePersons);
-        addressBook.removePerson(p2);
-        logic.setLastPersonShownList(threePersons);
+        helper.addToAddressBook(addressBook, threePlayers);
+        addressBook.removePlayer(p2);
+        logic.setLastPlayerShownList(threePlayers);
 
         assertCommandBehavior("delete 2",
-                                Messages.MESSAGE_PERSON_NOT_IN_ADDRESSBOOK,
-                                expectedAb,
-                                false,
-                                threePersons);
+                Messages.MESSAGE_PLAYER_NOT_IN_LEAGUE,
+                expectedAb,
+                false,
+                threePlayers);
     }
 
     @Test
@@ -418,61 +450,61 @@ public class LogicTest {
     @Test
     public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Person pTarget1 = helper.generatePersonWithName("bla bla KEY bla");
-        Person pTarget2 = helper.generatePersonWithName("bla KEY bla bceofeia");
-        Person p1 = helper.generatePersonWithName("KE Y");
-        Person p2 = helper.generatePersonWithName("KEYKEYKEY sduauo");
+        Player pTarget1 = helper.generatePlayerWithName("bla bla KEY bla");
+        Player pTarget2 = helper.generatePlayerWithName("bla KEY bla bceofeia");
+        Player p1 = helper.generatePlayerWithName("KE Y");
+        Player p2 = helper.generatePlayerWithName("KEYKEYKEY sduauo");
 
-        List<Person> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
-        AddressBook expectedAb = helper.generateAddressBook(fourPersons);
-        List<Person> expectedList = helper.generatePersonList(pTarget1, pTarget2);
-        helper.addToAddressBook(addressBook, fourPersons);
+        List<Player> fourPlayers = helper.generatePlayerList(p1, pTarget1, p2, pTarget2);
+        AddressBook expectedAb = helper.generateAddressBook(fourPlayers);
+        List<Player> expectedList = helper.generatePlayerList(pTarget1, pTarget2);
+        helper.addToAddressBook(addressBook, fourPlayers);
 
         assertCommandBehavior("find KEY",
-                                Command.getMessageForPersonListShownSummary(expectedList),
-                                expectedAb,
-                                true,
-                                expectedList);
+                Command.getMessageForPlayerListShownSummary(expectedList),
+                expectedAb,
+                true,
+                expectedList);
     }
 
     @Test
     public void execute_find_isCaseSensitive() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Person pTarget1 = helper.generatePersonWithName("bla bla KEY bla");
-        Person pTarget2 = helper.generatePersonWithName("bla KEY bla bceofeia");
-        Person p1 = helper.generatePersonWithName("key key");
-        Person p2 = helper.generatePersonWithName("KEy sduauo");
+        Player pTarget1 = helper.generatePlayerWithName("bla bla KEY bla");
+        Player pTarget2 = helper.generatePlayerWithName("bla KEY bla bceofeia");
+        Player p1 = helper.generatePlayerWithName("key key");
+        Player p2 = helper.generatePlayerWithName("KEy sduauo");
 
-        List<Person> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
-        AddressBook expectedAb = helper.generateAddressBook(fourPersons);
-        List<Person> expectedList = helper.generatePersonList(pTarget1, pTarget2);
-        helper.addToAddressBook(addressBook, fourPersons);
+        List<Player> fourPlayers = helper.generatePlayerList(p1, pTarget1, p2, pTarget2);
+        AddressBook expectedAb = helper.generateAddressBook(fourPlayers);
+        List<Player> expectedList = helper.generatePlayerList(pTarget1, pTarget2);
+        helper.addToAddressBook(addressBook, fourPlayers);
 
         assertCommandBehavior("find KEY",
-                                Command.getMessageForPersonListShownSummary(expectedList),
-                                expectedAb,
-                                true,
-                                expectedList);
+                Command.getMessageForPlayerListShownSummary(expectedList),
+                expectedAb,
+                true,
+                expectedList);
     }
 
     @Test
     public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Person pTarget1 = helper.generatePersonWithName("bla bla KEY bla");
-        Person pTarget2 = helper.generatePersonWithName("bla rAnDoM bla bceofeia");
-        Person p1 = helper.generatePersonWithName("key key");
-        Person p2 = helper.generatePersonWithName("KEy sduauo");
+        Player pTarget1 = helper.generatePlayerWithName("bla bla KEY bla");
+        Player pTarget2 = helper.generatePlayerWithName("bla rAnDoM bla bceofeia");
+        Player p1 = helper.generatePlayerWithName("key key");
+        Player p2 = helper.generatePlayerWithName("KEy sduauo");
 
-        List<Person> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
-        AddressBook expectedAb = helper.generateAddressBook(fourPersons);
-        List<Person> expectedList = helper.generatePersonList(pTarget1, pTarget2);
-        helper.addToAddressBook(addressBook, fourPersons);
+        List<Player> fourPlayers = helper.generatePlayerList(p1, pTarget1, p2, pTarget2);
+        AddressBook expectedAb = helper.generateAddressBook(fourPlayers);
+        List<Player> expectedList = helper.generatePlayerList(pTarget1, pTarget2);
+        helper.addToAddressBook(addressBook, fourPlayers);
 
         assertCommandBehavior("find KEY rAnDoM",
-                                Command.getMessageForPersonListShownSummary(expectedList),
-                                expectedAb,
-                                true,
-                                expectedList);
+                Command.getMessageForPlayerListShownSummary(expectedList),
+                expectedAb,
+                true,
+                expectedList);
     }
 
     /**
@@ -482,15 +514,24 @@ public class LogicTest {
         /**
          * generate a person with the stated parameters
          */
-        Person adam() throws Exception {
-            Name name = new Name("Adam Brown");
-            Phone privatePhone = new Phone("111111", true);
-            Email email = new Email("adam@gmail.com", false);
-            Address privateAddress = new Address("111, alpha street", true);
+        Player messi() throws Exception {
+            Name name = new Name("Lionel Messi");
+            PositionPlayed positionPlayed = new PositionPlayed("RW");
+            Age age = new Age("30");
+            Salary sal = new Salary("2000000");
+            GoalsScored goalsScored = new GoalsScored("30");
+            GoalsAssisted goalsAssisted = new GoalsAssisted("20");
+            Team team = new Team("FC Barcelona");
+            Country country = new Country("Argentina");
+            JerseyNumber jerseyNumber = new JerseyNumber("10");
+            Appearance appearance = new Appearance("54");
+            HealthStatus healthStatus = new HealthStatus("Healthy");
+
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             Set<Tag> tags = new HashSet<>(Arrays.asList(tag1, tag2));
-            return new Person(name, privatePhone, email, privateAddress, tags);
+            return new Player(name, positionPlayed, age, sal, goalsScored, goalsAssisted,
+                    team, country, jerseyNumber, appearance, healthStatus, tags);
         }
 
         /**
@@ -499,110 +540,118 @@ public class LogicTest {
          * Each unique seed will generate a unique Person object.
          *
          * @param seed used to generate the player data field values
-         * @param isAllFieldsPrivate determines if private-able fields (phone, email, address) will be private
          */
-        Person generatePerson(int seed, boolean isAllFieldsPrivate) throws Exception {
-            return new Person(
-                    new Name("Person " + seed),
-                    new Phone("" + Math.abs(seed), isAllFieldsPrivate),
-                    new Email(seed + "@email", isAllFieldsPrivate),
-                    new Address("House of " + seed, isAllFieldsPrivate),
+        Player generatePlayer(int seed) throws Exception {
+            return new Player(
+                    new Name("Player " + seed),
+                    new PositionPlayed("Position" + seed),
+                    new Age("" + Math.abs(seed)),
+                    new Salary("" + Math.abs(seed)),
+                    new Team("Team" + Math.abs(seed)),
+                    new Country("Country" + Math.abs(seed)),
+                    new JerseyNumber("" + (Math.abs(seed) % 35)),
                     new HashSet<>(Arrays.asList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))))
             );
         }
 
-        /** Generates the correct add command based on the player given */
-        String generateAddCommand(Person p) {
+        /**
+         * Generates the correct add command based on the player given
+         */
+        String generateAddCommand(Player p) {
             StringJoiner cmd = new StringJoiner(" ");
 
-            cmd.add("add");
-
+            cmd.add("addPlayer");
             cmd.add(p.getName().toString());
-            cmd.add((p.getPhone().isPrivate() ? "pp/" : "p/") + p.getPhone());
-            cmd.add((p.getEmail().isPrivate() ? "pe/" : "e/") + p.getEmail());
-            cmd.add((p.getAddress().isPrivate() ? "pa/" : "a/") + p.getAddress());
-
+            cmd.add(" p/" + p.getPositionPlayed().toString());
+            cmd.add(" a/" + p.getAge().toString());
+            cmd.add(" sal/" + p.getSalary().toString());
+            cmd.add(" gs/" + p.getGoalsScored().toString());
+            cmd.add(" ga/" + p.getGoalsAssisted().toString());
+            cmd.add(" tm/" + p.getTeam().toString());
+            cmd.add(" ctry/" + p.getCountry().toString());
+            cmd.add(" jn/" + p.getJerseyNumber().toString());
+            cmd.add(" app/" + p.getAppearance().toString());
+            cmd.add(" hs/" + p.getHealthStatus().toString());
             Set<Tag> tags = p.getTags();
-            for (Tag t: tags) {
+            for (Tag t : tags) {
                 cmd.add("t/" + t.tagName);
             }
-
             return cmd.toString();
         }
 
         /**
          * Generates an AddressBook with auto-generated persons.
-         * @param isPrivateStatuses flags to indicate if all contact details of respective persons should be set to
-         *                          private.
+         *
+         * @param num to indicate the number of player profiles that should be included in the League Tracker.
          */
-        AddressBook generateAddressBook(Boolean... isPrivateStatuses) throws Exception {
+        AddressBook generateAddressBook(int num) throws Exception {
             AddressBook addressBook = new AddressBook();
-            addToAddressBook(addressBook, isPrivateStatuses);
+            addToAddressBook(addressBook, num);
             return addressBook;
         }
 
         /**
          * Generates an AddressBook based on the list of Persons given.
          */
-        AddressBook generateAddressBook(List<Person> persons) throws Exception {
+        AddressBook generateAddressBook(List<Player> players) throws Exception {
             AddressBook addressBook = new AddressBook();
-            addToAddressBook(addressBook, persons);
+            addToAddressBook(addressBook, players);
             return addressBook;
         }
 
         /**
          * Adds auto-generated Person objects to the given AddressBook
+         *
          * @param addressBook The AddressBook to which the Persons will be added
-         * @param isPrivateStatuses flags to indicate if all contact details of generated persons should be set to
-         *                          private.
+         * @param num         to indicate the number of players profiles that should exist in the League Tracker.
          */
-        void addToAddressBook(AddressBook addressBook, Boolean... isPrivateStatuses) throws Exception {
-            addToAddressBook(addressBook, generatePersonList(isPrivateStatuses));
+        void addToAddressBook(AddressBook addressBook, int num) throws Exception {
+            addToAddressBook(addressBook, generatePlayerList(num));
         }
 
         /**
          * Adds the given list of Persons to the given AddressBook
          */
-        void addToAddressBook(AddressBook addressBook, List<Person> personsToAdd) throws Exception {
-            for (Person p: personsToAdd) {
-                addressBook.addPerson(p);
+        void addToAddressBook(AddressBook addressBook, List<Player> playersToAdd) throws Exception {
+            for (Player p : playersToAdd) {
+                addressBook.addPlayer(p);
             }
         }
 
         /**
          * Creates a list of Persons based on the give Person objects.
          */
-        List<Person> generatePersonList(Person... persons) throws Exception {
-            List<Person> personList = new ArrayList<>();
-            for (Person p: persons) {
+        List<Player> generatePlayerList(Player... players) throws Exception {
+            List<Player> personList = new ArrayList<>();
+            for (Player p : players) {
                 personList.add(p);
             }
             return personList;
         }
 
         /**
-         * Generates a list of Persons based on the flags.
-         * @param isPrivateStatuses flags to indicate if all contact details of respective persons should be set to
-         *                          private.
+         * Generates a list of Persons based on the number given.
          */
-        List<Person> generatePersonList(Boolean... isPrivateStatuses) throws Exception {
-            List<Person> persons = new ArrayList<>();
-            int i = 1;
-            for (Boolean p: isPrivateStatuses) {
-                persons.add(generatePerson(i++, p));
+        List<Player> generatePlayerList(int num) throws Exception {
+            List<Player> players = new ArrayList<>();
+            for (int j = 1; j <= num; j++) {
+                players.add(generatePlayer(j));
             }
-            return persons;
+            return players;
         }
 
         /**
          * Generates a Person object with given name. Other fields will have some dummy values.
          */
-        Person generatePersonWithName(String name) throws Exception {
-            return new Person(
+        Player generatePlayerWithName(String name) throws Exception {
+            return new Player(
                     new Name(name),
-                    new Phone("1", false),
-                    new Email("1@email", false),
-                    new Address("House of 1", false),
+                    new PositionPlayed("Striker"),
+                    new Age("25"),
+                    new Salary("20000"),
+                    new Team("FC Barcelona"),
+                    new Country("Argentina"),
+                    new JerseyNumber("10"),
                     Collections.singleton(new Tag("tag"))
             );
         }

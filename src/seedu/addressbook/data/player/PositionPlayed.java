@@ -11,19 +11,18 @@ public class PositionPlayed {
     public static final String EXAMPLE = "Midfielder";
     public static final String MESSAGE_POSITIONPLAYED_CONSTRAINTS = "Position of a player"
             + "must be spaces or alphanumeric characters";
-    public static final String POSITIONPLAYED_VALIDATION_REGEX = "[\\p{Alnum} ]+";
+    public static final String POSITIONPLAYED_VALIDATION_REGEX = ".+";
 
     public final String fullPosition;
-    private boolean isPrivate;
+
     /**
      * Validates given position.
      *
      * @throws IllegalValueException if given position string is invalid.
      */
 
-    public PositionPlayed (String position, boolean isPrivate) throws IllegalValueException {
-        this.isPrivate = isPrivate;
-
+    public PositionPlayed (String position) throws IllegalValueException {
+        position = position.trim();
         if (!isValidPosition(position)) {
             throw new IllegalValueException(MESSAGE_POSITIONPLAYED_CONSTRAINTS);
         }
@@ -36,8 +35,21 @@ public class PositionPlayed {
     public static boolean isValidPosition(String test) {
         return test.matches(POSITIONPLAYED_VALIDATION_REGEX);
     }
-    public boolean isPrivate() {
-        return isPrivate;
+    @Override
+    public String toString() {
+        return fullPosition;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof PositionPlayed // instanceof handles nulls
+                && this.fullPosition.equals(((PositionPlayed) other).fullPosition)); // state check
+    }
+
+    @Override
+    public int hashCode() {
+        return fullPosition.hashCode();
     }
 
 }

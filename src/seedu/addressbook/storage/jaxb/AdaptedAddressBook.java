@@ -12,10 +12,11 @@ import seedu.addressbook.data.finance.Finance;
 import seedu.addressbook.data.finance.UniqueFinanceList;
 import seedu.addressbook.data.match.Match;
 import seedu.addressbook.data.match.UniqueMatchList;
-import seedu.addressbook.data.player.Person;
-import seedu.addressbook.data.player.UniquePersonList;
+import seedu.addressbook.data.player.Player;
+import seedu.addressbook.data.player.UniquePlayerList;
 import seedu.addressbook.data.team.Team;
 import seedu.addressbook.data.team.UniqueTeamList;
+
 
 /**
  * JAXB-friendly adapted address book data holder class.
@@ -24,7 +25,7 @@ import seedu.addressbook.data.team.UniqueTeamList;
 public class AdaptedAddressBook {
 
     @XmlElement
-    private List<AdaptedPerson> persons = new ArrayList<>();
+    private List<AdaptedPlayer> players = new ArrayList<>();
     @XmlElement
     private List<AdaptedTeam> teams = new ArrayList<>();
 
@@ -44,10 +45,10 @@ public class AdaptedAddressBook {
      * @param source future changes to this will not affect the created AdaptedAddressBook
      */
     public AdaptedAddressBook(AddressBook source) {
-        persons = new ArrayList<>();
+        players = new ArrayList<>();
         matches = new ArrayList<>();
 
-        source.getAllPersons().forEach(person -> persons.add(new AdaptedPerson(person)));
+        source.getAllPlayers().forEach(player -> players.add(new AdaptedPlayer(player)));
         source.getAllMatches().forEach(match -> matches.add(new AdaptedMatch(match)));
         source.getAllTeams().forEach(team -> teams.add(new AdaptedTeam(team)));
 
@@ -63,7 +64,7 @@ public class AdaptedAddressBook {
      * so we check for that.
      */
     public boolean isAnyRequiredFieldMissing() {
-        return persons.stream().anyMatch(AdaptedPerson::isAnyRequiredFieldMissing)
+        return players.stream().anyMatch(AdaptedPlayer::isAnyRequiredFieldMissing)
                 || matches.stream().anyMatch(AdaptedMatch::isAnyRequiredFieldMissing)
                 || teams.stream().anyMatch(AdaptedTeam::isAnyRequiredFieldMissing);
 
@@ -76,13 +77,13 @@ public class AdaptedAddressBook {
      * @throws IllegalValueException if there were any data constraints violated in the adapted match
      */
     public AddressBook toModelType() throws IllegalValueException {
-        final List<Person> personList = new ArrayList<>();
+        final List<Player> playerList = new ArrayList<>();
         final List<Team> teamList = new ArrayList<>();
         final List<Match> matchList = new ArrayList<>();
         final List<Finance> financeList = new ArrayList<>();
 
-        for (AdaptedPerson person : persons) {
-            personList.add(person.toModelType());
+        for (AdaptedPlayer player : players) {
+            playerList.add(player.toModelType());
         }
 
         for (AdaptedTeam team : teams) {
@@ -93,10 +94,8 @@ public class AdaptedAddressBook {
             matchList.add(match.toModelType());
         }
 
-
-
         return new AddressBook(
-                new UniquePersonList(personList),
+                new UniquePlayerList(playerList),
                 new UniqueTeamList(teamList),
                 new UniqueMatchList(matchList),
                 new UniqueFinanceList(financeList));

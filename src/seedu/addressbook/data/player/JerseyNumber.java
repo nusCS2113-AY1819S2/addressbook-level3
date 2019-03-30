@@ -7,29 +7,53 @@ import seedu.addressbook.data.exception.IllegalValueException;
  */
 public class JerseyNumber {
 
-    public static final int EXAMPLE = 10;
-    public static final String MESSAGE_JN_CONSTRAINTS = "Jersey Number of a player must be an integer";
+    public static final String EXAMPLE = "10";
+    public static final String MESSAGE_JN_CONSTRAINTS = "Jersey Number of a player must be an integer between 1 and 35";
+    public static final String JN_VALIDATION_REGEX = "\\d+";
 
+    public final String value;
 
-    public final int fullJn;
     /**
      * Validates given jersey number.
      *
      * @throws IllegalValueException if given Jersey Number integer is invalid.
      */
 
-    public JerseyNumber (int jn) throws IllegalValueException {
+    public JerseyNumber (String jn) throws IllegalValueException {
+        jn = jn.trim();
         if (!isValidJn(jn)) {
             throw new IllegalValueException(MESSAGE_JN_CONSTRAINTS);
         }
-        this.fullJn = jn;
+        this.value = jn;
     }
 
     /**
      * Returns true if a given integer is a valid jersey number.
      */
-    public static boolean isValidJn(int test) {
-        return (test > 0 && test < 35);
+    public static boolean isValidJn(String test) {
+        try {
+            int temp = Integer.parseInt(test);
+            return (test.matches(JN_VALIDATION_REGEX) && temp >= 1 && temp < 35);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return value;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof JerseyNumber // instanceof handles nulls
+                && this.value.equals(((JerseyNumber) other).value)); // state check
+    }
+
+    @Override
+    public int hashCode() {
+        return value.hashCode();
     }
 
 }
