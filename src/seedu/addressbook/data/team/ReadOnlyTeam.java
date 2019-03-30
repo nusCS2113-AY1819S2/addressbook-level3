@@ -38,7 +38,7 @@ public interface ReadOnlyTeam {
     default String getAsTextShowAll() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName().fullName.trim())
-                .append(" | Country: ");
+                .append(" | Nationality: ");
         builder.append(getCountry().toString().trim())
                 .append(" | Sponsorship: USD ");
         builder.append(getSponsor().toString().trim())

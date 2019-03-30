@@ -54,8 +54,8 @@ public class Parser {
                     + "sal/(?<salary>[^/]+)"
                     + "gs/(?<goalsScored>[^/]+)"
                     + "ga/(?<goalsAssisted>[^/]+)"
-                    + "tm/(?<team>[^/]+)"
-                    + "ctry/(?<country>[^/]+)"
+                    + "tm/(?<teamName>[^/]+)"
+                    + "ctry/(?<nationality>[^/]+)"
                     + "jn/(?<jerseyNumber>[^/]+)"
                     + "app/(?<appearance>[^/]+)"
                     + "hs/(?<healthStatus>[^/]+)"
@@ -66,8 +66,8 @@ public class Parser {
                     + "p/(?<position>[^/]+)"
                     + "a/(?<age>[^/]+)"
                     + "sal/(?<salary>[^/]+)"
-                    + "tm/(?<team>[^/]+)"
-                    + "ctry/(?<country>[^/]+)"
+                    + "tm/(?<teamName>[^/]+)"
+                    + "ctry/(?<nationality>[^/]+)"
                     + "jn/(?<jerseyNumber>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)");
 
@@ -237,8 +237,8 @@ public class Parser {
                     matcher.group("salary"),
                     matcher.group("goalsScored"),
                     matcher.group("goalsAssisted"),
-                    matcher.group("team"),
-                    matcher.group("country"),
+                    matcher.group("teamName"),
+                    matcher.group("nationality"),
                     matcher.group("jerseyNumber"),
                     matcher.group("appearance"),
                     matcher.group("healthStatus"),
@@ -269,8 +269,8 @@ public class Parser {
                     matcher.group("position"),
                     matcher.group("age"),
                     matcher.group("salary"),
-                    matcher.group("team"),
-                    matcher.group("country"),
+                    matcher.group("teamName"),
+                    matcher.group("nationality"),
                     matcher.group("jerseyNumber"),
                     getTagsFromArgs(matcher.group("tagArguments"))
             );

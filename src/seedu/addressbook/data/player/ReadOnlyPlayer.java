@@ -22,9 +22,9 @@ public interface ReadOnlyPlayer {
 
     GoalsAssisted getGoalsAssisted();
 
-    Team getTeam();
+    TeamName getTeamName();
 
-    Country getCountry();
+    Nationality getNationality();
 
     JerseyNumber getJerseyNumber();
 
@@ -52,8 +52,8 @@ public interface ReadOnlyPlayer {
                 && other.getSalary().equals(this.getSalary())
                 && other.getGoalsScored().equals(this.getGoalsScored())
                 && other.getGoalsAssisted().equals(this.getGoalsAssisted())
-                && other.getTeam().equals(this.getTeam())
-                && other.getCountry().equals(this.getCountry())
+                && other.getTeamName().equals(this.getTeamName())
+                && other.getNationality().equals(this.getNationality())
                 && other.getJerseyNumber().equals(this.getJerseyNumber())
                 && other.getAppearance().equals(this.getAppearance())
                 && other.getHealthStatus().equals(this.getHealthStatus()));
@@ -68,8 +68,8 @@ public interface ReadOnlyPlayer {
         builder.append("\n").append("Name: ").append(getName()).append("  |  Position Played: ")
                 .append(getPositionPlayed()).append("  |  Age: ").append(getAge()).append("  |  Salary: ")
                 .append(getSalary()).append("\n").append("Goals scored: ").append(getGoalsScored())
-                .append("  |  Goals assisted: ").append(getGoalsAssisted()).append("  |  Team: ")
-                .append(getTeam()).append("  |  Country: ").append(getCountry())
+                .append("  |  Goals assisted: ").append(getGoalsAssisted()).append("  |  TeamName: ")
+                .append(getTeamName()).append("  |  Nationality: ").append(getNationality())
                 .append("\n").append("Jersey Number: ").append(getJerseyNumber())
                 .append("  |  Appearance: ").append(getAppearance()).append("  |  HealthStatus: ")
                 .append(getHealthStatus()).append(" | Tags: ");

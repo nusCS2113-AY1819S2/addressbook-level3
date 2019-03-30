@@ -50,7 +50,7 @@ Help is also shown if you enter an incorrect command e.g. `abcd`
 
 == Features
 
-The League Tracker has four main features: player feature, team feature,  match feature and finance feature. These features will help you to manage useful information of your league more conveniently and effectively.
+The League Tracker has four main features: player feature, teamName feature,  match feature and finance feature. These features will help you to manage useful information of your league more conveniently and effectively.
 
 === Players
 The players feature in the application helps you to manage information of players in the league. +
@@ -59,34 +59,70 @@ The players feature in the application helps you to manage information of player
 ==== *Add Player*
 You can use the Add Player command to add a new player to the League Tracker. +
 
-Format ：`AddPlayer NAME POSITION AGE GENDER PENALTY GOALSSCORED GOALSASSISTED TEAM RANKINLEAGUE COUNTRY JERSEYNUMBER APPEARANCE HEALTHSTATUS`
+Format ：`AddPlayer NAME p/POSITION a/AGE sal/SALARY gs/GOALS_SCORED ga/GOALS_ASSISTED tm/TEAM ctry/COUNTRY jn/JERSEY_NUMBER
+app/APPEARANCE hs/HEALTHSTATUS t/TAGS`
 
 Example: +
-`AddPlayer Lionel_Messi RW 31 Male 0 20 20 FC_Barcelona 1 Argentina 10 20 Healthy`
+`AddPlayer Lionel Messi p/RW a/31 sal/0 gs/20 ga/20 tm/FC Barcelona ctry/Argentina jn/10 app/54 hs/Healthy`
 {empty} +
 {empty} +
 
-==== *Delete Player*
+==== *Quick-add Player*
+As a full-detail AddPlayer Command requires numerous attribute inputs from users,
+League Tracker provides an alternative command to add player faster with less attribute input
+needed from the user. You can use the AddFast Player command to add a new player to the League Tracker.
+Only NAME, POSITION, AGE, SALARY, TEAM, COUNTRY, JERSEY_NUMBER and TAGS (optional) are needed as input.
+GOALS_SCORED,GOALS_ASSISTED,APPEARANCE and HEALTH_STATUS are set to default values (0,0,0 and Healthy)
+
+
+Format ：`AddFast NAME p/POSITION a/AGE sal/SALARY tm/TEAM ctry/COUNTRY jn/JERSEY_NUMBER t/TAGS`
+
+Example: +
+`AddFast Lionel Messi p/RW a/31 sal/0 tm/FC Barcelona ctry/Argentina jn/10`
+{empty} +
+{empty} +
+
+==== *Delete Player By Index*
 You can use the Delete Player command to delete an existing player in the League Tracker. +
 
-Format ：`DeletePlayer NAME TEAM`
+Format ：`delete Index`
 
 Example: +
-`DeletePlayer Lionel_Messi FC_Barcelona`+
+`delete 1`
 {empty} +
 {empty} +
 
-==== *Display Player Profile*
+==== *Delete Player By Name and Team Name(not in V1.3)*
+You can use the Delete Player command to delete an existing player in the League Tracker. +
+
+Format ：`deletePlayer NAME TEAM`
+
+Example: +
+`delete Lionel Messi tm/FC Barcelona`
+{empty} +
+{empty} +
+
+==== *View Player Profile By Index*
+You can use the Display Player Profile command to display the whole profile of a selected player. +
+
+Format ：`DisplayProfile Index`
+
+Example: +
+`DisplayProfile 1`
+{empty} +
+{empty} +
+
+==== *View Player Profile By Name and TeamName(not in V1.3)*
 You can use the Display Player Profile command to display the whole profile of a selected player. +
 
 Format ：`DisplayProfile NAME TEAM`
 
 Example: +
-`DisplayProfile Lionel_Messi FC_Barcelona`
+`DisplayProfile Lionel Messi tm/FC Barcelona`
 {empty} +
 {empty} +
 
-==== *Edit Player*
+==== *Edit Player(not in v1.3)*
 You can use the Edit Player command to edit information of an existing player in the League Tracker. +
 
 Format ：`EditPlayer OLDNAME OLDTEAM POSITION AGE GENDER PENALTY GOALSSCORED GOALSASSISTED TEAM RANKINLEAGUE COUNTRY JERSEYNUMBER APPEARANCE HEALTHSTATUS`
@@ -103,9 +139,8 @@ Format ：`ListAllPlayer`
 {empty} +
 {empty} +
 
-==== *List Player*
-
-You can use the List Player command to see the list of players in a selected team. +
+==== *List Player(not in v1.3)*
+You can use the List Player command to see the list of players in a selected teamName. +
 
 Format ：`ListPlayer NameOfTeam` +
 
@@ -120,19 +155,19 @@ The teams feature in the application helps you to manage information of football
 {empty} +
 
 ==== *Add Team*
-You can use the Add Team command to add a new team to the League Tracker. +
+You can use the Add Team command to add a new teamName to the League Tracker. +
 
 Format : `AddTeam NAME c/COUNTRY g/GOAL SCORED p/POINTS`
 
 Example: +
  `AddTeam Liverpool c/United Kingdom g/64 p/70` +
  
-Adds a new team with the specified details.
+Adds a new teamName with the specified details.
 {empty} +
 {empty} +
 
 ==== *Delete Team*
-You can use the Delete Team command to delete an existing team from League Tracker. +
+You can use the Delete Team command to delete an existing teamName from League Tracker. +
 
 Format : `DelTeam INDEX`
 
@@ -141,12 +176,12 @@ Example: +
 * `ListTeam` +
 * `DelTeam 1` +
 
-Deletes the 1st team in the team list.
+Deletes the 1st teamName in the teamName list.
 {empty} +
 {empty} +
 
 ==== *Edit Team*
-You can use the Edit Team command to edit information of a team in League Tracker. +
+You can use the Edit Team command to edit information of a teamName in League Tracker. +
 Format : `EditTeam INDEX [c/COUNTRY] [g/GOAL SCORED] [p/POINTS]`
 
 Example: +
@@ -154,7 +189,7 @@ Example: +
 * `ListTeam` +
 * `EditTeam 1 c/Singapore` +
 
-Edits the country of the 1st team in the team list to Singapore.
+Edits the nationality of the 1st teamName in the teamName list to Singapore.
 {empty} +
 {empty} +
 
@@ -219,7 +254,7 @@ Example: +
 {empty} +
 
 ==== *Get Team Finance*
-You can use the Get Team Finance command to view the financial condition in USD of a selected team in League Tracker. +
+You can use the Get Team Finance command to view the financial condition in USD of a selected teamName in League Tracker. +
 
 Format : `GetTeamFinance INDEX`
 

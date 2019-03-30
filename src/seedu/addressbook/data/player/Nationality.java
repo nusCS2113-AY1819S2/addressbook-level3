@@ -10,9 +10,9 @@ import seedu.addressbook.data.exception.IllegalValueException;
  * Represents country of a player made in the address book.
  */
 
-public class Country implements Comparable<Country> {
+public class Nationality implements Comparable<Nationality> {
     public static final String EXAMPLE = "Spain";
-    public static final String MESSAGE_COUNTRY_CONSTRAINTS = "Country name should be a string";
+    public static final String MESSAGE_COUNTRY_CONSTRAINTS = "Nationality name should be a string";
     public static final String COUNTRY_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
     public final String fullCountry;
@@ -23,7 +23,7 @@ public class Country implements Comparable<Country> {
      * @throws IllegalValueException if given country string is invalid.
      */
 
-    public Country(String name) throws IllegalValueException {
+    public Nationality(String name) throws IllegalValueException {
         name = name.trim();
         if (!isValidName(name)) {
             throw new IllegalValueException(MESSAGE_COUNTRY_CONSTRAINTS);
@@ -54,8 +54,8 @@ public class Country implements Comparable<Country> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Country // instanceof handles nulls
-                && this.fullCountry.equals(((Country) other).fullCountry)); // state check
+                || (other instanceof Nationality // instanceof handles nulls
+                && this.fullCountry.equals(((Nationality) other).fullCountry)); // state check
     }
 
     @Override
@@ -64,8 +64,8 @@ public class Country implements Comparable<Country> {
     }
 
     @Override
-    public int compareTo (Country country) {
-        return this.fullCountry.compareToIgnoreCase(country.fullCountry);
+    public int compareTo (Nationality nationality) {
+        return this.fullCountry.compareToIgnoreCase(nationality.fullCountry);
     }
 
 }

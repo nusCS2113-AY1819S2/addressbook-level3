@@ -99,7 +99,7 @@ public class EditTeam extends Command {
     }
 
     /**
-     * Check for new Country value.
+     * Check for new Nationality value.
      */
     private static Country checkCountry(Country newEdit, Country oldInfo) {
         if (newEdit == null) {

@@ -11,17 +11,17 @@ import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.player.Age;
 import seedu.addressbook.data.player.Appearance;
-import seedu.addressbook.data.player.Country;
 import seedu.addressbook.data.player.GoalsAssisted;
 import seedu.addressbook.data.player.GoalsScored;
 import seedu.addressbook.data.player.HealthStatus;
 import seedu.addressbook.data.player.JerseyNumber;
 import seedu.addressbook.data.player.Name;
+import seedu.addressbook.data.player.Nationality;
 import seedu.addressbook.data.player.Player;
 import seedu.addressbook.data.player.PositionPlayed;
 import seedu.addressbook.data.player.ReadOnlyPlayer;
 import seedu.addressbook.data.player.Salary;
-import seedu.addressbook.data.player.Team;
+import seedu.addressbook.data.player.TeamName;
 import seedu.addressbook.data.tag.Tag;
 
 /**
@@ -52,9 +52,9 @@ public class AdaptedPlayer {
     @XmlElement(required = true)
     private String goalsAssisted;
     @XmlElement(required = true)
-    private String team;
+    private String teamName;
     @XmlElement(required = true)
-    private String country;
+    private String nationality;
     @XmlElement(required = true)
     private String jerseyNumber;
     @XmlElement(required = true)
@@ -84,8 +84,8 @@ public class AdaptedPlayer {
         salary = source.getSalary().value;
         goalsScored = source.getGoalsScored().value;
         goalsAssisted = source.getGoalsAssisted().value;
-        team = source.getTeam().fullTeam;
-        country = source.getCountry().fullCountry;
+        teamName = source.getTeamName().fullTeam;
+        nationality = source.getNationality().fullCountry;
         jerseyNumber = source.getJerseyNumber().value;
         appearance = source.getAppearance().value;
         healthStatus = source.getHealthStatus().fullHs;
@@ -112,8 +112,8 @@ public class AdaptedPlayer {
             }
         }
         // second call only happens if phone/email/address are all not null
-        return Utils.isAnyNull(name, position, age, salary, goalsScored, goalsAssisted, team, country, jerseyNumber,
-                appearance, healthStatus);
+        return Utils.isAnyNull(name, position, age, salary, goalsScored,
+                goalsAssisted, teamName, nationality, jerseyNumber, appearance, healthStatus);
     }
 
     /**
@@ -132,13 +132,13 @@ public class AdaptedPlayer {
         final Salary salary = new Salary(this.salary);
         final GoalsScored goalsScored = new GoalsScored(this.goalsScored);
         final GoalsAssisted goalsAssisted = new GoalsAssisted(this.goalsAssisted);
-        final Team team = new Team(this.team);
-        final Country country = new Country(this.country);
+        final TeamName teamName = new TeamName(this.teamName);
+        final Nationality nationality = new Nationality(this.nationality);
         final JerseyNumber jerseyNumber = new JerseyNumber(this.jerseyNumber);
         final Appearance appearance = new Appearance(this.appearance);
         final HealthStatus healthStatus = new HealthStatus(this.healthStatus);
 
         return new Player(name, positionPlayed, age, salary, goalsScored, goalsAssisted,
-                team, country, jerseyNumber, appearance, healthStatus, tags);
+                teamName, nationality, jerseyNumber, appearance, healthStatus, tags);
     }
 }
