@@ -26,4 +26,10 @@
         <appearance>54</appearance>
         <healthStatus>Healthy</healthStatus>
     </players>
+    <teams>
+        <name>Singapore United</name>
+        <country>Singapore</country>
+        <sponsor>5487</sponsor>
+        <tagged>Lousy</tagged>
+    </teams>
 </AddressBook>
