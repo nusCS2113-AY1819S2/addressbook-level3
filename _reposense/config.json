@@ -1,0 +1,28 @@
+{
+  "ignoreGlobList": [""],
+  "formats": ["adoc", "cs", "css", "fxml", "gradle", "html", "java", "js", "json", "jsp", "md", "py", "tag", "txt", "xml"],
+  "ignoreCommitList": [""],
+  "authors":
+  [
+    {
+      "githubId": "E0176106",
+      "displayName": "Justin Lee",
+      "authorNames": ["E0176106", "[E0176106]"]
+    },
+    {
+      "githubId": "huyidi",
+      "displayName": "Hu Yidi",
+      "authorNames": ["huyidi","[huyidi]"]
+    },
+    {
+      "githubId": "yingrong1996",
+      "displayName": "Ying Rong",
+      "authorNames": ["yingrong1996","[yingrong1996]"]
+    },
+    {
+      "githubId": "warheade",
+      "displayName": "Wang Jiannan",
+      "authorNames": ["warheade","[warheade]"]
+    }
+  ]
+}
