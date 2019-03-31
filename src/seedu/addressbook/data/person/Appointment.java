@@ -40,6 +40,7 @@ public class Appointment implements Comparable<Appointment>{
         return Arrays.asList(appointmentDate.split("\\s+"));
     }
 
+
     @Override
     public String toString() {
         return appointmentDate;
