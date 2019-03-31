@@ -41,17 +41,22 @@ Login is required in order to use the address book
 
 Examples:
 
-* `login Doe 12345` +
-Logged in as Doe if the account and password are correct.
+* `login Admin Admin123` +
+Logged in as Admin if the account and password are correct.
 
 == Register a new account: `register`
 
 Allow the user to register a new account in the system +
 Format: `register username password`
 
+[NOTE]
+====
+The password should contain at least one lowercase letter, one uppercase letter and one digit
+====
+
 Examples:
 
-* `register Doe 12345` +
+* `register Doe Doe12345` +
 A new account is registered if the username chosen has not been registered before.
 
 == Adding a person: `add`
