@@ -1,12 +1,15 @@
 package seedu.addressbook.commands.finance;
 
-import java.util.*;
+import java.util.List;
 
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.finance.ReadOnlyFinance;
 import seedu.addressbook.data.finance.UniqueFinanceList;
 
+/**
+ * Give total finance of the league.
+ */
 public class GetLeagueFinanceCommand extends Command {
 
     public static final String COMMAND_WORD = "getLeagueFinance";
