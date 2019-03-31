@@ -54,23 +54,23 @@ public class Histogram {
                     twoDString[i][j] = "|"; //set the y axis
                 } else if (j == 9) {
                     twoDString[i][j] = "\n"; //end the line
-                } else if (x==4 & j == 2 & i == 9) {
+                } else if (x == 4 & j == 2 & i == 9) {
                     twoDString[i][j] = "_▲1"; //set the first column name
-                } else if (x==4 & j == 4 & i == 9) {
+                } else if (x == 4 & j == 4 & i == 9) {
                     twoDString[i][j] = "_▲2"; //set the second column name
-                } else if (x==4 & j == 6 & i == 9) {
+                } else if (x == 4 & j == 6 & i == 9) {
                     twoDString[i][j] = "_▲3"; //set the third column name
-                } else if (x==4 & j == 8 & i == 9) {
+                } else if (x == 4 & j == 8 & i == 9) {
                     twoDString[i][j] = "_▲4"; //set the fourth column name
                 } else if (i == 9) {
                     twoDString[i][j] = "____"; //set the x axis
-                } else if (x==4 & j == 2 & i >= (9 - yOneInt)) {
+                } else if (x == 4 & j == 2 & i >= (9 - yOneInt)) {
                     twoDString[i][j] = "▓▓▓"; //print the first column
-                } else if (x==4 & j == 4 & i >= (9 - yTwoInt)) {
+                } else if (x == 4 & j == 4 & i >= (9 - yTwoInt)) {
                     twoDString[i][j] = "▓▓▓"; //print the second column
-                } else if (x==4 & j == 6 & i >= (9 - yThreeInt)) {
+                } else if (x == 4 & j == 6 & i >= (9 - yThreeInt)) {
                     twoDString[i][j] = "▓▓▓"; //print the third column
-                } else if (x==4 & j == 8 & i >= (9 - yFourInt)) {
+                } else if (x == 4 & j == 8 & i >= (9 - yFourInt)) {
                     twoDString[i][j] = "▓▓▓"; //print the fourth column
                 } else {
                     twoDString[i][j] = "░░░"; //print the blank space

@@ -36,10 +36,10 @@ public class Finance implements ReadOnlyFinance {
         String sponsorString = sponsor.value;
         this.sponsorMoney = Double.valueOf(sponsorString);
 
-        this.quarterOne = sponsorMoney/4;
-        this.quarterTwo = sponsorMoney/4;
-        this.quarterThree = sponsorMoney/4;
-        this.quarterFour = sponsorMoney/4;
+        this.quarterOne = sponsorMoney / 4;
+        this.quarterTwo = sponsorMoney / 4;
+        this.quarterThree = sponsorMoney / 4;
+        this.quarterFour = sponsorMoney / 4;
 
         this.histogram = new Histogram(NUMBER_OF_QUARTER, quarterOne, quarterTwo, quarterThree, quarterFour);
 
