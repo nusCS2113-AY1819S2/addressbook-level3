@@ -2,8 +2,7 @@ package seedu.addressbook.data.match;
 
 import java.util.Set;
 
-import seedu.addressbook.data.player.Player;
-
+import seedu.addressbook.data.player.Name;
 
 /**
  * A read-only immutable interface for a match in the addressbook.
@@ -25,9 +24,9 @@ public interface ReadOnlyMatch {
      * The returned {@code Set} is a deep copy of the internal {@code Set},
      * changes on the returned list will not affect the match's internal tags.
      */
-    Set<Player> getGoalScorers();
+    Set<Name> getGoalScorers();
 
-    Set<Player> getOwnGoalScorers();
+    Set<Name> getOwnGoalScorers();
 
     /**
      * Returns true if the values inside this object is same as those of the other
@@ -62,16 +61,18 @@ public interface ReadOnlyMatch {
             if (getGoalScorers().isEmpty()) {
                 builder.append("none");
             }
-            for (Player goalScorer : getGoalScorers()) {
+            for (Name goalScorer : getGoalScorers()) {
                 builder.append(goalScorer);
             }
             builder.append(" Own Goals: ");
             if (getOwnGoalScorers().isEmpty()) {
                 builder.append("none");
             }
-            for (Player ownGoalScorer : getOwnGoalScorers()) {
+            for (Name ownGoalScorer : getOwnGoalScorers()) {
                 builder.append(ownGoalScorer);
             }
+        } else {
+            builder.append(" Not Played");
         }
         return builder.toString();
     }
