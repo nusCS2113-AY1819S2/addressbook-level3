@@ -42,4 +42,10 @@
         <goalScored>Mario Bale</goalScored>
         <ownGoalScored>Luigi</ownGoalScored>
     </matches>
+    <teams>
+        <name>Singapore United</name>
+        <country>Singapore</country>
+        <sponsor>5487</sponsor>
+        <tagged>Lousy</tagged>
+    </teams>
 </AddressBook>

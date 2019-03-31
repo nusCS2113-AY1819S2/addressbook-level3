@@ -15,6 +15,7 @@ import seedu.addressbook.commands.ExitCommand;
 import seedu.addressbook.commands.HelpCommand;
 import seedu.addressbook.commands.IncorrectCommand;
 import seedu.addressbook.commands.finance.FinanceCommand;
+import seedu.addressbook.commands.finance.GetLeagueFinanceCommand;
 import seedu.addressbook.commands.finance.ListFinanceCommand;
 import seedu.addressbook.commands.match.AddMatchCommand;
 import seedu.addressbook.commands.match.ClearMatchCommand;
@@ -187,6 +188,9 @@ public class Parser {
 
         case ListFinanceCommand.COMMAND_WORD:
             return new ListFinanceCommand();
+
+        case GetLeagueFinanceCommand.COMMAND_WORD:
+            return new GetLeagueFinanceCommand();
 
         case EditTeam.COMMAND_WORD:
             return prepareEditTeam(arguments);
