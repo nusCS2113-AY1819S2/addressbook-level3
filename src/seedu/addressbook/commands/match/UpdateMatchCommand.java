@@ -1,5 +1,8 @@
 package seedu.addressbook.commands.match;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.common.Messages;
@@ -11,11 +14,8 @@ import seedu.addressbook.data.match.Match;
 import seedu.addressbook.data.match.ReadOnlyMatch;
 import seedu.addressbook.data.match.TicketSales;
 import seedu.addressbook.data.match.UpdateMatchDescriptor;
-import seedu.addressbook.data.player.Name;
 import seedu.addressbook.data.match.UniqueMatchList.MatchNotFoundException;
-
-import java.util.HashSet;
-import java.util.Set;
+import seedu.addressbook.data.player.Name;
 
 /**
  * Updates a match identified using it's last displayed index from the address book.
