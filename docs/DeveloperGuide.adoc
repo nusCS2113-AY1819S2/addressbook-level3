@@ -270,8 +270,9 @@ This section describes some noteworthy details on how certain features are imple
 The sort mechanism is facilitated by `UniquePersonList`. It stores a list of all persons in the address book as an `internalList`. Additionally, it implements the following operations:
 
 * `UniquePersonList#SortByName()` -- Sort `internalList` by name column in alphabetical order
-* `UniquePersonList#SortByAppointment()` -- Sort `internalList` by appointment column in alphabetical order
-* `UniquePersonList#SortByStatus()` -- Sort `internalList` by status column in alphabetical order
+* `UniquePersonList#SortByAppointment()` -- Sort `internalList` by appointment column in chronological order
+* `UniquePersonList#SortByStatus()` -- Sort `internalList` by status column according to the degree of urgency. The sequence of the status in this order is as follows: Critical, Waiting for Surgery, Life-support, Waiting for doctor appointment, Therapy and Observation.
+
 
 These operations are exposed in `AddressBook` as `AddressBook#sorted(String attribute)`. Corresponding operation will be called depending on attribute the user wants to sort the list by.
 
