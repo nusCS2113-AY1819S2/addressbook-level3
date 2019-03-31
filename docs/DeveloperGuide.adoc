@@ -284,6 +284,8 @@ Step 4. The user decides to view the list sorted by their name by executing the 
 
 The refer feature is still currently undergoing development. In version 1.2, it takes on the architure of the find command - looks through the list of persons in addressbook and prints out those with keywords in their names. The difference is that if there is only 1 person, his particulars will not be printed - a simulation that he/ she is going to be tagged in a separate list after being removed from the address book.
 
+//@@author liguanlong
+
 === Login/Register/Logout Feature 
 ==== Current Implementation
 
@@ -348,6 +350,8 @@ HashMap is used because memory is not a serious issue for this program as the pr
 * ** Alternative 4:** Use a XML file to store the username password pairs
 ** Pros: Compatible with HashMap. 
 ** Cons: Large in file size.
+
+//@@author
 
 === Add appointment feature 
 ==== Current Implementation
