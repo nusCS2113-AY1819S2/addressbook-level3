@@ -106,7 +106,7 @@ public class EditTeamDescriptor {
         // state check
         EditTeamDescriptor e = (EditTeamDescriptor) other;
 
-        return getName().equals(e.getTags())
+        return getName().equals(e.getName())
                 && getCountry().equals(e.getCountry())
                 && getSponsor().equals(e.getSponsor())
                 && getTags().equals(e.getTags());
