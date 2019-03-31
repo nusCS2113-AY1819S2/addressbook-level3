@@ -92,7 +92,7 @@ Example: +
 {empty} +
 {empty} +
 
-==== *Delete Player By Name and Team Name(not in V1.3)*
+==== *Delete Player By Name and Team Name(coming in v1.4)*
 You can use the Delete Player command to delete an existing player in the League Tracker. +
 
 Format ：`deletePlayer NAME TEAM`
@@ -112,7 +112,7 @@ Example: +
 {empty} +
 {empty} +
 
-==== *View Player Profile By Name and TeamName(not in V1.3)*
+==== *View Player Profile By Name and TeamName(coming in v1.4)*
 You can use the Display Player Profile command to display the whole profile of a selected player. +
 
 Format ：`DisplayProfile NAME TEAM`
@@ -122,10 +122,11 @@ Example: +
 {empty} +
 {empty} +
 
-==== *Edit Player(not in v1.3)*
+==== *Edit Player(coming in v1.4)*
 You can use the Edit Player command to edit information of an existing player in the League Tracker. +
 
-Format ：`EditPlayer OLDNAME OLDTEAM POSITION AGE GENDER PENALTY GOALSSCORED GOALSASSISTED TEAM RANKINLEAGUE COUNTRY JERSEYNUMBER APPEARANCE HEALTHSTATUS`
+Format ：`EditPlayer OLDNAME OLDTEAM POSITION AGE GENDER PENALTY GOALSSCORED GOALSASSISTED
+TEAM RANKINLEAGUE COUNTRY JERSEYNUMBER APPEARANCE HEALTHSTATUS`
 
 Example: +
 `EditPlayer Lionel_Messi Real_Madrid RW 31 Male 0 20 20 FC_Barcelona 1 Argentina 10 20 Healthy`
