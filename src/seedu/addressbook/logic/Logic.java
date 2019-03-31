@@ -9,7 +9,7 @@ import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.finance.ReadOnlyFinance;
 import seedu.addressbook.data.match.ReadOnlyMatch;
-import seedu.addressbook.data.player.ReadOnlyPerson;
+import seedu.addressbook.data.player.ReadOnlyPlayer;
 import seedu.addressbook.data.team.ReadOnlyTeam;
 import seedu.addressbook.parser.Parser;
 import seedu.addressbook.storage.StorageFile;
@@ -25,7 +25,7 @@ public class Logic {
     /**
      * The list of player shown to the user most recently.
      */
-    private List<? extends ReadOnlyPerson> lastPersonShownList = Collections.emptyList();
+    private List<? extends ReadOnlyPlayer> lastPlayerShownList = Collections.emptyList();
 
     /**
      * The list of match shown to the user most recently.
@@ -75,8 +75,8 @@ public class Logic {
     /**
      * Unmodifiable view of the current last player list.
      */
-    public List<ReadOnlyPerson> getLastPersonShownList() {
-        return Collections.unmodifiableList(lastPersonShownList);
+    public List<ReadOnlyPlayer> getLastPlayerShownList() {
+        return Collections.unmodifiableList(lastPlayerShownList);
     }
 
     /**
@@ -90,8 +90,8 @@ public class Logic {
         lastMatchList = newList;
     }
 
-    protected void setLastPersonShownList(List<? extends ReadOnlyPerson> newList) {
-        lastPersonShownList = newList;
+    protected void setLastPlayerShownList(List<? extends ReadOnlyPlayer> newList) {
+        lastPlayerShownList = newList;
     }
 
     /**
@@ -125,7 +125,7 @@ public class Logic {
      */
     private CommandResult execute(Command command) throws Exception {
         command.setData(addressBook,
-                lastPersonShownList,
+                lastPlayerShownList,
                 lastTeamShownList,
                 lastMatchList,
                 lastFinanceShownList);
@@ -135,16 +135,16 @@ public class Logic {
     }
 
     /**
-     * Updates the {@link #lastPersonShownList} if the result contains a list of Persons.
+     * Updates the {@link #lastPlayerShownList} if the result contains a list of Persons.
      * Updates the {@link #lastMatchList} if the result contains a list of Matches.
      */
     private void recordResult(CommandResult result) {
-        final Optional<List<? extends ReadOnlyPerson>> personList = result.getRelevantPersons();
+        final Optional<List<? extends ReadOnlyPlayer>> playerList = result.getRelevantPlayers();
         final Optional<List<? extends ReadOnlyTeam>> teamList = result.getRelevantTeams();
         final Optional<List<? extends ReadOnlyMatch>> matchList = result.getRelevantMatches();
         final Optional<List<? extends ReadOnlyFinance>> financeList = result.getRelevantFinances();
-        if (personList.isPresent()) {
-            lastPersonShownList = personList.get();
+        if (playerList.isPresent()) {
+            lastPlayerShownList = playerList.get();
         } else if (teamList.isPresent()) {
             lastTeamShownList = teamList.get();
         } else if (matchList.isPresent()) {

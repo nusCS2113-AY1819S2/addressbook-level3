@@ -4,8 +4,9 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.addressbook.data.player.Person;
+import seedu.addressbook.data.player.Player;
 import seedu.addressbook.data.tag.Tag;
+
 
 /**
  * Represents a team in the address book.
@@ -17,12 +18,12 @@ public class Team implements ReadOnlyTeam {
     private Name name;
     private Country country;
     private Sponsor sponsor;
-    private final Set<Person> playerlist = new HashSet<>();
+    private final Set<Player> playerlist = new HashSet<>();
     private final Set<Tag> tags = new HashSet<>();
     /**
      * Assumption: Every field must be present and not null.
      */
-    public Team(Name name, Country country, Sponsor sponsor, Set<Person> playerlist, Set<Tag> tags) {
+    public Team(Name name, Country country, Sponsor sponsor, Set<Player> playerlist, Set<Tag> tags) {
         this.name = name;
         this.country = country;
         this.sponsor = sponsor;
@@ -38,7 +39,7 @@ public class Team implements ReadOnlyTeam {
     }
 
     @Override
-    public Set<Person> getPlayers() {
+    public Set<Player> getPlayers() {
         return new HashSet<>(playerlist);
     }
 
@@ -70,7 +71,7 @@ public class Team implements ReadOnlyTeam {
         tags.addAll(replacement);
     }
 
-    public void setPlayers(Set<Person> replacement) {
+    public void setPlayers(Set<Player> replacement) {
         playerlist.clear();
         playerlist.addAll(replacement);
     }

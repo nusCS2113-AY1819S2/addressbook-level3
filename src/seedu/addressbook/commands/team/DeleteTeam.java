@@ -37,7 +37,7 @@ public class DeleteTeam extends Command {
         } catch (IndexOutOfBoundsException ie) {
             return new CommandResult(Messages.MESSAGE_INVALID_TEAM_DISPLAYED_INDEX);
         } catch (UniqueTeamList.TeamNotFoundException tnfe) {
-            return new CommandResult(Messages.MESSAGE_TEAM_NOT_IN_ADDRESSBOOK);
+            return new CommandResult(Messages.MESSAGE_TEAM_NOT_IN_LEAGUE_TRACKER);
         }
     }
 }

@@ -8,11 +8,11 @@ import seedu.addressbook.data.exception.IllegalValueException;
 /**
  * Represents a player's team in the address book.
  */
-public class Team {
+public class TeamName {
     public static final String EXAMPLE = "FC Barcelona";
     public static final String MESSAGE_TEAM_CONSTRAINTS = "Player's team names"
-            + "should be spaces or alphanumeric characters";
-    public static final String TEAM_VALIDATION_REGEX = "[\\p{Alnum} ]+";
+            + "can be anything.+";
+    public static final String TEAM_VALIDATION_REGEX = ".+";
 
     public final String fullTeam;
 
@@ -21,7 +21,7 @@ public class Team {
      *
      * @throws IllegalValueException if given team name string is invalid.
      */
-    public Team(String name) throws IllegalValueException {
+    public TeamName(String name) throws IllegalValueException {
         name = name.trim();
         if (!isValidTeam(name)) {
             throw new IllegalValueException(MESSAGE_TEAM_CONSTRAINTS);
@@ -51,8 +51,8 @@ public class Team {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Team // instanceof handles nulls
-                && this.fullTeam.equals(((Team) other).fullTeam)); // state check
+                || (other instanceof TeamName // instanceof handles nulls
+                && this.fullTeam.equals(((TeamName) other).fullTeam)); // state check
     }
 
     @Override

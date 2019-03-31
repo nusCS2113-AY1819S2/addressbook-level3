@@ -7,6 +7,13 @@ import seedu.addressbook.commands.match.ClearMatchCommand;
 import seedu.addressbook.commands.match.DeleteMatchCommand;
 import seedu.addressbook.commands.match.FindMatchCommand;
 import seedu.addressbook.commands.match.ListMatchCommand;
+import seedu.addressbook.commands.player.AddCommand;
+import seedu.addressbook.commands.player.ClearCommand;
+import seedu.addressbook.commands.player.DeleteCommand;
+import seedu.addressbook.commands.player.FindCommand;
+import seedu.addressbook.commands.player.ListCommand;
+import seedu.addressbook.commands.player.SortCommand;
+import seedu.addressbook.commands.player.ViewAllCommand;
 import seedu.addressbook.commands.team.AddTeam;
 import seedu.addressbook.commands.team.ClearTeam;
 import seedu.addressbook.commands.team.DeleteTeam;
@@ -36,7 +43,6 @@ public class HelpCommand extends Command {
             + "\n" + ClearTeam.MESSAGE_USAGE
             + "\n" + FindTeam.MESSAGE_USAGE
             + "\n" + ListTeam.MESSAGE_USAGE
-            + "\n" + ViewCommand.MESSAGE_USAGE
             + "\n" + ViewAllCommand.MESSAGE_USAGE
             + "\n" + FinanceCommand.MESSAGE_USAGE
             + "\n" + ListFinanceCommand.MESSAGE_USAGE

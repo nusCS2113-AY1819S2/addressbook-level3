@@ -7,29 +7,53 @@ import seedu.addressbook.data.exception.IllegalValueException;
  */
 public class GoalsAssisted {
 
-    public static final int EXAMPLE = 10;
-    public static final String MESSAGE_GA_CONSTRAINTS = "No.of assists for a player must be an integer";
+    public static final String EXAMPLE = "1";
+    public static final String MESSAGE_GA_CONSTRAINTS = "No.of assists for a player must be a non-negative integer";
+    public static final String GA_VALIDATION_REGEX = "\\d+";
 
-    public final int fullGa;
+    public final String value;
+
     /**
      * Validates given No. of assists.
      *
      * @throws IllegalValueException if given assist number integer is invalid.
      */
 
-    public GoalsAssisted (int ga) throws IllegalValueException {
+    public GoalsAssisted (String ga) throws IllegalValueException {
+        ga = ga.trim();
         if (!isValidGa(ga)) {
             throw new IllegalValueException(MESSAGE_GA_CONSTRAINTS);
         }
-        this.fullGa = ga;
+        this.value = ga;
     }
 
     /**
      * Returns true if a given integer is a valid goals assisted number.
      */
 
-    public static boolean isValidGa(int test) {
-        return (test >= 0 && test < 100);
+    public static boolean isValidGa(String test) {
+        try {
+            int temp = Integer.parseInt(test);
+            return (test.matches(GA_VALIDATION_REGEX) && temp >= 0);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
     }
 
+    @Override
+    public String toString() {
+        return value;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof GoalsAssisted // instanceof handles nulls
+                && this.value.equals(((GoalsAssisted) other).value)); // state check
+    }
+
+    @Override
+    public int hashCode() {
+        return value.hashCode();
+    }
 }

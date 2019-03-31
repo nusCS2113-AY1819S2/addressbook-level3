@@ -69,7 +69,7 @@ public class EditTeam extends Command {
         } catch (IndexOutOfBoundsException ie) {
             return new CommandResult(Messages.MESSAGE_INVALID_TEAM_DISPLAYED_INDEX);
         } catch (UniqueTeamList.TeamNotFoundException tnfe) {
-            return new CommandResult(Messages.MESSAGE_TEAM_NOT_IN_ADDRESSBOOK);
+            return new CommandResult(Messages.MESSAGE_TEAM_NOT_IN_LEAGUE_TRACKER);
         }
 
     }
@@ -99,7 +99,7 @@ public class EditTeam extends Command {
     }
 
     /**
-     * Check for new Country value.
+     * Check for new Nationality value.
      */
     private static Country checkCountry(Country newEdit, Country oldInfo) {
         if (newEdit == null) {

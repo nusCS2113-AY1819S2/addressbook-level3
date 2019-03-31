@@ -9,7 +9,7 @@ import seedu.addressbook.data.exception.IllegalValueException;
 public class TicketSales {
 
     public static final String EXAMPLE = "500";
-    public static final String MESSAGE_TICKETSALES_CONSTRAINTS = "Team's ticket sales in USD";
+    public static final String MESSAGE_TICKETSALES_CONSTRAINTS = "TeamName's ticket sales in USD";
     public static final String TICKETSALES_VALIDATION_REGEX = "\\d*";
 
     public final String value;
