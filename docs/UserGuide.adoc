@@ -29,6 +29,8 @@ Format: `help`
 Help is also shown if you enter an incorrect command e.g. `abcd`
 ====
 
+//@@author liguanlong
+
 == Login to the system : `login`
 
 Allow the user to login to the system +
@@ -58,6 +60,8 @@ Examples:
 
 * `register Doe Doe12345` +
 A new account is registered if the username chosen has not been registered before.
+
+//@@author
 
 == Adding a person: `add`
 
