@@ -1,3 +1,4 @@
+//@@author liguanlong
 package seedu.addressbook.accountmanager;
 
 import org.junit.Test;
