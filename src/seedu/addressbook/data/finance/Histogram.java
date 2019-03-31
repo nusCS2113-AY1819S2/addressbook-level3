@@ -6,6 +6,9 @@ package seedu.addressbook.data.finance;
 public class Histogram {
     public static final int LENGTH = 10;
     public static final int WIDTH = 10;
+    public static final String HORIZONTAL_LINE = "____";
+    public static final String VERTICAL_LINE = "|";
+    public static final String EMPTY_SPACE = "    ";
 
     private int numberOfColumn;
     private double heightOne;
@@ -22,16 +25,24 @@ public class Histogram {
     }
 
     public String getHistogramString() {
-        //final String HORIZONTAL_LINE = "____";
-        //final String VERTICAL_LINE = "|";
-        //final String EMPTY_SPACE = "    ";
-        //final int LENGTH = 10;
-        //final int WIDTH = 10;
         int x = numberOfColumn;
         double yOne = heightOne;
         double yTwo = heightTwo;
         double yThree = heightThree;
         double yFour = heightFour;
+
+        /**
+         * process values to fit height in Histogram.
+         */
+        double maxAmongFour = Math.max(Math.max(Math.max(yOne, yTwo), yThree), yFour);
+        double yOneToFitHeight = (yOne / maxAmongFour) * 9;
+        int yOneInt = (int) Math.round(yOneToFitHeight);
+        double yTwoToFitHeight = (yTwo / maxAmongFour) * 9;
+        int yTwoInt = (int) Math.round(yTwoToFitHeight);
+        double yThreeToFitHeight = (yThree / maxAmongFour) * 9;
+        int yThreeInt = (int) Math.round(yThreeToFitHeight);
+        double yFourToFitHeight = (yFour / maxAmongFour) * 9;
+        int yFourInt = (int) Math.round(yFourToFitHeight);
 
         String resultString;
         String[][] twoDString = new String[LENGTH][WIDTH];
@@ -40,18 +51,37 @@ public class Histogram {
             for (int j = 0; j < WIDTH; j++) {
 
                 if (j == 0) {
-                    twoDString[i][j] = "|";
+                    twoDString[i][j] = "|"; //set the y axis
                 } else if (j == 9) {
-                    twoDString[i][j] = "\n";
+                    twoDString[i][j] = "\n"; //end the line
+                } else if (x==4 & j == 2 & i == 9) {
+                    twoDString[i][j] = "_▲1"; //set the first column name
+                } else if (x==4 & j == 4 & i == 9) {
+                    twoDString[i][j] = "_▲2"; //set the second column name
+                } else if (x==4 & j == 6 & i == 9) {
+                    twoDString[i][j] = "_▲3"; //set the third column name
+                } else if (x==4 & j == 8 & i == 9) {
+                    twoDString[i][j] = "_▲4"; //set the fourth column name
                 } else if (i == 9) {
-                    twoDString[i][j] = "____";
+                    twoDString[i][j] = "____"; //set the x axis
+                } else if (x==4 & j == 2 & i >= (9 - yOneInt)) {
+                    twoDString[i][j] = "▓▓▓"; //print the first column
+                } else if (x==4 & j == 4 & i >= (9 - yTwoInt)) {
+                    twoDString[i][j] = "▓▓▓"; //print the second column
+                } else if (x==4 & j == 6 & i >= (9 - yThreeInt)) {
+                    twoDString[i][j] = "▓▓▓"; //print the third column
+                } else if (x==4 & j == 8 & i >= (9 - yFourInt)) {
+                    twoDString[i][j] = "▓▓▓"; //print the fourth column
                 } else {
-                    twoDString[i][j] = "    ";
+                    twoDString[i][j] = "░░░"; //print the blank space
                 }
 
             }
         }
 
+        /**
+         * build the 2D string to a string.
+         */
         StringBuilder sb = new StringBuilder();
         for (String[] s1 : twoDString) {
             for (String s2 : s1) {
