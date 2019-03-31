@@ -1,3 +1,5 @@
+//@@author liguanlong
+
 = About Us
 :site-section: AboutUs
 
@@ -33,7 +35,7 @@ Role: Developer
 '''
 
 === Li Guanlong
-image:https://github.com/cs2113-ay1819s2-t11-2/main/blob/master/docs/images/liguanlong.png?raw=true[width=128,height=128]
+image:https://github.com/cs2113-ay1819s2-t11-2/main/blob/master/docs/images/liguanlong.png?raw=true[width=128]
 
 Role: Developer
 
