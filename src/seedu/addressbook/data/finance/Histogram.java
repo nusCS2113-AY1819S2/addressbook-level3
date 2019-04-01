@@ -35,13 +35,13 @@ public class Histogram {
          * process values to fit height in Histogram.
          */
         double maxAmongFour = Math.max(Math.max(Math.max(yOne, yTwo), yThree), yFour);
-        double yOneToFitHeight = (yOne / maxAmongFour) * 9;
+        double yOneToFitHeight = (yOne / maxAmongFour) * 8;
         int yOneInt = (int) Math.round(yOneToFitHeight);
-        double yTwoToFitHeight = (yTwo / maxAmongFour) * 9;
+        double yTwoToFitHeight = (yTwo / maxAmongFour) * 8;
         int yTwoInt = (int) Math.round(yTwoToFitHeight);
-        double yThreeToFitHeight = (yThree / maxAmongFour) * 9;
+        double yThreeToFitHeight = (yThree / maxAmongFour) * 8;
         int yThreeInt = (int) Math.round(yThreeToFitHeight);
-        double yFourToFitHeight = (yFour / maxAmongFour) * 9;
+        double yFourToFitHeight = (yFour / maxAmongFour) * 8;
         int yFourInt = (int) Math.round(yFourToFitHeight);
 
         String resultString;
