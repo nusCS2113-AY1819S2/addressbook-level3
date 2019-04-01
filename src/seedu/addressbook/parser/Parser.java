@@ -24,6 +24,9 @@ public class Parser {
                     + " (?<isPhonePrivate>p?)p/(?<phone>[^/]+)"
                     + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
                     + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
+                    + "m/(?<appointment>[^/]+)"
+                    + "d/(?<doctor>[^/]+)"
+                    + "s/(?<status>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
 
@@ -69,8 +72,17 @@ public class Parser {
             case FindCommand.COMMAND_WORD:
                 return prepareFind(arguments);
 
+            case DoctorAppointmentsCommand.COMMAND_WORD:
+                return prepareFindDoctor(arguments);
+
+            case LengthCommand.COMMAND_WORD:
+                return new LengthCommand();
+
             case ListCommand.COMMAND_WORD:
                 return new ListCommand();
+
+            case ReferCommand.COMMAND_WORD:
+                return prepareRefer(arguments);
 
             case ViewCommand.COMMAND_WORD:
                 return prepareView(arguments);
@@ -78,10 +90,13 @@ public class Parser {
             case ViewAllCommand.COMMAND_WORD:
                 return prepareViewAll(arguments);
 
+            case SortCommand.COMMAND_WORD:
+                return new SortCommand(arguments.trim());
+
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
 
-            case HelpCommand.COMMAND_WORD: // Fallthrough
+            case HelpCommand.COMMAND_WORD:// Fallthrough
             default:
                 return new HelpCommand();
         }
@@ -111,6 +126,12 @@ public class Parser {
 
                     matcher.group("address"),
                     isPrivatePrefixPresent(matcher.group("isAddressPrivate")),
+
+                    matcher.group("appointment"),
+
+                    matcher.group("doctor"),
+
+                    matcher.group("status"),
 
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
@@ -206,7 +227,6 @@ public class Parser {
         return Integer.parseInt(matcher.group("targetIndex"));
     }
 
-
     /**
      * Parses arguments in the context of the find person command.
      *
@@ -226,5 +246,35 @@ public class Parser {
         return new FindCommand(keywordSet);
     }
 
+    private Command prepareFindDoctor(String args) {
+        final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DoctorAppointmentsCommand.MESSAGE_USAGE));
+        }
 
+        // keywords delimited by whitespace
+        final String[] keywords = matcher.group("keywords").split("\\s+");
+        final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
+        return new DoctorAppointmentsCommand(keywordSet);
+    }
+
+    /**
+     * Parses arguments in the context of the refer patient command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareRefer(String args) {
+        final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ReferCommand.MESSAGE_USAGE));
+        }
+
+        // keywords delimited by whitespace
+        final String[] keywords = matcher.group("keywords").split("\\s+");
+        final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
+        return new ReferCommand(keywordSet);
+    }
 }
