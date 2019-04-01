@@ -261,32 +261,32 @@ The Finance Feature in the application helps you to manage and keep track of fin
 ==== *Get League Finance*
 You can use the Get League Finance command to view the total financial income in USD of the league. +
 
-Format : `GetLeagueFinance`
+Format : `getLeagueFinance`
 
 Example: +
-`GetLeagueFinance`
+`getLeagueFinance`
 {empty} +
 {empty} +
 
 ==== *Get Team Finance*
 You can use the Get Team Finance command to view the financial condition in USD of a selected teamName in League Tracker. +
 
-Format : `GetTeamFinance INDEX`
+Format : `finance INDEX`
 
 Example: +
 
 * `ListTeam` +
-* `GetTeamFinance 1`
+* `finance 1`
 {empty} +
 {empty} +
 
 ==== *List Team Finance*
 You can use the List Team Finance command to view the list of financial condition in USD of all Teams in the league. +
 
-Format : `ListTeamFinance`
+Format : `listFinance`
 
 Example: +
-`ListTeamFinance` +
+`listFinance` +
 
 == Exiting the program
 
