@@ -1,8 +1,8 @@
 package seedu.addressbook.commands;
 
 import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.person.Person;
-import seedu.addressbook.data.person.ReadOnlyPerson;
+import seedu.addressbook.data.person.*;
+import seedu.addressbook.data.tag.Tag;
 
 import java.util.*;
 
@@ -15,28 +15,45 @@ public class ReferCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n\t"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
 
+    public static final String MESSAGE_SUCCESS = "Patient has been successfully referred!! :D \n********************************************************************************************************\n%1$s \n********************************************************************************************************";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+
     private final Set<String> keywords;
-
+    String params[];
+    Set<String> tags;
+    private Person toRefer;
     public ReferCommand(Set<String> keywords) {
-            this.keywords = keywords;
-            }
-
+        this.keywords = keywords;
+    }
+    int count = 0;
     /**
      * Returns copy of keywords in this command.
      */
 //    public Set<String> getKeywords() {
 //            return new HashSet<>(keywords);
 //            }
-
     @Override
     public CommandResult execute() {
         final List<ReadOnlyPerson> personsFound = getPersonsWithNameContainingAnyKeyword(keywords);
+
+
+        if (count == 1) {
+            try {
+                addressBook.addPerson(toRefer);
+            } catch (UniquePersonList.DuplicatePersonException e) {
+                e.printStackTrace();
+            }
+
+            return new CommandResult(String.format(MESSAGE_SUCCESS, toRefer));
+        }
+
         return new CommandResult(getMessageForPersonListShownSummary(personsFound), personsFound);
     }
 //    public CommandResult execute() {
 //        final List<String> personsFound = (String) getNameContainingAnyKeyword(keywords);
 //        return new CommandResult(personsFound);
 //    }
+
     /**
      * Retrieve all persons in the address book whose names contain some of the specified keywords.
      *
@@ -44,66 +61,53 @@ public class ReferCommand extends Command {
      * @return list of persons found
      */
     private List<ReadOnlyPerson> getPersonsWithNameContainingAnyKeyword(Set<String> keywords) {
-            int count = 0, index = 0, insertionIndex = -1;
-            final List<ReadOnlyPerson> matchedPersons = new ArrayList<>();
-            final List<ReadOnlyPerson> one = new ArrayList<>();
+        int index = 0;
+        count = 0;
+        final List<ReadOnlyPerson> matchedPersons = new ArrayList<>();
+        final List<ReadOnlyPerson> one = new ArrayList<>();
         final List<ReadOnlyPerson> emptyList = new ArrayList<>();
 //            List<Person> p = new ArrayList<>();
-            for (ReadOnlyPerson person : addressBook.getAllPersons()) {
-                index++;
+        for (ReadOnlyPerson person : addressBook.getAllPersons()) {
+            index++;
             final Set<String> wordsInName = new HashSet<>(person.getName().getWordsInName());
+            if (!Collections.disjoint(wordsInName, keywords)) {
+                count++;
+                if (count == 1) {
+                    one.add(person);
+//                        insertionIndex = index;
+                }
+                matchedPersons.add(person);
+            }
+        }
+        if (count == 1) {
+            for (ReadOnlyPerson person : addressBook.getAllPersons()) {
+                final Set<String> wordsInName = new HashSet<>(person.getName().getWordsInName());
                 if (!Collections.disjoint(wordsInName, keywords)) {
-                    count++;
-                    if (count == 1) {
-                        one.add(person);
-                        insertionIndex = index;
+                    try {
+                        toRefer = new Person(
+                                person.getName(),
+                                person.getPhone(),
+                                person.getEmail(),
+                                person.getAddress(),
+                                person.getAppointment(),
+                                new Doctor("Dr Seuss"),
+                                new Status("Referred"),
+                                person.getTags()
+                        );
+                    } catch (IllegalValueException e) {
+                        e.printStackTrace();
                     }
-                    matchedPersons.add(person);
+
+                    try {
+                        addressBook.removePerson(person);
+                    } catch (UniquePersonList.PersonNotFoundException e) { // exception for person not found
+                        e.printStackTrace();
+                    }
                 }
             }
-            if (count == 1) {
-//              Person.ReferTo("Dr. Teo").ReferTo("Dr. Teo");
-//                Person.Refer();
-//
-
-//                final ReadOnlyPerson target = getTargetPerson();
-//                addressBook.removePerson(target);
-                return emptyList;
-            }
-            else
-                return matchedPersons;
+            return emptyList;
+        } else
+            return matchedPersons;
     }
 
-//    @Override
-//    public CommandResult execute() {
-//        try {
-//            final ReadOnlyPerson target = getTargetPerson();
-//            if (!addressBook.containsPerson(target)) {
-//                return new CommandResult(Messages.MESSAGE_PERSON_NOT_IN_ADDRESSBOOK);
-//            }
-//            return new CommandResult(String.format(MESSAGE_VIEW_PERSON_DETAILS, target.getAsTextShowAll()));
-//        } catch (IndexOutOfBoundsException ie) {
-//            return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-//        }
-//    }
-
-
-
-//    @Override
-
-//    public CommandResult execute() {
-//        final List<Name> personsFound = getNameContainingAnyKeyword(keywords);
-//        return new CommandResult(getMessageForPersonListShownSummary(personsFound), personsFound);
-//    }
-
-//    private List<Name> getNameContainingAnyKeyword(Set<String> keywords) {
-//        final List<Name> matchedPersons = new ArrayList<>();
-//        for (ReadOnlyPerson person : addressBook.getAllPersons()) {
-//            final Set<String> wordsInName = new HashSet<>(person.getName().getWordsInName());
-//            if (!Collections.disjoint(wordsInName, keywords)) {
-//                matchedPersons.add(person.getName());
-//            }
-//        }
-//        return matchedPersons;
-//    }
 }
