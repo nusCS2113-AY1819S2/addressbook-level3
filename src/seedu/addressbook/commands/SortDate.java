@@ -7,7 +7,7 @@ import java.util.Comparator;
 public class SortDate implements Comparator<ReadOnlyPerson> {
 
     public int compare(ReadOnlyPerson a, ReadOnlyPerson b){
-        return a.getLocalDate().compareTo(b.getLocalDate());
+        return a.getLocalDateTime().compareTo(b.getLocalDateTime());
     }
 
 }

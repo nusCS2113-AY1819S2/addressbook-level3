@@ -360,6 +360,26 @@ HashMap is used because memory is not a serious issue for this program as the pr
 
 //@@author
 
+//@@author matthiaslum
+
+=== Add Doctor feature
+==== Current Implementation
+
+the add doctor feature facilitated by the `Doctor` class, it implements the following operations:
+
+* `Doctor(String)` -- The constructor for the class `Doctor`.
+* `toString()` -- Returns a String containing the name of the patient's doctor.
+* `isValidName()` -- Checks if the date is alphanumeric.
+* `equals(Object)` -- Checks if two patients' doctors are equal.
+
+In addition to the Appointment class, we update the ReadOnlyPerson interface and the Person class (which implements the interface) to ensure that every Person object is constructed with an Appointment class. To be specific, the following operations are added or updated.
+
+* `Person(Doctor doctor)` --  The class `Person` now requires a Doctor object during its construction.
+* `getDoctor()` -- The class `Person` implements a method that returns the Doctor object of a Person.
+* `getAsTextShowAll()` -- This operation is updated to allow a person's doctor to be printed when an addresbook's lastShownList is printed onto the UI.
+
+The example usage scenario is similar to the scenario of the Add appointment feature below.
+
 === Add appointment feature 
 ==== Current Implementation
 
@@ -372,7 +392,7 @@ the add appointment feature facilitated by the `Appointment` class, it implement
 
 In addition to the Appointment class, we update the ReadOnlyPerson interface and the Person class (which implements the interface) to ensure that every Person object is constructed with an Appointment class. To be specific, the following operations are added or updated.
 
-* `Person(Apppointment appointment)` --  The class `Person` now requires a person object during its construction.
+* `Person(Apppointment appointment)` --  The class `Person` now requires an Appointment object during its construction.
 * `getAppointment()` -- The class `Person` implements a method that returns the Appointment object of a Person.
 * `getAsTextShowAll()` -- This operation is updated to allow a person's appointment date to be printed when an addresbook's lastShownList is printed onto the UI.
 
@@ -435,6 +455,8 @@ Step 7. When the dispay method is called in step 6, the format method in `Format
 Step 8. A separate String builder method getAsTextNameDateDoctor() is called, and the String is padded on the right by whitespace. 
 
 Step 9. The `MainWindow` displays the newly formatted Persons in neat rows, displaying only the relevant information on Name and Appointment Date.
+
+//@@author
 
 [appendix]
 == Non Functional Requirements

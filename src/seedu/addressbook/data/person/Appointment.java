@@ -1,3 +1,5 @@
+//@@author matthiaslum
+
 package seedu.addressbook.data.person;
 
 import seedu.addressbook.data.exception.IllegalValueException;
@@ -57,6 +59,7 @@ public class Appointment implements Comparable<Appointment>{
     public int hashCode() {
         return appointmentDate.hashCode();
     }
+    //@@author
 
     //@@author WuPeiHsuan
     /**compare name for sorting function*/

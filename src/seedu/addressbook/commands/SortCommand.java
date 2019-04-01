@@ -5,6 +5,7 @@ import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.lang.*;
@@ -24,7 +25,7 @@ public class SortCommand extends Command {
 
     public final String attribute;
 
-    public DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy MM d");
+    public DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy MM d kk mm");
 
     public SortCommand(String attribute) {
         this.attribute = attribute;
@@ -96,8 +97,8 @@ public class SortCommand extends Command {
     private List<ReadOnlyPerson> getPersonsSortedByDate() {
         final List<ReadOnlyPerson> matchedPersons = new ArrayList<>();
         for (ReadOnlyPerson person : addressBook.getAllPersons()) {
-                LocalDate date = LocalDate.parse(person.getAppointment().toString(), formatter);
-                person.setLocalDate(date);
+                LocalDateTime date = LocalDateTime.parse(person.getAppointment().toString(), formatter);
+                person.setLocalDateTime(date);
                 matchedPersons.add(person);
         }
         Collections.sort(matchedPersons, new SortDate());
