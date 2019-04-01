@@ -53,7 +53,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |doctor |have a custom-made address book  |filter out the patients that are not affiliated to me
 |`* * *` |doctor |sort my patient according to my desired attribute |prioritize the allocation of my resources
 |`* * *` |doctor |good authentication |my patients’ data are protected and not easily disclosed
-|`* *` |doctor |be able to directly refer patients to respective specialists | focus on attending to patients with medical conditions relevant to my expertise, and ensure that others are properly referred to the correct doctor to attend to their specific medical condition(s).
+|`* * *` |doctor |be able to directly refer patients to respective specialists | focus on attending to patients with medical conditions relevant to my expertise, and ensure that others are properly referred to the correct doctor to attend to their specific medical condition(s).
 |`*` |doctor with many persons in the address book |sort persons by name |locate a person easily
 
 //@@author
@@ -99,7 +99,7 @@ Use case resumes at step 2.
 *Main success scenario:*
 
 . The user requests to refer patient to another doctor.
-. AddressBook finds patient in the list and copies patient together with particulats to a separate list archive with an addition tag specifying which doctor he/ she is being referred to.
+. AddressBook finds patient in the list and copies patient together with particulars to a separate list archive with an addition tag specifying which doctor he/ she is being referred to.
 . AddressBook deletes patient entry from the main list.
 +
 Use case ends.
@@ -264,6 +264,7 @@ Use case ends.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+//@@author WuPeiHsuan
 === Sort feature
 ==== Current Implementation
 
@@ -286,10 +287,34 @@ Step 3. The user then decides to execute the command `list`. Commands that do n
 
 Step 4. The user decides to view the list sorted by their name by executing the `sort name` command. This command will call `AddressBook#sorted(String attribute)` and pass the string “name” to the method. Since the value of parameter is “name”, `SortByName()` will be called. `internalList` will then be sorted by name column in alphabetical order. At last, `internalList` will be returned and displayed to the user.
 
+//@@author shawn-t
 === Refer feature
 ==== Current Implementation
 
-The refer feature is still currently undergoing development. In version 1.2, it takes on the architure of the find command - looks through the list of persons in addressbook and prints out those with keywords in their names. The difference is that if there is only 1 person, his particulars will not be printed - a simulation that he/ she is going to be tagged in a separate list after being removed from the address book.
+The refer feature is facilitated by the ReferCommand class and AddressBook class, and it implements the following operations:
+
+* `toRefer = new Person(
+             person.getName(),
+             person.getPhone(),
+             person.getEmail(),
+             person.getAddress(),
+             person.getAppointment(),
+             new Doctor("Dr Seuss"),
+             new Status("Referred"),
+             person.getTags()
+             );` -- Copies and modifies taget person's parameters
+* `addressBook.removePerson(person)` -- removes target person
+* `addressBook.addPerson(toRefer)` -- adds the edited person back into the addressbook
+
+Given below is an example usage scenario and how the refer feature is incorporated at each step.
+
+Step 1. The user executes command "refer john"
+
+Step 2. ReferCommand class looks through the Addressbook for all entries containing the keyword "john"
+
+Step 3. If there is only one entry, ReferCommand modifies the entry's Doctor and Status parameters, deletes the old and adds the newly modified patient into the addressbook. If there are multiple entires, ReferCommand class prints all entries in the address book with the keyword and prompts user to key unique keyword (Repeats to Step 1).
+
+Step4. The successful execution returns a MESSAGE_SUCCESS along with the patient's particulars that are updated.
 
 //@@author liguanlong
 
@@ -358,12 +383,12 @@ HashMap is used because memory is not a serious issue for this program as the pr
 ** Pros: Compatible with HashMap. 
 ** Cons: Large in file size.
 
-//@@author
+//@@matthiaslum
 
 === Add appointment feature 
 ==== Current Implementation
 
-the add appointment feature facilitated by the `Appointment` class, it implements the following operations:
+the add appointment feature is facilitated by the `Appointment` class, it implements the following operations:
 
 * `Appointment(String)` -- The constructor for the class `Appointment`.
 * `toString()` -- Returns a String containing the date of the appointment.
