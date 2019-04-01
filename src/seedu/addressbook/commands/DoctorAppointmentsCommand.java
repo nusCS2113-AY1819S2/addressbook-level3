@@ -1,13 +1,15 @@
+//@@author matthiaslum
 package seedu.addressbook.commands;
 
 import seedu.addressbook.data.person.ReadOnlyPerson;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class DoctorAppointmentsCommand extends Command {
 
-    public DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy MM d");
+    public DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy MM d kk mm");
     public static final String COMMAND_WORD = "DoctorAppointments";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Finds all patients who have appointments with a certain doctor, and sorts them chronologically";
@@ -46,8 +48,8 @@ public class DoctorAppointmentsCommand extends Command {
         for (ReadOnlyPerson person : addressBook.getAllPersons()) {
             final Set<String> wordsInName = new HashSet<>(person.getDoctor().getWordsInName());
             if (!Collections.disjoint(wordsInName, keywords)) {
-                LocalDate date = LocalDate.parse(person.getAppointment().toString(), formatter);
-                person.setLocalDate(date);
+                LocalDateTime date = LocalDateTime.parse(person.getAppointment().toString(), formatter);
+                person.setLocalDateTime(date);
                 matchedPersons.add(person);
             }
         }
@@ -56,3 +58,4 @@ public class DoctorAppointmentsCommand extends Command {
     }
 
 }
+//@@author

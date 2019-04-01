@@ -1,3 +1,4 @@
+//@@author matthiaslum
 package seedu.addressbook.commands;
 
 public class Indicator {
@@ -11,3 +12,4 @@ public class Indicator {
         return Indicator.lastCommand;
     }
 }
+//@@author

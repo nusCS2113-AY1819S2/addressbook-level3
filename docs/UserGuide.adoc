@@ -72,7 +72,8 @@ Format: `add NAME [p]p/PHONE_NUMBER [p]e/EMAIL [p]a/ADDRESS m/APPOINTMENTDATE d/
 Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional,
 items with `...` after them can have multiple instances. Order of parameters are fixed.
 
-Note that the appointment date must be in the format of YYYY MM DD, in other for the DoctorAppointment Command to work.
+Note that the appointment date must be in the format of YYYY MM DD HH MM, in other for the DoctorAppointment Command to work.
+The hour and minute follows the 24hour clock format. Incorrect time formats will throw an error in parsing.
 
 The status must be any of following status: Critical / Waiting for Surgery / Life-support / Waiting for doctor appointment / Therapy / Observation.
 
@@ -84,8 +85,8 @@ Persons can have any number of tags (including 0)
 
 Examples:
 
-* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01 m/2009 12 11 d/DoctorTan s/Observation`
-* `add Betsy Crowe pp/1234567 e/betsycrowe@gmail.com pa/Newgate Prison m/2011 21 04 d/DoctorTan s/Observation t/criminal t/friend`
+* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01 m/2009 12 11 14 30 d/DoctorTan s/Observation`
+* `add Betsy Crowe pp/1234567 e/betsycrowe@gmail.com pa/Newgate Prison m/2011 11 04 08 00 d/DoctorTan s/Observation t/criminal t/friend`
 
 == Finding out the current length of the address book : `length`
 
