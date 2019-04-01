@@ -209,10 +209,10 @@ The Match Schedule Feature in the application helps you to manage information of
 ==== *Add Matches*
 You can use the Add Matches command to add a new match to the League Tracker. +
 
-Format : `AddMatch dd/mm/yyyy h/hometeam a/awayteam`
+Format : `addmatch dd/mm/yyyy h/hometeam a/awayteam`
 
 Example: +
- `AddMatch 28/02/2019 h/Fulham a/Chelsea` +
+ `addmatch 28/02/2019 h/Fulham a/Chelsea` +
  
 Adds a new match with the specified details.
 {empty} +
@@ -221,12 +221,12 @@ Adds a new match with the specified details.
 ==== *Delete Matches*
 You can use the Delete Matches command to delete an existing match from League Tracker. +
 
-Format : `DeleteMatch INDEX`
+Format : `deletematch INDEX`
 
 Example: +
 
-* `ListMatches` +
-* `DeleteMatch 1` +
+* `listmatch` +
+* `deletematch 1` +
 
 Deletes the 1st match in the match list.
 {empty} +
@@ -235,7 +235,21 @@ Deletes the 1st match in the match list.
 ==== *List Matches*
 You can use the List Matches command to see the list of all matches in the current league. +
 
-Format : `ListMatches`
+Format : `listmatch`
+{empty} +
+{empty} +
+
+==== *Update Matches*
+You can use the Update Matches command to update the outcome of an existing match in League Tracker. +
+
+Format : `updatematch INDEX h/homerevenue a/awayrevenue g/goalscorer o/owngoalscorer`
+
+Example: +
+
+* `listmatch` +
+* `updatematch 1 h/200 a/100 g/Gonzalo Higuain g/Calum Chambers o/Tim Ream` +
+
+Updates the 1st match in the match list with specified match results.
 {empty} +
 {empty} +
 
@@ -319,4 +333,3 @@ List Matches in League : `ListMatches`
 Get League Finance : `GetLeagueFinance` +
 Get Team Finance : `GetTeamFinance` +
 List Team Finance : `ListTeamFinance`
-
