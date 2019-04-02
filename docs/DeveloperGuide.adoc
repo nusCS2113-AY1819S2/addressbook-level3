@@ -164,6 +164,7 @@ Classes used by multiple components (eg.Utils.java) are collated in the `seedu.a
 
 == Implementation
 [to be edited]
+In this section, the detailed implementations of classes and features will be shown.
 
 == Documentation
 Following AddressBook3, our League Tracker uses AsciiDoc for writing documentation.We choose AsciiDoc as it provides both a human-readable,
