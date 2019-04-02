@@ -48,5 +48,5 @@ include::https://github.com/cs2113-ay1819s2-t11-2/main/blob/master/docs/UserGuid
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::https://github.com/cs2113-ay1819s2-t11-2/main/blob/master/docs/DeveloperGuide.adoc[tag=refer]
+include::../DeveloperGuide.adoc[tag=refer]
 include::https://github.com/cs2113-ay1819s2-t11-2/main/blob/master/docs/DeveloperGuide.adoc[tag=length]
