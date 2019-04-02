@@ -85,7 +85,6 @@ Use case resumes at step 2.
 * 1b. Patient name has duplicates.
 ** 1a1. AddressBook prints out patients' indexes and prompts users to select the correct index.
 ** 1a2. User enters correct patient's index.
-+
 
 === Use case: UC06 - Length of address book
 
@@ -93,15 +92,6 @@ Use case resumes at step 2.
 
 . User requests for length of address book.
 . AddressBook gets the current length and prints out the number of entries.
-+
-Use case ends.
-
-=== Use case: UC07 - List all entries
-
-*Main success scenario:*
-
-. User requests for list of address book.
-. AddressBook prints out all entries in the address book with their respective particulars that are not private.
 +
 Use case ends.
 
