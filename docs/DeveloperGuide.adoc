@@ -324,8 +324,8 @@ Step4. The successful execution returns a MESSAGE_SUCCESS along with the patient
 The login / register mechanism is facilitated by `AccountManager`, it implements the following operations:
 
 * `AccountManager()` -- The constructor for the class `AccountManager`.
-* `loadAccounts` -- Loads all the account information from local storage.
-* `storeAccounts` -- Stores all the account information to local storage.
+* `loadAccounts()` -- Loads all the account information from local storage.
+* `storeAccounts()` -- Stores all the account information to local storage.
 * `getLoginStatus()` -- Returns the login status to the caller.
 * `setLoginStatus(boolean)` -- Sets the login status according to the parameter.
 * `accountCommandHandler(String)` -- Handles the user input, checks if there is a match for username and password match if the user's command is `login`, trys to regster a new account if the user's command is `register`, returns a string to indicate the outcome.
