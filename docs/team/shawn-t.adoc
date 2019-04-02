@@ -1,1 +1,42 @@
 
+
+
+Overview:
+
+DoctorOnCall is a Java sample application intended for doctors with long-term patients and have to track their patients' appointment details as well as particulars.
+This application was developed by team T11-2 of CS2113T in National University of Singapore.
+
+Summary of Contributions:
+
+Code contributed: https://nus-cs2113-ay1819s2.github.io/dashboard/#=undefined&search=shawn-t
+                  https://github.com/CS2113-AY1819S2-T11-2/main/commits/master?author=shawn-t&since=2019-03-04%27T%2700:00:00+08:00&until=2019-03-04%27T%2723:59:59+08:00
+                  https://github.com/CS2113-AY1819S2-T11-2/main/commits/master?author=shawn-t&since=2019-03-16%27T%2700:00:00+08:00&until=2019-03-16%27T%2723:59:59+08:00
+                  https://github.com/CS2113-AY1819S2-T11-2/main/commits/master?author=shawn-t&since=2019-03-18%27T%2700:00:00+08:00&until=2019-03-18%27T%2723:59:59+08:00
+
+                  // Not tracked on RepoSense
+                  https://github.com/nusCS2113-AY1819S2/addressbook-level3/commit/ba34a7fef7c6dc505a3671c66416cda141694f94
+                  https://github.com/nusCS2113-AY1819S2/addressbook-level3/commit/741958db1ce28bc2bfd4e998361b7582c15c6496
+
+Features implemented: Refer Patient (major/ main feature), length (minor feature)
+
+Major Enhancement: added a refer command that allows user to directly refer a patient within the addressbook and automatically update the relevant particulars
+* What it does: Allows user to do a direct patient refer to another doctor
+* Justification: On the same database where patients' particulars are stored, having this features allows for a quick and easy way to refer patients without the need to swap to another dsatabase/ update the addressbook manually.
+* Highlights: The challenge of this implementation is to analysize existing commands - Add, Delete and Find - understand the concepts behind these working commands and extracting only the relevant parts to make this feature possible.
+Minor Enhancement: added a length command that returns the nuber of entries in the addressbook
+* What it does: Allows user to query the number of entries without having to see the full list with every patient's particulars (when using list command).
+* Justification: Users would like a quick access to how many patients they have. This feature hides all other information and only outputs the number of entries.
+* Highlights: The challenge of this implementation is understanding how the command list works and modelling its implementation and only getting the parameteres required (size).
+
+
+Other contributions:
+* Project management: Managed releases v1.1 - v1.3, as well as updated issue tracker.
+* Documentation: Did cosmetic tweaks to original template by formatting Use Cases for the existing commands of the Developer Guide
+
+Contributions to the User Guide:
+Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.
+https://github.com/cs2113-ay1819s2-t11-2/main/blob/master/docs/UserGuide.adoc
+
+Contributions to the Developer Guide:
+Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
+https://github.com/cs2113-ay1819s2-t11-2/main/blob/master/docs/DeveloperGuide.adoc
