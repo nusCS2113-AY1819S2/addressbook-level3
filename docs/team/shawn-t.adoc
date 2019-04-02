@@ -18,7 +18,7 @@ This application was developed by team T11-2 of CS2113T in National University o
                   https://github.com/nusCS2113-AY1819S2/addressbook-level3/commit/ba34a7fef7c6dc505a3671c66416cda141694f94
                   https://github.com/nusCS2113-AY1819S2/addressbook-level3/commit/741958db1ce28bc2bfd4e998361b7582c15c6496
 
-Features implemented: Refer Patient (major/ main feature), length (minor feature)
+== Features implemented: Refer Patient (major/ main feature), length (minor feature)
 
 * *Major enhancement*: added a refer command that allows user to directly refer a patient within the addressbook and automatically update the relevant particulars
 ** What it does: Allows user to do a direct patient refer to another doctor
@@ -37,7 +37,7 @@ Features implemented: Refer Patient (major/ main feature), length (minor feature
 
 == Contributions to the User Guide
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
 include::https://github.com/cs2113-ay1819s2-t11-2/main/blob/master/docs/UserGuide.adoc[tag=refer]
@@ -45,7 +45,7 @@ include::https://github.com/cs2113-ay1819s2-t11-2/main/blob/master/docs/UserGuid
 
 == Contributions to the Developer Guide:
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
 include::https://github.com/cs2113-ay1819s2-t11-2/main/blob/master/docs/DeveloperGuide.adoc[tag=refer]
