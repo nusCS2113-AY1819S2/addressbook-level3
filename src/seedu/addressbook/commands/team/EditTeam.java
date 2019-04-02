@@ -24,7 +24,7 @@ import seedu.addressbook.data.team.UniqueTeamList;
 
 public class EditTeam extends Command {
 
-    public static final String COMMAND_WORD = "editTeam";
+    public static final String COMMAND_WORD = "editteam";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
             + "Edits the details of the team identified by the index number used in the displayed team list.\n"
@@ -34,7 +34,7 @@ public class EditTeam extends Command {
             + "[n/NAME]"
             + "[c/COUNTRY] "
             + "[s/SPONSOR] "
-            + "[t/TAGS]\n"
+            + "[t/TAGS](t/nil to remove tags)\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + "c/" + Country.EXAMPLE;
 
@@ -120,9 +120,12 @@ public class EditTeam extends Command {
     }
 
     /**
-     * Check for new address value.
+     * Check for new Tags value.
      */
     private static Set<Tag> checkTagset(Set<Tag> newEdit, Set<Tag> oldInfo) {
+        if (newEdit.toString().contains("[nil]")) {
+            return new HashSet<>();
+        }
         if (newEdit.isEmpty()) {
             return oldInfo;
         }

@@ -2,6 +2,7 @@ package seedu.addressbook.data.team;
 
 import java.util.Set;
 
+import seedu.addressbook.data.match.Match;
 import seedu.addressbook.data.player.Player;
 import seedu.addressbook.data.tag.Tag;
 
@@ -17,6 +18,11 @@ public interface ReadOnlyTeam {
     Country getCountry();
     Sponsor getSponsor();
     Set<Player> getPlayers();
+    Set<Match> getMatches();
+    int getPoints();
+    int getWins();
+    int getDraws();
+    int getLoses();
 
     /**
      * changes on the returned list will not affect the team's internal tags.
@@ -45,6 +51,10 @@ public interface ReadOnlyTeam {
                 .append(" | Tags: ");
         for (Tag tag : getTags()) {
             builder.append(tag);
+        }
+        builder.append("\nPlayer List:\n");
+        for (Player player : getPlayers()) {
+            builder.append(player.getName() + "\n");
         }
         return builder.toString();
     }

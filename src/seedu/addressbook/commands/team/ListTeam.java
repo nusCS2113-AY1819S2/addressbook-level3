@@ -11,7 +11,7 @@ import seedu.addressbook.data.team.ReadOnlyTeam;
  */
 public class ListTeam extends Command {
 
-    public static final String COMMAND_WORD = "listTeam";
+    public static final String COMMAND_WORD = "listteam";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
             + "Displays all Teams in the address book as a list with index numbers.\n\t"

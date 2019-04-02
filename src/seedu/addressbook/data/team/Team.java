@@ -1,9 +1,11 @@
 package seedu.addressbook.data.team;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.addressbook.data.match.Match;
 import seedu.addressbook.data.player.Player;
 import seedu.addressbook.data.tag.Tag;
 
@@ -18,7 +20,12 @@ public class Team implements ReadOnlyTeam {
     private Name name;
     private Country country;
     private Sponsor sponsor;
+    private int win = 0;
+    private int lose = 0;
+    private int draw = 0;
+    private int points = 0;
     private final Set<Player> playerlist = new HashSet<>();
+    private final Set<Match> matchlist =new HashSet<>();
     private final Set<Tag> tags = new HashSet<>();
     /**
      * Assumption: Every field must be present and not null.
@@ -44,6 +51,11 @@ public class Team implements ReadOnlyTeam {
     }
 
     @Override
+    public Set<Match> getMatches() {
+        return new HashSet<>(matchlist);
+    }
+
+    @Override
     public Sponsor getSponsor() {
         return sponsor;
     }
@@ -63,6 +75,18 @@ public class Team implements ReadOnlyTeam {
         return new HashSet<>(tags);
     }
 
+    @Override
+    public int getPoints() {return points; }
+
+    @Override
+    public int getWins() {return win; }
+
+    @Override
+    public int getLoses() {return lose; }
+
+    @Override
+    public int getDraws() {return draw; }
+
     /**
      * Replaces this team's tags with the tags in {@code replacement}.
      */
@@ -74,6 +98,25 @@ public class Team implements ReadOnlyTeam {
     public void setPlayers(Set<Player> replacement) {
         playerlist.clear();
         playerlist.addAll(replacement);
+    }
+
+    public void updatePoints(int win, int draw) {
+        this.points = (win * 3) + draw;
+    }
+
+    public void updateRecords(Set<Match> matchlist) {
+        Iterator i = matchlist.iterator();
+        while (i.hasNext()) {
+            Match temp = (Match)i.next();
+        }
+    }
+
+    public void addplayer(Player player) {
+        this.playerlist.add(player);
+    }
+
+    public void addmatch(Match match) {
+        this.matchlist.add(match);
     }
 
     @Override

@@ -19,7 +19,7 @@ import seedu.addressbook.data.team.ReadOnlyTeam;
 
 public class FindTeam extends Command {
 
-    public static final String COMMAND_WORD = "findTeam";
+    public static final String COMMAND_WORD = "findteam";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Finds all teams whose names contain any of "
             + "the specified keywords (case-sensitive) and displays them as a list with index numbers.\n\t"
