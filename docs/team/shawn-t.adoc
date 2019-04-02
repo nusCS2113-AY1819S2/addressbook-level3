@@ -47,11 +47,89 @@ https://github.com/nusCS2113-AY1819S2/addressbook-level3/commit/741958db1ce28bc2
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::https://github.com/cs2113-ay1819s2-t11-2/main/blob/master/docs/UserGuide.adoc
+== Finding out the current length of the address book : `length`
+
+Shows the number of entries in the address book. +
+Format: `length`
+
+== Referring person indicated by user : `refer`
+
+Refers patient to Dr Seuss if there is only one entry and shows a success message with patient's updated particulars. +
+if there are multiple entries, prints all patients in the address book with the keyword and prompts user to key unique keyword. +
+Format: `refer John`
 
 == Contributions to the Developer Guide:
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::https://github.com/cs2113-ay1819s2-t11-2/main/blob/master/docs/DeveloperGuide.adoc[tag=length]
+=== Use case: UC03 - Refer patient
+
+*Main success scenario:*
+
+. The user requests to refer patient to another doctor.
+. AddressBook finds patient in the list and copies patient together with particulars to a separate list archive with an addition tag specifying which doctor he/ she is being referred to.
+. AddressBook deletes patient entry from the main list.
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The format entered by the user is incorrect.
+** 1a1. AddressBook shows an error message and prints the format for user to follow.
+** 1a2. User re-enters new patient's particulars.
+* Steps 1a1 - 1a2 are repeated until the correct format is entered by the user.
++
+Use case resumes at step 2.
+
+* 1b. Patient name has duplicates.
+** 1a1. AddressBook prints out patients' indexes and prompts users to select the correct index.
+** 1a2. User enters correct patient's index.
++
+
+=== Use case: UC06 - Length of address book
+
+*Main success scenario:*
+
+. User requests for length of address book.
+. AddressBook gets the current length and prints out the number of entries.
++
+Use case ends.
+
+=== Use case: UC07 - List all entries
+
+*Main success scenario:*
+
+. User requests for list of address book.
+. AddressBook prints out all entries in the address book with their respective particulars that are not private.
++
+Use case ends.
+
+//@@author shawn-t
+=== Refer feature
+==== Current Implementation
+
+The refer feature is facilitated by the ReferCommand class and AddressBook class, and it implements the following operations:
+
+* `toRefer = new Person(
+             person.getName(),
+             person.getPhone(),
+             person.getEmail(),
+             person.getAddress(),
+             person.getAppointment(),
+             new Doctor("Dr Seuss"),
+             new Status("Referred"),
+             person.getTags()
+             );` -- Copies and modifies taget person's parameters
+* `addressBook.removePerson(person)` -- removes target person
+* `addressBook.addPerson(toRefer)` -- adds the edited person back into the addressbook
+
+Given below is an example usage scenario and how the refer feature is incorporated at each step.
+
+Step 1. The user executes command "refer john"
+
+Step 2. ReferCommand class looks through the Addressbook for all entries containing the keyword "john"
+
+Step 3. If there is only one entry, ReferCommand modifies the entry's Doctor and Status parameters, deletes the old and adds the newly modified patient into the addressbook. If there are multiple entires, ReferCommand class prints all entries in the address book with the keyword and prompts user to key unique keyword (Repeats to Step 1).
+
+Step4. The successful execution returns a MESSAGE_SUCCESS along with the patient's particulars that are updated.
