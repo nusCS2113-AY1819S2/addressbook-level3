@@ -65,6 +65,10 @@ public class AddressBook {
         allPlayers.add(toAdd);
     }
 
+    public void editPlayer(ReadOnlyPlayer toEdit, Player newPlayer) throws UniquePlayerList.PlayerNotFoundException {
+        allPlayers.edit(toEdit, newPlayer);
+    }
+
     /**
      * Adds a team to the address book.
      */

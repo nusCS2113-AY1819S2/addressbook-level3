@@ -27,6 +27,7 @@ import seedu.addressbook.commands.player.AddCommand;
 import seedu.addressbook.commands.player.AddFastCommand;
 import seedu.addressbook.commands.player.ClearCommand;
 import seedu.addressbook.commands.player.DeleteCommand;
+import seedu.addressbook.commands.player.EditPlayerCommand;
 import seedu.addressbook.commands.player.FindCommand;
 import seedu.addressbook.commands.player.ListCommand;
 import seedu.addressbook.commands.player.SortCommand;
@@ -72,6 +73,24 @@ public class Parser {
                     + "ctry/(?<nationality>[^/]+)"
                     + "jn/(?<jerseyNumber>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)");
+
+    public static final Pattern EDITPLAYER_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<targetIndex>\\d+)"
+                    + "(( n/(?<name>[^/]+))?)"
+                    + "(( p/(?<position>[^/]+))?)"
+                    + "(( a/(?<age>[^/]+))?)"
+                    + "(( sal/(?<salary>[^/]+))?)"
+                    + "(( gs/(?<goalsScored>[^/]+))?)"
+                    + "(( ga/(?<goalsAssisted>[^/]+))?)"
+                    + "(( tm/(?<teamName>[^/]+))?)"
+                    + "(( ctry/(?<nationality>[^/]+))?)"
+                    + "(( jn/(?<jerseyNumber>[^/]+))?)"
+                    + "(( app/(?<appearance>[^/]+))?)"
+                    + "(( hs/(?<healthStatus>[^/]+))?)"
+                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags;
+
+    public static final Pattern EDITPLAYER_DATA_EMPTY_FORMAT =
+            Pattern.compile("(?<targetIndex>\\d+)");
 
     public static final Pattern MATCH_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<date>[^/]+)"
@@ -141,6 +160,9 @@ public class Parser {
         case AddTeam.COMMAND_WORD:
             return addTeam(arguments);
 
+        case EditPlayerCommand.COMMAND_WORD:
+            return prepareEditPlayer(arguments);
+
         case DeleteCommand.COMMAND_WORD:
             return prepareDeletePlayer(arguments);
 
@@ -154,7 +176,7 @@ public class Parser {
             return new ClearTeam();
 
         case FindCommand.COMMAND_WORD:
-            return prepareFindPerson(arguments);
+            return prepareFindPlayer(arguments);
 
         case FindTeam.COMMAND_WORD:
             return prepareFindTeam(arguments);
@@ -292,6 +314,56 @@ public class Parser {
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
+    }
+
+    /**
+     *
+     * @param args
+     * @return
+     */
+    private Command prepareEditPlayer(String args) {
+
+        final Matcher checkForArgs = EDITPLAYER_DATA_EMPTY_FORMAT.matcher(args.trim());
+
+        if (checkForArgs.matches()) {
+            return new IncorrectCommand(String.format(
+                    EditPlayerCommand.MESSAGE_NOATTRIBUTE_WARNING,
+                    EditPlayerCommand.MESSAGE_USAGE));
+        }
+
+        //check for invalid inputs
+        final Matcher matcher = EDITPLAYER_DATA_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(
+                    MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditPlayerCommand.MESSAGE_USAGE));
+        }
+
+        try {
+            final int targetIndex = parseArgsAsDisplayedIndex(matcher.group("targetIndex"));
+            return new EditPlayerCommand(
+                    targetIndex,
+                    matcher.group("name"),
+                    matcher.group("position"),
+                    matcher.group("age"),
+                    matcher.group("salary"),
+                    matcher.group("goalsScored"),
+                    matcher.group("goalsAssisted"),
+                    matcher.group("teamName"),
+                    matcher.group("nationality"),
+                    matcher.group("jerseyNumber"),
+                    matcher.group("appearance"),
+                    matcher.group("healthStatus"),
+                    getTagsFromArgs(matcher.group("tagArguments"))
+            );
+        } catch (ParseException | NumberFormatException nfe) {
+            return new IncorrectCommand(String.format(
+                    MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditPlayerCommand.MESSAGE_USAGE));
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+
     }
 
 
@@ -537,7 +609,7 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareFindPerson(String args) {
+    private Command prepareFindPlayer(String args) {
         final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,

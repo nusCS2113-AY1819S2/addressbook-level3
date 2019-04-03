@@ -1,19 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <AddressBook>
     <players>
-        <name>Lionel Messi</name>
-        <position>RW</position>
-        <age>31</age>
-        <salary>0</salary>
-        <goalsScored>0</goalsScored>
-        <goalsAssisted>0</goalsAssisted>
-        <teamName>FC Barcelona</teamName>
-        <nationality>Argentina</nationality>
-        <jerseyNumber>10</jerseyNumber>
-        <appearance>0</appearance>
-        <healthStatus>Healthy</healthStatus>
-    </players>
-    <players>
         <name>Cristiano Ronaldo</name>
         <position>Striker</position>
         <age>33</age>
@@ -39,8 +26,21 @@
         <appearance>0</appearance>
         <healthStatus>Healthy</healthStatus>
     </players>
+    <players>
+        <name>Lionel Messi</name>
+        <position>RW</position>
+        <age>31</age>
+        <salary>2000</salary>
+        <goalsScored>0</goalsScored>
+        <goalsAssisted>0</goalsAssisted>
+        <teamName>FC Barcelona</teamName>
+        <nationality>Argentina</nationality>
+        <jerseyNumber>10</jerseyNumber>
+        <appearance>0</appearance>
+        <healthStatus>Healthy</healthStatus>
+    </players>
     <teams>
-        <name>Singapore United</name>
+        <name>FC</name>
         <country>Singapore</country>
         <sponsor>5487</sponsor>
         <tagged>Lousy</tagged>
