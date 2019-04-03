@@ -23,6 +23,10 @@ import seedu.addressbook.data.player.TeamName;
 import seedu.addressbook.data.player.UniquePlayerList;
 import seedu.addressbook.data.tag.Tag;
 
+/**
+ * This Command allows user to edit the player details in the league record
+ */
+
 public class EditPlayerCommand extends Command {
 
     public static final String COMMAND_WORD = "editPlayer";
@@ -50,9 +54,7 @@ public class EditPlayerCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Player %1$s profile is edited";
     public static final String MESSAGE_NOATTRIBUTE_WARNING = "At least one attribute must be provided for edition";
-
-    //private final ReadOnlyPlayer inputPlayer;
-
+    
     private final Name nameItem;
     private final PositionPlayed positionItem;
     private final Age ageItem;
@@ -112,7 +114,24 @@ public class EditPlayerCommand extends Command {
         }
     }
 
-
+    /**
+     * Create a player object that contains the input information by the user.
+     * Some fields may be null.
+     *
+     * @param nameitem
+     * @param positionItem
+     * @param ageItem
+     * @param salaryItem
+     * @param gsItem
+     * @param gaItem
+     * @param teamNameItem
+     * @param nationalityItem
+     * @param jnItem
+     * @param appItem
+     * @param hsItem
+     * @param tagItem
+     * @return
+     */
     private static Player createInputPlayer(Name nameitem, PositionPlayed positionItem,
                                             Age ageItem, Salary salaryItem,
                                             GoalsScored gsItem, GoalsAssisted gaItem,
@@ -124,7 +143,13 @@ public class EditPlayerCommand extends Command {
                 teamNameItem, nationalityItem, jnItem, appItem, hsItem, tagItem);
     }
 
-
+    /**
+     * Creates a Player object containing updated information
+     *
+     * @param inputPlayer
+     * @param oldPlayer
+     * @return
+     */
     private static Player createEditedPlayer(ReadOnlyPlayer inputPlayer, ReadOnlyPlayer oldPlayer) {
         Name nameItem;
         PositionPlayed positionItem;
