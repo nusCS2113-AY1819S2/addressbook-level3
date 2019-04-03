@@ -118,6 +118,22 @@ public class UniquePlayerList implements Iterable<Player> {
     }
 
     /**
+     * Edits an existing player in the league.
+     *
+     * @param toEdit the target player to be edited
+     * @param newPlayer the target player with edited profile
+     * @throws PlayerNotFoundException if no such player could be found in the list
+     */
+
+    public void edit (ReadOnlyPlayer toEdit, Player newPlayer) throws PlayerNotFoundException{
+        final boolean playerFoundAndDeleted = internalList.remove(toEdit);
+        if(!playerFoundAndDeleted){
+            throw new  PlayerNotFoundException();
+        }
+        internalList.add(newPlayer);
+    }
+
+    /**
      * Clears all players in list.
      */
     public void clear() {
