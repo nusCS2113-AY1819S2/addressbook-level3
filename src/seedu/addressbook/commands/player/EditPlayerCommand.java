@@ -54,7 +54,6 @@ public class EditPlayerCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Player %1$s profile is edited";
     public static final String MESSAGE_NOATTRIBUTE_WARNING = "At least one attribute must be provided for edition";
-    
     private final Name nameItem;
     private final PositionPlayed positionItem;
     private final Age ageItem;
@@ -118,19 +117,19 @@ public class EditPlayerCommand extends Command {
      * Create a player object that contains the input information by the user.
      * Some fields may be null.
      *
-     * @param nameitem
-     * @param positionItem
-     * @param ageItem
-     * @param salaryItem
-     * @param gsItem
-     * @param gaItem
-     * @param teamNameItem
-     * @param nationalityItem
-     * @param jnItem
-     * @param appItem
-     * @param hsItem
-     * @param tagItem
-     * @return
+     * @param nameitem a Name object
+     * @param positionItem a PositionPlayer object
+     * @param ageItem an Age object
+     * @param salaryItem a Salary object
+     * @param gsItem a GoalsScored object
+     * @param gaItem a GoalsAssisted object
+     * @param teamNameItem a TeamName object
+     * @param nationalityItem a Nationality object
+     * @param jnItem a JerseyNumber Object
+     * @param appItem an Appearance object
+     * @param hsItem a HealthStatus object
+     * @param tagItem a tag Set
+     * @return a Player object containing all user-input information
      */
     private static Player createInputPlayer(Name nameitem, PositionPlayed positionItem,
                                             Age ageItem, Salary salaryItem,
@@ -146,9 +145,9 @@ public class EditPlayerCommand extends Command {
     /**
      * Creates a Player object containing updated information
      *
-     * @param inputPlayer
-     * @param oldPlayer
-     * @return
+     * @param inputPlayer a Player object containing all user input
+     * @param oldPlayer the Player object that is to be edited
+     * @return an updated Player object containing all updated information with the edition made
      */
     private static Player createEditedPlayer(ReadOnlyPlayer inputPlayer, ReadOnlyPlayer oldPlayer) {
         Name nameItem;
