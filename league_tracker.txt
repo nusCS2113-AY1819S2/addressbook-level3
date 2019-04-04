@@ -1,19 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <AddressBook>
     <players>
-        <name>Cristiano Ronaldo</name>
-        <position>Striker</position>
-        <age>33</age>
-        <salary>10</salary>
-        <goalsScored>0</goalsScored>
-        <goalsAssisted>0</goalsAssisted>
-        <teamName>Juventus</teamName>
-        <nationality>Portugal</nationality>
-        <jerseyNumber>7</jerseyNumber>
-        <appearance>0</appearance>
-        <healthStatus>Healthy</healthStatus>
-    </players>
-    <players>
         <name>Wu Lei</name>
         <position>Striker</position>
         <age>27</age>
@@ -23,6 +10,19 @@
         <teamName>Espanoyl</teamName>
         <nationality>China</nationality>
         <jerseyNumber>24</jerseyNumber>
+        <appearance>0</appearance>
+        <healthStatus>Healthy</healthStatus>
+    </players>
+    <players>
+        <name>Cristiano Ronaldo</name>
+        <position>Striker</position>
+        <age>33</age>
+        <salary>2000</salary>
+        <goalsScored>0</goalsScored>
+        <goalsAssisted>0</goalsAssisted>
+        <teamName>Juventus</teamName>
+        <nationality>Portugal</nationality>
+        <jerseyNumber>7</jerseyNumber>
         <appearance>0</appearance>
         <healthStatus>Healthy</healthStatus>
     </players>
