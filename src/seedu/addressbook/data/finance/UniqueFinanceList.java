@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -110,15 +111,13 @@ public class UniqueFinanceList implements Iterable<Finance> {
     }
 
     /**
-     * Sort all Finances in list by (to be edited)
+     * Sort all Finances in list by value in getFinance()
      */
-
-    /*
     public void sort() {
-        Comparator<Finance> customTeamCompare = Comparator.comparing(TeamName::getTeamName);
-        Collections.sort(internalList, customTeamCompare);
+        Comparator<Finance> customFinanceCompare = Comparator.comparing(Finance::getFinance);
+        Collections.sort(internalList, customFinanceCompare);
+        Collections.reverse(internalList);
     }
-    */
 
     /**
      * Removes the equivalent finance from the list.
