@@ -96,7 +96,6 @@ public class AddCommand extends Command {
     public CommandResult execute() {
         try {
             addressBook.addPlayer(toAdd);
-
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniquePlayerList.DuplicatePlayerException dpe) {
             return new CommandResult(MESSAGE_DUPLICATE_PLAYER);

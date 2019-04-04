@@ -15,7 +15,7 @@ endif::[]
 
 Welcome to the League Tracker User Guide! You can choose a topic below to find out how to use our product.
 
-By: `CS2113-AY1819S2-M11-1`	Since: `Jan 2019` Licence: `MIT`
+By: `CS2113-AY1819S2-M11-1`	Since: `Jan 2019`
 
 == Introduction
 
@@ -52,7 +52,7 @@ Help is also shown if you enter an incorrect command e.g. `abcd`
 
 == Features
 
-The League Tracker has four main features: player feature, team feature,  match feature and finance feature. These features will help you to manage useful information of your league more conveniently and effectively.
+The League Tracker has four main features: player feature, teamName feature,  match feature and finance feature. These features will help you to manage useful information of your league more conveniently and effectively.
 
 === Players
 The players feature in the application helps you to manage information of players in the league. +
@@ -108,15 +108,15 @@ Format ：`delete Index`
 
 Example:
 
-. Do a list command to see the index of all players in the league record.(See figure 5)
+1. Do a list command to see the index of all players in the league record.(See figure 5)
 
 .Information of all players in the league record after executing the list command
 image::delete_PlayerListed.png[]
 
-. Assume that the user wants to delete the player named "Cristiano Ronaldo" with index 2, the user just needs to input
+2. Assume that the user wants to delete the player named "Cristiano Ronaldo" with index 2, the user just needs to input
 `delete 2` as the delete command.
 
-. If successfully deleted, a message will be shown to the player(See figure 6)
+3. If successfully deleted, a message will be shown to the player(See figure 6)
 
 .Success Message displayed after using delete Command to delete a player
 image::deleteSuccess.png[]
@@ -228,7 +228,7 @@ A list of all players' information will be displayed following the command.(See 
 image::listSuccess.png[]
 
 ==== *List Players in a team(not in v1.3)*
-You can use the List Player command to see the list of players in a selected team. +
+You can use the List Player command to see the list of players in a selected teamName. +
 
 Format ：`ListPlayer NameOfTeam` +
 
@@ -245,48 +245,48 @@ The teams feature in the application helps you to manage information of football
 {empty} +
 
 ==== *Add Team*
-You can use the Add Team command to add a new team to the League Tracker. +
+You can use the Add Team command to add a new teamName to the League Tracker. +
 
-Format : `addteam NAME c/COUNTRY s/SPONSORSHIP [t/TAGS]`
+Format : `AddTeam NAME c/COUNTRY g/GOAL SCORED p/POINTS`
 
 Example: +
- `addteam Liverpool c/United Kingdom s/2000000 t/red` +
+ `AddTeam Liverpool c/United Kingdom g/64 p/70` +
  
-Adds a new Team with the specified details.
+Adds a new teamName with the specified details.
 {empty} +
 {empty} +
 
 ==== *Delete Team*
-You can use the Delete Team command to delete an existing Team from League Tracker. +
+You can use the Delete Team command to delete an existing teamName from League Tracker. +
 
-Format : `delteam INDEX`
+Format : `DelTeam INDEX`
 
 Example: +
 
-* `listteam` +
-* `delteam 1` +
+* `ListTeam` +
+* `DelTeam 1` +
 
-Deletes the 1st Team in the Team list.
+Deletes the 1st teamName in the teamName list.
 {empty} +
 {empty} +
 
 ==== *Edit Team*
-You can use the Edit Team command to edit information of a Team in League Tracker. +
-Format : `editteam INDEX [c/COUNTRY] [s/SPONSORSHIP] [t/TAGS]`
+You can use the Edit Team command to edit information of a teamName in League Tracker. +
+Format : `EditTeam INDEX [c/COUNTRY] [g/GOAL SCORED] [p/POINTS]`
 
 Example: +
 
-* `listteam` +
-* `editteam 1 c/Singapore` +
+* `ListTeam` +
+* `EditTeam 1 c/Singapore` +
 
-Edits the nationality of the 1st Team in the Team list to Singapore.
+Edits the nationality of the 1st teamName in the teamName list to Singapore.
 {empty} +
 {empty} +
 
 ==== *List Team*
 You can use the list Team command to see the list of all current teams in the league. +
 
-Format : `listteam`
+Format : `ListTeam`
 {empty} +
 {empty} +
 
@@ -358,7 +358,7 @@ Example: +
 {empty} +
 
 ==== *Get Team Finance*
-You can use the Get Team Finance command to view the financial condition in USD of a selected Team in League Tracker. +
+You can use the Get Team Finance command to view the financial condition in USD of a selected teamName in League Tracker. +
 
 Format : `finance INDEX`
 
