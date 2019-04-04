@@ -9,7 +9,7 @@ import seedu.addressbook.data.exception.IllegalValueException;
  * Represents a team's name in the address book.
  */
 
-public class TeamName implements Comparable<TeamName> {
+public class Name implements Comparable<Name> {
 
     public static final String EXAMPLE = "Singapore United";
     public static final String MESSAGE_NAME_CONSTRAINTS = "team names should be spaces or alphanumeric characters";
@@ -20,7 +20,7 @@ public class TeamName implements Comparable<TeamName> {
     /**
      * Validates given name.
      */
-    public TeamName(String name) throws IllegalValueException {
+    public Name(String name) throws IllegalValueException {
         name = name.trim();
         if (!isValidName(name)) {
             throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
@@ -50,8 +50,8 @@ public class TeamName implements Comparable<TeamName> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof TeamName // instanceof handles nulls
-                && this.fullName.equals(((TeamName) other).fullName)); // state check
+                || (other instanceof Name // instanceof handles nulls
+                && this.fullName.equals(((Name) other).fullName)); // state check
     }
 
     @Override
@@ -60,8 +60,8 @@ public class TeamName implements Comparable<TeamName> {
     }
 
     @Override
-    public int compareTo(TeamName teamName) {
-        return this.fullName.compareToIgnoreCase(teamName.fullName);
+    public int compareTo(Name name) {
+        return this.fullName.compareToIgnoreCase(name.fullName);
     }
 
 }

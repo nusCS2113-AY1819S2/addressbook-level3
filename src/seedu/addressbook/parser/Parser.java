@@ -22,12 +22,10 @@ import seedu.addressbook.commands.match.ClearMatchCommand;
 import seedu.addressbook.commands.match.DeleteMatchCommand;
 import seedu.addressbook.commands.match.FindMatchCommand;
 import seedu.addressbook.commands.match.ListMatchCommand;
-import seedu.addressbook.commands.match.UpdateMatchCommand;
 import seedu.addressbook.commands.player.AddCommand;
 import seedu.addressbook.commands.player.AddFastCommand;
 import seedu.addressbook.commands.player.ClearCommand;
 import seedu.addressbook.commands.player.DeleteCommand;
-import seedu.addressbook.commands.player.EditPlayerCommand;
 import seedu.addressbook.commands.player.FindCommand;
 import seedu.addressbook.commands.player.ListCommand;
 import seedu.addressbook.commands.player.SortCommand;
@@ -74,36 +72,11 @@ public class Parser {
                     + "jn/(?<jerseyNumber>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)");
 
-    public static final Pattern EDITPLAYER_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<targetIndex>\\d+)"
-                    + "(( n/(?<name>[^/]+))?)"
-                    + "(( p/(?<position>[^/]+))?)"
-                    + "(( a/(?<age>[^/]+))?)"
-                    + "(( sal/(?<salary>[^/]+))?)"
-                    + "(( gs/(?<goalsScored>[^/]+))?)"
-                    + "(( ga/(?<goalsAssisted>[^/]+))?)"
-                    + "(( tm/(?<teamName>[^/]+))?)"
-                    + "(( ctry/(?<nationality>[^/]+))?)"
-                    + "(( jn/(?<jerseyNumber>[^/]+))?)"
-                    + "(( app/(?<appearance>[^/]+))?)"
-                    + "(( hs/(?<healthStatus>[^/]+))?)"
-                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags;
-
-    public static final Pattern EDITPLAYER_DATA_EMPTY_FORMAT =
-            Pattern.compile("(?<targetIndex>\\d+)");
-
     public static final Pattern MATCH_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<date>[^/]+)"
                     + "h/(?<home>[^/]+)"
                     + "a/(?<away>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
-
-    public static final Pattern MATCH_UPDATE_DATA_ARGS_FORMAT =
-            Pattern.compile("(?<targetIndex>\\d+)"
-                    + "(( h/(?<homeSales>[^/]+))?)"
-                    + "(( a/(?<awaySales>[^/]+))?)"
-                    + "(?<goalScorers>(?: g/[\\w\\s]+)*)" // variable number of goalScorers;
-                    + "(?<ownGoalScorers>(?: o/[\\w\\s]+)*)"); // variable number of ownGoalScorers;
 
     public static final Pattern TEAM_DATA_ARGS_FORMAT =
             Pattern.compile("(?<name>[^/]+)"
@@ -160,9 +133,6 @@ public class Parser {
         case AddTeam.COMMAND_WORD:
             return addTeam(arguments);
 
-        case EditPlayerCommand.COMMAND_WORD:
-            return prepareEditPlayer(arguments);
-
         case DeleteCommand.COMMAND_WORD:
             return prepareDeletePlayer(arguments);
 
@@ -176,7 +146,7 @@ public class Parser {
             return new ClearTeam();
 
         case FindCommand.COMMAND_WORD:
-            return prepareFindPlayer(arguments);
+            return prepareFindPerson(arguments);
 
         case FindTeam.COMMAND_WORD:
             return prepareFindTeam(arguments);
@@ -201,9 +171,6 @@ public class Parser {
 
         case ListMatchCommand.COMMAND_WORD:
             return new ListMatchCommand();
-
-        case UpdateMatchCommand.COMMAND_WORD:
-            return prepareUpdateMatch(arguments);
 
         case ListTeam.COMMAND_WORD:
             return new ListTeam();
@@ -316,56 +283,6 @@ public class Parser {
         }
     }
 
-    /**
-     *
-     * @param args
-     * @return
-     */
-    private Command prepareEditPlayer(String args) {
-
-        final Matcher checkForArgs = EDITPLAYER_DATA_EMPTY_FORMAT.matcher(args.trim());
-
-        if (checkForArgs.matches()) {
-            return new IncorrectCommand(String.format(
-                    EditPlayerCommand.MESSAGE_NOATTRIBUTE_WARNING,
-                    EditPlayerCommand.MESSAGE_USAGE));
-        }
-
-        //check for invalid inputs
-        final Matcher matcher = EDITPLAYER_DATA_ARGS_FORMAT.matcher(args.trim());
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(
-                    MESSAGE_INVALID_COMMAND_FORMAT,
-                    EditPlayerCommand.MESSAGE_USAGE));
-        }
-
-        try {
-            final int targetIndex = parseArgsAsDisplayedIndex(matcher.group("targetIndex"));
-            return new EditPlayerCommand(
-                    targetIndex,
-                    matcher.group("name"),
-                    matcher.group("position"),
-                    matcher.group("age"),
-                    matcher.group("salary"),
-                    matcher.group("goalsScored"),
-                    matcher.group("goalsAssisted"),
-                    matcher.group("teamName"),
-                    matcher.group("nationality"),
-                    matcher.group("jerseyNumber"),
-                    matcher.group("appearance"),
-                    matcher.group("healthStatus"),
-                    getTagsFromArgs(matcher.group("tagArguments"))
-            );
-        } catch (ParseException | NumberFormatException nfe) {
-            return new IncorrectCommand(String.format(
-                    MESSAGE_INVALID_COMMAND_FORMAT,
-                    EditPlayerCommand.MESSAGE_USAGE));
-        } catch (IllegalValueException ive) {
-            return new IncorrectCommand(ive.getMessage());
-        }
-
-    }
-
 
     /**
      * Parses arguments in the context of the add match command.
@@ -413,37 +330,6 @@ public class Parser {
         return new HashSet<>(tagStrings);
     }
 
-    /**
-     * Extracts the goalScorers from the update match command's goal scorer arguments string.
-     * Merges duplicate tag strings.
-     */
-
-    private static Set<String> getGoalScorersFromArgs(String goalScorersArguments) throws IllegalValueException {
-        // no goalScorers
-        if (goalScorersArguments.isEmpty()) {
-            return Collections.emptySet();
-        }
-        // replace first delimiter prefix, then split
-        final Collection<String> goalScorersStrings = Arrays.asList(goalScorersArguments.replaceFirst(" g/", "")
-                                                                    .split(" g/"));
-        return new HashSet<>(goalScorersStrings);
-    }
-
-    /**
-     * Extracts the ownGoalScorers from the update match command's own goal scorer arguments string.
-     * Merges duplicate tag strings.
-     */
-
-    private static Set<String> getOwnGoalScorersFromArgs(String ownGoalScorersArguments) throws IllegalValueException {
-        // no ownGoalScorers
-        if (ownGoalScorersArguments.isEmpty()) {
-            return Collections.emptySet();
-        }
-        // replace first delimiter prefix, then split
-        final Collection<String> ownGoalScorersStrings = Arrays.asList(ownGoalScorersArguments.replaceFirst(" o/", "")
-                .split(" g/"));
-        return new HashSet<>(ownGoalScorersStrings);
-    }
 
     /**
      * Parses arguments in the context of the delete player command.
@@ -541,33 +427,6 @@ public class Parser {
         }
     }
 
-    /**
-     * Parses arguments in the context of the UpdateMatch command.
-     */
-    private Command prepareUpdateMatch(String args) {
-
-        final Matcher matcher = MATCH_UPDATE_DATA_ARGS_FORMAT.matcher(args.trim());
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                                            UpdateMatchCommand.MESSAGE_USAGE));
-        }
-        try {
-            final int targetIndex = parseArgsAsDisplayedIndex(matcher.group("targetIndex"));
-            return new UpdateMatchCommand(
-                    targetIndex,
-                    matcher.group("homeSales"),
-                    matcher.group("awaySales"),
-                    getGoalScorersFromArgs(matcher.group("goalScorers")),
-                    getOwnGoalScorersFromArgs(matcher.group("ownGoalScorers"))
-            );
-        } catch (ParseException | NumberFormatException e) {
-            return new IncorrectCommand(String.format(
-                    MESSAGE_INVALID_COMMAND_FORMAT,
-                    UpdateMatchCommand.MESSAGE_USAGE));
-        } catch (IllegalValueException ive) {
-            return new IncorrectCommand(ive.getMessage());
-        }
-    }
 
     /**
      * Parses arguments in the context of the view all command.
@@ -609,7 +468,7 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareFindPlayer(String args) {
+    private Command prepareFindPerson(String args) {
         final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
