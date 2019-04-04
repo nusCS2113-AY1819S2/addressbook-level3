@@ -253,7 +253,10 @@ Example: +
  `addteam Liverpool c/United Kingdom s/2000000 t/red` +
  
 Adds a new Team with the specified details.
-{empty} +
+
+.After Adding
+image::addteam.png[]
+
 {empty} +
 
 ==== *Delete Team*
@@ -264,10 +267,16 @@ Format : `delteam INDEX`
 Example: +
 
 * `listteam` +
+
+.After listing
+image::listteam.png[]
+
 * `delteam 1` +
 
 Deletes the 1st Team in the Team list.
-{empty} +
+
+.After deleting
+image::delteam.png[]
 {empty} +
 
 ==== *Edit Team*
@@ -277,16 +286,48 @@ Format : `editteam INDEX [c/COUNTRY] [s/SPONSORSHIP] [t/TAGS]`
 Example: +
 
 * `listteam` +
-* `editteam 1 c/Singapore` +
 
-Edits the nationality of the 1st Team in the Team list to Singapore.
+.After Listing
+image::listteam2.png[]
+
+* `editteam 1 n/United Malaysia` +
+
+.After Editing
+image::editteam.png[]
+
+Edits the name of the 1st Team in the Team list to United Malaysia.
 {empty} +
 {empty} +
 
 ==== *List Team*
-You can use the list Team command to see the list of all current teams in the league. +
+You can use the List Team command to see the list of all current teams in the league. +
 
 Format : `listteam`
+
+.After Listing
+image::listteam.png[]
+
+{empty} +
+
+==== *View Team*
+You can use the View Team command to see the deatils of a Team from the league tracker. +
+
+Format : `viewteam INDEX`
+
+Example: +
+
+* `listteam` +
+
+.After Listing
+image::listteam3.png[]
+
+* `viewteam 1` +
+
+.After Viewing
+image::viewteam.png[]
+
+Display the 1st team's details.
+
 {empty} +
 {empty} +
 
@@ -408,10 +449,11 @@ List Players in a Team : `ListPlayer`
 
 === Teams
 
-Add Team to League : `AddTeam` +
-Delete Team from League : `DelTeam` +
-Edit Team's Profile : `EditTeam` +
-List Team in League : `ListTeam`
+Add Team to League : `addteam` +
+Delete Team from League : `delteam` +
+Edit Team's Profile : `editteam` +
+List Team in League : `listteam` +
+View Team in League : `viewteam`
 
 === Match Schedule
 Add Match to League : `AddMatch` +

@@ -13,7 +13,7 @@ ifdef::env-github[]
 :warning-caption: :warning:
 endif::[]
 
-By: `CS2113-AY1819S2-M11-1`      Since: ``      Licence: ``
+By: `CS2113-AY1819S2-M11-1`      Since: `Jan 2019`      Licence: `MIT`
 
 == Introduction
 
@@ -156,7 +156,10 @@ The Logic Component has a `Logic` package with a `Logic` class and a `Parser` pa
  [to be edited]
 
 === Storage Component
- [to be edited]
+.Storage Diagram
+image::Storage.png[width="600"]
+
+The storage component stores League Tracker data in an XML format and is able to convert it back into a human-readable format in League Tracker.
 
 === Common Classes
 Classes used by multiple components (eg.Utils.java) are collated in the `seedu.addressbook.common` package.

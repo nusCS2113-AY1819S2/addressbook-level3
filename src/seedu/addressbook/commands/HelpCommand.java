@@ -22,6 +22,7 @@ import seedu.addressbook.commands.team.DeleteTeam;
 import seedu.addressbook.commands.team.EditTeam;
 import seedu.addressbook.commands.team.FindTeam;
 import seedu.addressbook.commands.team.ListTeam;
+import seedu.addressbook.commands.team.ViewTeam;
 
 /**
  * Shows help instructions.
@@ -45,6 +46,7 @@ public class HelpCommand extends Command {
             + "\n" + ClearTeam.MESSAGE_USAGE
             + "\n" + FindTeam.MESSAGE_USAGE
             + "\n" + ListTeam.MESSAGE_USAGE
+            + "\n" + ViewTeam.MESSAGE_USAGE
             + "\n" + ViewAllCommand.MESSAGE_USAGE
             + "\n" + FinanceCommand.MESSAGE_USAGE
             + "\n" + GetLeagueFinanceCommand.MESSAGE_USAGE
