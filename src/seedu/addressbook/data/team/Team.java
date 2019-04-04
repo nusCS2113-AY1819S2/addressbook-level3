@@ -29,7 +29,12 @@ public class Team implements ReadOnlyTeam {
     /**
      * Assumption: Every field must be present and not null.
      */
-    public Team(TeamName teamName, Country country, Sponsor sponsor, Set<Match> matchlist, Set<Player> playerlist, Set<Tag> tags) {
+    public Team(TeamName teamName,
+                Country country,
+                Sponsor sponsor,
+                Set<Match> matchlist,
+                Set<Player> playerlist,
+                Set<Tag> tags) {
         this.teamName = teamName;
         this.country = country;
         this.sponsor = sponsor;

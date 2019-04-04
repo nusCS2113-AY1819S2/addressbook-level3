@@ -108,15 +108,15 @@ Format ：`delete Index`
 
 Example:
 
-1. Do a list command to see the index of all players in the league record.(See figure 5)
+. Do a list command to see the index of all players in the league record.(See figure 5)
 
 .Information of all players in the league record after executing the list command
 image::delete_PlayerListed.png[]
 
-2. Assume that the user wants to delete the player named "Cristiano Ronaldo" with index 2, the user just needs to input
+. Assume that the user wants to delete the player named "Cristiano Ronaldo" with index 2, the user just needs to input
 `delete 2` as the delete command.
 
-3. If successfully deleted, a message will be shown to the player(See figure 6)
+. If successfully deleted, a message will be shown to the player(See figure 6)
 
 .Success Message displayed after using delete Command to delete a player
 image::deleteSuccess.png[]
