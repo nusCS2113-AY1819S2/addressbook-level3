@@ -105,7 +105,7 @@ public class EditPlayerCommand extends Command {
             Player editedPlayer = createEditedPlayer(inputPlayer, oldPlayer);
             addressBook.editPlayer(getTargetPlayer(), editedPlayer);
 
-            return new CommandResult(String.format(MESSAGE_SUCCESS, editedPlayer,editedPlayer.getName().fullName));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, editedPlayer, editedPlayer.getName().fullName));
         } catch (UniquePlayerList.PlayerNotFoundException pnfe) {
             return new CommandResult(Messages.MESSAGE_PLAYER_NOT_IN_LEAGUE);
         } catch (IndexOutOfBoundsException iobe) {
