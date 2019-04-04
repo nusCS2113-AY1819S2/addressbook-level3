@@ -1,7 +1,6 @@
 package seedu.addressbook.data.team;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Objects;
 import java.util.Set;
 
@@ -17,23 +16,41 @@ import seedu.addressbook.data.tag.Tag;
 
 public class Team implements ReadOnlyTeam {
 
-    private Name name;
+    private TeamName teamName;
     private Country country;
     private Sponsor sponsor;
-    private int win = 0;
-    private int lose = 0;
-    private int draw = 0;
-    private int points = 0;
+    private int win;
+    private int lose;
+    private int draw;
+    private int points;
     private final Set<Player> playerlist = new HashSet<>();
     private final Set<Match> matchlist =new HashSet<>();
     private final Set<Tag> tags = new HashSet<>();
     /**
      * Assumption: Every field must be present and not null.
      */
-    public Team(Name name, Country country, Sponsor sponsor, Set<Player> playerlist, Set<Tag> tags) {
-        this.name = name;
+    public Team(TeamName teamName, Country country, Sponsor sponsor, Set<Match> matchlist, Set<Player> playerlist, Set<Tag> tags) {
+        this.teamName = teamName;
         this.country = country;
         this.sponsor = sponsor;
+        this.win = 0;
+        this.lose = 0;
+        this.draw = 0;
+        this.points = 0;
+        this.matchlist.addAll(matchlist);
+        this.playerlist.addAll(playerlist);
+        this.tags.addAll(tags);
+    }
+
+    public Team(TeamName teamName, Country country, Sponsor sponsor, int win, int lose, int draw, int points, Set<Match> matchlist, Set<Player> playerlist, Set<Tag> tags) {
+        this.teamName = teamName;
+        this.country = country;
+        this.sponsor = sponsor;
+        this.win = win;
+        this.lose = lose;
+        this.draw = draw;
+        this.points = points;
+        this.matchlist.addAll(matchlist);
         this.playerlist.addAll(playerlist);
         this.tags.addAll(tags);
     }
@@ -42,7 +59,7 @@ public class Team implements ReadOnlyTeam {
      * Copy constructor.
      */
     public Team(ReadOnlyTeam source) {
-        this(source.getName(), source.getCountry(), source.getSponsor(), source.getPlayers(), source.getTags());
+        this(source.getTeamName(), source.getCountry(), source.getSponsor(), source.getMatches(), source.getPlayers(), source.getTags());
     }
 
     @Override
@@ -61,8 +78,8 @@ public class Team implements ReadOnlyTeam {
     }
 
     @Override
-    public Name getName() {
-        return name;
+    public TeamName getTeamName() {
+        return teamName;
     }
 
     @Override
@@ -103,13 +120,14 @@ public class Team implements ReadOnlyTeam {
     public void updatePoints(int win, int draw) {
         this.points = (win * 3) + draw;
     }
-
-    public void updateRecords(Set<Match> matchlist) {
-        Iterator i = matchlist.iterator();
-        while (i.hasNext()) {
-            Match temp = (Match)i.next();
-        }
-    }
+// Work in Progress
+//    public void updateRecords(Set<Match> matchlist) {
+//        Iterator i = matchlist.iterator();
+//        while (i.hasNext()) {
+//            Match temp = (Match)i.next();
+//
+//        }
+//    }
 
     public void addplayer(Player player) {
         this.playerlist.add(player);
@@ -129,7 +147,7 @@ public class Team implements ReadOnlyTeam {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, country, sponsor, playerlist, tags);
+        return Objects.hash(teamName, country, sponsor, playerlist, tags);
     }
 
     @Override

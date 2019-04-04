@@ -15,7 +15,7 @@ endif::[]
 
 Welcome to the League Tracker User Guide! You can choose a topic below to find out how to use our product.
 
-By: `CS2113-AY1819S2-M11-1`	Since: `Jan 2019`
+By: `CS2113-AY1819S2-M11-1`	Since: `Jan 2019` Licence: `MIT`
 
 == Introduction
 
@@ -50,7 +50,7 @@ Help is also shown if you enter an incorrect command e.g. `abcd`
 
 == Features
 
-The League Tracker has four main features: player feature, teamName feature,  match feature and finance feature. These features will help you to manage useful information of your league more conveniently and effectively.
+The League Tracker has four main features: player feature, team feature,  match feature and finance feature. These features will help you to manage useful information of your league more conveniently and effectively.
 
 === Players
 The players feature in the application helps you to manage information of players in the league. +
@@ -140,7 +140,7 @@ Format ：`ListAllPlayer`
 {empty} +
 
 ==== *List Player(not in v1.3)*
-You can use the List Player command to see the list of players in a selected teamName. +
+You can use the List Player command to see the list of players in a selected team. +
 
 Format ：`ListPlayer NameOfTeam` +
 
@@ -155,48 +155,48 @@ The teams feature in the application helps you to manage information of football
 {empty} +
 
 ==== *Add Team*
-You can use the Add Team command to add a new teamName to the League Tracker. +
+You can use the Add Team command to add a new team to the League Tracker. +
 
-Format : `AddTeam NAME c/COUNTRY g/GOAL SCORED p/POINTS`
+Format : `addteam NAME c/COUNTRY s/SPONSORSHIP [t/TAGS]`
 
 Example: +
- `AddTeam Liverpool c/United Kingdom g/64 p/70` +
+ `addteam Liverpool c/United Kingdom s/2000000 t/red` +
  
-Adds a new teamName with the specified details.
+Adds a new Team with the specified details.
 {empty} +
 {empty} +
 
 ==== *Delete Team*
-You can use the Delete Team command to delete an existing teamName from League Tracker. +
+You can use the Delete Team command to delete an existing Team from League Tracker. +
 
-Format : `DelTeam INDEX`
+Format : `delteam INDEX`
 
 Example: +
 
-* `ListTeam` +
-* `DelTeam 1` +
+* `listteam` +
+* `delteam 1` +
 
-Deletes the 1st teamName in the teamName list.
+Deletes the 1st Team in the Team list.
 {empty} +
 {empty} +
 
 ==== *Edit Team*
-You can use the Edit Team command to edit information of a teamName in League Tracker. +
-Format : `EditTeam INDEX [c/COUNTRY] [g/GOAL SCORED] [p/POINTS]`
+You can use the Edit Team command to edit information of a Team in League Tracker. +
+Format : `editteam INDEX [c/COUNTRY] [s/SPONSORSHIP] [t/TAGS]`
 
 Example: +
 
-* `ListTeam` +
-* `EditTeam 1 c/Singapore` +
+* `listteam` +
+* `editteam 1 c/Singapore` +
 
-Edits the nationality of the 1st teamName in the teamName list to Singapore.
+Edits the nationality of the 1st Team in the Team list to Singapore.
 {empty} +
 {empty} +
 
 ==== *List Team*
 You can use the list Team command to see the list of all current teams in the league. +
 
-Format : `ListTeam`
+Format : `listteam`
 {empty} +
 {empty} +
 
@@ -254,7 +254,7 @@ Example: +
 {empty} +
 
 ==== *Get Team Finance*
-You can use the Get Team Finance command to view the financial condition in USD of a selected teamName in League Tracker. +
+You can use the Get Team Finance command to view the financial condition in USD of a selected Team in League Tracker. +
 
 Format : `GetTeamFinance INDEX`
 

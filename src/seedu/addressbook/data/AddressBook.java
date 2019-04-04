@@ -69,7 +69,7 @@ public class AddressBook {
         Iterator i = allTeams.iterator();
         while (i.hasNext()) {
             Team cur = (Team)i.next();
-            if (cur.getName().toString().equals(toAdd.getTeamName().toString())) {
+            if (cur.getTeamName().toString().equals(toAdd.getTeamName().toString())) {
                 cur.addplayer(toAdd);
             }
         }
@@ -92,7 +92,7 @@ public class AddressBook {
         Iterator i = allTeams.iterator();
         while (i.hasNext()) {
             Team cur = (Team)i.next();
-            if (cur.getName().toString().equals(toAdd.getHome().toString())) {
+            if (cur.getTeamName().toString().equals(toAdd.getHome().toString())) {
                 cur.addmatch(toAdd);
             }
         }

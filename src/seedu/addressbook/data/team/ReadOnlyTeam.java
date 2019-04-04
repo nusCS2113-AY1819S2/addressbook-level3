@@ -14,7 +14,7 @@ import seedu.addressbook.data.tag.Tag;
 
 public interface ReadOnlyTeam {
 
-    Name getName();
+    TeamName getTeamName();
     Country getCountry();
     Sponsor getSponsor();
     Set<Player> getPlayers();
@@ -36,18 +36,26 @@ public interface ReadOnlyTeam {
     default boolean isSameStateAs(ReadOnlyTeam other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
-                && other.getName().equals(this.getName()) // state checks here onwards
+                && other.getTeamName().equals(this.getTeamName()) // state checks here onwards
                 && other.getCountry().equals(this.getCountry())
                 && other.getSponsor().equals(this.getSponsor()));
     }
 
     default String getAsTextShowAll() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName().fullName.trim())
+        builder.append(getTeamName().fullName.trim())
                 .append(" | Nationality: ");
         builder.append(getCountry().toString().trim())
                 .append(" | Sponsorship: USD ");
         builder.append(getSponsor().toString().trim())
+                .append(" |Wins: ");
+        builder.append(getWins())
+                .append(" |Draw: ");
+        builder.append(getDraws())
+                .append(" |Lose: ");
+        builder.append(getLoses())
+                .append(" |Points: ");
+        builder.append(getPoints())
                 .append(" | Tags: ");
         for (Tag tag : getTags()) {
             builder.append(tag);
@@ -55,6 +63,10 @@ public interface ReadOnlyTeam {
         builder.append("\nPlayer List:\n");
         for (Player player : getPlayers()) {
             builder.append(player.getName() + "\n");
+        }
+        builder.append("\nMatch List:\n");
+        for (Match match : getMatches()) {
+            builder.append(match.getHome() + "vs" + match.getAway());
         }
         return builder.toString();
     }
