@@ -1,5 +1,7 @@
 package seedu.addressbook.data;
 
+import java.util.Iterator;
+
 import seedu.addressbook.data.finance.Finance;
 import seedu.addressbook.data.finance.UniqueFinanceList;
 import seedu.addressbook.data.match.Match;
@@ -63,6 +65,13 @@ public class AddressBook {
      */
     public void addPlayer(Player toAdd) throws DuplicatePlayerException {
         allPlayers.add(toAdd);
+        Iterator i = allTeams.iterator();
+        while (i.hasNext()) {
+            Team cur = (Team) i.next();
+            if (cur.getTeamName().toString().equals(toAdd.getTeamName().toString())) {
+                cur.addplayer(toAdd);
+            }
+        }
     }
 
     public void editPlayer(ReadOnlyPlayer toEdit, Player newPlayer) throws UniquePlayerList.PlayerNotFoundException {
@@ -83,6 +92,13 @@ public class AddressBook {
      */
     public void addMatch(Match toAdd) throws DuplicateMatchException {
         allMatches.add(toAdd);
+        Iterator i = allTeams.iterator();
+        while (i.hasNext()) {
+            Team cur = (Team) i.next();
+            if (cur.getTeamName().toString().equals(toAdd.getHome().toString())) {
+                cur.addmatch(toAdd);
+            }
+        }
     }
 
     /**

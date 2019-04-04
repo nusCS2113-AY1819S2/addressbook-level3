@@ -1,8 +1,8 @@
 package seedu.addressbook.data.finance;
 
-import seedu.addressbook.data.team.Name;
 import seedu.addressbook.data.team.ReadOnlyTeam;
 import seedu.addressbook.data.team.Sponsor;
+import seedu.addressbook.data.team.TeamName;
 
 
 /**
@@ -29,8 +29,8 @@ public class Finance implements ReadOnlyFinance {
 
     public Finance(ReadOnlyTeam team) {
 
-        Name name = team.getName();
-        this.teamName = name.fullName;
+        TeamName teamName = team.getTeamName();
+        this.teamName = teamName.fullName;
 
         Sponsor sponsor = team.getSponsor();
         String sponsorString = sponsor.value;
