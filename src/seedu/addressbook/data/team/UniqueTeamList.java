@@ -113,7 +113,7 @@ public class UniqueTeamList implements Iterable<Team> {
      * Sort all Teams in list by ascending alphabetical order.
      */
     public void sort() {
-        Comparator<Team> customTeamCompare = Comparator.comparing(Team::getTeamName);
+        Comparator<Team> customTeamCompare = Comparator.comparing(Team::getName);
         Collections.sort(internalList, customTeamCompare);
     }
 

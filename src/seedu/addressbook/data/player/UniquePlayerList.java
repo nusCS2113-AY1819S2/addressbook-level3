@@ -33,8 +33,7 @@ public class UniquePlayerList implements Iterable<Player> {
      * there is no such matching player in the list.
      */
 
-    public static class PlayerNotFoundException extends Exception {
-    }
+    public static class PlayerNotFoundException extends Exception {}
 
     private final List<Player> internalList = new ArrayList<>();
 
@@ -42,8 +41,7 @@ public class UniquePlayerList implements Iterable<Player> {
      * Constructs empty player list.
      */
 
-    public UniquePlayerList() {
-    }
+    public UniquePlayerList() {}
 
     /**
      * Constructs a player list with the given players.
@@ -58,7 +56,6 @@ public class UniquePlayerList implements Iterable<Player> {
 
     /**
      * Constructs a list from the items in the given collection.
-     *
      * @param players a collection of players
      * @throws DuplicatePlayerException if the {@code players} contains duplicate players
      */
@@ -118,22 +115,6 @@ public class UniquePlayerList implements Iterable<Player> {
         if (!playerFoundAndDeleted) {
             throw new PlayerNotFoundException();
         }
-    }
-
-    /**
-     * Edits an existing player in the league.
-     *
-     * @param toEdit    the target player to be edited
-     * @param newPlayer the target player with edited profile
-     * @throws PlayerNotFoundException if no such player could be found in the list
-     */
-
-    public void edit(ReadOnlyPlayer toEdit, Player newPlayer) throws PlayerNotFoundException {
-        final boolean playerFoundAndDeleted = internalList.remove(toEdit);
-        if (!playerFoundAndDeleted) {
-            throw new PlayerNotFoundException();
-        }
-        internalList.add(newPlayer);
     }
 
     /**
