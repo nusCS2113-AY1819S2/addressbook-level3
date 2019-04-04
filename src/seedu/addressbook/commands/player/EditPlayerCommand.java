@@ -52,7 +52,7 @@ public class EditPlayerCommand extends Command {
             + "sal/" + Salary.EXAMPLE + "\n"
             + "Index of the player can be obtained using the list Command";
 
-    public static final String MESSAGE_SUCCESS = " %1$s \n Player %2$s profile is edited";
+    public static final String MESSAGE_SUCCESS = "Player %1$s profile is edited";
     public static final String MESSAGE_NOATTRIBUTE_WARNING = "At least one attribute must be provided for edition";
     private final Name nameItem;
     private final PositionPlayed positionItem;
@@ -101,11 +101,10 @@ public class EditPlayerCommand extends Command {
             final Player inputPlayer = createInputPlayer(this.nameItem, this.positionItem,
                     this.ageItem, this.salaryItem, this.gsItem, this.gaItem, this.teamNameItem,
                     this.nationalityItem, jnItem, appItem, hsItem, tagItem);
-
             Player editedPlayer = createEditedPlayer(inputPlayer, oldPlayer);
-            addressBook.editPlayer(getTargetPlayer(), editedPlayer);
 
-            return new CommandResult(String.format(MESSAGE_SUCCESS, editedPlayer, editedPlayer.getName().fullName));
+            addressBook.editPlayer(getTargetPlayer(), editedPlayer);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, editedPlayer));
         } catch (UniquePlayerList.PlayerNotFoundException pnfe) {
             return new CommandResult(Messages.MESSAGE_PLAYER_NOT_IN_LEAGUE);
         } catch (IndexOutOfBoundsException iobe) {

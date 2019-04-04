@@ -65,7 +65,7 @@ Format ：`addPlayer NAME p/POSITION a/AGE sal/SALARY gs/GOALS_SCORED ga/GOALS_A
 app/APPEARANCE hs/HEALTHSTATUS t/TAGS`
 
 Example: +
-`addPlayer Lionel Messi p/RW a/31 sal/0 gs/20 ga/20 tm/FC Barcelona ctry/Argentina jn/10 app/54 hs/Healthy`
+`AddPlayer Lionel Messi p/RW a/31 sal/0 gs/20 ga/20 tm/FC Barcelona ctry/Argentina jn/10 app/54 hs/Healthy`
 {empty} +
 {empty} +
 
@@ -135,19 +135,10 @@ Example: +
 ==== *View Player Profile By Index*
 You can use the Display Player Profile command to display the whole profile of a selected player. +
 
-First, you should do a `list` Command to obtain the index of the target player.
+Format ：`viewall Index`
 
-Then, you can use this `viewall` Command for the full player profile for the player.
-
-Format ：
-
-*  `list` +
-*  `viewall Index`
-
-Example:
-
-*  `list` +
-*  `viewall 1`
+Example: +
+`viewall 1`
 
 If the player with the index exists, a success message will be displayed to the user containing all information
 regarding the player
@@ -166,56 +157,16 @@ Example: +
 {empty} +
 {empty} +
 
-==== *Edit Player Profile*
-You can use this `editPlayer` command to edit information of an existing player's profile in the League Tracker. +
+==== *Edit Player(coming in v1.4)*
+You can use the Edit Player command to edit information of an existing player in the League Tracker. +
 
-First, you need to do a `list` command to obtain the index number of the target player in league tracker's record.
+Format ：`EditPlayer OLDNAME OLDTEAM POSITION AGE GENDER PENALTY GOALSSCORED GOALSASSISTED
+TEAM RANKINLEAGUE COUNTRY JERSEYNUMBER APPEARANCE HEALTHSTATUS`
 
-Then, you can use this command to key in the attribute information you want to edit. Consequently the profile of
-the target player will be edited accordingly with the information provided.
-
-[TIP]
-====
-Our `editPlayer` command allows the user to make changes to one or more attributes in the player profile.
-Simply follow the format and key in only the attribute information that you want to update.
-
-Please note that you need to key in at least one attribute to make the `editPlayer` command meaningful.
-====
-
-Format ：
-
-* `list` +
-* `editPlayer INDEX_NUMBER [n/NAME] [p/POSITION_PLAYED] [a/AGE] [sal/SALARY] [gs/GOALS_SCORED] [ga/GOALS_ASSISTED]
-[tm/TEAM_NAME] [ctry/NATIONALITY] [jn/JERSEY_NUMBER] [app/APPEARANCE] [hs/HEALTH_STATUS] [t/TAGS]`
-
-('[]' means that this entry is optional, If it is not typed in the input, the original information for this particular
-attribute will be kept unchanged)
-
-
-
-Example:
-
-let's say you want to edit the player profile of a player with name 'Lionel Messi'
-
-Specifically, you want to change the salary information to be '2000' in the league tracker.
-
-* `list` +
-
-.Information displayed after `list` command
-image::edit_list.png[]
-
-From the `list` command (See figure 8), you find out that the Player 'Lionel Messi' index number is 3.
-
-* `editPlayer 3 sal/2000`
-
-If the edition is executed successfully, a success message will be displayed to the user containing the player
-profile after edition(See figure 9).
-
-.Success Message after edition
-image::edit_success.png[]
-
+Example: +
+`EditPlayer Lionel_Messi Real_Madrid RW 31 Male 0 20 20 FC_Barcelona 1 Argentina 10 20 Healthy`
 {empty} +
-
+{empty} +
 
 ==== *List All Players in the league*
 You can use the `list` command to see the list of all players in the league. +
