@@ -10,10 +10,10 @@ import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.tag.Tag;
 import seedu.addressbook.data.team.Country;
 import seedu.addressbook.data.team.EditTeamDescriptor;
-import seedu.addressbook.data.team.Name;
 import seedu.addressbook.data.team.ReadOnlyTeam;
 import seedu.addressbook.data.team.Sponsor;
 import seedu.addressbook.data.team.Team;
+import seedu.addressbook.data.team.TeamName;
 import seedu.addressbook.data.team.UniqueTeamList;
 
 
@@ -24,7 +24,7 @@ import seedu.addressbook.data.team.UniqueTeamList;
 
 public class EditTeam extends Command {
 
-    public static final String COMMAND_WORD = "editTeam";
+    public static final String COMMAND_WORD = "editteam";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
             + "Edits the details of the team identified by the index number used in the displayed team list.\n"
@@ -34,7 +34,7 @@ public class EditTeam extends Command {
             + "[n/NAME]"
             + "[c/COUNTRY] "
             + "[s/SPONSOR] "
-            + "[t/TAGS]\n"
+            + "[t/TAGS](t/nil to remove tags)\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + "c/" + Country.EXAMPLE;
 
@@ -80,18 +80,27 @@ public class EditTeam extends Command {
     private static Team createEditedTeam(ReadOnlyTeam teamToEdit,
                                          EditTeamDescriptor editTeamDescriptor) {
 
-        Name updatedName = checkName(editTeamDescriptor.getName(), teamToEdit.getName());
+        TeamName updatedTeamName = checkName(editTeamDescriptor.getTeamName(), teamToEdit.getTeamName());
         Country updatedCountry = checkCountry(editTeamDescriptor.getCountry(), teamToEdit.getCountry());
         Sponsor updatedSponsor = checkSponsor(editTeamDescriptor.getSponsor(), teamToEdit.getSponsor());
         Set<Tag> updatedTagset = checkTagset(editTeamDescriptor.getTags(), teamToEdit.getTags());
 
-        return new Team(updatedName, updatedCountry, updatedSponsor, teamToEdit.getPlayers(), updatedTagset);
+        return new Team(updatedTeamName,
+                updatedCountry,
+                updatedSponsor,
+                teamToEdit.getWins(),
+                teamToEdit.getLoses(),
+                teamToEdit.getDraws(),
+                teamToEdit.getPoints(),
+                teamToEdit.getMatches(),
+                teamToEdit.getPlayers(),
+                updatedTagset);
     }
 
     /**
      * Check for new name value.
      */
-    private static Name checkName(Name newEdit, Name oldInfo) {
+    private static TeamName checkName(TeamName newEdit, TeamName oldInfo) {
         if (newEdit == null) {
             return oldInfo;
         }
@@ -120,9 +129,12 @@ public class EditTeam extends Command {
     }
 
     /**
-     * Check for new address value.
+     * Check for new Tags value.
      */
     private static Set<Tag> checkTagset(Set<Tag> newEdit, Set<Tag> oldInfo) {
+        if (newEdit.toString().contains("[nil]")) {
+            return new HashSet<>();
+        }
         if (newEdit.isEmpty()) {
             return oldInfo;
         }

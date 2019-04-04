@@ -115,6 +115,17 @@ public class UniqueMatchList implements Iterable<Match> {
         internalList.clear();
     }
 
+    /**
+     * Replaces equivalent match in list.
+     */
+    public void update(ReadOnlyMatch toRemove, Match toReplace) throws MatchNotFoundException {
+        final boolean matchFoundAndDeleted = internalList.remove(toRemove);
+        if (!matchFoundAndDeleted) {
+            throw new MatchNotFoundException();
+        }
+        internalList.add(toReplace);
+    }
+
     @Override
     public Iterator<Match> iterator() {
         return internalList.iterator();
