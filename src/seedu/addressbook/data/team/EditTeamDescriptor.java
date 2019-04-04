@@ -12,7 +12,7 @@ import seedu.addressbook.data.tag.Tag;
  */
 
 public class EditTeamDescriptor {
-    private Name name;
+    private TeamName teamName;
     private Country country;
     private Sponsor sponsor;
     private Set<Tag> tagset;
@@ -25,9 +25,9 @@ public class EditTeamDescriptor {
                               String sponsor,
                               Set<Tag> tagset) throws IllegalValueException {
         if (name == null) {
-            this.name = null;
+            this.teamName = null;
         } else {
-            this.name = new Name(name);
+            this.teamName = new TeamName(name);
         }
 
         if (country == null) {
@@ -53,18 +53,18 @@ public class EditTeamDescriptor {
      * Copy constructor.
      */
     public EditTeamDescriptor(EditTeamDescriptor toCopy) {
-        setName(toCopy.name);
+        setTeamName(toCopy.teamName);
         setCountry(toCopy.country);
         setSponsor(toCopy.sponsor);
         setTags(toCopy.tagset);
     }
 
-    public void setName(Name name) {
-        this.name = name;
+    public void setTeamName(TeamName teamName) {
+        this.teamName = teamName;
     }
 
-    public Name getName() {
-        return name;
+    public TeamName getTeamName() {
+        return teamName;
     }
 
     public void setCountry(Country country) {
@@ -106,7 +106,7 @@ public class EditTeamDescriptor {
         // state check
         EditTeamDescriptor e = (EditTeamDescriptor) other;
 
-        return getName().equals(e.getTags())
+        return getTeamName().equals(e.getTeamName())
                 && getCountry().equals(e.getCountry())
                 && getSponsor().equals(e.getSponsor())
                 && getTags().equals(e.getTags());

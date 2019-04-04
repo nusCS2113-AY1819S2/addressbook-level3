@@ -12,7 +12,7 @@ import seedu.addressbook.data.team.UniqueTeamList;
 
 public class DeleteTeam extends Command {
 
-    public static final String COMMAND_WORD = "delTeam";
+    public static final String COMMAND_WORD = "delteam";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
             + "Deletes the team identified by the index number used in the last team listing.\n\t"

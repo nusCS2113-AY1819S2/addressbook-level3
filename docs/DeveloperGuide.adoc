@@ -113,8 +113,44 @@ Given below is a quick overview of each component. +
 
 *Storage* Reads data from, and writes data to the hard disk.
 
+=== Main Component
+.Class Disgram showcasing the structure of Main Component
+image::Uicomponent.png[width="600"]
+
+The Main Component consists of a UI package and a `Main` class. Inside the UI package, there are various classes such
+as `MainWindow`, `Formatter` and `Gui` as shown in figure 2. A `Stoppable` interface is also included which
+the `main` class implements.
+
+The UI package uses JavaFX UI framework. Layout of `MainWindow` is defined in `mainwindow.fxml` which can be found
+under the same package.
+
+The Main Component:
+
+* Displays the CLI Gui
+
+* Accepts input from users
+
+* Executes user commands using the `Logic` Component
+
+* Listens for changes to `Data`
+
+
 === Logic Component
- [to be edited]
+.Class Disgram showcasing the structure of Logic Component
+image::Logiccomponent.png[width="600"]
+
+The Logic Component has a `Logic` package with a `Logic` class and a `Parser` package with a `Parser` class.
+
+1. `Logic` uses `Parser` class in the `Parser` package to parse the user command
+
+2. This produces a `Command` object which is executed by `Logic`.
+
+3. The command execution can affect `Data`
+
+4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to Ui.
+
+5. This `CommandResult` object can also invoke actions at Ui such as displaying a message or a summary.
+
 
 === Data Component
  [to be edited]
@@ -126,10 +162,9 @@ Given below is a quick overview of each component. +
 Classes used by multiple components (eg.Utils.java) are collated in the `seedu.addressbook.common` package.
 (`main` > `src` > `seedu` > `addressbook` > `common`)
 
-
 == Implementation
-
-
+ [to be edited]
+In this section, the detailed implementations of classes and features will be shown.
 
 == Documentation
 Following AddressBook3, our League Tracker uses AsciiDoc for writing documentation.We choose AsciiDoc as it provides both a human-readable,
@@ -238,9 +273,9 @@ Here are the steps to create a new release.
 
 *Target user profile*:
 * Football League Operators +
-* Has a need to manage leagues, teamName and player profiles +
-* Has a need to collect and view specific data regarding the league, matches, teams and players information in the league  +
-* Prefer typing over mouse input +
+* Has a need to manage profiles of teams and players in a league +
+* Has a need to collect and view specific data regarding the league (matches', teams' and players' information in the league)  +
+* Comfortable with typing +
 * Prefer desktop apps over other type +
 * Reasonably comfortable using CLI apps
 
@@ -248,7 +283,8 @@ Here are the steps to create a new release.
 *Value proposition*: 
 
 * Manage league/teamName/player faster than a typical mouse/GUI driven app. +
-* Easy access to records needed.
+* Easy access to records needed. +
+* Provide crucial analysis of records in the league
 
 
 [appendix]
@@ -303,8 +339,8 @@ Use Case: Add Player
 
 . User requests to add a specific player in the League
 . User specify the following detail:
-  Name, Position Played, Age, Gender, Goals Scored, Goals Assisted, Team, Country,
-Jersey Number, Appearance,HealthStatus
+  Name, Position Played, Age, Salary, Goals Scored, Goals Assisted, Team Name, Nationality,
+Jersey Number, Appearance,HealthStatus, Tags(optional)
 . System adds the person.
 . If successful, a message will be shown and a new player is added
 . If not successful, a message specifying reason for failure will be shown and command list
@@ -332,7 +368,7 @@ Use case ends.
 
 
 
-Use Case: Transfer Player
+Use Case: Transfer Player (coming in v1.4)
 
 *MSS*
 
