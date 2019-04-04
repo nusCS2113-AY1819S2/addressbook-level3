@@ -115,7 +115,7 @@ public class UniqueFinanceList implements Iterable<Finance> {
 
     /*
     public void sort() {
-        Comparator<Finance> customTeamCompare = Comparator.comparing(TeamName::getName);
+        Comparator<Finance> customTeamCompare = Comparator.comparing(TeamName::getTeamName);
         Collections.sort(internalList, customTeamCompare);
     }
     */
