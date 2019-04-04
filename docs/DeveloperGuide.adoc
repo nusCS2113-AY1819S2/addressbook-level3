@@ -163,7 +163,7 @@ Classes used by multiple components (eg.Utils.java) are collated in the `seedu.a
 (`main` > `src` > `seedu` > `addressbook` > `common`)
 
 == Implementation
-[to be edited]
+ [to be edited]
 In this section, the detailed implementations of classes and features will be shown.
 
 == Documentation
