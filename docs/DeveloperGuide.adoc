@@ -13,7 +13,7 @@ ifdef::env-github[]
 :warning-caption: :warning:
 endif::[]
 
-By: `CS2113-AY1819S2-M11-1`      Since: ``      Licence: ``
+By: `CS2113-AY1819S2-M11-1`      Since: `Jan 2019`      Licence: `MIT`
 
 == Introduction
 

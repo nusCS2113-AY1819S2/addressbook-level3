@@ -204,7 +204,10 @@ Example: +
  `addteam Liverpool c/United Kingdom s/2000000 t/red` +
  
 Adds a new Team with the specified details.
-{empty} +
+
+.After Adding
+image::addteam.png[]
+
 {empty} +
 
 ==== *Delete Team*
@@ -215,10 +218,16 @@ Format : `delteam INDEX`
 Example: +
 
 * `listteam` +
+
+.After listing
+image::listteam.png[]
+
 * `delteam 1` +
 
 Deletes the 1st Team in the Team list.
-{empty} +
+
+.After deleting
+image::delteam.png[]
 {empty} +
 
 ==== *Edit Team*
@@ -228,9 +237,16 @@ Format : `editteam INDEX [c/COUNTRY] [s/SPONSORSHIP] [t/TAGS]`
 Example: +
 
 * `listteam` +
-* `editteam 1 c/Singapore` +
 
-Edits the nationality of the 1st Team in the Team list to Singapore.
+.After Listing
+image::listteam2.png[]
+
+* `editteam 1 n/United Malaysia` +
+
+.After Editing
+image::editteam.png[]
+
+Edits the name of the 1st Team in the Team list to United Malaysia.
 {empty} +
 {empty} +
 
@@ -238,7 +254,10 @@ Edits the nationality of the 1st Team in the Team list to Singapore.
 You can use the List Team command to see the list of all current teams in the league. +
 
 Format : `listteam`
-{empty} +
+
+.After Listing
+image::listteam.png[]
+
 {empty} +
 
 ==== *View Team*
@@ -249,9 +268,17 @@ Format : `viewteam INDEX`
 Example: +
 
 * `listteam` +
+
+.After Listing
+image::listteam3.png[]
+
 * `viewteam 1` +
 
-Display the team's details such as playerlist and match list.
+.After Viewing
+image::viewteam.png[]
+
+Display the 1st team's details.
+
 {empty} +
 {empty} +
 
