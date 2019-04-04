@@ -1,11 +1,12 @@
 package seedu.addressbook.commands.finance;
 
+import java.util.List;
+
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.finance.ReadOnlyFinance;
 import seedu.addressbook.data.finance.UniqueFinanceList;
 
-import java.util.List;
 
 
 /**
