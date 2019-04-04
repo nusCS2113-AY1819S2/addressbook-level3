@@ -8,10 +8,10 @@ import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.tag.Tag;
 import seedu.addressbook.data.team.Country;
+import seedu.addressbook.data.team.Name;
 import seedu.addressbook.data.team.ReadOnlyTeam;
 import seedu.addressbook.data.team.Sponsor;
 import seedu.addressbook.data.team.Team;
-import seedu.addressbook.data.team.TeamName;
 import seedu.addressbook.data.team.UniqueTeamList;
 
 /**
@@ -20,7 +20,7 @@ import seedu.addressbook.data.team.UniqueTeamList;
 
 public class AddTeam extends Command {
 
-    public static final String COMMAND_WORD = "addteam";
+    public static final String COMMAND_WORD = "addTeam";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Adds a team to the address book. "
             + "Parameters: NAME c/COUNTRY s/SPONSORSHIP BALANCE [t/TAG]...\n\t"
@@ -46,10 +46,9 @@ public class AddTeam extends Command {
             tagSet.add(new Tag(tagName));
         }
         this.toAdd = new Team(
-                new TeamName(name),
+                new Name(name),
                 new Country(country),
                 new Sponsor(sponsor),
-                new HashSet<>(),
                 new HashSet<>(),
                 tagSet
         );
