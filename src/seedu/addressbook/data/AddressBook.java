@@ -75,6 +75,10 @@ public class AddressBook {
         }
     }
 
+    public void editPlayer(ReadOnlyPlayer toEdit, Player newPlayer) throws UniquePlayerList.PlayerNotFoundException {
+        allPlayers.edit(toEdit, newPlayer);
+    }
+
     /**
      * Adds a team to the address book.
      */
@@ -173,10 +177,17 @@ public class AddressBook {
     }
 
     /**
-     * Edits the equivalent player from League Tracker
+     * Edits the equivalent team from League Tracker
      */
     public void editTeam(ReadOnlyTeam toRemove, Team toReplace) throws UniqueTeamList.TeamNotFoundException {
         allTeams.edit(toRemove, toReplace);
+    }
+
+    /**
+     * Updates the equivalent match from League Tracker
+     */
+    public void updateMatch(ReadOnlyMatch toRemove, Match toReplace) throws MatchNotFoundException {
+        allMatches.update(toRemove, toReplace);
     }
 
     /**

@@ -7,6 +7,7 @@ public class Messages {
 
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_PLAYER_DISPLAYED_INDEX = "The player index provided is invalid";
+    public static final String MESSAGE_NVRLISTBEFOREEDIT = "Please do a listPlayer command to check player index";
     public static final String MESSAGE_PLAYER_NOT_IN_LEAGUE = "Player could not be found in the league record";
     public static final String MESSAGE_PLAYERS_LISTED_OVERVIEW = "%1$d players listed!";
     public static final String MESSAGE_INVALID_MATCH_DISPLAYED_INDEX = "The match index provided is invalid";
