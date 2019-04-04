@@ -227,6 +227,13 @@ public class AddressBook {
         }
     }
 
+    /**
+     * Sorts all persons from the address book.
+     */
+    public void sortFinance() {
+        allFinances.sort();
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
