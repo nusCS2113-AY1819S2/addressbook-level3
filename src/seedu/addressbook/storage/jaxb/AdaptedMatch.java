@@ -15,7 +15,7 @@ import seedu.addressbook.data.match.Home;
 import seedu.addressbook.data.match.Match;
 import seedu.addressbook.data.match.ReadOnlyMatch;
 import seedu.addressbook.data.match.TicketSales;
-import seedu.addressbook.data.player.Player;
+import seedu.addressbook.data.player.Name;
 
 /**
  * JAXB-friendly adapted match data holder class.
@@ -34,9 +34,9 @@ public class AdaptedMatch {
     @XmlElement (required = true)
     private String awaySales;
     @XmlElement
-    private List<AdaptedPlayer> goalScored = new ArrayList<>();
+    private List<AdaptedName> goalScored = new ArrayList<>();
     @XmlElement
-    private List<AdaptedPlayer> ownGoalScored = new ArrayList<>();
+    private List<AdaptedName> ownGoalScored = new ArrayList<>();
 
     /**
      * No-arg constructor for JAXB use.
@@ -61,13 +61,13 @@ public class AdaptedMatch {
         awaySales = source.getAwaySales().value;
 
         goalScored = new ArrayList<>();
-        for (Player player : source.getGoalScorers()) {
-            goalScored.add(new AdaptedPlayer(player));
+        for (Name player : source.getGoalScorers()) {
+            goalScored.add(new AdaptedName(player));
         }
 
         ownGoalScored = new ArrayList<>();
-        for (Player player : source.getOwnGoalScorers()) {
-            ownGoalScored.add(new AdaptedPlayer(player));
+        for (Name player : source.getOwnGoalScorers()) {
+            ownGoalScored.add(new AdaptedName(player));
         }
     }
 
@@ -80,12 +80,12 @@ public class AdaptedMatch {
      * so we check for that.
      */
     public boolean isAnyRequiredFieldMissing() {
-        for (AdaptedPlayer player : goalScored) {
+        for (AdaptedName player : goalScored) {
             if (player.isAnyRequiredFieldMissing()) {
                 return true;
             }
         }
-        for (AdaptedPlayer player : ownGoalScored) {
+        for (AdaptedName player : ownGoalScored) {
             if (player.isAnyRequiredFieldMissing()) {
                 return true;
             }
@@ -100,12 +100,12 @@ public class AdaptedMatch {
      * @throws IllegalValueException if there were any data constraints violated in the adapted match
      */
     public Match toModelType() throws IllegalValueException {
-        final Set<Player> goalScorers = new HashSet<>();
-        for (AdaptedPlayer player : goalScored) {
+        final Set<Name> goalScorers = new HashSet<>();
+        for (AdaptedName player : goalScored) {
             goalScorers.add(player.toModelType());
         }
-        final Set<Player> ownGoalScorers = new HashSet<>();
-        for (AdaptedPlayer player : ownGoalScored) {
+        final Set<Name> ownGoalScorers = new HashSet<>();
+        for (AdaptedName player : ownGoalScored) {
             ownGoalScorers.add(player.toModelType());
         }
         final Date date = new Date(this.date);

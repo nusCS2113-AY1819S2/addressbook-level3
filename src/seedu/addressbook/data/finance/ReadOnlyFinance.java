@@ -12,6 +12,10 @@ public interface ReadOnlyFinance {
     double getVenueCost();
     double getTicketIncome();
     double getFinance();
+    double getQuarterOne();
+    double getQuarterTwo();
+    double getQuarterThree();
+    double getQuarterFour();
     String getHistogramString();
 
     /**

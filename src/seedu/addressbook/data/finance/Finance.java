@@ -24,7 +24,6 @@ public class Finance implements ReadOnlyFinance {
     private double quarterThree = 0;
     private double quarterFour = 0;
 
-
     private Histogram histogram;
 
 
@@ -36,6 +35,11 @@ public class Finance implements ReadOnlyFinance {
         Sponsor sponsor = team.getSponsor();
         String sponsorString = sponsor.value;
         this.sponsorMoney = Double.valueOf(sponsorString);
+
+        this.quarterOne = sponsorMoney / 4;
+        this.quarterTwo = sponsorMoney / 4;
+        this.quarterThree = sponsorMoney / 4;
+        this.quarterFour = sponsorMoney / 4;
 
         this.histogram = new Histogram(NUMBER_OF_QUARTER, quarterOne, quarterTwo, quarterThree, quarterFour);
 
@@ -58,19 +62,6 @@ public class Finance implements ReadOnlyFinance {
             ticketIncome += ticketBox;
 
         }
-         */
-
-        /**
-         *
-         * wait for variables from other class
-         *
-         *Sponsor sponsorSponsor = team.getSponsor();
-          *String venueCostString = sponsorSponsor.value;
-         *this.venueCost = Double.valueOf(venueCostString);
-         *
-         * Sponsor sponsorSponsor = team.getSponsor();
-         * String playerSalaryString = sponsorSponsor.value;
-         * this.playerSalary = Double.valueOf(playerSalaryString);
          */
     }
 
@@ -99,6 +90,26 @@ public class Finance implements ReadOnlyFinance {
     @Override
     public double getTicketIncome() {
         return ticketIncome;
+    }
+
+    @Override
+    public double getQuarterOne() {
+        return quarterOne;
+    }
+
+    @Override
+    public double getQuarterTwo() {
+        return quarterTwo;
+    }
+
+    @Override
+    public double getQuarterThree() {
+        return quarterThree;
+    }
+
+    @Override
+    public double getQuarterFour() {
+        return quarterFour;
     }
 
     @Override

@@ -20,7 +20,13 @@ public class FinanceCommand extends Command {
             + "Parameters: INDEX\n\t"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SUCCESS = "Finance of the team selected:";
+    public static final String MESSAGE_SUCCESS_ONE = "Team selected: ";
+    public static final String MESSAGE_SUCCESS_TWO = "Finance of the team selected: ";
+    public static final String MESSAGE_SUCCESS_THREE = "Quarter One finance: ";
+    public static final String MESSAGE_SUCCESS_FOUR = "Quarter Two finance: ";
+    public static final String MESSAGE_SUCCESS_FIVE = "Quarter Three finance: ";
+    public static final String MESSAGE_SUCCESS_SIX = "Quarter Four finance: ";
+    public static final String MESSAGE_SUCCESS_SEVEN = "Histogram of four quarters: ";
 
 
     public FinanceCommand(int targetVisibleIndex) {
@@ -33,8 +39,19 @@ public class FinanceCommand extends Command {
             final ReadOnlyTeam target = getTargetTeam();
             Finance finance = new Finance(target);
             double money = finance.getFinance();
+            double quarterOne = finance.getQuarterOne();
+            double quarterTwo = finance.getQuarterTwo();
+            double quarterThree = finance.getQuarterThree();
+            double quarterFour = finance.getQuarterFour();
+            String teamName = finance.getTeamName();
             String histogramString = finance.getHistogramString();
-            return new CommandResult(MESSAGE_SUCCESS + " " + money + ":\n" + histogramString);
+            return new CommandResult(MESSAGE_SUCCESS_ONE + teamName + "\n"
+                    + MESSAGE_SUCCESS_TWO + money + "\n"
+                    + MESSAGE_SUCCESS_THREE + quarterOne + "\n"
+                    + MESSAGE_SUCCESS_FOUR + quarterTwo + "\n"
+                    + MESSAGE_SUCCESS_FIVE + quarterThree + "\n"
+                    + MESSAGE_SUCCESS_SIX + quarterFour + "\n\n"
+                    + MESSAGE_SUCCESS_SEVEN + "\n" + histogramString);
 
         } catch (IndexOutOfBoundsException ie) {
             return new CommandResult(Messages.MESSAGE_INVALID_TEAM_DISPLAYED_INDEX);
