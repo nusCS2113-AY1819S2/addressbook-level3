@@ -1,5 +1,7 @@
 package seedu.addressbook.data;
 
+import java.util.Iterator;
+
 import seedu.addressbook.data.finance.Finance;
 import seedu.addressbook.data.finance.UniqueFinanceList;
 import seedu.addressbook.data.match.Match;
@@ -15,9 +17,6 @@ import seedu.addressbook.data.player.UniquePlayerList.PlayerNotFoundException;
 import seedu.addressbook.data.team.ReadOnlyTeam;
 import seedu.addressbook.data.team.Team;
 import seedu.addressbook.data.team.UniqueTeamList;
-
-import java.util.Iterator;
-
 
 /**
  * Represents the entire address book. Contains the data of the address book.
@@ -68,7 +67,7 @@ public class AddressBook {
         allPlayers.add(toAdd);
         Iterator i = allTeams.iterator();
         while (i.hasNext()) {
-            Team cur = (Team)i.next();
+            Team cur = (Team) i.next();
             if (cur.getTeamName().toString().equals(toAdd.getTeamName().toString())) {
                 cur.addplayer(toAdd);
             }
@@ -91,7 +90,7 @@ public class AddressBook {
         allMatches.add(toAdd);
         Iterator i = allTeams.iterator();
         while (i.hasNext()) {
-            Team cur = (Team)i.next();
+            Team cur = (Team) i.next();
             if (cur.getTeamName().toString().equals(toAdd.getHome().toString())) {
                 cur.addmatch(toAdd);
             }

@@ -24,7 +24,7 @@ public class Team implements ReadOnlyTeam {
     private int draw;
     private int points;
     private final Set<Player> playerlist = new HashSet<>();
-    private final Set<Match> matchlist =new HashSet<>();
+    private final Set<Match> matchlist = new HashSet<>();
     private final Set<Tag> tags = new HashSet<>();
     /**
      * Assumption: Every field must be present and not null.
@@ -42,7 +42,16 @@ public class Team implements ReadOnlyTeam {
         this.tags.addAll(tags);
     }
 
-    public Team(TeamName teamName, Country country, Sponsor sponsor, int win, int lose, int draw, int points, Set<Match> matchlist, Set<Player> playerlist, Set<Tag> tags) {
+    public Team(TeamName teamName,
+                Country country,
+                Sponsor sponsor,
+                int win,
+                int lose,
+                int draw,
+                int points,
+                Set<Match> matchlist,
+                Set<Player> playerlist,
+                Set<Tag> tags) {
         this.teamName = teamName;
         this.country = country;
         this.sponsor = sponsor;
@@ -59,7 +68,12 @@ public class Team implements ReadOnlyTeam {
      * Copy constructor.
      */
     public Team(ReadOnlyTeam source) {
-        this(source.getTeamName(), source.getCountry(), source.getSponsor(), source.getMatches(), source.getPlayers(), source.getTags());
+        this(source.getTeamName(),
+                source.getCountry(),
+                source.getSponsor(),
+                source.getMatches(),
+                source.getPlayers(),
+                source.getTags());
     }
 
     @Override
@@ -93,16 +107,24 @@ public class Team implements ReadOnlyTeam {
     }
 
     @Override
-    public int getPoints() {return points; }
+    public int getPoints() {
+        return points;
+    }
 
     @Override
-    public int getWins() {return win; }
+    public int getWins() {
+        return win;
+    }
 
     @Override
-    public int getLoses() {return lose; }
+    public int getLoses() {
+        return lose;
+    }
 
     @Override
-    public int getDraws() {return draw; }
+    public int getDraws() {
+        return draw;
+    }
 
     /**
      * Replaces this team's tags with the tags in {@code replacement}.
@@ -120,14 +142,6 @@ public class Team implements ReadOnlyTeam {
     public void updatePoints(int win, int draw) {
         this.points = (win * 3) + draw;
     }
-// Work in Progress
-//    public void updateRecords(Set<Match> matchlist) {
-//        Iterator i = matchlist.iterator();
-//        while (i.hasNext()) {
-//            Match temp = (Match)i.next();
-//
-//        }
-//    }
 
     public void addplayer(Player player) {
         this.playerlist.add(player);

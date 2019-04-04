@@ -10,10 +10,10 @@ import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.tag.Tag;
 import seedu.addressbook.data.team.Country;
 import seedu.addressbook.data.team.EditTeamDescriptor;
-import seedu.addressbook.data.team.TeamName;
 import seedu.addressbook.data.team.ReadOnlyTeam;
 import seedu.addressbook.data.team.Sponsor;
 import seedu.addressbook.data.team.Team;
+import seedu.addressbook.data.team.TeamName;
 import seedu.addressbook.data.team.UniqueTeamList;
 
 
@@ -85,8 +85,16 @@ public class EditTeam extends Command {
         Sponsor updatedSponsor = checkSponsor(editTeamDescriptor.getSponsor(), teamToEdit.getSponsor());
         Set<Tag> updatedTagset = checkTagset(editTeamDescriptor.getTags(), teamToEdit.getTags());
 
-        return new Team(updatedTeamName, updatedCountry, updatedSponsor, teamToEdit.getWins(), teamToEdit.getLoses(), teamToEdit.getDraws(),
-                teamToEdit.getPoints(), teamToEdit.getMatches(), teamToEdit.getPlayers(), updatedTagset);
+        return new Team(updatedTeamName,
+                updatedCountry,
+                updatedSponsor,
+                teamToEdit.getWins(),
+                teamToEdit.getLoses(),
+                teamToEdit.getDraws(),
+                teamToEdit.getPoints(),
+                teamToEdit.getMatches(),
+                teamToEdit.getPlayers(),
+                updatedTagset);
     }
 
     /**

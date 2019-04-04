@@ -1,8 +1,8 @@
 package seedu.addressbook.data.finance;
 
-import seedu.addressbook.data.team.TeamName;
 import seedu.addressbook.data.team.ReadOnlyTeam;
 import seedu.addressbook.data.team.Sponsor;
+import seedu.addressbook.data.team.TeamName;
 
 
 /**
