@@ -50,7 +50,7 @@ public class Formatter {
     public String formatTeamResult(List<? extends ReadOnlyTeam> teams) {
         final List<String> formattedTeams = new ArrayList<>();
         for (ReadOnlyTeam team : teams) {
-            formattedTeams.add(team.getAsTextShowAll());
+            formattedTeams.add(team.getAsTextShowSome());
         }
         return format(asIndexedList(formattedTeams));
     }

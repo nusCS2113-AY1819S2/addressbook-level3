@@ -171,7 +171,7 @@ public class Team implements ReadOnlyTeam {
 
     @Override
     public String toString() {
-        return getAsTextShowAll();
+        return getAsTextShowSome();
     }
 
 }
