@@ -77,7 +77,7 @@ public class GetLeagueFinanceCommand extends Command {
     /**
      * returns value of finance related to a certain time period.
      *
-     * @param whichQuarter(relevant quarter of the year) for searching
+     * @param whichQuarter (relevant quarter of the year) for searching
      * @return value of finance within this quarter
      */
     private double getFinancesWithCertainQuarter(List<ReadOnlyFinance> relatedFinances, int whichQuarter) {
@@ -85,14 +85,11 @@ public class GetLeagueFinanceCommand extends Command {
         for (ReadOnlyFinance finance : relatedFinances) {
             if (whichQuarter == INT_OF_QUARTER_ONE) {
                 certainQuarterFinance += finance.getQuarterOne();
-            }
-            else if (whichQuarter == 2) {
+            } else if (whichQuarter == 2) {
                 certainQuarterFinance += finance.getQuarterTwo();
-            }
-            else if (whichQuarter == 3) {
+            } else if (whichQuarter == 3) {
                 certainQuarterFinance += finance.getQuarterThree();
-            }
-            else if (whichQuarter == 4) {
+            } else if (whichQuarter == 4) {
                 certainQuarterFinance += finance.getQuarterFour();
             }
         }

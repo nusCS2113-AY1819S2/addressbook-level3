@@ -13,10 +13,10 @@ import seedu.addressbook.data.team.ReadOnlyTeam;
 public class Finance implements ReadOnlyFinance {
 
     public static final int NUMBER_OF_QUARTER = 4;
-    public static final Set<String> quarterOneMonths = Set.of("JAN", "FEB", "MAR");
-    public static final Set<String> quarterTwoMonths = Set.of("APR", "MAY", "JUN");
-    public static final Set<String> quarterThreeMonths = Set.of("JUL", "AUG", "SEP");
-    public static final Set<String> quarterFourMonths = Set.of("OCT", "NOV", "DEC");
+    public static final Set<String> QUARTER_ONE_MONTHS = Set.of("JAN", "FEB", "MAR");
+    public static final Set<String> QUARTER_TWO_MONTHS = Set.of("APR", "MAY", "JUN");
+    public static final Set<String> QUARTER_THREE_MONTHS = Set.of("JUL", "AUG", "SEP");
+    public static final Set<String> QUARTER_FOUR_MONTHS = Set.of("OCT", "NOV", "DEC");
 
     private String teamName;
     private double sponsorMoney = 0;
@@ -42,13 +42,13 @@ public class Finance implements ReadOnlyFinance {
         /**
          * gets ticket sale within each quarter.
          */
-        Set<Match> matchesOfQuarterOne = getMatchesWithDateContainingAnyKeyword(matchesOfTeam, quarterOneMonths);
+        Set<Match> matchesOfQuarterOne = getMatchesWithDateContainingAnyKeyword(matchesOfTeam, QUARTER_ONE_MONTHS);
         double quarterOneTicketIncome = getTicketIncomeFromMatches(matchesOfQuarterOne, teamName);
-        Set<Match> matchesOfQuarterTwo = getMatchesWithDateContainingAnyKeyword(matchesOfTeam, quarterTwoMonths);
+        Set<Match> matchesOfQuarterTwo = getMatchesWithDateContainingAnyKeyword(matchesOfTeam, QUARTER_TWO_MONTHS);
         double quarterTwoTicketIncome = getTicketIncomeFromMatches(matchesOfQuarterTwo, teamName);
-        Set<Match> matchesOfQuarterThree = getMatchesWithDateContainingAnyKeyword(matchesOfTeam, quarterThreeMonths);
+        Set<Match> matchesOfQuarterThree = getMatchesWithDateContainingAnyKeyword(matchesOfTeam, QUARTER_THREE_MONTHS);
         double quarterThreeTicketIncome = getTicketIncomeFromMatches(matchesOfQuarterThree, teamName);
-        Set<Match> matchesOfQuarterFour = getMatchesWithDateContainingAnyKeyword(matchesOfTeam, quarterFourMonths);
+        Set<Match> matchesOfQuarterFour = getMatchesWithDateContainingAnyKeyword(matchesOfTeam, QUARTER_FOUR_MONTHS);
         double quarterFourTicketIncome = getTicketIncomeFromMatches(matchesOfQuarterFour, teamName);
 
         this.quarterOne = sponsorMoney / 4 + quarterOneTicketIncome;
@@ -72,8 +72,7 @@ public class Finance implements ReadOnlyFinance {
                 String homeSalesString = match.getHomeSales().value;
                 double homeSalesValue = Double.valueOf(homeSalesString);
                 ticketSale += homeSalesValue;
-            }
-            else if (teamName.equals(match.getAway().toString()) && !match.getAwaySales().value.equals("")) {
+            } else if (teamName.equals(match.getAway().toString()) && !match.getAwaySales().value.equals("")) {
                 String awaySalesString = match.getAwaySales().value;
                 double awaySalesValue = Double.valueOf(awaySalesString);
                 ticketSale += awaySalesValue;
@@ -85,7 +84,7 @@ public class Finance implements ReadOnlyFinance {
     /**
      * returns all matches related to a certain time period.
      *
-     * @param keywords(relevant months) for searching
+     * @param keywords (relevant months) for searching
      * @return set of matches found
      */
     private Set<Match> getMatchesWithDateContainingAnyKeyword(Set<Match> relatedMatches, Set<String> keywords) {
