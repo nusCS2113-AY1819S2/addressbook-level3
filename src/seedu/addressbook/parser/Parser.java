@@ -28,6 +28,7 @@ import seedu.addressbook.commands.player.AddFastCommand;
 import seedu.addressbook.commands.player.ClearCommand;
 import seedu.addressbook.commands.player.DeleteCommand;
 import seedu.addressbook.commands.player.EditPlayerCommand;
+import seedu.addressbook.commands.player.ExportPlayerCommand;
 import seedu.addressbook.commands.player.FindCommand;
 import seedu.addressbook.commands.player.ListCommand;
 import seedu.addressbook.commands.player.SortCommand;
@@ -165,6 +166,9 @@ public class Parser {
 
         case DeleteCommand.COMMAND_WORD:
             return prepareDeletePlayer(arguments);
+
+        case ExportPlayerCommand.COMMAND_WORD:
+            return new ExportPlayerCommand();
 
         case DeleteTeam.COMMAND_WORD:
             return delTeam(arguments);

@@ -47,8 +47,8 @@ public class AddCommand extends Command {
             + "[t/TAG]...\n\t"
             + "Example: "
             + COMMAND_WORD
-            + " Lionel Messi p/RW a/31 sal/20000000 gs/30 ga/25 tm/FC_BARCELONA ctry/Argentina jn/10"
-            + " app/40 hs/HEALTHY t/friends t/GREATEST_OF_ALL_TIME";
+            + " Lionel Messi p/RW a/31 sal/20000000 gs/30 ga/25 tm/FC BARCELONA ctry/Argentina jn/10"
+            + " app/40 hs/HEALTHY t/friends t/GREATEST OF ALL TIME";
 
     public static final String MESSAGE_SUCCESS = "New player added: %1$s";
     public static final String MESSAGE_DUPLICATE_PLAYER = "This player already exists in the address book";
