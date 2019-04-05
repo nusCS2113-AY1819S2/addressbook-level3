@@ -13,13 +13,14 @@ import seedu.addressbook.data.finance.UniqueFinanceList;
  */
 public class ListFinanceCommand extends Command {
 
-    public static final String COMMAND_WORD = "listFinance";
+    public static final String COMMAND_WORD = "listfinance";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
             + "Displays all Finances in the league tracker as a list with index numbers.\n\t"
             + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_FINANCE_REFRESH_PROBLEM = "invalid command due to finance refresh problem";
+    public static final String MESSAGE_FINANCE_REFRESH_PROBLEM =
+            "invalid command due to finance refresh problem: duplicated team";
 
 
     @Override

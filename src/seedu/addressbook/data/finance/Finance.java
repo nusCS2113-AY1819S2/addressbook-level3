@@ -1,22 +1,25 @@
 package seedu.addressbook.data.finance;
 
-import seedu.addressbook.data.team.ReadOnlyTeam;
-import seedu.addressbook.data.team.Sponsor;
-import seedu.addressbook.data.team.TeamName;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
+import seedu.addressbook.data.match.Match;
+import seedu.addressbook.data.team.ReadOnlyTeam;
 
 /**
  * Represents Financial condition for a team in the League.
- * Guarantees: details are present and not null, field values are validated.
  */
 public class Finance implements ReadOnlyFinance {
 
     public static final int NUMBER_OF_QUARTER = 4;
+    public static final Set<String> QUARTER_ONE_MONTHS = Set.of("JAN", "FEB", "MAR");
+    public static final Set<String> QUARTER_TWO_MONTHS = Set.of("APR", "MAY", "JUN");
+    public static final Set<String> QUARTER_THREE_MONTHS = Set.of("JUL", "AUG", "SEP");
+    public static final Set<String> QUARTER_FOUR_MONTHS = Set.of("OCT", "NOV", "DEC");
 
     private String teamName;
     private double sponsorMoney = 0;
-    private double venueCost = 0;
-    //private double playerSalary = 0;
     private double ticketIncome = 0;
 
     private double quarterOne = 0;
@@ -29,46 +32,76 @@ public class Finance implements ReadOnlyFinance {
 
     public Finance(ReadOnlyTeam team) {
 
-        TeamName teamName = team.getTeamName();
-        this.teamName = teamName.fullName;
+        this.teamName = team.getTeamName().toString();
 
-        Sponsor sponsor = team.getSponsor();
-        String sponsorString = sponsor.value;
-        this.sponsorMoney = Double.valueOf(sponsorString);
+        this.sponsorMoney = Double.valueOf(team.getSponsor().value);
 
-        this.quarterOne = sponsorMoney / 4;
-        this.quarterTwo = sponsorMoney / 4;
-        this.quarterThree = sponsorMoney / 4;
-        this.quarterFour = sponsorMoney / 4;
+        Set<Match> matchesOfTeam = team.getMatches();
+        this.ticketIncome = getTicketIncomeFromMatches(matchesOfTeam, teamName);
+
+        /**
+         * gets ticket sale within each quarter.
+         */
+        Set<Match> matchesOfQuarterOne = getMatchesWithDateContainingAnyKeyword(matchesOfTeam, QUARTER_ONE_MONTHS);
+        double quarterOneTicketIncome = getTicketIncomeFromMatches(matchesOfQuarterOne, teamName);
+        Set<Match> matchesOfQuarterTwo = getMatchesWithDateContainingAnyKeyword(matchesOfTeam, QUARTER_TWO_MONTHS);
+        double quarterTwoTicketIncome = getTicketIncomeFromMatches(matchesOfQuarterTwo, teamName);
+        Set<Match> matchesOfQuarterThree = getMatchesWithDateContainingAnyKeyword(matchesOfTeam, QUARTER_THREE_MONTHS);
+        double quarterThreeTicketIncome = getTicketIncomeFromMatches(matchesOfQuarterThree, teamName);
+        Set<Match> matchesOfQuarterFour = getMatchesWithDateContainingAnyKeyword(matchesOfTeam, QUARTER_FOUR_MONTHS);
+        double quarterFourTicketIncome = getTicketIncomeFromMatches(matchesOfQuarterFour, teamName);
+
+        this.quarterOne = sponsorMoney / 4 + quarterOneTicketIncome;
+        this.quarterTwo = sponsorMoney / 4 + quarterTwoTicketIncome;
+        this.quarterThree = sponsorMoney / 4 + quarterThreeTicketIncome;
+        this.quarterFour = sponsorMoney / 4 + quarterFourTicketIncome;
 
         this.histogram = new Histogram(NUMBER_OF_QUARTER, quarterOne, quarterTwo, quarterThree, quarterFour);
+    }
 
-
-        /**
-         * Retrieve all matches in the address book whose homes is the target team's home.
-         */
-
-        //String homeString = teamName;
-        //final List<ReadOnlyMatch> matchesFound = getMatchesWithHome(homeString);
-
-        /**
-         * Retrieve ticket price and turnout rate from all matches found.
-         */
-        /**
-        for (ReadOnlyMatch match : matchesOfTeam) {
-            double price = 1;//match.getPrice();
-            double turnout = 2;//match.getTurnout();
-            double ticketBox = price * turnout;
-            ticketIncome += ticketBox;
-
+    /**
+     * calculate ticketIncome from relevant matches of the team.
+     *
+     * @param teamName for finding relevant homeSale/awaySale in each match
+     * @return value of ticketSale
+     */
+    private double getTicketIncomeFromMatches (Set<Match> relatedMatches, String teamName) {
+        double ticketSale = 0;
+        for (Match match : relatedMatches) {
+            if (teamName.equals(match.getHome().toString()) && !match.getHomeSales().value.equals("")) {
+                String homeSalesString = match.getHomeSales().value;
+                double homeSalesValue = Double.valueOf(homeSalesString);
+                ticketSale += homeSalesValue;
+            } else if (teamName.equals(match.getAway().toString()) && !match.getAwaySales().value.equals("")) {
+                String awaySalesString = match.getAwaySales().value;
+                double awaySalesValue = Double.valueOf(awaySalesString);
+                ticketSale += awaySalesValue;
+            }
         }
-         */
+        return ticketSale;
+    }
+
+    /**
+     * returns all matches related to a certain time period.
+     *
+     * @param keywords (relevant months) for searching
+     * @return set of matches found
+     */
+    private Set<Match> getMatchesWithDateContainingAnyKeyword(Set<Match> relatedMatches, Set<String> keywords) {
+        final Set<Match> matchedMatches = new HashSet<>();
+        for (Match match : relatedMatches) {
+            final Set<String> wordsInDate = new HashSet<>(match.getDate().getWordsInDate());
+            if (!Collections.disjoint(wordsInDate, keywords)) {
+                matchedMatches.add(match);
+            }
+        }
+        return matchedMatches;
     }
 
     @Override
     public double getFinance() {
         double money;
-        money = sponsorMoney - venueCost + ticketIncome;
+        money = sponsorMoney + ticketIncome;
         return money;
     }
 
@@ -80,11 +113,6 @@ public class Finance implements ReadOnlyFinance {
     @Override
     public double getSponsor() {
         return sponsorMoney;
-    }
-
-    @Override
-    public double getVenueCost() {
-        return venueCost;
     }
 
     @Override

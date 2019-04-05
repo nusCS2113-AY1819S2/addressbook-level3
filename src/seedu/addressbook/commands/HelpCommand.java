@@ -1,6 +1,6 @@
 package seedu.addressbook.commands;
 
-import seedu.addressbook.commands.finance.FinanceCommand;
+import seedu.addressbook.commands.finance.GetFinanceCommand;
 import seedu.addressbook.commands.finance.GetLeagueFinanceCommand;
 import seedu.addressbook.commands.finance.ListFinanceCommand;
 import seedu.addressbook.commands.finance.RankFinanceCommand;
@@ -48,7 +48,7 @@ public class HelpCommand extends Command {
             + "\n" + ListTeam.MESSAGE_USAGE
             + "\n" + ViewTeam.MESSAGE_USAGE
             + "\n" + ViewAllCommand.MESSAGE_USAGE
-            + "\n" + FinanceCommand.MESSAGE_USAGE
+            + "\n" + GetFinanceCommand.MESSAGE_USAGE
             + "\n" + GetLeagueFinanceCommand.MESSAGE_USAGE
             + "\n" + RankFinanceCommand.MESSAGE_USAGE
             + "\n" + ListFinanceCommand.MESSAGE_USAGE

@@ -14,7 +14,7 @@ import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.ExitCommand;
 import seedu.addressbook.commands.HelpCommand;
 import seedu.addressbook.commands.IncorrectCommand;
-import seedu.addressbook.commands.finance.FinanceCommand;
+import seedu.addressbook.commands.finance.GetFinanceCommand;
 import seedu.addressbook.commands.finance.GetLeagueFinanceCommand;
 import seedu.addressbook.commands.finance.ListFinanceCommand;
 import seedu.addressbook.commands.finance.RankFinanceCommand;
@@ -187,7 +187,7 @@ public class Parser {
         case FindTeam.COMMAND_WORD:
             return prepareFindTeam(arguments);
 
-        case FinanceCommand.COMMAND_WORD:
+        case GetFinanceCommand.COMMAND_WORD:
             return prepareFinance(arguments);
 
         case ListCommand.COMMAND_WORD:
@@ -511,9 +511,9 @@ public class Parser {
     private Command prepareFinance(String args) {
         try {
             final int targetIndex = parseArgsAsDisplayedIndex(args);
-            return new FinanceCommand(targetIndex);
+            return new GetFinanceCommand(targetIndex);
         } catch (ParseException | NumberFormatException e) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FinanceCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GetFinanceCommand.MESSAGE_USAGE));
         }
     }
 

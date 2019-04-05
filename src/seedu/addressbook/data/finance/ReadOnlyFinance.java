@@ -9,7 +9,6 @@ public interface ReadOnlyFinance {
 
     String getTeamName();
     double getSponsor();
-    double getVenueCost();
     double getTicketIncome();
     double getFinance();
     double getQuarterOne();
@@ -27,7 +26,6 @@ public interface ReadOnlyFinance {
                 || (other != null // this is first to avoid NPE below
                 && other.getTeamName().equals(this.getTeamName()) // state checks here onwards
                 && other.getSponsor() == this.getSponsor()
-                && other.getVenueCost() == this.getVenueCost()
                 && other.getTicketIncome() == this.getTicketIncome()
                 && other.getFinance() == this.getFinance());
     }
