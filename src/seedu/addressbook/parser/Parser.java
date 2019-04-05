@@ -29,6 +29,7 @@ import seedu.addressbook.commands.player.AddFastCommand;
 import seedu.addressbook.commands.player.ClearCommand;
 import seedu.addressbook.commands.player.DeleteCommand;
 import seedu.addressbook.commands.player.EditPlayerCommand;
+import seedu.addressbook.commands.player.ExportPlayerCommand;
 import seedu.addressbook.commands.player.FindCommand;
 import seedu.addressbook.commands.player.ListCommand;
 import seedu.addressbook.commands.player.SortCommand;
@@ -39,6 +40,7 @@ import seedu.addressbook.commands.team.DeleteTeam;
 import seedu.addressbook.commands.team.EditTeam;
 import seedu.addressbook.commands.team.FindTeam;
 import seedu.addressbook.commands.team.ListTeam;
+import seedu.addressbook.commands.team.ViewTeam;
 import seedu.addressbook.data.exception.IllegalValueException;
 
 /**
@@ -167,6 +169,9 @@ public class Parser {
         case DeleteCommand.COMMAND_WORD:
             return prepareDeletePlayer(arguments);
 
+        case ExportPlayerCommand.COMMAND_WORD:
+            return new ExportPlayerCommand();
+
         case DeleteTeam.COMMAND_WORD:
             return delTeam(arguments);
 
@@ -226,6 +231,9 @@ public class Parser {
 
         case ViewAllCommand.COMMAND_WORD:
             return prepareViewAll(arguments);
+
+        case ViewTeam.COMMAND_WORD:
+            return prepareViewTeam(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -587,6 +595,20 @@ public class Parser {
         } catch (ParseException | NumberFormatException e) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     ViewAllCommand.MESSAGE_USAGE));
+        }
+    }
+
+    /**
+     * Parses arguments in the context of the view team command.
+     */
+    private Command prepareViewTeam(String args) {
+
+        try {
+            final int targetIndex = parseArgsAsDisplayedIndex(args);
+            return new ViewTeam(targetIndex);
+        } catch (ParseException | NumberFormatException e) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ViewTeam.MESSAGE_USAGE));
         }
     }
 

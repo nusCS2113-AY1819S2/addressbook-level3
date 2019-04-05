@@ -66,7 +66,29 @@ public interface ReadOnlyTeam {
         }
         builder.append("\nMatch List:\n");
         for (Match match : getMatches()) {
-            builder.append(match.getHome() + "vs" + match.getAway());
+            builder.append(match.getHome() + " vs " + match.getAway());
+        }
+        return builder.toString();
+    }
+
+    default String getAsTextShowSome() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getTeamName().fullName.trim())
+                .append(" | Nationality: ");
+        builder.append(getCountry().toString().trim())
+                .append(" | Sponsorship: USD ");
+        builder.append(getSponsor().toString().trim())
+                .append(" |Wins: ");
+        builder.append(getWins())
+                .append(" |Draw: ");
+        builder.append(getDraws())
+                .append(" |Lose: ");
+        builder.append(getLoses())
+                .append(" |Points: ");
+        builder.append(getPoints())
+                .append(" | Tags: ");
+        for (Tag tag : getTags()) {
+            builder.append(tag);
         }
         return builder.toString();
     }
