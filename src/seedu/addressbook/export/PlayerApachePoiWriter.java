@@ -15,16 +15,20 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+
 import seedu.addressbook.data.player.ReadOnlyPlayer;
 
-public class apachePoiWriter {
+/**
+ * this class helps to convert player profiles correctly into excel file
+ */
+public class PlayerApachePoiWriter {
 
     private final String outputFilepath = "exported_player_record.xls";
     private final Path exportPath = Paths.get(outputFilepath);
 
     private final List<ReadOnlyPlayer> allPlayers;
 
-    public apachePoiWriter(List<ReadOnlyPlayer> allPlayers) {
+    public PlayerApachePoiWriter(List<ReadOnlyPlayer> allPlayers) {
 
         requireNonNull(allPlayers);
         allPlayers.forEach(Objects::requireNonNull);

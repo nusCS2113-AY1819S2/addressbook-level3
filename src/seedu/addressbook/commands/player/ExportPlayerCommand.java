@@ -5,7 +5,7 @@ import java.util.List;
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.player.ReadOnlyPlayer;
-import seedu.addressbook.export.apachePoiWriter;
+import seedu.addressbook.export.PlayerApachePoiWriter;
 
 /**
  * This Command allows user to export the player profiles in the league record to an Excel file
@@ -31,7 +31,7 @@ public class ExportPlayerCommand extends Command {
     @Override
     public CommandResult execute() {
         List<ReadOnlyPlayer> allPlayers = addressBook.getAllPlayers().immutableListView();
-        apachePoiWriter writer = new apachePoiWriter(allPlayers);
+        PlayerApachePoiWriter writer = new PlayerApachePoiWriter(allPlayers);
 
         try {
             writer.write();
