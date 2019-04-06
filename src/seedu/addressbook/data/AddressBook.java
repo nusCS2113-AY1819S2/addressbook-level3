@@ -76,6 +76,14 @@ public class AddressBook {
 
     public void editPlayer(ReadOnlyPlayer toEdit, Player newPlayer) throws UniquePlayerList.PlayerNotFoundException {
         allPlayers.edit(toEdit, newPlayer);
+        Iterator i = allTeams.iterator();
+        while (i.hasNext()) {
+            Team cur = (Team) i.next();
+            if (cur.getTeamName().toString().equals(toEdit.getTeamName().toString())) {
+                cur.removeplayer(toEdit);
+                cur.addplayer(newPlayer);
+            }
+        }
     }
 
     /**
@@ -96,6 +104,13 @@ public class AddressBook {
         while (i.hasNext()) {
             Team cur = (Team) i.next();
             if (cur.getTeamName().toString().equals(toAdd.getHome().toString())) {
+                cur.addmatch(toAdd);
+            }
+        }
+        Iterator j = allTeams.iterator();
+        while (j.hasNext()) {
+            Team cur = (Team) j.next();
+            if (cur.getTeamName().toString().equals(toAdd.getAway().toString())) {
                 cur.addmatch(toAdd);
             }
         }
@@ -129,6 +144,13 @@ public class AddressBook {
      */
     public void removePlayer(ReadOnlyPlayer toRemove) throws PlayerNotFoundException {
         allPlayers.remove(toRemove);
+        Iterator i = allTeams.iterator();
+        while (i.hasNext()) {
+            Team cur = (Team) i.next();
+            if (cur.getTeamName().toString().equals(toRemove.getTeamName().toString())) {
+                cur.removeplayer(toRemove);
+            }
+        }
     }
 
     /**
@@ -138,6 +160,20 @@ public class AddressBook {
      */
     public void removeMatch(ReadOnlyMatch toRemove) throws MatchNotFoundException {
         allMatches.remove(toRemove);
+        Iterator i = allTeams.iterator();
+        while (i.hasNext()) {
+            Team cur = (Team) i.next();
+            if (cur.getTeamName().toString().equals(toRemove.getHome().toString())) {
+                cur.removematch(toRemove);
+            }
+        }
+        Iterator j = allTeams.iterator();
+        while (j.hasNext()) {
+            Team cur = (Team) j.next();
+            if (cur.getTeamName().toString().equals(toRemove.getAway().toString())) {
+                cur.removematch(toRemove);
+            }
+        }
     }
 
     /**
@@ -145,6 +181,11 @@ public class AddressBook {
      */
     public void clearMatch() {
         allMatches.clear();
+        Iterator i = allTeams.iterator();
+        while (i.hasNext()) {
+            Team cur = (Team) i.next();
+            cur.clearmatchlist();
+        }
     }
 
     /**
@@ -166,6 +207,11 @@ public class AddressBook {
      */
     public void clearPlayer() {
         allPlayers.clear();
+        Iterator i = allTeams.iterator();
+        while (i.hasNext()) {
+            Team cur = (Team) i.next();
+            cur.clearplayerlist();
+        }
     }
 
     /**
@@ -187,6 +233,22 @@ public class AddressBook {
      */
     public void updateMatch(ReadOnlyMatch toRemove, Match toReplace) throws MatchNotFoundException {
         allMatches.update(toRemove, toReplace);
+        Iterator i = allTeams.iterator();
+        while (i.hasNext()) {
+            Team cur = (Team) i.next();
+            if (cur.getTeamName().toString().equals(toRemove.getHome().toString())) {
+                cur.removematch(toRemove);
+                cur.addmatch(toReplace);
+            }
+        }
+        Iterator j = allTeams.iterator();
+        while (j.hasNext()) {
+            Team cur = (Team) j.next();
+            if (cur.getTeamName().toString().equals(toRemove.getAway().toString())) {
+                cur.removematch(toRemove);
+                cur.addmatch(toReplace);
+            }
+        }
     }
 
     /**
