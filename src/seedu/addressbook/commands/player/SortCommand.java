@@ -13,7 +13,7 @@ public class SortCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
             + "Sorts all players in the league tracker in ascending alphabetical order.\n\t"
-            + "Example: " + COMMAND_WORD;
+            + "Example: " + COMMAND_WORD + "\n";
 
     public static final String MESSAGE_SUCCESS = "League player list has been sorted!";
 
