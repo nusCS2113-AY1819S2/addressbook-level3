@@ -7,6 +7,9 @@ import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.team.ReadOnlyTeam;
 import seedu.addressbook.export.TeamApachePoiWriter;
 
+/**
+ * This command allows user to export team profiles in the league to an excel file
+ */
 public class ExportTeam extends Command {
 
     public static final String COMMAND_WORD = "exportTeam";

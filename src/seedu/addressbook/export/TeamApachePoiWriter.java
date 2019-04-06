@@ -52,8 +52,8 @@ public class TeamApachePoiWriter {
     public void write() {
         try {
             HSSFWorkbook workBook = new HSSFWorkbook();
-            HSSFSheet TeamSheet = workBook.createSheet("TeamSheet");
-            HSSFRow row = TeamSheet.createRow(0);
+            HSSFSheet teamSheet = workBook.createSheet("teamSheet");
+            HSSFRow row = teamSheet.createRow(0);
             HSSFCell cell = row.createCell(0);
             cell.setCellValue("Index Number");
             cell = row.createCell(1);
@@ -70,23 +70,23 @@ public class TeamApachePoiWriter {
 
 
             for (int i = 1; i <= num; i++) {
-                ReadOnlyTeam TeamNow = allTeams.get(i - 1);
+                ReadOnlyTeam teamNow = allTeams.get(i - 1);
 
-                row = TeamSheet.createRow(i);
+                row = teamSheet.createRow(i);
                 cell = row.createCell(0);
                 cell.setCellValue(i);
                 cell = row.createCell(1);
-                cell.setCellValue(TeamNow.getTeamName().toString());
+                cell.setCellValue(teamNow.getTeamName().toString());
                 cell = row.createCell(2);
-                cell.setCellValue(TeamNow.getCountry().toString());
+                cell.setCellValue(teamNow.getCountry().toString());
                 cell = row.createCell(3);
-                cell.setCellValue(TeamNow.getSponsor().toString());
+                cell.setCellValue(teamNow.getSponsor().toString());
                 cell = row.createCell(4);
-                cell.setCellValue(TeamNow.getPlayers().size());
+                cell.setCellValue(teamNow.getPlayers().size());
             }
 
             for (int j = 0; j <= 11; j++) {
-                TeamSheet.autoSizeColumn(j);
+                teamSheet.autoSizeColumn(j);
             }
 
             try {
