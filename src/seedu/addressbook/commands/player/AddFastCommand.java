@@ -28,18 +28,18 @@ public class AddFastCommand extends Command {
 
     public static final String MESSAGE_USAGE =
             COMMAND_WORD + ":\n" + "Adds a player to the League Tracker. " + "\n"
-                    + "Parameters:\n"
-                    + "NAME p/POSITION \n"
-                    + "a/AGE \n"
-                    + "sal/SALARY \n"
-                    + "tm/TEAM_NAME \n"
-                    + "ctry/NATIONALITY \n"
-                    + "jn/JERSEY_NUMBER \n"
-                    + "[t/TAG]...\n\t"
+                    + "Parameters: "
+                    + "NAME p/POSITION "
+                    + "a/AGE "
+                    + "sal/SALARY "
+                    + "tm/TEAM_NAME "
+                    + "ctry/NATIONALITY "
+                    + "jn/JERSEY_NUMBER "
+                    + "[t/TAG]...\n"
                     + "Example: "
                     + COMMAND_WORD
-                    + " Lionel Messi p/RW a/31 sal/20000000 tm/FC_BARCELONA ctry/Argentina jn/10"
-                    + " t/friends t/GREATEST_OF_ALL_TIME";
+                    + " Lionel Messi p/RW a/31 sal/20000000 tm/FC BARCELONA ctry/Argentina jn/10"
+                    + " t/friends t/GREATEST OF ALL TIME \n";
 
     public static final String MESSAGE_SUCCESS = "New player added: %1$s";
     public static final String MESSAGE_DUPLICATE_PLAYER = "This player already exists in the address book";

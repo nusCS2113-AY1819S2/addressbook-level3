@@ -136,6 +136,10 @@ public class PlayerApachePoiWriter {
         }
     }
 
+    /**
+     * get the current export path of the excel file
+     * @return the current export path of the excel file
+     */
     public Path getExportPath() {
         return exportPath;
     }

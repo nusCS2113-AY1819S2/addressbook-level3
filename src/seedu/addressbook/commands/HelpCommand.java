@@ -9,8 +9,10 @@ import seedu.addressbook.commands.match.DeleteMatchCommand;
 import seedu.addressbook.commands.match.FindMatchCommand;
 import seedu.addressbook.commands.match.ListMatchCommand;
 import seedu.addressbook.commands.player.AddCommand;
+import seedu.addressbook.commands.player.AddFastCommand;
 import seedu.addressbook.commands.player.ClearCommand;
 import seedu.addressbook.commands.player.DeleteCommand;
+import seedu.addressbook.commands.player.EditPlayerCommand;
 import seedu.addressbook.commands.player.FindCommand;
 import seedu.addressbook.commands.player.ListCommand;
 import seedu.addressbook.commands.player.SortCommand;
@@ -33,6 +35,8 @@ public class HelpCommand extends Command {
             + "Example: " + COMMAND_WORD;
 
     public static final String MESSAGE_ALL_USAGES = AddCommand.MESSAGE_USAGE
+            + "\n" + AddFastCommand.MESSAGE_USAGE
+            + "\n" + EditPlayerCommand.MESSAGE_USAGE
             + "\n" + DeleteCommand.MESSAGE_USAGE
             + "\n" + ClearCommand.MESSAGE_USAGE
             + "\n" + FindCommand.MESSAGE_USAGE

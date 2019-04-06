@@ -37,6 +37,7 @@ import seedu.addressbook.commands.team.AddTeam;
 import seedu.addressbook.commands.team.ClearTeam;
 import seedu.addressbook.commands.team.DeleteTeam;
 import seedu.addressbook.commands.team.EditTeam;
+import seedu.addressbook.commands.team.ExportTeam;
 import seedu.addressbook.commands.team.FindTeam;
 import seedu.addressbook.commands.team.ListTeam;
 import seedu.addressbook.data.exception.IllegalValueException;
@@ -169,6 +170,9 @@ public class Parser {
 
         case ExportPlayerCommand.COMMAND_WORD:
             return new ExportPlayerCommand();
+
+        case ExportTeam.COMMAND_WORD:
+            return new ExportTeam();
 
         case DeleteTeam.COMMAND_WORD:
             return delTeam(arguments);
@@ -321,9 +325,9 @@ public class Parser {
     }
 
     /**
-     *
-     * @param args
-     * @return
+     * parse input,check for invalid input and create the correct EditPlayerCommand to execute
+     * @param args is the user input
+     * @return the correct EditPlayerCommand object to be executed
      */
     private Command prepareEditPlayer(String args) {
 
