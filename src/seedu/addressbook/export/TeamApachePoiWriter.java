@@ -36,7 +36,7 @@ public class TeamApachePoiWriter {
             try {
                 Files.createFile(exportPath);
             } catch (IOException ioe) {
-                System.out.println("Error creating output file: " + exportPath.toString());
+                System.out.println("Error creating output file at: " + exportPath.toString());
             }
         } else {
             System.out.println("Initializing exportTeam output file: " + exportPath.toString());
