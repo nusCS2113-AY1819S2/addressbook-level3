@@ -14,6 +14,7 @@ public class Messages {
             "java seedu.addressbook.Main [STORAGE_FILE_PATH]";
     public static final String MESSAGE_WELCOME = "Welcome to your Address Book!";
     public static final String MESSAGE_USING_STORAGE_FILE = "Using storage file : %1$s";
+    public static final String MESSAGE_SELECT_PATIENT = "%1$d similar entries have been found. Please re-enter patient's FULL NAME to refer";
     public static final String MESSAGE_NUMBER_OF_APPOINTMENTS = "%1$s you have %2$d appointments!";
 
 }
