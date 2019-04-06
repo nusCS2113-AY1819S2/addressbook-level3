@@ -62,7 +62,7 @@ public class TransferPlayerCommand extends Command {
                 isOldPlayerFound = true;
 
                 if (oldTeamName.equals(this.teamNameItem.toString())) {
-                    return new CommandResult(String.format(MESSAGE_DESTINATION_IS_CURRENT,oldTeamName));
+                    return new CommandResult(String.format(MESSAGE_DESTINATION_IS_CURRENT, oldTeamName));
                 }
             }
         }
@@ -71,7 +71,7 @@ public class TransferPlayerCommand extends Command {
         // else, create the player after transfer
         if (!isOldPlayerFound) {
             return new CommandResult(String.format(
-                    MESSAGE_PLAYER_NOT_FOUND,this.playerNameItem.toString()
+                    MESSAGE_PLAYER_NOT_FOUND, this.playerNameItem.toString()
             ));
         } else {
             newPlayer = createPlayerAfterTransfer(this.teamNameItem, oldPlayer);
@@ -87,7 +87,7 @@ public class TransferPlayerCommand extends Command {
         // if the destination team does not exists, return an error message and terminate the execute()
         // else continue, the destination team definitely exists
         if (!isTeamFound) {
-            return new CommandResult(String.format(MESSAGE_NO_SUCH_TEAM,this.teamNameItem.toString()));
+            return new CommandResult(String.format(MESSAGE_NO_SUCH_TEAM, this.teamNameItem.toString()));
         }
 
         // remove oldPlayer from league tracker and add the newPlayer into league tracker
