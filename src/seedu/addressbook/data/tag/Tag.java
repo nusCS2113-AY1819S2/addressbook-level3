@@ -8,8 +8,8 @@ import seedu.addressbook.data.exception.IllegalValueException;
  */
 public class Tag {
 
-    public static final String MESSAGE_TAG_CONSTRAINTS = "Tags names should be alphanumeric";
-    public static final String TAG_VALIDATION_REGEX = "\\p{Alnum}+";
+    public static final String MESSAGE_TAG_CONSTRAINTS = "Tags can be anything";
+    public static final String TAG_VALIDATION_REGEX = ".+";
 
     public final String tagName;
 
