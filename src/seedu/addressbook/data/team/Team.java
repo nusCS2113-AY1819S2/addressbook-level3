@@ -5,7 +5,9 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.addressbook.data.match.Match;
+import seedu.addressbook.data.match.ReadOnlyMatch;
 import seedu.addressbook.data.player.Player;
+import seedu.addressbook.data.player.ReadOnlyPlayer;
 import seedu.addressbook.data.tag.Tag;
 
 
@@ -152,8 +154,24 @@ public class Team implements ReadOnlyTeam {
         this.playerlist.add(player);
     }
 
+    public void removeplayer(ReadOnlyPlayer player) {
+        this.playerlist.remove(player);
+    }
+
+    public void clearplayerlist() {
+        this.playerlist.clear();
+    }
+
     public void addmatch(Match match) {
         this.matchlist.add(match);
+    }
+
+    public void removematch(ReadOnlyMatch match) {
+        this.matchlist.remove(match);
+    }
+
+    public void clearmatchlist() {
+        this.matchlist.clear();
     }
 
     @Override
