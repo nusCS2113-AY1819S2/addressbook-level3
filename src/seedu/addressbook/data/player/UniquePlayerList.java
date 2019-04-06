@@ -87,11 +87,15 @@ public class UniquePlayerList implements Iterable<Player> {
         return Collections.unmodifiableList(internalList);
     }
 
-
     /**
      * Checks if the list contains an equivalent player as the given argument.
      */
     public boolean contains(ReadOnlyPlayer toCheck) {
+        for (Player player: internalList) {
+            if (player.getName().toString().equals(toCheck.getName().toString())) {
+                return true;
+            }
+        }
         return internalList.contains(toCheck);
     }
 

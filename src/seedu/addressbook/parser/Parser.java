@@ -33,6 +33,7 @@ import seedu.addressbook.commands.player.ExportPlayerCommand;
 import seedu.addressbook.commands.player.FindCommand;
 import seedu.addressbook.commands.player.ListCommand;
 import seedu.addressbook.commands.player.SortCommand;
+import seedu.addressbook.commands.player.TransferPlayerCommand;
 import seedu.addressbook.commands.player.ViewAllCommand;
 import seedu.addressbook.commands.team.AddTeam;
 import seedu.addressbook.commands.team.ClearTeam;
@@ -77,6 +78,10 @@ public class Parser {
                     + "ctry/(?<nationality>[^/]+)"
                     + "jn/(?<jerseyNumber>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)");
+
+    public static final Pattern TRANSFER_DATA_ARGS_FORMAT =
+            Pattern.compile("(?<playerName>[^/]+)"
+                    + "tm/(?<destinationTeamName>[^/]+)");
 
     public static final Pattern EDITPLAYER_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<targetIndex>\\d+)"
@@ -169,6 +174,9 @@ public class Parser {
 
         case DeleteCommand.COMMAND_WORD:
             return prepareDeletePlayer(arguments);
+
+        case TransferPlayerCommand.COMMAND_WORD:
+            return prepareTransferPlayer(arguments);
 
         case ExportPlayerCommand.COMMAND_WORD:
             return new ExportPlayerCommand();
@@ -303,6 +311,26 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses arguments in the context of the TransferPlayer Command.
+     * @param args full command args string
+     * @return the prepare command
+     */
+    private Command prepareTransferPlayer(String args) {
+        final Matcher matcher = TRANSFER_DATA_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    TransferPlayerCommand.MESSAGE_USAGE));
+        }
+        try {
+            return new TransferPlayerCommand(
+                    matcher.group("playerName"),
+                    matcher.group("destinationTeamName")
+            );
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+    }
 
     /**
      * Parses arguments in the context of the addFast player command.
