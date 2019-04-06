@@ -59,7 +59,7 @@ public class AddressBook {
     }
 
     /**
-     * Adds a player to the address book.
+     * Adds a player to the League Tracker.
      *
      * @throws DuplicatePlayerException if an equivalent player already exists.
      */
@@ -73,6 +73,10 @@ public class AddressBook {
             }
         }
     }
+
+    /**
+     * Edits the equivalent player from League Tracker
+     */
 
     public void editPlayer(ReadOnlyPlayer toEdit, Player newPlayer) throws UniquePlayerList.PlayerNotFoundException {
         allPlayers.edit(toEdit, newPlayer);
