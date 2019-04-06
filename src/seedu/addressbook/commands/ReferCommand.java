@@ -42,8 +42,11 @@ public class ReferCommand extends Command {
     public CommandResult execute() {
 
         string = String.join(" ", keywords);
-        str = string.replaceAll("\\s+", "");
+//        str = string.replaceAll("\\s+", "");
         final List<ReadOnlyPerson> personsFound = getPersonsWithNameContainingAnyKeyword(keywords);
+
+//        // test
+//        return new CommandResult(String.format(MESSAGE_NO_SUCH_PERSON, toRefer.getName().toString()));
 
         if (count == 0) {
 //            String string = String.join(" ", keywords);
@@ -73,9 +76,7 @@ public class ReferCommand extends Command {
         for (ReadOnlyPerson person : addressBook.getAllPersons()) {
             final Set<String> wordsInName = new HashSet<>(person.getName().getWordsInName());
             if (!Collections.disjoint(wordsInName, keywords)) {
-                strName = person.getName().toString();
-                strName = strName.replaceAll("\\s+", "");
-                if (string == strName) { // if it is the exact name
+                if (wordsInName.equals(keywords)) {
                     try {  // get particulars of the old entry
                         toRefer = new Person(
                                 person.getName(),
@@ -83,7 +84,7 @@ public class ReferCommand extends Command {
                                 person.getEmail(),
                                 person.getAddress(),
                                 person.getAppointment(),
-                                new Doctor("Dr Seuss"),
+                                new Doctor("Dr Who"),
                                 new Status("Referred"),
                                 person.getTags()
                         );
