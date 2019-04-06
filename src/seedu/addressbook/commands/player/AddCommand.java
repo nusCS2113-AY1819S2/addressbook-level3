@@ -102,12 +102,12 @@ public class AddCommand extends Command {
         UniqueTeamList teamList = addressBook.getAllTeams();
 
         for (Team team : teamList) {
-            if (team.getTeamName().toString().equals(tmInput) ) {
+            if (team.getTeamName().toString().equals(tmInput)) {
                 isTeamExists = true;
             }
         }
 
-        if (!isTeamExists){
+        if (!isTeamExists) {
             return new CommandResult(String.format(MESSAGE_NO_SUCH_TEAM, tmInput) + "\n"
                     + MESSAGE_USAGE);
         }
