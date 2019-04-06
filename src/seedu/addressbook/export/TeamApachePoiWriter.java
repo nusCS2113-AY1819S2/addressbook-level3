@@ -15,6 +15,7 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+
 import seedu.addressbook.data.team.ReadOnlyTeam;
 
 /**
@@ -56,7 +57,7 @@ public class TeamApachePoiWriter {
             HSSFCell cell = row.createCell(0);
             cell.setCellValue("Index Number");
             cell = row.createCell(1);
-            cell.setCellValue("Name");
+            cell.setCellValue("Team Name");
             cell = row.createCell(2);
             cell.setCellValue("Country");
             cell = row.createCell(3);
@@ -66,16 +67,18 @@ public class TeamApachePoiWriter {
 
             int num = allTeams.size();
 
+
+
             for (int i = 1; i <= num; i++) {
                 ReadOnlyTeam TeamNow = allTeams.get(i - 1);
 
                 row = TeamSheet.createRow(i);
                 cell = row.createCell(0);
                 cell.setCellValue(i);
+                cell = row.createCell(1);
+                cell.setCellValue(TeamNow.getTeamName().toString());
                 cell = row.createCell(2);
                 cell.setCellValue(TeamNow.getCountry().toString());
-                cell = row.createCell(1);
-                cell.setCellValue(TeamNow.getName().toString());
                 cell = row.createCell(3);
                 cell.setCellValue(TeamNow.getSponsor().toString());
                 cell = row.createCell(4);
