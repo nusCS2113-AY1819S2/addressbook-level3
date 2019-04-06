@@ -63,8 +63,6 @@ public class TeamApachePoiWriter {
             cell.setCellValue("Sponsor");
             cell = row.createCell(4);
             cell.setCellValue("Number of Players");
-            //cell = row.createCell(5);
-            //cell.setCellValue("");
 
             int num = allTeams.size();
 
@@ -74,10 +72,10 @@ public class TeamApachePoiWriter {
                 row = TeamSheet.createRow(i);
                 cell = row.createCell(0);
                 cell.setCellValue(i);
-                cell = row.createCell(1);
-                cell.setCellValue(TeamNow.getName().toString());
                 cell = row.createCell(2);
                 cell.setCellValue(TeamNow.getCountry().toString());
+                cell = row.createCell(1);
+                cell.setCellValue(TeamNow.getName().toString());
                 cell = row.createCell(3);
                 cell.setCellValue(TeamNow.getSponsor().toString());
                 cell = row.createCell(4);
