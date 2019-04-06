@@ -79,7 +79,14 @@ public class UniqueTeamList implements Iterable<Team> {
      * Checks if the list contains an equivalent team as the given argument.
      */
     public boolean contains(ReadOnlyTeam toCheck) {
-        return internalList.contains(toCheck);
+        String nameToCheck = toCheck.getTeamName().toString().toLowerCase();
+        for (ReadOnlyTeam employee: internalList) {
+            String employeeName = employee.getTeamName().toString().toLowerCase();
+            if (employeeName.equals(nameToCheck)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
