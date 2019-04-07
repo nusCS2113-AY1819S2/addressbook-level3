@@ -60,7 +60,7 @@ public class ParserTest {
 
     @Test
     public void sortCommand_parsedCorrectly() {
-        final String input = "sort";
+        final String input = "sort name";
         parseAndAssertCommandType(input, SortCommand.class);
     }
 
