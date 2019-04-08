@@ -4,6 +4,7 @@ import seedu.addressbook.commands.finance.GetFinanceCommand;
 import seedu.addressbook.commands.finance.GetLeagueFinanceCommand;
 import seedu.addressbook.commands.finance.ListFinanceCommand;
 import seedu.addressbook.commands.finance.RankFinanceCommand;
+import seedu.addressbook.commands.finance.ViewFinanceCommand;
 import seedu.addressbook.commands.match.AddMatchCommand;
 import seedu.addressbook.commands.match.ClearMatchCommand;
 import seedu.addressbook.commands.match.DeleteMatchCommand;
@@ -32,11 +33,21 @@ import seedu.addressbook.commands.team.ViewTeam;
 public class HelpCommand extends Command {
 
     public static final String COMMAND_WORD = "help";
+    public static final String PLAYER_COMMAND = "\n\nPLAYER COMMANDS:\n";
+    public static final String TEAM_COMMAND = "\n\nTEAM COMMANDS:\n";
+    public static final String MATCH_COMMAND = "\n\nMATCH COMMANDS:\n";
+    public static final String FINANCE_COMMAND = "\n\nFINANCE COMMANDS:\n";
+    public static final String COMMON_COMMAND = "COMMON COMMANDS:\n";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Shows program usage instructions.\n\t"
             + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_ALL_USAGES = AddCommand.MESSAGE_USAGE
+
+    public static final String MESSAGE_ALL_USAGES = COMMON_COMMAND
+            + HelpCommand.MESSAGE_USAGE
+            + "\n" + ExitCommand.MESSAGE_USAGE
+            + PLAYER_COMMAND
+            + AddCommand.MESSAGE_USAGE
             + "\n" + AddFastCommand.MESSAGE_USAGE
             + "\n" + EditPlayerCommand.MESSAGE_USAGE
             + "\n" + DeleteCommand.MESSAGE_USAGE
@@ -44,6 +55,7 @@ public class HelpCommand extends Command {
             + "\n" + FindCommand.MESSAGE_USAGE
             + "\n" + ListCommand.MESSAGE_USAGE
             + "\n" + SortCommand.MESSAGE_USAGE
+            + TEAM_COMMAND
             + "\n" + AddTeam.MESSAGE_USAGE
             + "\n" + EditTeam.MESSAGE_USAGE
             + "\n" + DeleteTeam.MESSAGE_USAGE
@@ -52,17 +64,18 @@ public class HelpCommand extends Command {
             + "\n" + ListTeam.MESSAGE_USAGE
             + "\n" + ViewTeam.MESSAGE_USAGE
             + "\n" + ViewAllCommand.MESSAGE_USAGE
+            + FINANCE_COMMAND
             + "\n" + GetFinanceCommand.MESSAGE_USAGE
             + "\n" + GetLeagueFinanceCommand.MESSAGE_USAGE
-            + "\n" + RankFinanceCommand.MESSAGE_USAGE
             + "\n" + ListFinanceCommand.MESSAGE_USAGE
+            + "\n" + RankFinanceCommand.MESSAGE_USAGE
+            + "\n" + ViewFinanceCommand.MESSAGE_USAGE
+            + MATCH_COMMAND
             + "\n" + AddMatchCommand.MESSAGE_USAGE
             + "\n" + DeleteMatchCommand.MESSAGE_USAGE
             + "\n" + ClearMatchCommand.MESSAGE_USAGE
             + "\n" + FindMatchCommand.MESSAGE_USAGE
-            + "\n" + ListMatchCommand.MESSAGE_USAGE
-            + "\n" + HelpCommand.MESSAGE_USAGE
-            + "\n" + ExitCommand.MESSAGE_USAGE;
+            + "\n" + ListMatchCommand.MESSAGE_USAGE;
 
     @Override
     public CommandResult execute() {

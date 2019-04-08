@@ -3,6 +3,7 @@ package seedu.addressbook.data;
 import java.util.Set;
 
 import seedu.addressbook.data.finance.Finance;
+import seedu.addressbook.data.finance.ReadOnlyFinance;
 import seedu.addressbook.data.finance.UniqueFinanceList;
 import seedu.addressbook.data.match.Match;
 import seedu.addressbook.data.match.ReadOnlyMatch;
@@ -134,6 +135,13 @@ public class AddressBook {
      */
     public boolean containsMatch(ReadOnlyMatch key) {
         return allMatches.contains(key);
+    }
+
+    /**
+     * Checks if an equivalent finance exists in the address book.
+     */
+    public boolean containsFinance(ReadOnlyFinance key) {
+        return allFinances.contains(key);
     }
 
     /**
