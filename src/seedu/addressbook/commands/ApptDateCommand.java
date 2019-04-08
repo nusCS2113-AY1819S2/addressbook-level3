@@ -37,8 +37,6 @@ public class ApptDateCommand extends Command {
     @Override
     public CommandResult execute() {
         final List<ReadOnlyPerson> personsFound = getPersonsWithSameDoctorSameDate();
-        personsFound.remove(this.counter);
-        //removing the duplicated person from the method called.
         Indicator.setLastCommand("ApptDate");
         return new CommandResult(getMessageForAppointmentsShownSummary(personsFound, this.doctor), personsFound);
     }
@@ -63,8 +61,25 @@ public class ApptDateCommand extends Command {
             }
         }
         Collections.sort(matchedPersons, new SortDate());
+        //Different pathway if its zero matched persons.
+        if (matchedPersons.isEmpty()){
+            this.timetable = "\t\tYou have no appointments for the date:  "
+                    + date
+                    + "\n";
+            for (int i =360; i <1440; i+=15) {
+                timetable = timetable
+                        + "   "
+                        + String.format("%5d%s%d", (i / 60), ":", (i % 60));
+                if (i % 60 == 0) {
+                    timetable = timetable + 0;
+                }
+                timetable = timetable + String.format("%32s", "\t*\n");
+            }
+            return matchedPersons;
+        }
         //add a duplicated fake person! So that the counter will not go out of index.
         matchedPersons.add(matchedPersons.get(0));
+        System.out.println(4);
         String timetable ="\t\tThis is your Appointment timetable for the date: "
                 + date
                 + "\n";
@@ -87,11 +102,15 @@ public class ApptDateCommand extends Command {
                 this.counter = this.counter + 1;
                 this.currentPersonDate = matchedPersons.get(this.counter).getLocalDateTime();
                 this.hourTimesMin = currentPersonDate.getHour() * 60 +  (currentPersonDate.getMinute());
-            } else {
+            }
+            else {
                 timetable = timetable +String.format("%32s", "\t*\n");
             }
         }
         this.timetable = timetable;
+        //removing the duplicated person from the method called.
+        matchedPersons.remove(this.counter);
         return matchedPersons;
     }
 }
+
