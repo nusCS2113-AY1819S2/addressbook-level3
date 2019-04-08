@@ -330,7 +330,7 @@ The login / register mechanism is facilitated by `AccountManager`, it implements
 * `setLoginStatus(boolean)` -- Sets the login status according to the parameter.
 * `accountCommandHandler(String)` -- Handles the user input, checks if there is a match for username and password match if the user's command is `login`, trys to regster a new account if the user's command is `register`, returns a string to indicate the outcome.
 * `register(String, String)` -- Creates a new account for user.
-* `logout` --  Logs the user out of the system
+* `logout()` --  Logs the user out of the system
 
 
 Given below is an example usage scenario and how the login/register/logout mechanism behaves at each step.
