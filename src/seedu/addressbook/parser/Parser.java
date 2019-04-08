@@ -18,6 +18,7 @@ import seedu.addressbook.commands.finance.GetFinanceCommand;
 import seedu.addressbook.commands.finance.GetLeagueFinanceCommand;
 import seedu.addressbook.commands.finance.ListFinanceCommand;
 import seedu.addressbook.commands.finance.RankFinanceCommand;
+import seedu.addressbook.commands.finance.ViewFinanceCommand;
 import seedu.addressbook.commands.match.AddMatchCommand;
 import seedu.addressbook.commands.match.ClearMatchCommand;
 import seedu.addressbook.commands.match.DeleteMatchCommand;
@@ -222,6 +223,9 @@ public class Parser {
 
         case RankFinanceCommand.COMMAND_WORD:
             return new RankFinanceCommand();
+
+        case ViewFinanceCommand.COMMAND_WORD:
+            return prepareViewFinance(arguments);
 
         case EditTeam.COMMAND_WORD:
             return prepareEditTeam(arguments);
@@ -514,6 +518,19 @@ public class Parser {
             return new GetFinanceCommand(targetIndex);
         } catch (ParseException | NumberFormatException e) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GetFinanceCommand.MESSAGE_USAGE));
+        }
+    }
+
+    /**
+     * Parses arguments in the context of the view finance command.
+     */
+    private Command prepareViewFinance(String args) {
+        try {
+            final int targetIndex = parseArgsAsDisplayedIndex(args);
+            return new ViewFinanceCommand(targetIndex);
+        } catch (ParseException | NumberFormatException e) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ViewFinanceCommand.MESSAGE_USAGE));
         }
     }
 

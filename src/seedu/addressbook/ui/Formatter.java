@@ -68,7 +68,7 @@ public class Formatter {
     public String formatFinanceResult(List<? extends ReadOnlyFinance> finances) {
         final List<String> formattedFinances = new ArrayList<>();
         for (ReadOnlyFinance finance : finances) {
-            formattedFinances.add(finance.getAsTextShowAll());
+            formattedFinances.add(finance.getAsTextShowSome());
         }
         return format(asIndexedList(formattedFinances));
     }

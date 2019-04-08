@@ -17,6 +17,8 @@ public class Messages {
     public static final String MESSAGE_TEAM_NOT_IN_LEAGUE_TRACKER = "team could not be found in league tracker";
     public static final String MESSAGE_TEAMS_LISTED_OVERVIEW = "%1$d teams listed!";
     public static final String MESSAGE_FINANCES_LISTED_OVERVIEW = "%1$d finances listed!";
+    public static final String MESSAGE_FINANCE_NOT_IN_LEAGUE_TRACKER = "finance could not be found in league tracker";
+    public static final String MESSAGE_INVALID_FINANCE_DISPLAYED_INDEX = "The finance index provided is invalid";
     public static final String MESSAGE_PROGRAM_LAUNCH_ARGS_USAGE = "Launch command format: "
             + "To start, type 'help' for a detailed instruction on using League Tracker";
     public static final String MESSAGE_WELCOME = "Welcome to your League Tracker!";
