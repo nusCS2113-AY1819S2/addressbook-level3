@@ -20,8 +20,10 @@ public class Parser {
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
     public static final Pattern PERSON_REFER_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"
-                    + "d/(?<doctor>[^/]+)");
+            Pattern.compile("d/(?<doctor>[^/]+)"
+                    + "p/(?<keywords>\\S+(?:\\s+\\S+)*)");
+//            Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"
+//                    + "d/(?<doctor>[^/]+)");
 
     public static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
@@ -305,11 +307,12 @@ public class Parser {
      */
     private Command prepareRefer(String args) {
         final Matcher matcherWithDoctorName = PERSON_REFER_ARGS_FORMAT.matcher(args.trim());
-        final Matcher matcherWithOnlyKeywords = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
-
 
         // Validate arg string format
-//        if (!matcherWithDoctorName.matches()) { // if doctor name is not present,
+        if (!matcherWithDoctorName.matches()) { // if doctor name is not present,
+
+            final Matcher matcherWithOnlyKeywords = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
+
             if (!matcherWithOnlyKeywords.matches()) { // and keywords are not in the correct form,
                 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         ReferCommand.MESSAGE_USAGE));
@@ -319,13 +322,15 @@ public class Parser {
             final String[] keywords = matcherWithOnlyKeywords.group("keywords").split("\\s+");
             final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
             return new ReferCommand(keywordSet);
-//        }
+        }
 
-//        // if doctor name is present,
-//        return new ReferCommand(
-//                matcherWithDoctorName.group("name"),
-//                matcherWithDoctorName.group("doctor")
-//        );
+        // if doctor name is present,
+//        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+//                ReferCommand.MESSAGE_USAGE));
+        return new ReferCommand(
+                matcherWithDoctorName.group("keywords"),
+                matcherWithDoctorName.group("doctor")
+        );
 
     }
 

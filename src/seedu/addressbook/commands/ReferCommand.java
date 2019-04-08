@@ -13,13 +13,14 @@ public class ReferCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Finds all persons whose names contain any of "
             + "the specified keywords (case-sensitive) and displays them as a list with index numbers.\n\t"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n\t"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+            + "Example: " + COMMAND_WORD + "alice bob charlie\n\t"
+            + "Example: " + COMMAND_WORD + "d/Dr Who p/ John Doe";
 
     public static final String MESSAGE_REFER_SUCCESS = "Patient %2$s has been successfully referred to %3$s!! :D\n\n********************************************************************************************************\n%1$s \n********************************************************************************************************";
     public static final String MESSAGE_NO_SUCH_PERSON = "%1$s\nThis patient does not exists in the address book records.";
 
     private final Set<String> keywords;
-    private String referraldoctor = "Dr. Sangit";
+    String referraldoctor = "Dr. Sangit";
     String params[];
     Set<String> tags;
     private Person toRefer;
@@ -37,7 +38,6 @@ public class ReferCommand extends Command {
      */
 
     public ReferCommand(String name, String referraldoctor) {
-        // keywords delimited by whitespace
         final String[] names = name.split("\\s+");
         final Set<String> keywords = new HashSet<>(Arrays.asList(names));
         this.keywords = keywords;
