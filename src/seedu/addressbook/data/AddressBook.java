@@ -175,15 +175,17 @@ public class AddressBook {
     public void clearMatch() {
         allMatches.clear();
         for (Team team : allTeams) {
-            team.clearMatchList(
-            );
+            team.clearMatchList();
         }
     }
 
     /**
      * Removes the equivalent team from the address book.
      */
-    public void removeTeam(ReadOnlyTeam toRemove) throws TeamNotFoundException, PlayerNotFoundException, MatchNotFoundException {
+    public void removeTeam(ReadOnlyTeam toRemove) throws
+            TeamNotFoundException,
+            PlayerNotFoundException,
+            MatchNotFoundException {
         allTeams.remove(toRemove);
         Set<Player> players = toRemove.getPlayers();
         Set<Match> matches = toRemove.getMatches();

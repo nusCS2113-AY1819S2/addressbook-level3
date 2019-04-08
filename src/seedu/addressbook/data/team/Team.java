@@ -164,30 +164,13 @@ public class Team implements ReadOnlyTeam {
         this.playerlist.clear();
     }
 
+
+    /**
+     * Adding of Matches will also initialize the computing for win lose and draw counter
+     */
+
     public void addMatch(Match match) {
         this.matchlist.add(match);
-//        if (match.getHome().toString().equals(match.getHome().toString())) {
-//            String result = match.getScore();
-//            String[] score = result.split("-");
-//            if (Integer.getInteger(score[0]) > Integer.getInteger(score[1])) {
-//                this.win++;
-//            } else if (Integer.getInteger(score[0]) < Integer.getInteger(score[1])) {
-//                this.lose++;
-//            } else {
-//                this.draw--;
-//            }
-//        }
-//        if (match.getHome().toString().equals(match.getAway().toString())) {
-//            String result = match.getScore();
-//            String[] score = result.split("-");
-//            if (Integer.getInteger(score[1]) > Integer.getInteger(score[0])) {
-//                this.win++;
-//            } else if (Integer.getInteger(score[1]) < Integer.getInteger(score[0])) {
-//                this.lose++;
-//            } else {
-//                this.draw--;
-//            }
-//        }
     }
 
     public void removeMatch(ReadOnlyMatch match) {
