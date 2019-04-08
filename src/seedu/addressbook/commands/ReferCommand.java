@@ -20,7 +20,7 @@ public class ReferCommand extends Command {
     public static final String MESSAGE_NO_SUCH_PERSON = "%1$s\nThis patient does not exists in the address book records.";
 
     private final Set<String> keywords;
-    String referraldoctor = "Dr. Sangit";
+    String referraldoctor = "Dr Seuss";
     String params[];
     Set<String> tags;
     private Person toRefer;
@@ -85,8 +85,7 @@ public class ReferCommand extends Command {
                                 person.getEmail(),
                                 person.getAddress(),
                                 person.getAppointment(),
-//                                new Doctor(referraldoctor),
-                                new Doctor("Dr Who"),
+                                new Doctor(referraldoctor),
                                 new Status("Referred"),
                                 person.getTags()
                         );
@@ -111,7 +110,8 @@ public class ReferCommand extends Command {
                                 person.getEmail(),
                                 person.getAddress(),
                                 person.getAppointment(),
-                                new Doctor("Dr Seuss"),
+                                new Doctor(referraldoctor),
+//                                new Doctor("Dr Seuss"),
                                 new Status("Referred"),
                                 person.getTags()
                         );

@@ -12,7 +12,7 @@ public class Messages {
     public static final String MESSAGE_PERSON_SORTED_OVERVIEW = "%1$d persons sorted by %2$s in alphabetical order!";
     public static final String MESSAGE_PROGRAM_LAUNCH_ARGS_USAGE = "Launch command format: " +
             "java seedu.addressbook.Main [STORAGE_FILE_PATH]";
-    public static final String MESSAGE_WELCOME = "Welcome to your Address Book!";
+    public static final String MESSAGE_WELCOME = "Welcome to Doctor On Call!";
     public static final String MESSAGE_USING_STORAGE_FILE = "Using storage file : %1$s";
     public static final String MESSAGE_SELECT_PATIENT = "%1$d similar entries have been found. Please re-enter patient's FULL NAME to refer";
     public static final String MESSAGE_NUMBER_OF_APPOINTMENTS = "%1$s you have %2$d appointments!";
