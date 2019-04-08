@@ -17,7 +17,7 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
             + "Deletes the player identified by the index number used in the last player listing.\n\t"
             + "Parameters: INDEX\n\t"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Example: " + COMMAND_WORD + " 1 \n";
 
     public static final String MESSAGE_DELETE_PLAYER_SUCCESS = "Deleted Player: %1$s";
 

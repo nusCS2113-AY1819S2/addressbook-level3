@@ -256,7 +256,7 @@ public class ParserTest {
         parseAndAssertIncorrectWithMessage(resultMessage, inputs);
     }
 
-    @Test
+    /*@Test
     public void addCommand_invalidPlayerDataInArgs() {
         // name, age, salary, gs, ga, jn and appearance are the ones that need to be tested
         final String invalidName = "[]\\[;]";
@@ -314,7 +314,7 @@ public class ParserTest {
         for (String input : inputs) {
             parseAndAssertCommandType(input, IncorrectCommand.class);
         }
-    }
+    }*/
 
     @Test
     public void addCommand_validPlayerData_parsedCorrectly() {

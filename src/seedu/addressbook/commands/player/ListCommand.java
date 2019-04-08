@@ -16,7 +16,7 @@ public class ListCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
             + "Displays all players in the league as a list with index numbers.\n\t"
-            + "Example: " + COMMAND_WORD;
+            + "Example: " + COMMAND_WORD + "\n";
 
 
     @Override
