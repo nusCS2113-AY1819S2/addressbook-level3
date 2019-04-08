@@ -106,7 +106,7 @@ public class AccountManager {
         storeAccounts();
     }
 
-    private void setLoginStatus(boolean status){
+    public void setLoginStatus(boolean status){
         this.loginStatus = status;
     }
 
