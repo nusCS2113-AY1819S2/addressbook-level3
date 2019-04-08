@@ -330,12 +330,10 @@ The login / register mechanism is facilitated by `AccountManager`, it implements
 * `loadAccounts()` -- Loads all the account information from local storage.
 * `storeAccounts()` -- Stores all the account information to local storage.
 * `logout()` --  Logs the user out of the system.
-* `setLoginStatus(boolean) — Sets the login status according to the parameter.
+* `setLoginStatus(boolean)` -- Sets the login status according to the parameter.
 * `register(String, String)` -- Creates a new account for user.
 * `weakPassword(String)` -- Check if the password contains at least one lowercase letter, one uppercase letter and one digit.
 * `doesNotContainDigit(String)` -- Check if the string contains digit, works as a utility function for weakPassword(String).
-
-
 
 Given below is an example usage scenario and how the login/register/logout mechanism behaves at each step.
 
