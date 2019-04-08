@@ -55,13 +55,19 @@ public class MainWindow {
 
             if(accountManager.getLoginStatus())
             {
-                CommandResult result = logic.execute(userCommandText);
-                if(isExitCommand(result)){
-                    exitApp();
-                    return;
+                String[] accountInfo = userCommandText.split(" ");
+                if(accountInfo.length == 1 && accountInfo[0].equals("logout")){
+                    accountManager.logout();
                 }
-                displayResult(result);
-                clearCommandInput();
+                else{
+                    CommandResult result = logic.execute(userCommandText);
+                    if(isExitCommand(result)){
+                        exitApp();
+                        return;
+                    }
+                    displayResult(result);
+                    clearCommandInput();
+                }
             }
         } catch (Exception e) {
             display(e.getMessage());
