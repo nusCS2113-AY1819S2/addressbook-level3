@@ -85,7 +85,8 @@ public class ReferCommand extends Command {
                                 person.getEmail(),
                                 person.getAddress(),
                                 person.getAppointment(),
-                                new Doctor(referraldoctor),
+//                                new Doctor(referraldoctor),
+                                new Doctor("Dr Who"),
                                 new Status("Referred"),
                                 person.getTags()
                         );
