@@ -1,6 +1,6 @@
 package seedu.addressbook.data;
 
-import java.util.Iterator;
+import java.util.Set;
 
 import seedu.addressbook.data.finance.Finance;
 import seedu.addressbook.data.finance.UniqueFinanceList;
@@ -17,6 +17,9 @@ import seedu.addressbook.data.player.UniquePlayerList.PlayerNotFoundException;
 import seedu.addressbook.data.team.ReadOnlyTeam;
 import seedu.addressbook.data.team.Team;
 import seedu.addressbook.data.team.UniqueTeamList;
+import seedu.addressbook.data.team.UniqueTeamList.DuplicateTeamException;
+import seedu.addressbook.data.team.UniqueTeamList.TeamNotFoundException;
+
 
 /**
  * Represents the entire address book. Contains the data of the address book.
@@ -65,11 +68,9 @@ public class AddressBook {
      */
     public void addPlayer(Player toAdd) throws DuplicatePlayerException {
         allPlayers.add(toAdd);
-        Iterator i = allTeams.iterator();
-        while (i.hasNext()) {
-            Team cur = (Team) i.next();
-            if (cur.getTeamName().toString().equals(toAdd.getTeamName().toString())) {
-                cur.addplayer(toAdd);
+        for (Team team : allTeams) {
+            if (team.getTeamName().toString().equals((toAdd.getTeamName().toString()))) {
+                team.addPlayer(toAdd);
             }
         }
     }
@@ -80,12 +81,10 @@ public class AddressBook {
 
     public void editPlayer(ReadOnlyPlayer toEdit, Player newPlayer) throws UniquePlayerList.PlayerNotFoundException {
         allPlayers.edit(toEdit, newPlayer);
-        Iterator i = allTeams.iterator();
-        while (i.hasNext()) {
-            Team cur = (Team) i.next();
-            if (cur.getTeamName().toString().equals(toEdit.getTeamName().toString())) {
-                cur.removeplayer(toEdit);
-                cur.addplayer(newPlayer);
+        for (Team team : allTeams) {
+            if (team.getTeamName().toString().equals(toEdit.getTeamName().toString())) {
+                team.removePlayer(toEdit);
+                team.addPlayer(newPlayer);
             }
         }
     }
@@ -93,7 +92,7 @@ public class AddressBook {
     /**
      * Adds a team to the address book.
      */
-    public void addTeam(Team toAdd) throws UniqueTeamList.DuplicateTeamException {
+    public void addTeam(Team toAdd) throws DuplicateTeamException {
         allTeams.add(toAdd);
     }
 
@@ -104,18 +103,14 @@ public class AddressBook {
      */
     public void addMatch(Match toAdd) throws DuplicateMatchException {
         allMatches.add(toAdd);
-        Iterator i = allTeams.iterator();
-        while (i.hasNext()) {
-            Team cur = (Team) i.next();
-            if (cur.getTeamName().toString().equals(toAdd.getHome().toString())) {
-                cur.addmatch(toAdd);
+        for (Team team : allTeams) {
+            if (team.getTeamName().toString().equals(toAdd.getHome().toString())) {
+                team.addMatch(toAdd);
             }
         }
-        Iterator j = allTeams.iterator();
-        while (j.hasNext()) {
-            Team cur = (Team) j.next();
-            if (cur.getTeamName().toString().equals(toAdd.getAway().toString())) {
-                cur.addmatch(toAdd);
+        for (Team team : allTeams) {
+            if (team.getTeamName().toString().equals(toAdd.getAway().toString())) {
+                team.addMatch(toAdd);
             }
         }
     }
@@ -148,11 +143,9 @@ public class AddressBook {
      */
     public void removePlayer(ReadOnlyPlayer toRemove) throws PlayerNotFoundException {
         allPlayers.remove(toRemove);
-        Iterator i = allTeams.iterator();
-        while (i.hasNext()) {
-            Team cur = (Team) i.next();
-            if (cur.getTeamName().toString().equals(toRemove.getTeamName().toString())) {
-                cur.removeplayer(toRemove);
+        for (Team team : allTeams) {
+            if (team.getTeamName().toString().equals(toRemove.getTeamName().toString())) {
+                team.removePlayer(toRemove);
             }
         }
     }
@@ -164,18 +157,14 @@ public class AddressBook {
      */
     public void removeMatch(ReadOnlyMatch toRemove) throws MatchNotFoundException {
         allMatches.remove(toRemove);
-        Iterator i = allTeams.iterator();
-        while (i.hasNext()) {
-            Team cur = (Team) i.next();
-            if (cur.getTeamName().toString().equals(toRemove.getHome().toString())) {
-                cur.removematch(toRemove);
+        for (Team team : allTeams) {
+            if (team.getTeamName().toString().equals(toRemove.getHome().toString())) {
+                team.removeMatch(toRemove);
             }
         }
-        Iterator j = allTeams.iterator();
-        while (j.hasNext()) {
-            Team cur = (Team) j.next();
-            if (cur.getTeamName().toString().equals(toRemove.getAway().toString())) {
-                cur.removematch(toRemove);
+        for (Team team : allTeams) {
+            if (team.getTeamName().toString().equals(toRemove.getAway().toString())) {
+                team.removeMatch(toRemove);
             }
         }
     }
@@ -185,18 +174,27 @@ public class AddressBook {
      */
     public void clearMatch() {
         allMatches.clear();
-        Iterator i = allTeams.iterator();
-        while (i.hasNext()) {
-            Team cur = (Team) i.next();
-            cur.clearmatchlist();
+        for (Team team : allTeams) {
+            team.clearMatchList();
         }
     }
 
     /**
      * Removes the equivalent team from the address book.
      */
-    public void removeTeam(ReadOnlyTeam toRemove) throws UniqueTeamList.TeamNotFoundException {
+    public void removeTeam(ReadOnlyTeam toRemove) throws
+            TeamNotFoundException,
+            PlayerNotFoundException,
+            MatchNotFoundException {
         allTeams.remove(toRemove);
+        Set<Player> players = toRemove.getPlayers();
+        Set<Match> matches = toRemove.getMatches();
+        for (Player player : players) {
+            allPlayers.remove(player);
+        }
+        for (Match match : matches) {
+            allMatches.remove(match);
+        }
     }
 
     /**
@@ -211,10 +209,8 @@ public class AddressBook {
      */
     public void clearPlayer() {
         allPlayers.clear();
-        Iterator i = allTeams.iterator();
-        while (i.hasNext()) {
-            Team cur = (Team) i.next();
-            cur.clearplayerlist();
+        for (Team team : allTeams) {
+            team.clearPlayerList();
         }
     }
 
@@ -223,6 +219,8 @@ public class AddressBook {
      */
     public void clearTeam() {
         allTeams.clear();
+        allPlayers.clear();
+        allMatches.clear();
     }
 
     /**
@@ -237,20 +235,18 @@ public class AddressBook {
      */
     public void updateMatch(ReadOnlyMatch toRemove, Match toReplace) throws MatchNotFoundException {
         allMatches.update(toRemove, toReplace);
-        Iterator i = allTeams.iterator();
-        while (i.hasNext()) {
-            Team cur = (Team) i.next();
-            if (cur.getTeamName().toString().equals(toRemove.getHome().toString())) {
-                cur.removematch(toRemove);
-                cur.addmatch(toReplace);
+        for (Team team : allTeams) {
+            if (team.getTeamName().toString().equals(toRemove.getHome().toString())) {
+                team.removeMatch(toRemove);
+                team.addMatch(toReplace);
+                team.updatePoints();
             }
         }
-        Iterator j = allTeams.iterator();
-        while (j.hasNext()) {
-            Team cur = (Team) j.next();
-            if (cur.getTeamName().toString().equals(toRemove.getAway().toString())) {
-                cur.removematch(toRemove);
-                cur.addmatch(toReplace);
+        for (Team team : allTeams) {
+            if (team.getTeamName().toString().equals(toRemove.getAway().toString())) {
+                team.removeMatch(toRemove);
+                team.addMatch(toReplace);
+                team.updatePoints();
             }
         }
     }
@@ -270,9 +266,10 @@ public class AddressBook {
     }
 
     /**
-     * Defensively copied UniqueTeamList of all matches in the address book at the time of the call.
+     * Defensively copied sorted UniqueTeamList of all matches in the address book at the time of the call.
      */
     public UniqueTeamList getAllTeams() {
+        allTeams.sort();
         return new UniqueTeamList(allTeams);
     }
 
@@ -299,6 +296,8 @@ public class AddressBook {
     public void sortFinance() {
         allFinances.sort();
     }
+
+
 
     @Override
     public boolean equals(Object other) {

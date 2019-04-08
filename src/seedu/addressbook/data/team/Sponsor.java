@@ -10,7 +10,7 @@ public class Sponsor {
 
     public static final String EXAMPLE = "500";
     public static final String MESSAGE_SPONSOR_CONSTRAINTS = "team's Sponsorship in USD";
-    public static final String SPONSOR_VALIDATION_REGEX = "\\d+";
+    public static final String SPONSOR_VALIDATION_REGEX = "([1-9]+[0-9]*[.]*[0-9]*)|([0]+)|([0]{1}[.][0-9]*)";
 
     public final String value;
 
@@ -22,7 +22,8 @@ public class Sponsor {
         if (!isValidSponsor(sponsor)) {
             throw new IllegalValueException(MESSAGE_SPONSOR_CONSTRAINTS);
         }
-        this.value = sponsor;
+
+        this.value = Double.toString(Double.valueOf(sponsor));
     }
 
     /**

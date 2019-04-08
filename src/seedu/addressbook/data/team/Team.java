@@ -146,31 +146,38 @@ public class Team implements ReadOnlyTeam {
         playerlist.addAll(replacement);
     }
 
-    public void updatePoints(int win, int draw) {
-        this.points = (win * 3) + draw;
+    public void updatePoints() {
+        this.points = 3 * this.win + this.draw;
     }
 
-    public void addplayer(Player player) {
+
+
+    public void addPlayer(Player player) {
         this.playerlist.add(player);
     }
 
-    public void removeplayer(ReadOnlyPlayer player) {
+    public void removePlayer(ReadOnlyPlayer player) {
         this.playerlist.remove(player);
     }
 
-    public void clearplayerlist() {
+    public void clearPlayerList() {
         this.playerlist.clear();
     }
 
-    public void addmatch(Match match) {
+
+    /**
+     * Adding of Matches will also initialize the computing for win lose and draw counter
+     */
+
+    public void addMatch(Match match) {
         this.matchlist.add(match);
     }
 
-    public void removematch(ReadOnlyMatch match) {
+    public void removeMatch(ReadOnlyMatch match) {
         this.matchlist.remove(match);
     }
 
-    public void clearmatchlist() {
+    public void clearMatchList() {
         this.matchlist.clear();
     }
 

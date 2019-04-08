@@ -109,8 +109,8 @@ public class Parser {
 
     public static final Pattern MATCH_UPDATE_DATA_ARGS_FORMAT =
             Pattern.compile("(?<targetIndex>\\d+)"
-                    + "(( h/(?<homeSales>[^/]+))?)"
-                    + "(( a/(?<awaySales>[^/]+))?)"
+                    + "(( h/(?<homeSales>[^/]+)))"
+                    + "(( a/(?<awaySales>[^/]+)))"
                     + "(?<goalScorers>(?: g/[\\w\\s]+)*)" // variable number of goalScorers;
                     + "(?<ownGoalScorers>(?: o/[\\w\\s]+)*)"); // variable number of ownGoalScorers;
 
