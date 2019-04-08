@@ -15,11 +15,11 @@ public class ReferCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n\t"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
 
-    public static final String MESSAGE_SUCCESS = "Patient %2$s has been successfully referred to %3$s!! :D\n\n********************************************************************************************************\n%1$s \n********************************************************************************************************";
+    public static final String MESSAGE_REFER_SUCCESS = "Patient %2$s has been successfully referred to %3$s!! :D\n\n********************************************************************************************************\n%1$s \n********************************************************************************************************";
     public static final String MESSAGE_NO_SUCH_PERSON = "%1$s\nThis patient does not exists in the address book records.";
-    public static final String MESSAGE_TEST = "%1$s%1$s%1$s\n%2$s%2$s%2$s\n";
 
     private final Set<String> keywords;
+    private String referraldoctor = "Dr. Sangit";
     String params[];
     Set<String> tags;
     private Person toRefer;
@@ -35,21 +35,22 @@ public class ReferCommand extends Command {
     /**
      * Returns copy of keywords in this command.
      */
-//    public Set<String> getKeywords() {
-//            return new HashSet<>(keywords);
-//            }
+
+    public ReferCommand(String name, String referraldoctor) {
+        // keywords delimited by whitespace
+        final String[] names = name.split("\\s+");
+        final Set<String> keywords = new HashSet<>(Arrays.asList(names));
+        this.keywords = keywords;
+        this.referraldoctor = referraldoctor;
+    }
+
     @Override
     public CommandResult execute() {
 
         string = String.join(" ", keywords);
-//        str = string.replaceAll("\\s+", "");
-        final List<ReadOnlyPerson> personsFound = getPersonsWithNameContainingAnyKeyword(keywords);
-
-//        // test
-//        return new CommandResult(String.format(MESSAGE_NO_SUCH_PERSON, toRefer.getName().toString()));
+        final List<ReadOnlyPerson> personsFound = getPatientToRefer(keywords);
 
         if (count == 0) {
-//            String string = String.join(" ", keywords);
             return new CommandResult(String.format(MESSAGE_NO_SUCH_PERSON, string));
         }
         if (count == 1) {
@@ -58,7 +59,7 @@ public class ReferCommand extends Command {
             } catch (UniquePersonList.DuplicatePersonException e) {
                 e.printStackTrace();
             }
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toRefer, toRefer.getName(), toRefer.getDoctor()));
+            return new CommandResult(String.format(MESSAGE_REFER_SUCCESS, toRefer, toRefer.getName(), toRefer.getDoctor()));
         }
         return new CommandResult(getMessageForPersonReferShownSummary(personsFound), personsFound);
     }
@@ -69,40 +70,40 @@ public class ReferCommand extends Command {
      * @param keywords for searching
      * @return list of persons found
      */
-    private List<ReadOnlyPerson> getPersonsWithNameContainingAnyKeyword(Set<String> keywords) {
+    private List<ReadOnlyPerson> getPatientToRefer(Set<String> keywords) {
         count = 0;
         final List<ReadOnlyPerson> matchedPersons = new ArrayList<>();
         final List<ReadOnlyPerson> emptyList = new ArrayList<>();
         for (ReadOnlyPerson person : addressBook.getAllPersons()) {
             final Set<String> wordsInName = new HashSet<>(person.getName().getWordsInName());
             if (!Collections.disjoint(wordsInName, keywords)) {
-                if (wordsInName.equals(keywords)) {
-                    try {  // get particulars of the old entry
+                if (wordsInName.equals(keywords)) { // if a full name match is found, it is THE entry
+                    try {  // store particulars of target entry
                         toRefer = new Person(
                                 person.getName(),
                                 person.getPhone(),
                                 person.getEmail(),
                                 person.getAddress(),
                                 person.getAppointment(),
-                                new Doctor("Dr Who"),
+                                new Doctor(referraldoctor),
                                 new Status("Referred"),
                                 person.getTags()
                         );
                     } catch (IllegalValueException e) {
                         e.printStackTrace();
                     }
-                    try { // remove old entry
+                    try { // remove target entry
                         addressBook.removePerson(person);
                     } catch (UniquePersonList.PersonNotFoundException e) { // exception for person not found
                         e.printStackTrace();
                     }
                     count = 1;
-                    return emptyList;
+                    return emptyList; // exit method
                 }
 
                 count++;
-                if (count == 1) {
-                    try {  // get particulars of the old entry
+                if (count == 1) { // the first matched entry
+                    try {  // store particulars of the first matched entry
                         toRefer = new Person(
                                 person.getName(),
                                 person.getPhone(),
@@ -117,7 +118,7 @@ public class ReferCommand extends Command {
                         e.printStackTrace();
                     }
                 }
-                matchedPersons.add(person);
+                matchedPersons.add(person); // add patient into set of matching entries
             }
         }
         if (count == 1) {
