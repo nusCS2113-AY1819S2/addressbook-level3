@@ -1,0 +1,125 @@
+= shawn-t (Teo Xuan Wei) - Project Portfolio
+
+== PROJECT: Doctor On Call
+
+== Overview:
+
+DoctorOnCall is a Java sample application intended for doctors with long-term patients and have to track their patients' appointment details as well as particulars.
+This application was developed by team T11-2 of CS2113T in National University of Singapore.
+
+== Summary of Contributions:
+
+* *Code contributed*:
+
+https://nus-cs2113-ay1819s2.github.io/dashboard/#=undefined&search=shawn-t
+
+https://github.com/CS2113-AY1819S2-T11-2/main/commits/master?author=shawn-t&since=2019-03-04%27T%2700:00:00+08:00&until=2019-03-04%27T%2723:59:59+08:00
+
+https://github.com/CS2113-AY1819S2-T11-2/main/commits/master?author=shawn-t&since=2019-03-16%27T%2700:00:00+08:00&until=2019-03-16%27T%2723:59:59+08:00
+
+https://github.com/CS2113-AY1819S2-T11-2/main/commits/master?author=shawn-t&since=2019-03-18%27T%2700:00:00+08:00&until=2019-03-18%27T%2723:59:59+08:00
+
+// Not tracked on RepoSense
+
+https://github.com/nusCS2113-AY1819S2/addressbook-level3/commit/ba34a7fef7c6dc505a3671c66416cda141694f94
+
+https://github.com/nusCS2113-AY1819S2/addressbook-level3/commit/741958db1ce28bc2bfd4e998361b7582c15c6496
+
+== Features implemented: Refer Patient (major/ main feature), length (minor feature)
+
+* *Major enhancement*: added a refer command that allows user to directly refer a patient within the addressbook and automatically update the relevant particulars
+** What it does: Allows user to do a direct patient refer to another doctor
+** Justification: On the same database where patients' particulars are stored, having this features allows for a quick and easy way to refer patients without the need to swap to another dsatabase/ update the addressbook manually.
+** Highlights: The challenge of this implementation is to analysize existing commands - Add, Delete and Find - understand the concepts behind these working commands and extracting only the relevant parts to make this feature possible.
+
+* *Minor enhancement*: added a length command that returns the nuber of entries in the addressbook
+** What it does: Allows user to query the number of entries without having to see the full list with every patient's particulars (when using list command).
+** Justification: Users would like a quick access to how many patients they have. This feature hides all other information and only outputs the number of entries.
+** Highlights: The challenge of this implementation is understanding how the command list works and modelling its implementation and only getting the parameteres required (size).
+
+
+* *Other contributions*:
+** Project management: Managed releases v1.1 - v1.3, as well as updated issue tracker.
+** Documentation: Did cosmetic tweaks to original template by formatting Use Cases for the existing commands of the Developer Guide
+
+== Contributions to the User Guide
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+== Finding out the current length of the address book : `length`
+
+Shows the number of entries in the address book. +
+Format: `length`
+
+== Referring person indicated by user : `refer`
+
+Refers patient to Dr Seuss if there is only one entry and shows a success message with patient's updated particulars. +
+if there are multiple entries, prints all patients in the address book with the keyword and prompts user to key unique keyword. +
+Format: `refer John`
+
+== Contributions to the Developer Guide:
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+=== Use case: UC03 - Refer patient
+
+*Main success scenario:*
+
+. The user requests to refer patient to another doctor.
+. AddressBook finds patient in the list and copies patient together with particulars to a separate list archive with an addition tag specifying which doctor he/ she is being referred to.
+. AddressBook deletes patient entry from the main list.
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The format entered by the user is incorrect.
+** 1a1. AddressBook shows an error message and prints the format for user to follow.
+** 1a2. User re-enters new patient's particulars.
+* Steps 1a1 - 1a2 are repeated until the correct format is entered by the user.
++
+Use case resumes at step 2.
+
+* 1b. Patient name has duplicates.
+** 1a1. AddressBook prints out patients' indexes and prompts users to select the correct index.
+** 1a2. User enters correct patient's index.
+
+=== Use case: UC06 - Length of address book
+
+*Main success scenario:*
+
+. User requests for length of address book.
+. AddressBook gets the current length and prints out the number of entries.
++
+Use case ends.
+
+//@@author shawn-t
+=== Refer feature
+==== Current Implementation
+
+The refer feature is facilitated by the ReferCommand class and AddressBook class, and it implements the following operations:
+
+* `toRefer = new Person(
+             person.getName(),
+             person.getPhone(),
+             person.getEmail(),
+             person.getAddress(),
+             person.getAppointment(),
+             new Doctor("Dr Seuss"),
+             new Status("Referred"),
+             person.getTags()
+             );` -- Copies and modifies taget person's parameters
+* `addressBook.removePerson(person)` -- removes target person
+* `addressBook.addPerson(toRefer)` -- adds the edited person back into the addressbook
+
+Given below is an example usage scenario and how the refer feature is incorporated at each step.
+
+Step 1. The user executes command "refer john"
+
+Step 2. ReferCommand class looks through the Addressbook for all entries containing the keyword "john"
+
+Step 3. If there is only one entry, ReferCommand modifies the entry's Doctor and Status parameters, deletes the old and adds the newly modified patient into the addressbook. If there are multiple entires, ReferCommand class prints all entries in the address book with the keyword and prompts user to key unique keyword (Repeats to Step 1).
+
+Step4. The successful execution returns a MESSAGE_SUCCESS along with the patient's particulars that are updated.

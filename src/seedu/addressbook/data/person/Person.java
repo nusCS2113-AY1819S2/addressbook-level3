@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 
 
 import seedu.addressbook.data.exception.IllegalValueException;
@@ -21,7 +23,7 @@ public class Person implements ReadOnlyPerson {
     private Address address;
     private Appointment appointment;
     private Doctor doctor;
-    public LocalDate date = null;
+    public LocalDateTime date = null;
     private Status status;
 
     private final Set<Tag> tags = new HashSet<>();
@@ -113,12 +115,12 @@ public class Person implements ReadOnlyPerson {
         return Objects.hash(name, phone, email, address, appointment, doctor, status,  tags);
     }
     @Override
-    public LocalDate getLocalDate(){
+    public LocalDateTime getLocalDateTime(){
         return date;
     }
 
     @Override
-    public void setLocalDate(LocalDate date){
+    public void setLocalDateTime(LocalDateTime date){
         this.date = date;
     }
 

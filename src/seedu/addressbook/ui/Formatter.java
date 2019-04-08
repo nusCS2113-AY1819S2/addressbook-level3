@@ -39,7 +39,6 @@ public class Formatter {
     public String format(List<? extends ReadOnlyPerson> persons) {
         final List<String> formattedPersons = new ArrayList<>();
         if (Indicator.getLastCommand() == "DoctorAppointments"){
-            Indicator.setLastCommand(null);
             for (ReadOnlyPerson person : persons) {
                 formattedPersons.add(person.getAsTextNameDateDoctor());
             }
@@ -54,6 +53,7 @@ public class Formatter {
     //Add a new person.getAsTextOnlyNameDate
     //Add an indicator class.
 
+    //@@author matthiaslum
     /** Formats a list of strings as an indexed list. */
     private static String asIndexedList(List<String> listItems) {
         final StringBuilder formatted = new StringBuilder();
@@ -62,13 +62,20 @@ public class Formatter {
             formatted.append(getIndexedListItem(displayIndex, listItem)).append("\n");
             displayIndex++;
         }
-        return "         NAME" + String.format("%1$" + 32+ "s", "DATE")
-                + String.format("%1$" + 44+ "s", "DOCTOR")
-                + "\n"
-                + "------------------------------------------------------------------------------\n"
-                + formatted.toString()
-                + "------------------------------------------------------------------------------\n";
+        if (Indicator.getLastCommand() == "DoctorAppointments"){
+            Indicator.setLastCommand(null);
+            return "         NAME" + String.format("%1$" + 32+ "s", "DATE")
+                    + String.format("%1$" + 44+ "s", "DOCTOR")
+                    + "\n"
+                    + "------------------------------------------------------------------------------\n"
+                    + formatted.toString()
+                    + "------------------------------------------------------------------------------\n";
+        }
+        else{
+            return formatted.toString();
+        }
     }
+    //@@author
 
     /**
      * Formats a string as an indexed list item.

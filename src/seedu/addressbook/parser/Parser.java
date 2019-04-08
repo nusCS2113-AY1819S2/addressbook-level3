@@ -91,7 +91,7 @@ public class Parser {
                 return prepareViewAll(arguments);
 
             case SortCommand.COMMAND_WORD:
-                return new SortCommand(arguments.trim());
+                return prepareSort(arguments);
 
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
@@ -138,7 +138,25 @@ public class Parser {
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
+
     }
+    //@@author WuPeiHsuan
+    private Command prepareSort(String args) {
+        args = args.trim();
+        switch (args) {
+
+            case "name":
+
+            case "appointment":
+
+            case "status":
+                return new SortCommand(args.trim());
+
+            default:
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
+        }
+    }
+    //@@author
 
     /**
      * Checks whether the private prefix of a contact detail in the add command's arguments string is present.

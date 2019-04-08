@@ -38,6 +38,10 @@ public abstract class Command {
         return String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, personsDisplayed.size());
     }
 
+    public static String getMessageForPersonReferShownSummary(List<? extends ReadOnlyPerson> personsDisplayed) {
+        return String.format(Messages.MESSAGE_SELECT_PATIENT, personsDisplayed.size());
+    }
+
     public static String getMessageForAppointmentsShownSummary(List<? extends ReadOnlyPerson> personsDisplayed, String doctor) {
         return String.format(Messages.MESSAGE_NUMBER_OF_APPOINTMENTS, doctor, personsDisplayed.size());
     }

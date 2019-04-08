@@ -46,12 +46,18 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="100%",cols="22%,<23%,<25%,<30%",options="header",]
 |===========================================================================================================================================
 |Priority |As a ... |I want to ... |So that I can...
+
+//@@author liguanlong
+
 |`* * *` |doctor |keep track of current and past appointments with patients that I have for the day |be on time to deliver treatment
 |`* * *` |doctor |have a custom-made address book  |filter out the patients that are not affiliated to me
 |`* * *` |doctor |sort my patient according to my desired attribute |prioritize the allocation of my resources
 |`* * *` |doctor |good authentication |my patients’ data are protected and not easily disclosed
-|`* *` |doctor |be able to directly refer patients to respective specialists | focus on attending to patients with medical conditions relevant to my expertise, and ensure that others are properly referred to the correct doctor to attend to their specific medical condition(s).
+|`* * *` |doctor |be able to directly refer patients to respective specialists | focus on attending to patients with medical conditions relevant to my expertise, and ensure that others are properly referred to the correct doctor to attend to their specific medical condition(s).
 |`*` |doctor with many persons in the address book |sort persons by name |locate a person easily
+
+//@@author
+
 |===========================================================================================================================================
 
 [appendix]
@@ -93,7 +99,7 @@ Use case resumes at step 2.
 *Main success scenario:*
 
 . The user requests to refer patient to another doctor.
-. AddressBook finds patient in the list and copies patient together with particulats to a separate list archive with an addition tag specifying which doctor he/ she is being referred to.
+. AddressBook finds patient in the list and copies patient together with particulars to a separate list archive with an addition tag specifying which doctor he/ she is being referred to.
 . AddressBook deletes patient entry from the main list.
 +
 Use case ends.
@@ -258,14 +264,16 @@ Use case ends.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+//@@author WuPeiHsuan
 === Sort feature
 ==== Current Implementation
 
 The sort mechanism is facilitated by `UniquePersonList`. It stores a list of all persons in the address book as an `internalList`. Additionally, it implements the following operations:
 
 * `UniquePersonList#SortByName()` -- Sort `internalList` by name column in alphabetical order
-* `UniquePersonList#SortByAppointment()` -- Sort `internalList` by appointment column in alphabetical order
-* `UniquePersonList#SortByStatus()` -- Sort `internalList` by status column in alphabetical order
+* `UniquePersonList#SortByAppointment()` -- Sort `internalList` by appointment column in chronological order
+* `UniquePersonList#SortByStatus()` -- Sort `internalList` by status column according to the degree of urgency. The sequence of the status in this order is as follows: Critical, Waiting for Surgery, Life-support, Waiting for doctor appointment, Therapy and Observation.
+
 
 These operations are exposed in `AddressBook` as `AddressBook#sorted(String attribute)`. Corresponding operation will be called depending on attribute the user wants to sort the list by.
 
@@ -279,10 +287,34 @@ Step 3. The user then decides to execute the command `list`. Commands that do n
 
 Step 4. The user decides to view the list sorted by their name by executing the `sort name` command. This command will call `AddressBook#sorted(String attribute)` and pass the string “name” to the method. Since the value of parameter is “name”, `SortByName()` will be called. `internalList` will then be sorted by name column in alphabetical order. At last, `internalList` will be returned and displayed to the user.
 
+//@@author shawn-t
 === Refer feature
 ==== Current Implementation
 
-The refer feature is still currently undergoing development. In version 1.2, it takes on the architure of the find command - looks through the list of persons in addressbook and prints out those with keywords in their names. The difference is that if there is only 1 person, his particulars will not be printed - a simulation that he/ she is going to be tagged in a separate list after being removed from the address book.
+The refer feature is facilitated by the ReferCommand class and AddressBook class, and it implements the following operations:
+
+* `toRefer = new Person(
+             person.getName(),
+             person.getPhone(),
+             person.getEmail(),
+             person.getAddress(),
+             person.getAppointment(),
+             new Doctor("Dr Seuss"),
+             new Status("Referred"),
+             person.getTags()
+             );` -- Copies and modifies taget person's parameters
+* `addressBook.removePerson(person)` -- removes target person
+* `addressBook.addPerson(toRefer)` -- adds the edited person back into the addressbook
+
+Given below is an example usage scenario and how the refer feature is incorporated at each step.
+
+Step 1. The user executes command "refer john"
+
+Step 2. ReferCommand class looks through the Addressbook for all entries containing the keyword "john"
+
+Step 3. If there is only one entry, ReferCommand modifies the entry's Doctor and Status parameters, deletes the old and adds the newly modified patient into the addressbook. If there are multiple entires, ReferCommand class prints all entries in the address book with the keyword and prompts user to key unique keyword (Repeats to Step 1).
+
+Step4. The successful execution returns a MESSAGE_SUCCESS along with the patient's particulars that are updated.
 
 //@@author liguanlong
 
@@ -292,14 +324,16 @@ The refer feature is still currently undergoing development. In version 1.2, it 
 The login / register mechanism is facilitated by `AccountManager`, it implements the following operations:
 
 * `AccountManager()` -- The constructor for the class `AccountManager`.
-* `loadAccounts` -- Loads all the account information from local storage.
-* `storeAccounts` -- Stores all the account information to local storage.
 * `getLoginStatus()` -- Returns the login status to the caller.
-* `setLoginStatus(boolean)` -- Sets the login status according to the parameter.
+* `getCurrentAccount()` -- Returns the username of the account currently using the application.
 * `accountCommandHandler(String)` -- Handles the user input, checks if there is a match for username and password match if the user's command is `login`, trys to regster a new account if the user's command is `register`, returns a string to indicate the outcome.
+* `loadAccounts()` -- Loads all the account information from local storage.
+* `storeAccounts()` -- Stores all the account information to local storage.
+* `logout()` --  Logs the user out of the system.
+* `setLoginStatus(boolean)` -- Sets the login status according to the parameter.
 * `register(String, String)` -- Creates a new account for user.
-* `logout` --  Logs the user out of the system
-
+* `weakPassword(String)` -- Check if the password contains at least one lowercase letter, one uppercase letter and one digit.
+* `doesNotContainDigit(String)` -- Check if the string contains digit, works as a utility function for weakPassword(String).
 
 Given below is an example usage scenario and how the login/register/logout mechanism behaves at each step.
 
@@ -351,12 +385,32 @@ HashMap is used because memory is not a serious issue for this program as the pr
 ** Pros: Compatible with HashMap. 
 ** Cons: Large in file size.
 
-//@@author
+//@@matthiaslum
+
+//@@author matthiaslum
+
+=== Add Doctor feature
+==== Current Implementation
+
+the add doctor feature facilitated by the `Doctor` class, it implements the following operations:
+
+* `Doctor(String)` -- The constructor for the class `Doctor`.
+* `toString()` -- Returns a String containing the name of the patient's doctor.
+* `isValidName()` -- Checks if the date is alphanumeric.
+* `equals(Object)` -- Checks if two patients' doctors are equal.
+
+In addition to the Appointment class, we update the ReadOnlyPerson interface and the Person class (which implements the interface) to ensure that every Person object is constructed with an Appointment class. To be specific, the following operations are added or updated.
+
+* `Person(Doctor doctor)` --  The class `Person` now requires a Doctor object during its construction.
+* `getDoctor()` -- The class `Person` implements a method that returns the Doctor object of a Person.
+* `getAsTextShowAll()` -- This operation is updated to allow a person's doctor to be printed when an addresbook's lastShownList is printed onto the UI.
+
+The example usage scenario is similar to the scenario of the Add appointment feature below.
 
 === Add appointment feature 
 ==== Current Implementation
 
-the add appointment feature facilitated by the `Appointment` class, it implements the following operations:
+the add appointment feature is facilitated by the `Appointment` class, it implements the following operations:
 
 * `Appointment(String)` -- The constructor for the class `Appointment`.
 * `toString()` -- Returns a String containing the date of the appointment.
@@ -365,7 +419,7 @@ the add appointment feature facilitated by the `Appointment` class, it implement
 
 In addition to the Appointment class, we update the ReadOnlyPerson interface and the Person class (which implements the interface) to ensure that every Person object is constructed with an Appointment class. To be specific, the following operations are added or updated.
 
-* `Person(Apppointment appointment)` --  The class `Person` now requires a person object during its construction.
+* `Person(Apppointment appointment)` --  The class `Person` now requires an Appointment object during its construction.
 * `getAppointment()` -- The class `Person` implements a method that returns the Appointment object of a Person.
 * `getAsTextShowAll()` -- This operation is updated to allow a person's appointment date to be printed when an addresbook's lastShownList is printed onto the UI.
 
@@ -428,6 +482,8 @@ Step 7. When the dispay method is called in step 6, the format method in `Format
 Step 8. A separate String builder method getAsTextNameDateDoctor() is called, and the String is padded on the right by whitespace. 
 
 Step 9. The `MainWindow` displays the newly formatted Persons in neat rows, displaying only the relevant information on Name and Appointment Date.
+
+//@@author
 
 [appendix]
 == Non Functional Requirements

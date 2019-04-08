@@ -2,6 +2,7 @@ package seedu.addressbook.data.person;
 
 import java.util.Set;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 import seedu.addressbook.data.tag.Tag;
@@ -19,8 +20,8 @@ public interface ReadOnlyPerson {
     Address getAddress();
     Appointment getAppointment();
     Doctor getDoctor();
-    LocalDate getLocalDate();
-    void setLocalDate(LocalDate date);
+    LocalDateTime getLocalDateTime();
+    void setLocalDateTime(LocalDateTime date);
     Status getStatus();
 
     /**

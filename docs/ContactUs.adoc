@@ -1,3 +1,5 @@
+//@@author liguanlong
+
 == Contact Us
 
 * *Bug reports, Suggestions* : Post in our https://github.com/cs2113-ay1819s2-t11-2/main/issues[issue tracker]

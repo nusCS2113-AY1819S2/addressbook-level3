@@ -18,7 +18,7 @@ Please refer to the <<DeveloperGuide#setting-up, Setting up>> section to learn h
 . Click `Run Main.main()`
 . The GUI should appear in a few seconds
 +
-image::Ui.png[]
+image:https://raw.githubusercontent.com/cs2113-ay1819s2-t11-2/main/master/docs/images/Ui.png[width=800]
 
 == Viewing help : `help`
 
@@ -28,6 +28,8 @@ Format: `help`
 ====
 Help is also shown if you enter an incorrect command e.g. `abcd`
 ====
+
+//@@author liguanlong
 
 == Login to the system : `login`
 
@@ -41,18 +43,35 @@ Login is required in order to use the address book
 
 Examples:
 
-* `login Doe 12345` +
-Logged in as Doe if the account and password are correct.
+* `login Admin Admin123` +
+Logged in as Admin if the account and password are correct.
 
 == Register a new account: `register`
 
 Allow the user to register a new account in the system +
 Format: `register username password`
 
+[NOTE]
+====
+The password should contain at least one lowercase letter, one uppercase letter and one digit
+====
+
 Examples:
 
-* `register Doe 12345` +
+* `register Doe Doe12345` +
 A new account is registered if the username chosen has not been registered before.
+
+== Logout from the system : `logout`
+
+Allow the user to logout from the system +
+Format: `logout`
+
+Examples:
+
+* `logout` + 
+The user will be logged out.
+
+//@@author
 
 == Adding a person: `add`
 
@@ -63,7 +82,8 @@ Format: `add NAME [p]p/PHONE_NUMBER [p]e/EMAIL [p]a/ADDRESS m/APPOINTMENTDATE d/
 Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional,
 items with `...` after them can have multiple instances. Order of parameters are fixed.
 
-Note that the appointment date must be in the format of YYYY MM DD, in other for the DoctorAppointment Command to work.
+Note that the appointment date must be in the format of YYYY MM DD HH MM, in other for the DoctorAppointment Command to work.
+The hour and minute follows the 24hour clock format. Incorrect time formats will throw an error in parsing.
 
 The status must be any of following status: Critical / Waiting for Surgery / Life-support / Waiting for doctor appointment / Therapy / Observation.
 
@@ -75,8 +95,8 @@ Persons can have any number of tags (including 0)
 
 Examples:
 
-* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01 m/2009 12 11 d/DoctorTan s/Observation`
-* `add Betsy Crowe pp/1234567 e/betsycrowe@gmail.com pa/Newgate Prison m/2011 21 04 d/DoctorTan s/Observation t/criminal t/friend`
+* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01 m/2009 12 11 14 30 d/DoctorTan s/Observation`
+* `add Betsy Crowe pp/1234567 e/betsycrowe@gmail.com pa/Newgate Prison m/2011 11 04 08 00 d/DoctorTan s/Observation t/criminal t/friend`
 
 == Finding out the current length of the address book : `length`
 
@@ -90,7 +110,8 @@ Format: `list`
 
 == Referring person indicated by user : `refer`
 
-Refer person to a doctor if there is only one entry and shows a list of all persons in the address book with the keyword if there are multiple entries. +
+Refers patient to Dr Seuss if there is only one entry and shows a success message with patient's updated particulars. +
+if there are multiple entries, prints all patients in the address book with the keyword and prompts user to key unique keyword. +
 Format: `refer John`
 
 == Listing all persons in sorted order : `sort`
