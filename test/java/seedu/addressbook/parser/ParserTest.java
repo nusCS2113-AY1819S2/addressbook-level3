@@ -15,6 +15,11 @@ import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.ExitCommand;
 import seedu.addressbook.commands.HelpCommand;
 import seedu.addressbook.commands.IncorrectCommand;
+import seedu.addressbook.commands.finance.GetFinanceCommand;
+import seedu.addressbook.commands.finance.GetLeagueFinanceCommand;
+import seedu.addressbook.commands.finance.ListFinanceCommand;
+import seedu.addressbook.commands.finance.RankFinanceCommand;
+import seedu.addressbook.commands.finance.ViewFinanceCommand;
 import seedu.addressbook.commands.player.AddCommand;
 import seedu.addressbook.commands.player.ClearCommand;
 import seedu.addressbook.commands.player.DeleteCommand;
@@ -378,6 +383,87 @@ public class ParserTest {
         }
         return addCommand;
     }
+
+    /**
+     * Test ListFinanceCommand
+     */
+    @Test
+    public void listFinanceCommand_parsedCorrectly() {
+        final String input = "listfinance";
+        parseAndAssertCommandType(input, ListFinanceCommand.class);
+    }
+
+    /**
+     * Test RankFinanceCommand
+     */
+    @Test
+    public void rankFinanceCommand_parsedCorrectly() {
+        final String input = "rankfinance";
+        parseAndAssertCommandType(input, RankFinanceCommand.class);
+    }
+
+    /**
+     * Test GetLeagueFinanceCommand
+     */
+    @Test
+    public void getLeagueFinanceCommand_parsedCorrectly() {
+        final String input = "getlf";
+        parseAndAssertCommandType(input, GetLeagueFinanceCommand.class);
+    }
+
+    /**
+     * Test ViewFinanceCommand with single index argument commands
+     */
+    @Test
+    public void viewFinanceCommand_noArgs() {
+        final String[] inputs = {"viewfinance", "viewfinance "};
+        final String resultMessage =
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewFinanceCommand.MESSAGE_USAGE);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+
+    @Test
+    public void viewFinanceCommand_argsIsNotSingleNumber() {
+        final String[] inputs = {"viewfinance notAnumber ", "viewfinance 7random12", "viewfinance 1 2 3 4 5"};
+        final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewFinanceCommand.MESSAGE_USAGE);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+
+    @Test
+    public void viewFinanceCommand_numericArg_indexParsedCorrectly() {
+        final int testIndex = 3;
+        final String input = "viewfinance " + testIndex;
+        final ViewFinanceCommand result = parseAndAssertCommandType(input, ViewFinanceCommand.class);
+        assertEquals(result.getTargetIndex(), testIndex);
+    }
+
+    /**
+     * Test GetFinanceCommand with single index argument commands
+     */
+    @Test
+    public void getFinanceCommand_noArgs() {
+        final String[] inputs = {"getfinance", "getfinance "};
+        final String resultMessage =
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, GetFinanceCommand.MESSAGE_USAGE);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+
+    @Test
+    public void getFinanceCommand_argsIsNotSingleNumber() {
+        final String[] inputs = {"getfinance notAnumber ", "getfinance 7random12", "getfinance 1 2 3 4 5"};
+        final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, GetFinanceCommand.MESSAGE_USAGE);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+
+    @Test
+    public void getFinanceCommand_numericArg_indexParsedCorrectly() {
+        final int testIndex = 3;
+        final String input = "getfinance " + testIndex;
+        final GetFinanceCommand result = parseAndAssertCommandType(input, GetFinanceCommand.class);
+        assertEquals(result.getTargetIndex(), testIndex);
+    }
+
+
 
     /**
      * Utility methods
