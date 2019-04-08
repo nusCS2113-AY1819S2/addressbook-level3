@@ -56,7 +56,7 @@ public class UpdateMatchCommand extends Command {
             final ReadOnlyMatch target = getTargetMatch();
             Match updatedMatch = createUpdateMatch(target, updateMatchDescriptor);
             addressBook.updateMatch(target, updatedMatch);
-            return new CommandResult(String.format(MESSAGE_UPDATE_MATCH_SUCCESS, target));
+            return new CommandResult(String.format(MESSAGE_UPDATE_MATCH_SUCCESS, updatedMatch));
 
         } catch (IndexOutOfBoundsException ie) {
             return new CommandResult(Messages.MESSAGE_INVALID_MATCH_DISPLAYED_INDEX);
