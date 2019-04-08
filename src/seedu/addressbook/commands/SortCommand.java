@@ -20,8 +20,9 @@ public class SortCommand extends Command {
     public static final String COMMAND_WORD = "sort";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
-            + "Displays all persons in the address book as a list sorted in alphabetical order with index numbers.\n\t"
-            + "Example: " + COMMAND_WORD;
+            + "Displays all persons in the address book as a list sorted by desired column with index numbers.\n\t"
+            + "Parameters: name / appointment / status\n\t"
+            + "Example: " + COMMAND_WORD + " name\n";
 
     public final String attribute;
 
@@ -35,18 +36,17 @@ public class SortCommand extends Command {
     @Override
     public CommandResult execute() {
 
-        final List<ReadOnlyPerson> personsSortedByStatus = getPersonsSortedByStatus();
-
-        final List<ReadOnlyPerson> personsSortedByDate = getPersonsSortedByDate();
-
 
         addressBook.sorted(attribute);
         List<ReadOnlyPerson> allPersons = addressBook.getAllPersons().immutableListView();
 
         if(attribute.equals("status")) {
-            return new CommandResult(getMessageForPersonListShownSummary(personsSortedByStatus), personsSortedByStatus );
+            final List<ReadOnlyPerson> personsSortedByStatus = getPersonsSortedByStatus();
+            return new CommandResult(getMessageForPersonSortShownSummary(personsSortedByStatus, attribute), personsSortedByStatus );
+
         }else if(attribute.equals("appointment")){
-            return new CommandResult(getMessageForPersonListShownSummary(personsSortedByDate), personsSortedByDate);
+            final List<ReadOnlyPerson> personsSortedByDate = getPersonsSortedByDate();
+            return new CommandResult(getMessageForPersonSortShownSummary(personsSortedByDate, attribute), personsSortedByDate);
         }
         return new CommandResult(getMessageForPersonSortShownSummary(allPersons, attribute), allPersons);
 

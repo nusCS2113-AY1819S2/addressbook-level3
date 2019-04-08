@@ -61,6 +61,16 @@ Examples:
 * `register Doe Doe12345` +
 A new account is registered if the username chosen has not been registered before.
 
+== Logout from the system : `logout`
+
+Allow the user to logout from the system +
+Format: `logout`
+
+Examples:
+
+* `logout` + 
+The user will be logged out.
+
 //@@author
 
 == Adding a person: `add`
