@@ -324,13 +324,17 @@ Step4. The successful execution returns a MESSAGE_SUCCESS along with the patient
 The login / register mechanism is facilitated by `AccountManager`, it implements the following operations:
 
 * `AccountManager()` -- The constructor for the class `AccountManager`.
+* `getLoginStatus()` -- Returns the login status to the caller.
+* `getCurrentAccount()` -- Returns the username of the account currently using the application.
+* `accountCommandHandler(String)` -- Handles the user input, checks if there is a match for username and password match if the user's command is `login`, trys to regster a new account if the user's command is `register`, returns a string to indicate the outcome.
 * `loadAccounts()` -- Loads all the account information from local storage.
 * `storeAccounts()` -- Stores all the account information to local storage.
-* `getLoginStatus()` -- Returns the login status to the caller.
-* `setLoginStatus(boolean)` -- Sets the login status according to the parameter.
-* `accountCommandHandler(String)` -- Handles the user input, checks if there is a match for username and password match if the user's command is `login`, trys to regster a new account if the user's command is `register`, returns a string to indicate the outcome.
+* `logout()` --  Logs the user out of the system.
+* `setLoginStatus(boolean) — Sets the login status according to the parameter.
 * `register(String, String)` -- Creates a new account for user.
-* `logout()` --  Logs the user out of the system
+* `weakPassword(String)` -- Check if the password contains at least one lowercase letter, one uppercase letter and one digit.
+* `doesNotContainDigit(String)` -- Check if the string contains digit, works as a utility function for weakPassword(String).
+
 
 
 Given below is an example usage scenario and how the login/register/logout mechanism behaves at each step.
