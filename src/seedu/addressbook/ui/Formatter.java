@@ -1,5 +1,6 @@
 package seedu.addressbook.ui;
 
+import seedu.addressbook.commands.ApptDateCommand;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 
 import java.util.ArrayList;
@@ -38,6 +39,10 @@ public class Formatter {
     /** Formats the given list of persons for displaying to the user. */
     public String format(List<? extends ReadOnlyPerson> persons) {
         final List<String> formattedPersons = new ArrayList<>();
+        if (Indicator.getLastCommand() == "ApptDate"){
+            Indicator.setLastCommand(null);
+            return ApptDateCommand.timetable;
+        }
         if (Indicator.getLastCommand() == "DoctorAppointments"){
             for (ReadOnlyPerson person : persons) {
                 formattedPersons.add(person.getAsTextNameDateDoctor());
@@ -50,8 +55,6 @@ public class Formatter {
         }
         return format(asIndexedList(formattedPersons));
     }
-    //Add a new person.getAsTextOnlyNameDate
-    //Add an indicator class.
 
     //@@author matthiaslum
     /** Formats a list of strings as an indexed list. */

@@ -483,6 +483,11 @@ Step 9. The `MainWindow` displays the newly formatted Persons in neat rows, disp
 
 //@@author
 
+//@@author matthiaslum
+
+=== ApptDate feature (coming in v1.4)
+
+//@@author
 [appendix]
 == Non Functional Requirements
 

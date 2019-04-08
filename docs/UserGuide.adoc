@@ -128,6 +128,8 @@ Displays a list of all persons who have appointments with a specific doctor.
 The list of persons are sorted by on chronological order of their appointment dates.
 For easy-readability, only the name and appointment date of each person is displayed.
 
+Format: `DoctorAppointments DOCTOR_NAME`
+
 Examples: 
 
 * `DoctorAppointments DoctorTan` +
@@ -138,19 +140,17 @@ Shows a list of all patients who have appointments with DoctorTan.
 Finds persons whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-[NOTE]
-====
-The search is case sensitive, the order of the keywords does not matter, only the name is searched,
-and persons matching at least one keyword will be returned (i.e. `OR` search).
-====
+== Printing out the timetable (day) of a Doctor : `ApptDate`
+
+Displays an appointment timetable of the doctor for a specified date.
+Each time slot is 15 minutes. The timetable shows all the slots in the day, and indicates which slots are available or occupied.
+
+Format: `ApptDate DOCTOR_NAME m/YYYY MM DD`
 
 Examples:
 
-* `find John` +
-Returns `John Doe` but not `john`.
-
-* `find Betsy Tim John` +
-Returns Any person having names `Betsy`, `Tim`, or `John`.
+* `ApptDate DoctorTan m/2011 11 04` +
+Shows a list of all patients who have appointments with DoctorTan.
 
 == Deleting a person : `delete`
 

@@ -29,7 +29,9 @@ public class Parser {
                     + "s/(?<status>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
-
+    public static final Pattern APPT_DATE_ARGS_FORMAT =
+            Pattern.compile("(?<name>[^/]+)"
+                    + "m/(?<date>[^/]+)");
     /**
      * Signals that the user input could not be parsed.
      */
@@ -96,6 +98,9 @@ public class Parser {
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
 
+            case ApptDateCommand.COMMAND_WORD:
+                return  prepareAppt(arguments);
+
             case HelpCommand.COMMAND_WORD:// Fallthrough
             default:
                 return new HelpCommand();
@@ -108,6 +113,17 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
+    private Command prepareAppt(String args){
+        final Matcher matcher = APPT_DATE_ARGS_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches())
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ApptDateCommand.MESSAGE_USAGE));
+        return new ApptDateCommand(
+                matcher.group("name"),
+                matcher.group("date")
+        );
+    }
+
     private Command prepareAdd(String args){
         final Matcher matcher = PERSON_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
@@ -277,4 +293,8 @@ public class Parser {
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new ReferCommand(keywordSet);
     }
+
+
 }
+
+
