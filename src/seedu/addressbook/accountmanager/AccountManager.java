@@ -14,9 +14,6 @@ public class AccountManager {
     private String currentAccount;
 
     public static final String LOGIN_PROMPT = "Please login or register in order to use the address book";
-    public static final String LOGOUT_MESSAGE_USAGE = "logout" + ":\n"
-            + "Log the current user out.\n\t"
-            + "Example: " + "logout";
     private static final String SUCCESS = "Login Success, loading...";
     private static final String REGISTRATION_SUCCEED = "Registration succeed, please login using the username and password";
     private static final String INVALID_USERNAME_OR_PASSWORD = "Invalid username or password, please try again";
@@ -29,6 +26,10 @@ public class AccountManager {
     public AccountManager(){
         this.loginStatus = false;
         loadAccounts();
+    }
+
+    public void setLoginStatus(boolean newStatus){
+        this.loginStatus = newStatus;
     }
 
     public boolean getLoginStatus(){
@@ -45,7 +46,7 @@ public class AccountManager {
             if (accountInfo.length == 3 && accountInfo[0].equals("login")) {
                 if (this.accounts.containsKey(accountInfo[1]) && this.accounts.get(accountInfo[1]).equals(accountInfo[2])) {
                     this.currentAccount = accountInfo[1];
-                    setLoginStatus(true);
+                    this.loginStatus = true;
                     return SUCCESS;
                 }
                 else {
@@ -75,19 +76,6 @@ public class AccountManager {
         }
     }
 
-    private void loadAccounts() {
-        try {
-            Properties accountsFile = new Properties();
-            accountsFile.load(new FileInputStream("accounts.properties"));
-            for (String key : accountsFile.stringPropertyNames()){
-                this.accounts.put(key, accountsFile.get(key).toString());
-            }
-        }catch (IOException e)
-        {
-
-        }
-    }
-
     public void storeAccounts() {
         try {
             Properties accountsFile = new Properties();
@@ -99,15 +87,20 @@ public class AccountManager {
         {
 
         }
+
     }
 
-    public void logout(){
-        setLoginStatus(false);
-        storeAccounts();
-    }
+    private void loadAccounts() {
+        try {
+            Properties accountsFile = new Properties();
+            accountsFile.load(new FileInputStream("accounts.properties"));
+            for (String key : accountsFile.stringPropertyNames()){
+                this.accounts.put(key, accountsFile.get(key).toString());
+            }
+        }catch (IOException e)
+        {
 
-    private void setLoginStatus(boolean status){
-        this.loginStatus = status;
+        }
     }
 
     private void register(String username, String password){
@@ -128,4 +121,3 @@ public class AccountManager {
         return true;
     }
 }
-
