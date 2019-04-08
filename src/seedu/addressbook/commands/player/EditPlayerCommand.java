@@ -47,10 +47,10 @@ public class EditPlayerCommand extends Command {
             + "jn/JERSEY_NUMBER "
             + "app/APPEARANCE "
             + "hs/ HEALTH_STATUS "
-            + "[t/TAG]...\n\t"
+            + "[t/TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + "sal/" + Salary.EXAMPLE + "\n"
-            + "Index of the player can be obtained using the list Command";
+            + "Index of the player can be obtained using the list Command \n";
 
     public static final String MESSAGE_SUCCESS = " %1$s \n Player %2$s profile is edited";
     public static final String MESSAGE_NOATTRIBUTE_WARNING = "At least one attribute must be provided for edition";

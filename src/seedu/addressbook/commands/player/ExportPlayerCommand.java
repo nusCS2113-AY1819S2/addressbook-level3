@@ -18,7 +18,7 @@ public class ExportPlayerCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + "\n"
             + "This Command will export all player profiles in the league tracker to an Excel sheet \n"
             + "For now, the output path has been hard-coded to be 'exported_player_record.xls'. \n"
-            + "Every exportPlayer Command will overwrite the excel file if it exists \n";
+            + "Every exportPlayer Command will overwrite the excel file if it already exists \n";
 
     public static final String MESSAGE_SUCCESS = "Player profile is successfully exported";
     //public static final String MESSAGE_IOE = "Error creating file...";
