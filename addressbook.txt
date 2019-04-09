@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AddressBook>
+    <persons>
+        <name>Betsy Crowe</name>
+        <phone isPrivate="true">1234567</phone>
+        <email isPrivate="false">betsycrowe@gmail.com</email>
+        <address isPrivate="true">Newgate Prison </address>
+        <appointment>2011 11 04 08 00</appointment>
+        <doctor>DoctorTan</doctor>
+        <status>Observation</status>
+        <tagged>friend</tagged>
+        <tagged>criminal</tagged>
+    </persons>
+    <persons>
+        <name>Matthias</name>
+        <phone isPrivate="true">1234567</phone>
+        <email isPrivate="false">betsycrowe@gmail.com</email>
+        <address isPrivate="true">Newgate Prison </address>
+        <appointment>2011 11 04 08 15</appointment>
+        <doctor>DoctorTan</doctor>
+        <status>Observation</status>
+        <tagged>friend</tagged>
+        <tagged>criminal</tagged>
+    </persons>
+    <persons>
+        <name>Sherry</name>
+        <phone isPrivate="true">1234567</phone>
+        <email isPrivate="false">betsycrowe@gmail.com</email>
+        <address isPrivate="true">Newgate Prison </address>
+        <appointment>2011 11 04 11 00</appointment>
+        <doctor>DoctorTan</doctor>
+        <status>Observation</status>
+        <tagged>friend</tagged>
+        <tagged>criminal</tagged>
+    </persons>
+    <persons>
+        <name>Stephanie</name>
+        <phone isPrivate="true">1234534</phone>
+        <email isPrivate="false">e11@gmail.com</email>
+        <address isPrivate="true">qweq Prison </address>
+        <appointment>2011 11 04 10 00</appointment>
+        <doctor>DoctorTan</doctor>
+        <status>Critical</status>
+        <tagged>friend</tagged>
+        <tagged>criminal</tagged>
+    </persons>
+    <persons>
+        <name>Shawn</name>
+        <phone isPrivate="true">1234567</phone>
+        <email isPrivate="false">betsycrowe@gmail.com</email>
+        <address isPrivate="true">Newgate Prison </address>
+        <appointment>2011 11 04 17 00</appointment>
+        <doctor>DoctorTan</doctor>
+        <status>Critical</status>
+        <tagged>friend</tagged>
+        <tagged>criminal</tagged>
+    </persons>
+    <persons>
+        <name>Jacky 123</name>
+        <phone isPrivate="true">1234567</phone>
+        <email isPrivate="false">betsycrowe@gmail.com</email>
+        <address isPrivate="true">Newgate Prison </address>
+        <appointment>2011 11 04 08 00</appointment>
+        <doctor>DoctorTan</doctor>
+        <status>Observation</status>
+        <tagged>friend</tagged>
+        <tagged>criminal</tagged>
+    </persons>
+    <persons>
+        <name>Riding Hood</name>
+        <phone isPrivate="true">1234567</phone>
+        <email isPrivate="false">betsycrowe@gmail.com</email>
+        <address isPrivate="true">Newgate Prison </address>
+        <appointment>2011 11 04 08 00</appointment>
+        <doctor>DoctorTan</doctor>
+        <status>Waiting for surgery</status>
+        <tagged>friend</tagged>
+        <tagged>criminal</tagged>
+    </persons>
+    <persons>
+        <name>Sean</name>
+        <phone isPrivate="true">1234567</phone>
+        <email isPrivate="false">betsycrowe@gmail.com</email>
+        <address isPrivate="true">Newgate Prison </address>
+        <appointment>2011 11 04 08 00</appointment>
+        <doctor>DoctorTan</doctor>
+        <status>Waiting for doctor appointment</status>
+        <tagged>friend</tagged>
+        <tagged>criminal</tagged>
+    </persons>
+</AddressBook>
