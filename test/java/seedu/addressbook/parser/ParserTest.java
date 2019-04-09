@@ -91,7 +91,7 @@ public class ParserTest {
     }
 
     @Test
-    public void  clearTeamCommand_parsedCorretly() {
+    public void clearTeamCommand_parsedCorretly() {
         final String input = "clearteam";
         parseAndAssertCommandType(input, ClearTeam.class);
     }
