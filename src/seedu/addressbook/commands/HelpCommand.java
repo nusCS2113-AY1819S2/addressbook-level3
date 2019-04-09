@@ -4,6 +4,7 @@ import seedu.addressbook.commands.finance.GetFinanceCommand;
 import seedu.addressbook.commands.finance.GetLeagueFinanceCommand;
 import seedu.addressbook.commands.finance.ListFinanceCommand;
 import seedu.addressbook.commands.finance.RankFinanceCommand;
+import seedu.addressbook.commands.finance.ViewFinanceCommand;
 import seedu.addressbook.commands.match.AddMatchCommand;
 import seedu.addressbook.commands.match.ClearMatchCommand;
 import seedu.addressbook.commands.match.DeleteMatchCommand;
@@ -33,6 +34,11 @@ import seedu.addressbook.commands.team.ViewTeam;
 public class HelpCommand extends Command {
 
     public static final String COMMAND_WORD = "help";
+    public static final String PLAYER_COMMAND = "\n\nPLAYER COMMANDS:\n";
+    public static final String TEAM_COMMAND = "\n\nTEAM COMMANDS:\n";
+    public static final String MATCH_COMMAND = "\n\nMATCH COMMANDS:\n";
+    public static final String FINANCE_COMMAND = "\n\nFINANCE COMMANDS:\n";
+    public static final String COMMON_COMMAND = "COMMON COMMANDS:\n";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Shows program usage instructions.\n\t"
             + "Example: " + COMMAND_WORD + "\n";
@@ -127,6 +133,7 @@ public class HelpCommand extends Command {
             + "------------------------------------------------------------------------------------------------------ \n"
             + "5.2 Exit from League Tracker"
             + "\n" + ExitCommand.MESSAGE_USAGE;
+
 
 
     @Override

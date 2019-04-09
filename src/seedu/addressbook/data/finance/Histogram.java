@@ -6,9 +6,12 @@ package seedu.addressbook.data.finance;
 public class Histogram {
     public static final int LENGTH = 10;
     public static final int WIDTH = 10;
-    public static final String HORIZONTAL_LINE = "____";
-    public static final String VERTICAL_LINE = "|";
-    public static final String EMPTY_SPACE = "    ";
+    public static final int MAX_HEIGHT = 8;
+    public static final String SET_Y_AXIS = "   |";
+    public static final String SET_X_AXIS = "______";
+    public static final String PRINT_COLUMN = "|xxx|";
+    public static final String PRINT_BLANK_SPACE = "        ";
+    public static final String Y_AXIS = "Finance(USD) \n";
 
     private int numberOfColumn;
     private double heightOne;
@@ -35,13 +38,13 @@ public class Histogram {
          * process values to fit height in Histogram.
          */
         double maxAmongFour = Math.max(Math.max(Math.max(yOne, yTwo), yThree), yFour);
-        double yOneToFitHeight = (yOne / maxAmongFour) * 8;
+        double yOneToFitHeight = (yOne / maxAmongFour) * MAX_HEIGHT;
         int yOneInt = (int) Math.round(yOneToFitHeight);
-        double yTwoToFitHeight = (yTwo / maxAmongFour) * 8;
+        double yTwoToFitHeight = (yTwo / maxAmongFour) * MAX_HEIGHT;
         int yTwoInt = (int) Math.round(yTwoToFitHeight);
-        double yThreeToFitHeight = (yThree / maxAmongFour) * 8;
+        double yThreeToFitHeight = (yThree / maxAmongFour) * MAX_HEIGHT;
         int yThreeInt = (int) Math.round(yThreeToFitHeight);
-        double yFourToFitHeight = (yFour / maxAmongFour) * 8;
+        double yFourToFitHeight = (yFour / maxAmongFour) * MAX_HEIGHT;
         int yFourInt = (int) Math.round(yFourToFitHeight);
 
         String resultString;
@@ -51,7 +54,7 @@ public class Histogram {
             for (int j = 0; j < WIDTH; j++) {
 
                 if (j == 0) {
-                    twoDString[i][j] = "|"; //set the y axis
+                    twoDString[i][j] = SET_Y_AXIS; //set the y axis
                 } else if (j == 9) {
                     twoDString[i][j] = "\n"; //end the line
                 } else if (x == 4 & j == 2 & i == 9) {
@@ -61,19 +64,19 @@ public class Histogram {
                 } else if (x == 4 & j == 6 & i == 9) {
                     twoDString[i][j] = "_^3 "; //set the third column name
                 } else if (x == 4 & j == 8 & i == 9) {
-                    twoDString[i][j] = "_^4 ___"; //set the fourth column name
+                    twoDString[i][j] = "_^4 ___ Quarter"; //set the fourth column name
                 } else if (i == 9) {
-                    twoDString[i][j] = "______"; //set the x axis
+                    twoDString[i][j] = SET_X_AXIS; //set the x axis
                 } else if (x == 4 & j == 2 & i >= (9 - yOneInt)) {
-                    twoDString[i][j] = "|xxx|"; //print the first column
+                    twoDString[i][j] = PRINT_COLUMN; //print the first column
                 } else if (x == 4 & j == 4 & i >= (9 - yTwoInt)) {
-                    twoDString[i][j] = "|xxx|"; //print the second column
+                    twoDString[i][j] = PRINT_COLUMN; //print the second column
                 } else if (x == 4 & j == 6 & i >= (9 - yThreeInt)) {
-                    twoDString[i][j] = "|xxx|"; //print the third column
+                    twoDString[i][j] = PRINT_COLUMN; //print the third column
                 } else if (x == 4 & j == 8 & i >= (9 - yFourInt)) {
-                    twoDString[i][j] = "|xxx|"; //print the fourth column
+                    twoDString[i][j] = PRINT_COLUMN; //print the fourth column
                 } else {
-                    twoDString[i][j] = "        "; //print the blank space
+                    twoDString[i][j] = PRINT_BLANK_SPACE; //print the blank space
                 }
 
             }
@@ -89,7 +92,7 @@ public class Histogram {
             }
         }
 
-        resultString = sb.toString();
+        resultString = Y_AXIS + sb.toString();
 
         return resultString;
     }

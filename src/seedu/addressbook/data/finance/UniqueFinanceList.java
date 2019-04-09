@@ -119,17 +119,6 @@ public class UniqueFinanceList implements Iterable<Finance> {
         Collections.reverse(internalList);
     }
 
-    /**
-     * Removes the equivalent finance from the list.
-     */
-    public void edit(ReadOnlyFinance toRemove, Finance toReplace) throws UniqueFinanceList.FinanceNotFoundException {
-        final boolean financeFoundAndDeleted = internalList.remove(toRemove);
-        if (!financeFoundAndDeleted) {
-            throw new UniqueFinanceList.FinanceNotFoundException();
-        }
-        internalList.add(toReplace);
-    }
-
     @Override
     public Iterator<Finance> iterator() {
         return internalList.iterator();

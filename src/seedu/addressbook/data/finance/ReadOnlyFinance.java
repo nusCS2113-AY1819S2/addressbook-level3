@@ -30,12 +30,35 @@ public interface ReadOnlyFinance {
                 && other.getFinance() == this.getFinance());
     }
 
-    default String getAsTextShowAll() {
+    default String getAsTextShowSome() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getTeamName().trim())
                 .append(" | Finance: USD");
         builder.append(getFinance());
         return builder.toString();
 
+    }
+
+    default String getAsTextShowAll() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getTeamName().trim())
+                .append(" | Finance: USD");
+        builder.append(getFinance())
+                .append(" | Sponsorship: USD ");
+        builder.append(getSponsor())
+                .append(" |Ticket Income: USD");
+        builder.append(getTicketIncome())
+                .append(" |1st quarter: ");
+        builder.append(getQuarterOne())
+                .append(" |2nd quarter: ");
+        builder.append(getQuarterTwo())
+                .append(" |3rd quarter: ");
+        builder.append(getQuarterThree())
+                .append(" |4th quarter: ");
+        builder.append(getQuarterFour())
+                .append("\n Histogram: ")
+                .append("\n");
+        builder.append(getHistogramString());
+        return builder.toString();
     }
 }

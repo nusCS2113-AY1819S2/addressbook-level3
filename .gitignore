@@ -2,7 +2,7 @@
 *.class
 
 # Default data file
-addressbook.txt
+league_tracker.txt
 
 # Package Files #
 *.jar

@@ -13,6 +13,7 @@ image::Ui.png[]
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
+* <<AboutUs#, About Us>>
 
 == Acknowledgements
 
