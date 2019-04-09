@@ -5,13 +5,12 @@ import java.util.HashSet;
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.match.Away;
 import seedu.addressbook.data.match.Date;
-import seedu.addressbook.data.match.Home;
 import seedu.addressbook.data.match.Match;
 import seedu.addressbook.data.match.ReadOnlyMatch;
 import seedu.addressbook.data.match.TicketSales;
 import seedu.addressbook.data.match.UniqueMatchList;
+import seedu.addressbook.data.team.TeamName;
 
 /**
  * Adds a match to the address book.
@@ -40,8 +39,8 @@ public class AddMatchCommand extends Command {
                       String away) throws IllegalValueException {
         this.toAdd = new Match(
                 new Date(date),
-                new Home(home),
-                new Away(away),
+                new TeamName(home),
+                new TeamName(away),
                 new TicketSales(""),
                 new TicketSales(""),
                 new HashSet<>(),
