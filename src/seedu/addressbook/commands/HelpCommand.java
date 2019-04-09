@@ -14,6 +14,7 @@ import seedu.addressbook.commands.player.AddFastCommand;
 import seedu.addressbook.commands.player.ClearCommand;
 import seedu.addressbook.commands.player.DeleteCommand;
 import seedu.addressbook.commands.player.EditPlayerCommand;
+import seedu.addressbook.commands.player.ExportPlayerCommand;
 import seedu.addressbook.commands.player.FindCommand;
 import seedu.addressbook.commands.player.ListCommand;
 import seedu.addressbook.commands.player.SortCommand;
@@ -34,35 +35,99 @@ public class HelpCommand extends Command {
     public static final String COMMAND_WORD = "help";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Shows program usage instructions.\n\t"
-            + "Example: " + COMMAND_WORD;
+            + "Example: " + COMMAND_WORD + "\n";
 
-    public static final String MESSAGE_ALL_USAGES = AddCommand.MESSAGE_USAGE
+    public static final String MESSAGE_ALL_USAGES = "Below is a help sheet for commands available in League Tracker.\n"
+            + "================================================================================ \n" + "\n"
+            + "1. Commands on Players in League Tracker \n" + "\n"
+            + "1.1 Add a player to League Tracker \n"
+            + AddCommand.MESSAGE_USAGE
+            + "------------------------------------------------------------------------------------------------------ \n"
+            + "1.2 Add a player to League Tracker faster"
             + "\n" + AddFastCommand.MESSAGE_USAGE
+            + "------------------------------------------------------------------------------------------------------ \n"
+            + "1.3 Edit a player profile in League Tracker"
             + "\n" + EditPlayerCommand.MESSAGE_USAGE
+            + "------------------------------------------------------------------------------------------------------ \n"
+            + "1.4 Delete an existing player in League Tracker"
             + "\n" + DeleteCommand.MESSAGE_USAGE
+            + "------------------------------------------------------------------------------------------------------ \n"
+            + "1.5 Delete all player profiles in League Tracker (CAREFUL)"
             + "\n" + ClearCommand.MESSAGE_USAGE
+            + "------------------------------------------------------------------------------------------------------ \n"
+            + "1.6 Use keywords to search for players in the League Tracker"
             + "\n" + FindCommand.MESSAGE_USAGE
+            + "------------------------------------------------------------------------------------------------------ \n"
+            + "1.7 List all players in League Tracker"
             + "\n" + ListCommand.MESSAGE_USAGE
+            + "------------------------------------------------------------------------------------------------------ \n"
+            + "1.8 Sort players in League Tracker alphabetically"
             + "\n" + SortCommand.MESSAGE_USAGE
-            + "\n" + AddTeam.MESSAGE_USAGE
-            + "\n" + EditTeam.MESSAGE_USAGE
-            + "\n" + DeleteTeam.MESSAGE_USAGE
-            + "\n" + ClearTeam.MESSAGE_USAGE
-            + "\n" + FindTeam.MESSAGE_USAGE
-            + "\n" + ListTeam.MESSAGE_USAGE
-            + "\n" + ViewTeam.MESSAGE_USAGE
+            + "------------------------------------------------------------------------------------------------------ \n"
+            + "1.9 Export player profile in League Tracker to an Excel file"
+            + "\n" + ExportPlayerCommand.MESSAGE_USAGE
+            + "------------------------------------------------------------------------------------------------------ \n"
+            + "1.10 View the player profile by index"
             + "\n" + ViewAllCommand.MESSAGE_USAGE
+            + "================================================================================= \n" + "\n"
+            + "2. Commands on Teams in League Tracker \n" + "\n"
+            + "2.1 Add a team to League Tracker"
+            + "\n" + AddTeam.MESSAGE_USAGE
+            + "------------------------------------------------------------------------------------------------------ \n"
+            + "2.2 Edit a team profile in League Tracker"
+            + "\n" + EditTeam.MESSAGE_USAGE
+            + "------------------------------------------------------------------------------------------------------ \n"
+            + "2.3 Delete an existing team in League Tracker"
+            + "\n" + DeleteTeam.MESSAGE_USAGE
+            + "------------------------------------------------------------------------------------------------------ \n"
+            + "2.4 Delete all teams in League Tracker (CAREFUL)"
+            + "\n" + ClearTeam.MESSAGE_USAGE
+            + "------------------------------------------------------------------------------------------------------ \n"
+            + "2.5 Use keywords to search for teams in the League Tracker"
+            + "\n" + FindTeam.MESSAGE_USAGE
+            + "------------------------------------------------------------------------------------------------------ \n"
+            + "2.6 List all teams existing in League Tracker"
+            + "\n" + ListTeam.MESSAGE_USAGE
+            + "------------------------------------------------------------------------------------------------------ \n"
+            + "2.7 View full profile of a team in League Tracker "
+            + "\n" + ViewTeam.MESSAGE_USAGE + "\n"
+            + "================================================================================= \n" + "\n"
+            + "3. Commands on Finance in League Tracker \n" + "\n"
+            + "3.1 Obtain the financial records of team by index"
             + "\n" + GetFinanceCommand.MESSAGE_USAGE
+            + "------------------------------------------------------------------------------------------------------ \n"
+            + "3.2 Obtain the financial records of the whole league"
             + "\n" + GetLeagueFinanceCommand.MESSAGE_USAGE
+            + "------------------------------------------------------------------------------------------------------ \n"
+            + "3.3 Rank the teams based on their financial conditions"
             + "\n" + RankFinanceCommand.MESSAGE_USAGE
-            + "\n" + ListFinanceCommand.MESSAGE_USAGE
+            + "------------------------------------------------------------------------------------------------------ \n"
+            + "List all financial records of teams in the League Tracker"
+            + "\n" + ListFinanceCommand.MESSAGE_USAGE + "\n"
+            + "================================================================================= \n" + "\n"
+            + "4. Commands on Finance in League Tracker \n" + "\n"
+            + "4.1 Add a match to League Tracker"
             + "\n" + AddMatchCommand.MESSAGE_USAGE
+            + "------------------------------------------------------------------------------------------------------ \n"
+            + "4.2 Delete an existing match from League Tracker"
             + "\n" + DeleteMatchCommand.MESSAGE_USAGE
+            + "------------------------------------------------------------------------------------------------------ \n"
+            + "4.3 Delete all matches in League Tracker (CAREFUL)"
             + "\n" + ClearMatchCommand.MESSAGE_USAGE
+            + "------------------------------------------------------------------------------------------------------ \n"
+            + "4.4 Use keywords to search for matches in League Tracker"
             + "\n" + FindMatchCommand.MESSAGE_USAGE
-            + "\n" + ListMatchCommand.MESSAGE_USAGE
+            + "------------------------------------------------------------------------------------------------------ \n"
+            + "4.5 List all matches in League Tracker"
+            + "\n" + ListMatchCommand.MESSAGE_USAGE + "\n"
+            + "================================================================================= \n" + "\n"
+            + "5. General commands in League Tracker \n" + "\n"
+            + "5.1 Display a help sheet"
             + "\n" + HelpCommand.MESSAGE_USAGE
+            + "------------------------------------------------------------------------------------------------------ \n"
+            + "5.2 Exit from League Tracker"
             + "\n" + ExitCommand.MESSAGE_USAGE;
+
 
     @Override
     public CommandResult execute() {

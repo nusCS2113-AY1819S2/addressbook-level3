@@ -22,7 +22,7 @@ public class FindMatchCommand extends Command {
             + "Finds all matches with date that contains any of "
             + "the specified keywords (case-sensitive) and displays them as a list with index numbers.\n\t"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n\t"
-            + "Example: " + COMMAND_WORD + " MAR APR JUN";
+            + "Example: " + COMMAND_WORD + " MAR APR JUN \n";
 
     private final Set<String> keywords;
 

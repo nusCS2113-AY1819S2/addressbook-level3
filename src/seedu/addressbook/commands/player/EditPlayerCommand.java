@@ -54,18 +54,22 @@ public class EditPlayerCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = " %1$s \n Player %2$s profile is edited";
     public static final String MESSAGE_NOATTRIBUTE_WARNING = "At least one attribute must be provided for edition";
+    public static final String MESSAGE_TEAMNAME_BLOCK = "Changing player's team is not allowed "
+            + "with Edit Command, please use tranferPlayer Command if you need to transfer "
+            + "%1$s from %2$s to other teams in League Tracker.";
+
     private final Name nameItem;
     private final PositionPlayed positionItem;
     private final Age ageItem;
     private final Salary salaryItem;
     private final GoalsScored gsItem;
     private final GoalsAssisted gaItem;
-    private final TeamName teamNameItem;
     private final Nationality nationalityItem;
     private final JerseyNumber jnItem;
     private final Appearance appItem;
     private final HealthStatus hsItem;
     private final Set<Tag> tagItem;
+    private final Boolean isTeamEdited;
 
 
     public EditPlayerCommand(int targetIndex,
@@ -85,21 +89,30 @@ public class EditPlayerCommand extends Command {
         this.salaryItem = (salary == null) ? null : new Salary(salary);
         this.gsItem = (goalsScored == null) ? null : new GoalsScored(goalsScored);
         this.gaItem = (goalsAssisted == null) ? null : new GoalsAssisted(goalsAssisted);
-        this.teamNameItem = (teamName == null) ? null : new TeamName(teamName);
         this.nationalityItem = (nationality == null) ? null : new Nationality(nationality);
         this.jnItem = (jerseyNumber == null) ? null : new JerseyNumber(jerseyNumber);
         this.appItem = (appearance == null) ? null : new Appearance(appearance);
         this.hsItem = (healthStatus == null) ? null : new HealthStatus(healthStatus);
         this.tagItem = tagSet;
+
+        this.isTeamEdited = (teamName != null);
     }
 
     @Override
     public CommandResult execute() {
+
+
+
         try {
             final ReadOnlyPlayer oldPlayer = getTargetPlayer();
 
+            if (isTeamEdited) {
+                return new CommandResult(String.format(MESSAGE_TEAMNAME_BLOCK, oldPlayer.getName().toString(),
+                        oldPlayer.getTeamName().toString()));
+            }
+
             final Player inputPlayer = createInputPlayer(this.nameItem, this.positionItem,
-                    this.ageItem, this.salaryItem, this.gsItem, this.gaItem, this.teamNameItem,
+                    this.ageItem, this.salaryItem, this.gsItem, this.gaItem, null,
                     this.nationalityItem, jnItem, appItem, hsItem, tagItem);
 
             Player editedPlayer = createEditedPlayer(inputPlayer, oldPlayer);

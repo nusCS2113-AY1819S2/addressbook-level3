@@ -17,7 +17,7 @@ public class GetLeagueFinanceCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
             + "Get total Finance of the league.\n\t"
-            + "Example: " + COMMAND_WORD;
+            + "Example: " + COMMAND_WORD + "\n";
 
     public static final String MESSAGE_FINANCE_REFRESH_PROBLEM =
             "invalid command due to finance refresh problem: duplicated team";

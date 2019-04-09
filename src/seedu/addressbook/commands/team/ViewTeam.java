@@ -16,7 +16,7 @@ public class ViewTeam extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Shows all details of the team "
             + "identified by the index number in the last shown team listing.\n\t"
             + "Parameters: INDEX\n\t"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Example: " + COMMAND_WORD + " 1 \n";
 
     public static final String MESSAGE_VIEW_TEAM_DETAILS = "Viewing Team: %1$s";
 

@@ -19,14 +19,16 @@ By: `CS2113-AY1819S2-M11-1`	Since: `Jan 2019` Licence: `MIT`
 
 == Introduction
 
-The League Tracker is an application that provides you with an efficient method of managing information of a football league. It features easy access and modification of information of teams and players in the league. The League Tracker will help you in keeping track of the current situation in a football league.
+The League Tracker is an application that provides you with an efficient method of managing information of a football league.
+It features easy access and modification of information of teams and players in the league. The League Tracker will help
+you in keeping track of the current situation in a football league.
 
 This User Guide provides information on the League Tracker installation process and commands of each feature. To get started, you can go to the Quick Start section.
 
 == Quick Start
 
 .  Ensure that you have Java version `9` or later installed in your Computer.
-.  Download the latest `LeagueTracker.jar` (coming soon)
+.  Download the latest `LeagueTracker.jar`
 .  Copy the file to the folder you want to use as the home folder for your League Tracker System.
 .  Double-click the file to start the application. The GUI should appear in a few seconds.
 
@@ -47,21 +49,22 @@ Format: `help`
 
 [TIP]
 ====
-Help is also shown if you enter an incorrect command e.g. `abcd`
+Help is also shown if you enter an incorrect command e.g. `awihda`
 ====
 
 == Features
 
-The League Tracker has four main features: player feature, team feature,  match feature and finance feature. These features will help you to manage useful information of your league more conveniently and effectively.
+The League Tracker has five main features: *player* feature, *team* feature,  *match* feature, *finance* feature and *export*
+feature. These features will help you to manage useful information of your league more conveniently and effectively.
 
 === Players
 The players feature in the application helps you to manage information of players in the league. +
 {empty} +
 
 ==== *Add Player*
-You can use the Add Player command to add a new player to the League Tracker. +
+You can use the addPlayer command to add a new player to the League Tracker. +
 
-Format ：`addPlayer NAME p/POSITION a/AGE sal/SALARY gs/GOALS_SCORED ga/GOALS_ASSISTED tm/TEAM ctry/COUNTRY jn/JERSEY_NUMBER
+Format ：`addPlayer NAME p/POSITION a/AGE sal/SALARY gs/GOALSSCORED ga/GOALSASSISTED tm/TEAM ctry/COUNTRY jn/JERSEY_NUMBER
 app/APPEARANCE hs/HEALTHSTATUS t/TAGS`
 
 Example: +
@@ -75,16 +78,26 @@ listed(see figure 3)
 .Success Message displayed after adding a player
 image::addSuccess.png[]
 
+NOTE: Player names should be spaces or alphanumeric characters; +
+      Positions should be spaces or alphanumeric characters; +
+      Ages should be integers between 0 and 100; +
+      Salaries should be positive numbers in million USD; +
+      Goals Scored should be a non-negative integer; +
+      Goals Assisted should be a non-negative integer; +
+      Nationality should be a string; +
+      Jersey Number should be an integer from 0 to 35; +
+      Numbers of appearance should be a non-negative integer; +
+      Health Status should be a string;
 
 ==== *Quick-add Player*
 As a full-detail AddPlayer Command requires numerous attribute inputs from users,
-League Tracker provides an alternative command to add player faster with less attribute input
+League Tracker provides an alternative command to *add player faster* with less attribute input
 needed from the user. You can use the AddFast Player command to add a new player to the League Tracker.
-Only NAME, POSITION, AGE, SALARY, TEAM, COUNTRY, JERSEY_NUMBER and TAGS (optional) are needed as input.
-GOALS_SCORED,GOALS_ASSISTED,APPEARANCE and HEALTH_STATUS are set to default values (0,0,0 and Healthy)
+Only `NAME`, `POSITION`, `AGE`, `SALARY`, `TEAM`, `NATIONALITY`, `JERSEY_NUMBER` and `TAGS (optional)` are needed as input.
+`GOALSSCORED`,`GOALS_ASSISTED`,`APPEARANCE` and `HEALTHSTATUS` are set to default values (0,0,0 and Healthy)
 
 
-Format ：`addFast NAME p/POSITION a/AGE sal/SALARY tm/TEAM ctry/COUNTRY jn/JERSEY_NUMBER t/TAGS`
+Format ：`addFast NAME p/POSITION a/AGE sal/SALARY tm/TEAM ctry/NATIONALITY jn/JERSEY_NUMBER t/TAGS`
 
 Example: +
 `addFast Lionel Messi p/RW a/31 sal/0 tm/FC Barcelona ctry/Argentina jn/10`
@@ -121,6 +134,7 @@ image::delete_PlayerListed.png[]
 .Success Message displayed after using delete Command to delete a player
 image::deleteSuccess.png[]
 
+WARNING: For current versions of League Tracker, deletion of players are permanent
 
 ==== *Delete Player By Name and Team Name(coming in v1.4)*
 You can use the Delete Player command to delete an existing player in the League Tracker. +
@@ -182,15 +196,17 @@ Simply follow the format and key in only the attribute information that you want
 Please note that you need to key in at least one attribute to make the `editPlayer` command meaningful.
 ====
 
+NOTE: You will not be allowed to change player's team using the editPlayer command. +
+      It should be done using the transferPlayer Command.
+
 Format ：
 
 * `list` +
 * `editPlayer INDEX_NUMBER [n/NAME] [p/POSITION_PLAYED] [a/AGE] [sal/SALARY] [gs/GOALS_SCORED] [ga/GOALS_ASSISTED]
-[tm/TEAM_NAME] [ctry/NATIONALITY] [jn/JERSEY_NUMBER] [app/APPEARANCE] [hs/HEALTH_STATUS] [t/TAGS]`
+ [ctry/NATIONALITY] [jn/JERSEY_NUMBER] [app/APPEARANCE] [hs/HEALTH_STATUS] [t/TAGS]`
 
 ('[]' means that this entry is optional, If it is not typed in the input, the original information for this particular
 attribute will be kept unchanged)
-
 
 
 Example:
@@ -226,16 +242,6 @@ A list of all players' information will be displayed following the command.(See 
 
 .Successful output of a list Command
 image::listSuccess.png[]
-
-==== *List Players in a team(not in v1.3)*
-You can use the List Player command to see the list of players in a selected team. +
-
-Format ：`ListPlayer NameOfTeam` +
-
-Example: +
-`ListPlayer Liverpool`
-{empty} +
-{empty} +
 
 
 
@@ -311,6 +317,9 @@ image::listteam.png[]
 
 ==== *View Team*
 You can use the View Team command to see the deatils of a Team from the league tracker. +
+
+NOTE: Running this command will display all players in the team, thus you can use this if you want to know who are in
+the team.
 
 Format : `viewteam INDEX`
 

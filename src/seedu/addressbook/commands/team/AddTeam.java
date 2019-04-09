@@ -25,7 +25,7 @@ public class AddTeam extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Adds a team to the address book. "
             + "Parameters: NAME c/COUNTRY s/SPONSORSHIP BALANCE [t/TAG]...\n\t"
             + "Example: " + COMMAND_WORD
-            + " Singapore United c/Singapore s/5487 t/Lousy";
+            + " Singapore United c/Singapore s/5487 t/Lousy \n";
 
     public static final String MESSAGE_SUCCESS = "New team added: %1$s";
     public static final String MESSAGE_DUPLICATE_TEAM = "This team already exists in the address book";

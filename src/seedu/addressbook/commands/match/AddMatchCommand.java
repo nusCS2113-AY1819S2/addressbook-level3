@@ -23,7 +23,7 @@ public class AddMatchCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Adds a match to the address book. "
             + "Parameters: DATE h/HOMETEAM a/AWAYTEAM [t/TAG]...\n\t"
             + "Example: " + COMMAND_WORD
-            + " 17 MAR 2019 h/West Ham a/Huddersfield";
+            + " 17 MAR 2019 h/West Ham a/Huddersfield \n";
 
     public static final String MESSAGE_SUCCESS = "New match added: %1$s";
     public static final String MESSAGE_DUPLICATE_MATCH = "This match already exists in the address book";

@@ -15,7 +15,7 @@ public class ListTeam extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
             + "Displays all Teams in the address book as a list with index numbers.\n\t"
-            + "Example: " + COMMAND_WORD;
+            + "Example: " + COMMAND_WORD + "\n";
 
 
     @Override

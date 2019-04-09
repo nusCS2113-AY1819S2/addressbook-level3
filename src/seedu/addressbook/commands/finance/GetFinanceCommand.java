@@ -18,7 +18,7 @@ public class GetFinanceCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
             + "Checks the financial condition of a team identified using its last displayed index from the League.\n\t"
             + "Parameters: INDEX\n\t"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Example: " + COMMAND_WORD + " 1 \n";
 
     public static final String MESSAGE_SUCCESS_ONE = "Team selected: ";
     public static final String MESSAGE_SUCCESS_TWO = "Finance of the team selected: ";
