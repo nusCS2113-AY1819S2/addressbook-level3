@@ -26,6 +26,11 @@ import seedu.addressbook.commands.player.ClearCommand;
 import seedu.addressbook.commands.player.DeleteCommand;
 import seedu.addressbook.commands.player.FindCommand;
 import seedu.addressbook.commands.player.ViewAllCommand;
+import seedu.addressbook.commands.team.AddTeam;
+import seedu.addressbook.commands.team.ClearTeam;
+import seedu.addressbook.commands.team.DeleteTeam;
+import seedu.addressbook.commands.team.FindTeam;
+import seedu.addressbook.commands.team.ViewTeam;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.player.Age;
@@ -42,6 +47,10 @@ import seedu.addressbook.data.player.ReadOnlyPlayer;
 import seedu.addressbook.data.player.Salary;
 import seedu.addressbook.data.player.TeamName;
 import seedu.addressbook.data.tag.Tag;
+import seedu.addressbook.data.team.Country;
+import seedu.addressbook.data.team.ReadOnlyTeam;
+import seedu.addressbook.data.team.Sponsor;
+import seedu.addressbook.data.team.Team;
 import seedu.addressbook.storage.StorageFile;
 
 public class LogicTest {
@@ -117,7 +126,6 @@ public class LogicTest {
         assertEquals(lastPlayerList, logic.getLastPlayerShownList());
         assertEquals(addressBook, saveFile.load());
     }
-
 
     @Test
     public void execute_unknownCommandWord() throws Exception {
@@ -332,7 +340,6 @@ public class LogicTest {
                 expectedList);
     }
 
-
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
      * targeting a single player in the last shown list, using visible index.
@@ -508,6 +515,309 @@ public class LogicTest {
     }
 
     /**
+     * Start Test for Team Management
+     * Executes the command and confirms that the result message is correct.
+     */
+    private void assertTeamCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
+        assertTeamCommandBehavior(inputCommand, expectedMessage, AddressBook.empty(), false, Collections.emptyList());
+    }
+
+    /**
+     * Executes the command and confirms that the result message is correct and
+     * also confirms that the following three parts of the Logic object's state are as expected:<br>
+     * - the internal address book data are same as those in the {@code expectedAddressBook} <br>
+     * - the internal 'last shown list' matches the {@code expectedLastList} <br>
+     * - the storage file content matches data in {@code expectedAddressBook} <br>
+     */
+    private void assertTeamCommandBehavior(String inputCommand,
+                                           String expectedMessage,
+                                           AddressBook expectedAddressBook,
+                                           boolean isRelevantTeamsExpected,
+                                           List<? extends ReadOnlyTeam> lastTeamList) throws Exception {
+
+        //Execute the command
+        CommandResult r = logic.execute(inputCommand);
+
+        //Confirm the result contains the right data
+        assertEquals(expectedMessage, r.feedbackToUser);
+        assertEquals(r.getRelevantTeams().isPresent(), isRelevantTeamsExpected);
+        if (isRelevantTeamsExpected) {
+            assertEquals(lastTeamList, r.getRelevantTeams().get());
+        }
+
+        //Confirm the state of data is as expected
+        assertEquals(expectedAddressBook, addressBook);
+        assertEquals(lastTeamList, logic.getLastTeamShownList());
+        assertEquals(addressBook, saveFile.load());
+    }
+
+
+    @Test
+    public void execute_clearTeam() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        addressBook.addTeam(helper.generateTeam(1));
+        addressBook.addTeam(helper.generateTeam(2));
+        addressBook.addTeam(helper.generateTeam(3));
+        addressBook.addTeam(helper.generateTeam(4));
+        assertTeamCommandBehavior("clearteam", ClearTeam.MESSAGE_SUCCESS, AddressBook.empty(),
+                false, Collections.emptyList());
+    }
+
+    @Test
+    public void execute_addTeam_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTeam.MESSAGE_USAGE);
+
+        // anyhow argument
+        assertCommandBehavior(
+                "addteam wrong args wrong args", expectedMessage);
+
+        //no country prefix
+        assertCommandBehavior(
+                "addteam ValidName ValidCountry s/500", expectedMessage);
+
+        //no sponsor prefix
+        assertCommandBehavior(
+                "addteam ValidName c/ValidCountry 500", expectedMessage);
+
+    }
+
+    @Test
+    public void execute_addTeam_invalidPlayerData() throws Exception {
+        assertCommandBehavior(
+                "addteam []\\[;] c/ValidCountry s/300", seedu.addressbook.data.team.TeamName.MESSAGE_NAME_CONSTRAINTS);
+        assertCommandBehavior(
+                "addteam ValidName c/inValidCountry11 s/300", Country.MESSAGE_COUNTRY_CONSTRAINTS);
+        assertCommandBehavior(
+                "addteam ValidName c/ValidCountry s/InValidSponsor", Sponsor.MESSAGE_SPONSOR_CONSTRAINTS);
+    }
+
+    @Test
+    public void execute_addTeam_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Team toBeAdded = helper.TeamA();
+        AddressBook expectedAb = new AddressBook();
+        expectedAb.addTeam(toBeAdded);
+
+        // execute command and verify result
+        assertTeamCommandBehavior(helper.generateAddTeam(toBeAdded),
+                String.format(AddTeam.MESSAGE_SUCCESS, toBeAdded),
+                expectedAb,
+                false,
+                Collections.emptyList());
+    }
+
+    @Test
+    public void execute_addTeamDuplicate_notAllowed() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Team toBeAdded = helper.TeamA();
+        AddressBook expectedAb = new AddressBook();
+        expectedAb.addTeam(toBeAdded);
+
+        // setup starting state
+        addressBook.addTeam(toBeAdded); // player already in internal address book
+
+        // execute command and verify result
+        assertTeamCommandBehavior(
+                helper.generateAddTeam(toBeAdded),
+                AddTeam.MESSAGE_DUPLICATE_TEAM,
+                expectedAb,
+                false,
+                Collections.emptyList());
+
+    }
+
+    @Test
+    public void execute_listTeam_showsAllTeams() throws Exception {
+        // prepare expectations
+        TestDataHelper helper = new TestDataHelper();
+        AddressBook expectedAb = helper.generateTeamAddressBook(2);
+        List<? extends ReadOnlyTeam> expectedList = expectedAb.getAllTeams().immutableListView();
+
+        // prepare address book state
+        helper.addToTeamAddressBook(addressBook, 2);
+
+        assertTeamCommandBehavior("listteam",
+                Command.getMessageForTeamListShownSummary(expectedList),
+                expectedAb,
+                true,
+                expectedList);
+    }
+
+    /**
+     * Confirms the 'invalid argument index number behaviour' for the given command
+     * targeting a single team in the last shown list, using visible index.
+     */
+    private void assertInvalidIndexBehaviorForTeamCommand(String commandWord) throws Exception {
+        String expectedMessage = Messages.MESSAGE_INVALID_TEAM_DISPLAYED_INDEX;
+        TestDataHelper helper = new TestDataHelper();
+        List<Team> lastTeamList = helper.generateTeamList(2);
+
+        logic.setLastTeamShownList(lastTeamList);
+
+        assertTeamCommandBehavior(commandWord + " -1", expectedMessage, AddressBook.empty(), false, lastTeamList);
+        assertTeamCommandBehavior(commandWord + " 0", expectedMessage, AddressBook.empty(), false, lastTeamList);
+        assertTeamCommandBehavior(commandWord + " 3", expectedMessage, AddressBook.empty(), false, lastTeamList);
+    }
+
+    @Test
+    public void execute_viewTeam_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewTeam.MESSAGE_USAGE);
+        assertTeamCommandBehavior("viewteam ", expectedMessage);
+        assertTeamCommandBehavior("viewteam arg not number", expectedMessage);
+    }
+
+    @Test
+    public void execute_viewTeam_invalidIndex() throws Exception {
+        assertInvalidIndexBehaviorForTeamCommand("viewteam");
+    }
+
+    @Test
+    public void execute_tryToViewAllTeamMissingInAddressBook_errorMessage() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Team t1 = helper.generateTeam(1);
+        Team t2 = helper.generateTeam(2);
+        List<Team> lastTeamList = helper.generateTeamList(t1, t2);
+
+        AddressBook expectedAb = new AddressBook();
+        expectedAb.addTeam(t1);
+
+        addressBook.addTeam(t1);
+        logic.setLastTeamShownList(lastTeamList);
+
+        assertTeamCommandBehavior("viewteam 2",
+                Messages.MESSAGE_TEAM_NOT_IN_LEAGUE_TRACKER,
+                expectedAb,
+                false,
+                lastTeamList);
+    }
+
+    @Test
+    public void execute_delTeam_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteTeam.MESSAGE_USAGE);
+        assertTeamCommandBehavior("delteam ", expectedMessage);
+        assertTeamCommandBehavior("delteam arg not number", expectedMessage);
+    }
+
+    @Test
+    public void execute_delTeam_invalidIndex() throws Exception {
+        assertInvalidIndexBehaviorForTeamCommand("delteam");
+    }
+
+    @Test
+    public void execute_delTeam_removesCorrectPerson() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Team t1 = helper.generateTeam(1);
+        Team t2 = helper.generateTeam(2);
+        Team t3 = helper.generateTeam(3);
+
+        List<Team> threeTeams = helper.generateTeamList(t1, t2, t3);
+
+        AddressBook expectedAb = helper.generateTeamAddressBook(threeTeams);
+        expectedAb.removeTeam(t2);
+
+        helper.addToTeamAddressBook(addressBook, threeTeams);
+        logic.setLastTeamShownList(threeTeams);
+
+        assertTeamCommandBehavior("delteam 2",
+                String.format(DeleteTeam.MESSAGE_DELETE_TEAM_SUCCESS, t2),
+                expectedAb,
+                false,
+                threeTeams);
+    }
+
+    @Test
+    public void execute_delTeam_missingInAddressBook() throws Exception {
+
+        TestDataHelper helper = new TestDataHelper();
+        Team t1 = helper.generateTeam(1);
+        Team t2 = helper.generateTeam(2);
+        Team t3 = helper.generateTeam(3);
+
+        List<Team> threeTeams = helper.generateTeamList(t1, t2, t3);
+
+        AddressBook expectedAb = helper.generateTeamAddressBook(threeTeams);
+        expectedAb.removeTeam(t2);
+
+        helper.addToTeamAddressBook(addressBook, threeTeams);
+        addressBook.removeTeam(t2);
+        logic.setLastTeamShownList(threeTeams);
+
+        assertTeamCommandBehavior("delteam 2",
+                Messages.MESSAGE_TEAM_NOT_IN_LEAGUE_TRACKER,
+                expectedAb,
+                false,
+                threeTeams);
+    }
+
+    @Test
+    public void execute_findTeam_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindTeam.MESSAGE_USAGE);
+        assertTeamCommandBehavior("findteam ", expectedMessage);
+    }
+
+    @Test
+    public void execute_findTeam_onlyMatchesFullWordsInNames() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Team tTarget1 = helper.generateTeamWithName("bla bla KEY bla");
+        Team tTarget2 = helper.generateTeamWithName("bla KEY bla bceofeia");
+        Team t1 = helper.generateTeamWithName("KE Y");
+        Team t2 = helper.generateTeamWithName("KEYKEYKEY sduauo");
+
+        List<Team> fourTeams = helper.generateTeamList(t1, tTarget1, t2, tTarget2);
+        AddressBook expectedAb = helper.generateTeamAddressBook(fourTeams);
+        List<Team> expectedList = helper.generateTeamList(tTarget1, tTarget2);
+        helper.addToTeamAddressBook(addressBook, fourTeams);
+
+        assertTeamCommandBehavior("findteam KEY",
+                Command.getMessageForTeamListShownSummary(expectedList),
+                expectedAb,
+                true,
+                expectedList);
+    }
+
+    @Test
+    public void execute_findTeam_isCaseSensitive() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Team tTarget1 = helper.generateTeamWithName("bla bla KEY bla");
+        Team tTarget2 = helper.generateTeamWithName("bla KEY bla bceofeia");
+        Team t1 = helper.generateTeamWithName("key key");
+        Team t2 = helper.generateTeamWithName("KEy sduauo");
+
+        List<Team> fourTeams = helper.generateTeamList(t1, tTarget1, t2, tTarget2);
+        AddressBook expectedAb = helper.generateTeamAddressBook(fourTeams);
+        List<Team> expectedList = helper.generateTeamList(tTarget1, tTarget2);
+        helper.addToTeamAddressBook(addressBook, fourTeams);
+
+        assertTeamCommandBehavior("findteam KEY",
+                Command.getMessageForTeamListShownSummary(expectedList),
+                expectedAb,
+                true,
+                expectedList);
+    }
+
+    @Test
+    public void execute_findTeam_matchesIfAnyKeywordPresent() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Team tTarget1 = helper.generateTeamWithName("bla bla KEY bla");
+        Team tTarget2 = helper.generateTeamWithName("bla rAnDoM bla bceofeia");
+        Team t1 = helper.generateTeamWithName("key key");
+        Team t2 = helper.generateTeamWithName("KEy sduauo");
+
+        List<Team> fourTeams = helper.generateTeamList(t1, tTarget1, t2, tTarget2);
+        AddressBook expectedAb = helper.generateTeamAddressBook(fourTeams);
+        List<Team> expectedList = helper.generateTeamList(tTarget1, tTarget2);
+        helper.addToTeamAddressBook(addressBook, fourTeams);
+
+        assertTeamCommandBehavior("findteam KEY rAnDoM",
+                Command.getMessageForTeamListShownSummary(expectedList),
+                expectedAb,
+                true,
+                expectedList);
+    }
+
+    /**
      * A utility class to generate test data.
      */
     class TestDataHelper {
@@ -652,6 +962,130 @@ public class LogicTest {
                     new TeamName("FC Barcelona"),
                     new Nationality("Argentina"),
                     new JerseyNumber("10"),
+                    Collections.singleton(new Tag("tag"))
+            );
+        }
+
+        /**
+         * Test Cases for Team from here onwards
+         */
+
+        /**
+         * generate a team with the stated parameters
+         */
+        Team TeamA() throws Exception {
+            seedu.addressbook.data.team.TeamName teamName = new seedu.addressbook.data.team.TeamName("a");
+            Country country = new Country("a");
+            Sponsor sponsor = new Sponsor("500");
+
+            Tag tag1 = new Tag("tag1");
+            Tag tag2 = new Tag("tag2");
+            Set<Tag> tags = new HashSet<>(Arrays.asList(tag1, tag2));
+            return new Team(teamName, country, sponsor, new HashSet<>(), new HashSet<>(),tags);
+        }
+
+        /**
+         * Generates a valid team using the given seed.
+         * Each unique seed will generate a unique Person object.
+         *
+         * @param seed used to generate the player data field values
+         */
+        Team generateTeam(int seed) throws Exception {
+            return new Team(
+                    new seedu.addressbook.data.team.TeamName("Team " + seed),
+                    new Country("Country " + ((char) (64 + seed))),
+                    new Sponsor("40" + seed),
+                    new HashSet<>(),
+                    new HashSet<>(),
+                    new HashSet<>(Arrays.asList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))))
+            );
+        }
+
+        /**
+         * Generates the correct add command based on the player given
+         */
+        String generateAddTeam(Team team) {
+            StringJoiner cmd = new StringJoiner(" ");
+
+            cmd.add("addteam");
+            cmd.add(team.getTeamName().toString());
+            cmd.add(" c/" + team.getCountry().toString());
+            cmd.add(" s/" + team.getSponsor().toString());
+            Set<Tag> tags = team.getTags();
+            for (Tag t : tags) {
+                cmd.add("t/" + t.tagName);
+            }
+            return cmd.toString();
+        }
+
+        /**
+         * Generates an AddressBook with auto-generated teams.
+         */
+        AddressBook generateTeamAddressBook(int num) throws Exception {
+            AddressBook addressBook = new AddressBook();
+            addToTeamAddressBook(addressBook, num);
+            return addressBook;
+        }
+
+        /**
+         * Generates an AddressBook based on the list of Teams given.
+         */
+        AddressBook generateTeamAddressBook(List<Team> teams) throws Exception {
+            AddressBook addressBook = new AddressBook();
+            addToTeamAddressBook(addressBook, teams);
+            return addressBook;
+        }
+
+        /**
+         * Adds auto-generated Team objects to the given AddressBook
+         */
+        void addToTeamAddressBook(AddressBook addressBook, int num) throws Exception {
+            addToTeamAddressBook(addressBook, generateTeamList(num));
+        }
+
+        /**
+         * Adds the given list of Teams to the given AddressBook
+         */
+        void addToTeamAddressBook(AddressBook addressBook, List<Team> teamsToAdd) throws Exception {
+            for (Team t : teamsToAdd) {
+                addressBook.addTeam(t);
+            }
+        }
+
+        /**
+         * Creates a list of Teams based on the give Person objects.
+         */
+        List<Team> generateTeamList(Team... teams) throws Exception {
+            List<Team> teamList = new ArrayList<>();
+            for (Team t : teams) {
+                teamList.add(t);
+            }
+            return teamList;
+        }
+
+        /**
+         * Generates a list of Teams based on the number given.
+         */
+        List<Team> generateTeamList(int num) throws Exception {
+            List<Team> teams = new ArrayList<>();
+            for (int j = 1; j <= num; j++) {
+                teams.add(generateTeam(j));
+            }
+            return teams;
+        }
+
+
+
+        /**
+         * Generates a Team object with given name. Other fields will have some dummy values.
+         */
+        Team generateTeamWithName(String name) throws Exception {
+            return new Team(
+                    new seedu.addressbook.data.team.TeamName(name),
+                    new Country("Country"),
+                    new Sponsor("404"),
+                    new HashSet<>(),
+                    new HashSet<>(),
                     Collections.singleton(new Tag("tag"))
             );
         }

@@ -26,6 +26,13 @@ import seedu.addressbook.commands.player.DeleteCommand;
 import seedu.addressbook.commands.player.FindCommand;
 import seedu.addressbook.commands.player.ListCommand;
 import seedu.addressbook.commands.player.ViewAllCommand;
+import seedu.addressbook.commands.team.AddTeam;
+import seedu.addressbook.commands.team.ClearTeam;
+import seedu.addressbook.commands.team.DeleteTeam;
+import seedu.addressbook.commands.team.EditTeam;
+import seedu.addressbook.commands.team.FindTeam;
+import seedu.addressbook.commands.team.ListTeam;
+import seedu.addressbook.commands.team.ViewTeam;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.player.Age;
 import seedu.addressbook.data.player.Appearance;
@@ -41,6 +48,10 @@ import seedu.addressbook.data.player.ReadOnlyPlayer;
 import seedu.addressbook.data.player.Salary;
 import seedu.addressbook.data.player.TeamName;
 import seedu.addressbook.data.tag.Tag;
+import seedu.addressbook.data.team.Country;
+import seedu.addressbook.data.team.ReadOnlyTeam;
+import seedu.addressbook.data.team.Sponsor;
+import seedu.addressbook.data.team.Team;
 
 public class ParserTest {
 
@@ -80,9 +91,21 @@ public class ParserTest {
     }
 
     @Test
+    public void  clearTeamCommand_parsedCorretly() {
+        final String input = "clearteam";
+        parseAndAssertCommandType(input, ClearTeam.class);
+    }
+
+    @Test
     public void listCommand_parsedCorrectly() {
         final String input = "list";
         parseAndAssertCommandType(input, ListCommand.class);
+    }
+
+    @Test
+    public void listTeamCommand_parsedCorrectly() {
+        final String input = "listteam";
+        parseAndAssertCommandType(input, ListTeam.class);
     }
 
     @Test
@@ -102,10 +125,25 @@ public class ParserTest {
     }
 
     @Test
+    public void deleteTeam_noArgs() {
+        final String[] inputs = {"delteam", "delteam "};
+        final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteTeam.MESSAGE_USAGE);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+
+    @Test
     public void deleteCommand_argsIsNotSingleNumber() {
         final String[] inputs = {"delete notANumber ", "delete 8*wh12", "delete 1 2 3 4 5"};
         final String resultMessage;
         resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+
+    @Test
+    public void deleteTeam_argsIsNotSingleNumber() {
+        final String[] inputs = {"delteam notANumber ", "delteam 8*wh12", "delteam 1 2 3 4 5"};
+        final String resultMessage;
+        resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteTeam.MESSAGE_USAGE);
         parseAndAssertIncorrectWithMessage(resultMessage, inputs);
     }
 
@@ -118,10 +156,26 @@ public class ParserTest {
     }
 
     @Test
+    public void deleteTeam_numericArg_indexParsedCorrectly() {
+        final int testIndex = 1;
+        final String input = "delteam " + testIndex;
+        final DeleteTeam result = parseAndAssertCommandType(input, DeleteTeam.class);
+        assertEquals(result.getTargetIndex(), testIndex);
+    }
+
+    @Test
     public void viewAllCommand_noArgs() {
         final String[] inputs = {"viewall", "viewall "};
         final String resultMessage =
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewAllCommand.MESSAGE_USAGE);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+
+    @Test
+    public void viewTeam_noArgs() {
+        final String[] inputs = {"viewteam", "viewteam "};
+        final String resultMessage =
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewTeam.MESSAGE_USAGE);
         parseAndAssertIncorrectWithMessage(resultMessage, inputs);
     }
 
@@ -133,10 +187,25 @@ public class ParserTest {
     }
 
     @Test
+    public void viewTeam_argsIsNotSingleNumber() {
+        final String[] inputs = {"viewteam notAnumber ", "viewteam 8*wh12", "viewteam 1 2 3 4 5"};
+        final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewTeam.MESSAGE_USAGE);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+
+    @Test
     public void viewAllCommand_numericArg_indexParsedCorrectly() {
         final int testIndex = 3;
         final String input = "viewall " + testIndex;
         final ViewAllCommand result = parseAndAssertCommandType(input, ViewAllCommand.class);
+        assertEquals(result.getTargetIndex(), testIndex);
+    }
+
+    @Test
+    public void viewTeam_numericArg_indexParsedCorrectly() {
+        final int testIndex = 3;
+        final String input = "viewteam " + testIndex;
+        final ViewTeam result = parseAndAssertCommandType(input, ViewTeam.class);
         assertEquals(result.getTargetIndex(), testIndex);
     }
 
@@ -173,6 +242,42 @@ public class ParserTest {
         final String input = "find " + String.join(" ", keySet) + " " + String.join(" ", keySet);
         final FindCommand result =
                 parseAndAssertCommandType(input, FindCommand.class);
+        assertEquals(keySet, result.getKeywords());
+    }
+
+    /**
+     * Test find teams by keyword in name command
+     */
+
+    @Test
+    public void findTeam_invalidArgs() {
+        // no keywords
+        final String[] inputs = {"findteam", "findteam "};
+        final String resultMessage =
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindTeam.MESSAGE_USAGE);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+
+    @Test
+    public void findTeam_validArgs_parsedCorrectly() {
+        final String[] keywords = {"key1", "key2", "key3"};
+        final Set<String> keySet = new HashSet<>(Arrays.asList(keywords));
+
+        final String input = "findteam " + String.join(" ", keySet);
+        final FindTeam result =
+                parseAndAssertCommandType(input, FindTeam.class);
+        assertEquals(keySet, result.getKeywords());
+    }
+
+    @Test
+    public void findTeam_duplicateKeys_parsedCorrectly() {
+        final String[] keywords = {"key1", "key2", "key3"};
+        final Set<String> keySet = new HashSet<>(Arrays.asList(keywords));
+
+        // duplicate every keyword
+        final String input = "findteam " + String.join(" ", keySet) + " " + String.join(" ", keySet);
+        final FindTeam result =
+                parseAndAssertCommandType(input, FindTeam.class);
         assertEquals(keySet, result.getKeywords());
     }
 
@@ -256,6 +361,24 @@ public class ParserTest {
         parseAndAssertIncorrectWithMessage(resultMessage, inputs);
     }
 
+    /**
+     * Test add team command
+     */
+    @Test
+    public void addTeam_invalidArgs() {
+        final String[] inputs = {"addteam", "addteam ", "addteam wrong args format",
+                // no country prefix
+                String.format("addteam %1$s %2$s s/%3$s",
+                        TeamName.EXAMPLE, Country.EXAMPLE, Sponsor.EXAMPLE),
+
+                // no sponsor prefix
+                String.format("addteam %1$s c/%2$s %3$s",
+                        TeamName.EXAMPLE, Country.EXAMPLE, Sponsor.EXAMPLE),
+        };
+        final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTeam.MESSAGE_USAGE);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+
     /*@Test
     public void addCommand_invalidPlayerDataInArgs() {
         // name, age, salary, gs, ga, jn and appearance are the ones that need to be tested
@@ -317,12 +440,41 @@ public class ParserTest {
     }*/
 
     @Test
+    public void addTeam_invalidTeamDataInArgs() {
+        // name, country and sponsor are the ones that need to be tested
+        final String invalidTeamName = "[]\\[;]";
+        final String validTeamName = TeamName.EXAMPLE;
+        final String invalidCountryArg = "c/contain_numbers123";
+        final String validCountryArg = "c/" + Country.EXAMPLE;
+        final String invalidSponsorArg = "s/not_number";
+        final String validSponsorArg = "s/" + Sponsor.EXAMPLE;
+
+        final String addTeamFormatString = "addteam %1$s %2$s %3$s ";
+
+        // test each incorrect team data field argument individually
+        final String[] inputs = {
+                // invalid name
+                String.format(addTeamFormatString, invalidTeamName, validCountryArg, validSponsorArg),
+                // invalid country
+                String.format(addTeamFormatString, validTeamName, invalidCountryArg, validSponsorArg),
+                // invalid sponsor
+                String.format(addTeamFormatString, validTeamName, validCountryArg, invalidSponsorArg),
+        };
+        for (String input : inputs) {
+            parseAndAssertCommandType(input, IncorrectCommand.class);
+        }
+    }
+
+
+
+    @Test
     public void addCommand_validPlayerData_parsedCorrectly() {
         final Player testPlayer = generateTestPlayer();
         final String input = convertPlayerToAddCommandString(testPlayer);
         final AddCommand result = parseAndAssertCommandType(input, AddCommand.class);
         assertEquals(result.getPlayer(), testPlayer);
     }
+
 
     @Test
     public void addCommand_duplicateTags_merged() throws IllegalValueException {
@@ -335,6 +487,28 @@ public class ParserTest {
 
         final AddCommand result = parseAndAssertCommandType(input, AddCommand.class);
         assertEquals(result.getPlayer(), testPlayer);
+    }
+
+    @Test
+    public void addTeam_validTeamData_parsedCorrectly() {
+        final Team testTeam = generateTestTeam();
+        final String input = convertTeamToAddTeamString(testTeam);
+        final AddTeam result = parseAndAssertCommandType(input, AddTeam.class);
+        assertEquals(result.getTeam(), testTeam);
+    }
+
+
+    @Test
+    public void addTeam_duplicateTags_merged() throws IllegalValueException {
+        final Team testTeam = generateTestTeam();
+        String input = convertTeamToAddTeamString(testTeam);
+        for (Tag tag : testTeam.getTags()) {
+            // create duplicates by doubling each tag
+            input += " t/" + tag.tagName;
+        }
+
+        final AddTeam result = parseAndAssertCommandType(input, AddTeam.class);
+        assertEquals(result.getTeam(), testTeam);
     }
 
 
@@ -361,6 +535,23 @@ public class ParserTest {
             throw new RuntimeException("test player data should be valid by definition");
         }
     }
+    /**
+     * generates a test team
+     */
+    private static Team generateTestTeam() {
+        try {
+            return new Team(
+                    new seedu.addressbook.data.team.TeamName(TeamName.EXAMPLE),
+                    new Country(Country.EXAMPLE),
+                    new Sponsor(Sponsor.EXAMPLE),
+                    new HashSet<>(),
+                    new HashSet<>(),
+                    new HashSet<>(Arrays.asList(new Tag("tag1"), new Tag("tag2"), new Tag("tag3")))
+            );
+        } catch (IllegalValueException ive) {
+            throw new RuntimeException("test team data should be valid by definition");
+        }
+    }
 
     /**
      * Converts player to add command string
@@ -383,6 +574,42 @@ public class ParserTest {
         }
         return addCommand;
     }
+
+    /**
+     * Converts player to add command string
+     */
+    private static String convertTeamToAddTeamString(ReadOnlyTeam team) {
+        String addTeam = "addteam "
+                + team.getTeamName().fullName
+                + " c/" + team.getCountry().value
+                + " s/" + team.getSponsor().value;
+        for (Tag tag : team.getTags()) {
+            addTeam += " t/" + tag.tagName;
+        }
+        return addTeam;
+    }
+
+    /**
+     * Test Edit command function
+     */
+
+    @Test
+    public void editTeam_noArgs() {
+        final String[] inputs = {"editteam", "editteam "};
+        final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditTeam.MESSAGE_USAGE);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+
+    @Test
+    public void editTeam_argsIsNotSingleNumber() {
+        final String[] inputs = {"editteam notAnumber ", "editteam 8*wh12", "editteam 1 2 3 4 5"};
+        final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditTeam.MESSAGE_USAGE);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+
+
+
+
 
     /**
      * Test ListFinanceCommand
