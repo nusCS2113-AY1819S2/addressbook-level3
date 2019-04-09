@@ -17,7 +17,7 @@ public class DeleteMatchCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
             + "Deletes the match identified by the index number used in the last match listing.\n\t"
             + "Parameters: INDEX\n\t"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Example: " + COMMAND_WORD + " 1 \n";
 
     public static final String MESSAGE_DELETE_MATCH_SUCCESS = "Deleted match: %1$s";
 

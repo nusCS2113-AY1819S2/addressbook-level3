@@ -12,7 +12,7 @@ import seedu.addressbook.data.exception.IllegalValueException;
 
 public class Nationality implements Comparable<Nationality> {
     public static final String EXAMPLE = "Spain";
-    public static final String MESSAGE_COUNTRY_CONSTRAINTS = "Nationality name should be a string";
+    public static final String MESSAGE_COUNTRY_CONSTRAINTS = "Nationality should be a string";
     public static final String COUNTRY_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
     public final String fullCountry;

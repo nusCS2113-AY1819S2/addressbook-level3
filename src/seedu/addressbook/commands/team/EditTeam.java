@@ -36,7 +36,7 @@ public class EditTeam extends Command {
             + "[s/SPONSOR] "
             + "[t/TAGS](t/nil to remove tags)\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + "c/" + Country.EXAMPLE;
+            + "c/" + Country.EXAMPLE + "\n";
 
     public static final String MESSAGE_EDIT_TEAM_SUCCESS = "Edited team: %1$s";
     public static final String MESSAGE_NOARGS = "At least one field to edit must be provided.\n%1$s";
