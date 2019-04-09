@@ -10,9 +10,15 @@ import java.util.List;
 public class Status implements Comparable<Status>{
 
     public static final String EXAMPLE = "Observation";
-    public static final String MESSAGE_NAME_CONSTRAINTS = "Status should be Observation/ Critical / Waiting for Surgery " +
-            "/ Therapy / Life-support / Waiting for doctor appointment";
+    public static final String MESSAGE_STATUS_CONSTRAINTS = "Status should be Observation/ Critical / Waiting for Surgery " +
+            "/ Therapy / Life Support / Waiting for doctor appointment";
     public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
+    public static final String OBSERVATION = "Observation";
+    public static final String THERAPY = "Therapy";
+    public static final String SURGERY = "Waiting for Surgery";
+    public static final String LIFE_SUPPORT = "Life Support";
+    public static final String CRITICAL = "Critical";
+    public static final String APPOINTMENT = "Waiting for doctor appointment";
 
     public final String status;
 
@@ -24,8 +30,12 @@ public class Status implements Comparable<Status>{
     public Status(String status) throws IllegalValueException {
         status = status.trim();
         if (!isValidStatus(status)) {
-            throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
+            throw new IllegalValueException(MESSAGE_STATUS_CONSTRAINTS);
         }
+        if(!isCorrectStatus(status)){
+            throw new IllegalValueException(MESSAGE_STATUS_CONSTRAINTS);
+        }
+
         this.status = status;
     }
 
@@ -36,6 +46,19 @@ public class Status implements Comparable<Status>{
         return test.matches(NAME_VALIDATION_REGEX);
     }
 
+    public static boolean isCorrectStatus(String test) {
+        switch (test){
+            case OBSERVATION:
+            case THERAPY:
+            case SURGERY:
+            case LIFE_SUPPORT:
+            case CRITICAL:
+            case APPOINTMENT:
+                return true;
+            default:
+                return false;
+        }
+    }
 
 
 

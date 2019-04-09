@@ -45,12 +45,21 @@ public abstract class Command {
     public static String getMessageForAppointmentsShownSummary(List<? extends ReadOnlyPerson> personsDisplayed, String doctor) {
         return String.format(Messages.MESSAGE_NUMBER_OF_APPOINTMENTS, doctor, personsDisplayed.size());
     }
-    
+
+    //@@author WuPeiHsuan
     public static String getMessageForPersonSortShownSummary(List<? extends ReadOnlyPerson> personsDisplayed, String column) {
         column = column.trim();
-        return String.format(Messages.MESSAGE_PERSON_SORTED_OVERVIEW, personsDisplayed.size(), column);
-    }
+        switch(column){
+            case "name":
+                return String.format(Messages.MESSAGE_SORT_NAME_OVERVIEW, personsDisplayed.size(), column);
+            case "appointment":
+                return String.format(Messages.MESSAGE_SORT_APPOINTMENT_OVERVIEW, personsDisplayed.size(), column);
 
+        }
+        return String.format(Messages.MESSAGE_SORT_STATUS_OVERVIEW, personsDisplayed.size(), column);
+        //return String.format(Messages.MESSAGE_PERSON_SORTED_OVERVIEW, personsDisplayed.size(), column);
+    }
+    //@@author
     /**
      * Executes the command and returns the result.
      */

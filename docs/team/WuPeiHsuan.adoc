@@ -1,0 +1,110 @@
+= Wu Pei Hsuan - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Doctor On Call
+
+---
+
+== Overview
+
+Doctor On Call is a application intended for hospital doctor who has several long-term patients he has to take care of.
+It is written in Java.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to sort the list by different attributes*
+** What it does: allows the user to view the list sorted by desired attribute. The attribute can be name, status or appointment.
+** Justification: This feature improves the product significantly because a user might need to sort his patient according to his desired attribute so that he can prioritize the allocation of his resources.
+** Highlights: This enhancement affects the internalList only when user sort by name. It also required an in-depth analysis of design alternatives.
+** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+
+* *Minor enhancement*: added a status column that allows the user to navigate to previous commands using up/down keys.
+
+* *Code contributed*: [https://nuscs2113-ay1819s2.github.io/dashboard-beta/#search=WUPEIHSUAN&sort=displayName&since=2019-02-10&until=2019-03-26&timeframe=day&reverse=false&groupSelect=groupByRepos&breakdown=false&tabAuthor=WuPeiHsuan&tabRepo=CS2113-AY1819S2-T11-2_main_master[RepoSense]]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.1` - `v1.3` (3 releases) on GitHub
+*** Create milestones and set deadlines
+** Enhancements to existing features:
+*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
+*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+** Documentation:
+*** Wrote the README page.
+** Community:
+*** PRs reviewed (with non-trivial review comments)
+*** Contributed to forum discussions
+*** Reported bugs and suggestions for other teams in the class
+*** Some parts of the history feature I added was adopted by several other class mates
+** Tools:
+*** Enable Travis CI for the team repo.
+
+
+_{you can add/remove categories in the list above}_
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+== Listing all persons in sorted order : `sort`
+
+Shows a list of all persons sorted by desired attribute in alphabetical order in the address book. +
+Desired attribute could be name, appointment or status. +
+Format: `sort DESIRED_ATTRIBUTE`
+
+Examples:
+
+* `sort name` +
+Shows a list of all persons sorted by name in alphabetical order in the address book.
+
+* `sort status` +
+Shows a list of all persons sorted by status according to the degree of urgency in the address book.
+The sequence of the status in this order is as follows: Critical, Waiting for Surgery, Life-support, Waiting for doctor appointment, Therapy and Observation.
+
+* `sort appointment` +
+Shows a list of all persons sorted by appointment date in chronological order in the address book.
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+== Implementation
+
+This section describes some noteworthy details on how certain features are implemented.
+
+=== Sort feature
+==== Current Implementation
+
+The sort mechanism is facilitated by `UniquePersonList`. It stores a list of all persons in the address book as an `internalList`. Additionally, it implements the following operations:
+
+* `UniquePersonList#SortByName()` -- Sort `internalList` by name column in alphabetical order
+* `UniquePersonList#SortByAppointment()` -- Sort `internalList` by appointment column in chronological order
+* `UniquePersonList#SortByStatus()` -- Sort `internalList` by status column according to the degree of urgency. The sequence of the status in this order is as follows: Critical, Waiting for Surgery, Life-support, Waiting for doctor appointment, Therapy and Observation.
+
+These operations are exposed in `AddressBook` as `AddressBook#sorted(String attribute)`. Corresponding operation will be called depending on attribute the user wants to sort the list by.
+
+Given below is an example usage scenario and how the sort mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `UniquePersonList` will be initialized with the initial address book state.
+
+Step 2. The user executes `add n/…` to add some new people. These people will be added sequentially to the end of the list.
+
+Step 3. The user then decides to execute the command `list`. Commands that do not modify the address book, such as list, will usually not call `AddressBook#sorted(String attribute)` . Thus, the `internalList` remains unchanged.
+
+Step 4. The user decides to view the list sorted by their name by executing the `sort name` command. This command will call `AddressBook#sorted(String attribute)` and pass the string “name” to the method. Since the value of parameter is “name”, `SortByName()` will be called. `internalList` will then be sorted by name column in alphabetical order. At last, `internalList` will be returned and displayed to the user.
+
+
+
+== PROJECT: PowerPointLabs
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_
