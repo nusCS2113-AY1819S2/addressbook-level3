@@ -434,7 +434,7 @@ public class LogicTest {
         addressBook.removePlayer(p2);
         logic.setLastPlayerShownList(threePlayers);
 
-        assertCommandBehavior("delete 2",
+        assertCommandBehavior("deletePlayer 2",
                 Messages.MESSAGE_PLAYER_NOT_IN_LEAGUE,
                 expectedAb,
                 false,
