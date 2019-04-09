@@ -595,7 +595,7 @@ public class LogicTest {
     public void execute_addTeam_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Team toBeAdded = helper.TeamA();
+        Team toBeAdded = helper.teamA();
         AddressBook expectedAb = new AddressBook();
         expectedAb.addTeam(toBeAdded);
 
@@ -611,7 +611,7 @@ public class LogicTest {
     public void execute_addTeamDuplicate_notAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Team toBeAdded = helper.TeamA();
+        Team toBeAdded = helper.teamA();
         AddressBook expectedAb = new AddressBook();
         expectedAb.addTeam(toBeAdded);
 
@@ -973,7 +973,7 @@ public class LogicTest {
         /**
          * generate a team with the stated parameters
          */
-        Team TeamA() throws Exception {
+        Team teamA() throws Exception {
             seedu.addressbook.data.team.TeamName teamName = new seedu.addressbook.data.team.TeamName("a");
             Country country = new Country("a");
             Sponsor sponsor = new Sponsor("500");
@@ -981,7 +981,7 @@ public class LogicTest {
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             Set<Tag> tags = new HashSet<>(Arrays.asList(tag1, tag2));
-            return new Team(teamName, country, sponsor, new HashSet<>(), new HashSet<>(),tags);
+            return new Team(teamName, country, sponsor, new HashSet<>(), new HashSet<>(), tags);
         }
 
         /**

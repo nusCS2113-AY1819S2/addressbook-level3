@@ -103,7 +103,7 @@ public class ParserTest {
     }
 
     @Test
-    public void listTeamCommand_parsedCorrectly() {
+    public void listTeam_parsedCorrectly() {
         final String input = "listteam";
         parseAndAssertCommandType(input, ListTeam.class);
     }
