@@ -68,7 +68,7 @@ public class SortCommand extends Command {
         }
         for (ReadOnlyPerson person : addressBook.getAllPersons()) {
             final String getStatus = person.getStatus().toString();
-            if (getStatus.equals("Life-support")) {
+            if (getStatus.equals("Life Support")) {
                 matchedPersons.add(person);
             }
         }
