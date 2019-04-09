@@ -8,11 +8,11 @@ import seedu.addressbook.commands.CommandResult;
  */
 public class ClearCommand extends Command {
 
-    public static final String COMMAND_WORD = "clear";
+    public static final String COMMAND_WORD = "clearPlayer";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Clear players in league tracker permanently.\n\t"
             + "Example: " + COMMAND_WORD + "\n";
 
-    public static final String MESSAGE_SUCCESS = "League Tracker has been cleared!";
+    public static final String MESSAGE_SUCCESS = "League Tracker player list has been cleared!";
 
     @Override
     public CommandResult execute() {

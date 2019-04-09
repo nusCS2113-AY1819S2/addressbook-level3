@@ -25,6 +25,7 @@ import seedu.addressbook.commands.player.ClearCommand;
 import seedu.addressbook.commands.player.DeleteCommand;
 import seedu.addressbook.commands.player.FindCommand;
 import seedu.addressbook.commands.player.ListCommand;
+import seedu.addressbook.commands.player.SortCommand;
 import seedu.addressbook.commands.player.ViewAllCommand;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.player.Age;
@@ -74,14 +75,20 @@ public class ParserTest {
     }
 
     @Test
+    public void sortCommand_parsedCorrectly() {
+        final String input = "sortPlayer";
+        parseAndAssertCommandType(input, SortCommand.class);
+    }
+
+    @Test
     public void clearCommand_parsedCorrectly() {
-        final String input = "clear";
+        final String input = "clearPlayer";
         parseAndAssertCommandType(input, ClearCommand.class);
     }
 
     @Test
     public void listCommand_parsedCorrectly() {
-        final String input = "list";
+        final String input = "listPlayer";
         parseAndAssertCommandType(input, ListCommand.class);
     }
 
@@ -96,14 +103,14 @@ public class ParserTest {
      */
     @Test
     public void deleteCommand_noArgs() {
-        final String[] inputs = {"delete", "delete "};
+        final String[] inputs = {"deletePlayer", "deletePlayer "};
         final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
         parseAndAssertIncorrectWithMessage(resultMessage, inputs);
     }
 
     @Test
     public void deleteCommand_argsIsNotSingleNumber() {
-        final String[] inputs = {"delete notANumber ", "delete 8*wh12", "delete 1 2 3 4 5"};
+        final String[] inputs = {"deletePlayer notANumber ", "deletePlayer 8*wh12", "deletePlayer 1 2 3 4 5"};
         final String resultMessage;
         resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
         parseAndAssertIncorrectWithMessage(resultMessage, inputs);
@@ -112,14 +119,14 @@ public class ParserTest {
     @Test
     public void deleteCommand_numericArg_indexParsedCorrectly() {
         final int testIndex = 1;
-        final String input = "delete " + testIndex;
+        final String input = "deletePlayer " + testIndex;
         final DeleteCommand result = parseAndAssertCommandType(input, DeleteCommand.class);
         assertEquals(result.getTargetIndex(), testIndex);
     }
 
     @Test
     public void viewAllCommand_noArgs() {
-        final String[] inputs = {"viewall", "viewall "};
+        final String[] inputs = {"displayProfile", "displayProfile "};
         final String resultMessage =
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewAllCommand.MESSAGE_USAGE);
         parseAndAssertIncorrectWithMessage(resultMessage, inputs);
@@ -127,7 +134,7 @@ public class ParserTest {
 
     @Test
     public void viewAllCommand_argsIsNotSingleNumber() {
-        final String[] inputs = {"viewall notAnumber ", "viewall 8*wh12", "viewall 1 2 3 4 5"};
+        final String[] inputs = {"displayProfile notAnumber ", "displayProfile 8*wh12", "displayProfile 1 2 3 4 5"};
         final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewAllCommand.MESSAGE_USAGE);
         parseAndAssertIncorrectWithMessage(resultMessage, inputs);
     }
@@ -135,7 +142,7 @@ public class ParserTest {
     @Test
     public void viewAllCommand_numericArg_indexParsedCorrectly() {
         final int testIndex = 3;
-        final String input = "viewall " + testIndex;
+        final String input = "displayProfile " + testIndex;
         final ViewAllCommand result = parseAndAssertCommandType(input, ViewAllCommand.class);
         assertEquals(result.getTargetIndex(), testIndex);
     }
@@ -147,7 +154,7 @@ public class ParserTest {
     @Test
     public void findCommand_invalidArgs() {
         // no keywords
-        final String[] inputs = {"find", "find "};
+        final String[] inputs = {"findPlayer", "findPlayer "};
         final String resultMessage =
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
         parseAndAssertIncorrectWithMessage(resultMessage, inputs);
@@ -158,7 +165,7 @@ public class ParserTest {
         final String[] keywords = {"key1", "key2", "key3"};
         final Set<String> keySet = new HashSet<>(Arrays.asList(keywords));
 
-        final String input = "find " + String.join(" ", keySet);
+        final String input = "findPlayer " + String.join(" ", keySet);
         final FindCommand result =
                 parseAndAssertCommandType(input, FindCommand.class);
         assertEquals(keySet, result.getKeywords());
@@ -170,7 +177,7 @@ public class ParserTest {
         final Set<String> keySet = new HashSet<>(Arrays.asList(keywords));
 
         // duplicate every keyword
-        final String input = "find " + String.join(" ", keySet) + " " + String.join(" ", keySet);
+        final String input = "findPlayer " + String.join(" ", keySet) + " " + String.join(" ", keySet);
         final FindCommand result =
                 parseAndAssertCommandType(input, FindCommand.class);
         assertEquals(keySet, result.getKeywords());

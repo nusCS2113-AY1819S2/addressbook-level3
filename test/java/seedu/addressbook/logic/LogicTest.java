@@ -142,7 +142,7 @@ public class LogicTest {
         addressBook.addPlayer(helper.generatePlayer(2));
         addressBook.addPlayer(helper.generatePlayer(3));
         addressBook.addPlayer(helper.generatePlayer(4));
-        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, AddressBook.empty(),
+        assertCommandBehavior("clearPlayer", ClearCommand.MESSAGE_SUCCESS, AddressBook.empty(),
                 false, Collections.emptyList());
     }
 
@@ -325,7 +325,7 @@ public class LogicTest {
         // prepare address book state
         helper.addToAddressBook(addressBook, 2);
 
-        assertCommandBehavior("list",
+        assertCommandBehavior("listPlayer",
                 Command.getMessageForPlayerListShownSummary(expectedList),
                 expectedAb,
                 true,
@@ -354,13 +354,13 @@ public class LogicTest {
     @Test
     public void execute_viewAll_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewAllCommand.MESSAGE_USAGE);
-        assertCommandBehavior("viewall ", expectedMessage);
-        assertCommandBehavior("viewall arg not number", expectedMessage);
+        assertCommandBehavior("displayProfile ", expectedMessage);
+        assertCommandBehavior("displayProfile arg not number", expectedMessage);
     }
 
     @Test
     public void execute_viewAll_invalidIndex() throws Exception {
-        assertInvalidIndexBehaviorForCommand("viewall");
+        assertInvalidIndexBehaviorForCommand("displayProfile");
     }
 
     @Test
@@ -376,7 +376,7 @@ public class LogicTest {
         addressBook.addPlayer(p1);
         logic.setLastPlayerShownList(lastPlayerList);
 
-        assertCommandBehavior("viewall 2",
+        assertCommandBehavior("displayProfile 2",
                 Messages.MESSAGE_PLAYER_NOT_IN_LEAGUE,
                 expectedAb,
                 false,
@@ -386,13 +386,13 @@ public class LogicTest {
     @Test
     public void execute_delete_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
-        assertCommandBehavior("delete ", expectedMessage);
-        assertCommandBehavior("delete arg not number", expectedMessage);
+        assertCommandBehavior("deletePlayer ", expectedMessage);
+        assertCommandBehavior("deletePlayer arg not number", expectedMessage);
     }
 
     @Test
     public void execute_delete_invalidIndex() throws Exception {
-        assertInvalidIndexBehaviorForCommand("delete");
+        assertInvalidIndexBehaviorForCommand("deletePlayer");
     }
 
     @Test
@@ -410,7 +410,7 @@ public class LogicTest {
         helper.addToAddressBook(addressBook, threePlayers);
         logic.setLastPlayerShownList(threePlayers);
 
-        assertCommandBehavior("delete 2",
+        assertCommandBehavior("deletePlayer 2",
                 String.format(DeleteCommand.MESSAGE_DELETE_PLAYER_SUCCESS, p2),
                 expectedAb,
                 false,
@@ -444,7 +444,7 @@ public class LogicTest {
     @Test
     public void execute_find_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
-        assertCommandBehavior("find ", expectedMessage);
+        assertCommandBehavior("findPlayer ", expectedMessage);
     }
 
     @Test
@@ -460,7 +460,7 @@ public class LogicTest {
         List<Player> expectedList = helper.generatePlayerList(pTarget1, pTarget2);
         helper.addToAddressBook(addressBook, fourPlayers);
 
-        assertCommandBehavior("find KEY",
+        assertCommandBehavior("findPlayer KEY",
                 Command.getMessageForPlayerListShownSummary(expectedList),
                 expectedAb,
                 true,
@@ -480,7 +480,7 @@ public class LogicTest {
         List<Player> expectedList = helper.generatePlayerList(pTarget1, pTarget2);
         helper.addToAddressBook(addressBook, fourPlayers);
 
-        assertCommandBehavior("find KEY",
+        assertCommandBehavior("findPlayer KEY",
                 Command.getMessageForPlayerListShownSummary(expectedList),
                 expectedAb,
                 true,
@@ -500,7 +500,7 @@ public class LogicTest {
         List<Player> expectedList = helper.generatePlayerList(pTarget1, pTarget2);
         helper.addToAddressBook(addressBook, fourPlayers);
 
-        assertCommandBehavior("find KEY rAnDoM",
+        assertCommandBehavior("findPlayer KEY rAnDoM",
                 Command.getMessageForPlayerListShownSummary(expectedList),
                 expectedAb,
                 true,
@@ -622,11 +622,11 @@ public class LogicTest {
          * Creates a list of Persons based on the give Person objects.
          */
         List<Player> generatePlayerList(Player... players) throws Exception {
-            List<Player> personList = new ArrayList<>();
+            List<Player> playerList = new ArrayList<>();
             for (Player p : players) {
-                personList.add(p);
+                playerList.add(p);
             }
-            return personList;
+            return playerList;
         }
 
         /**
