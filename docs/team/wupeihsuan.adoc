@@ -22,7 +22,7 @@ It is written in Java.
 
 * *Minor enhancement*: added a status column that allows the user to navigate to previous commands using up/down keys.
 
-* *Code contributed*: [https://nuscs2113-ay1819s2.github.io/dashboard-beta/#search=WUPEIHSUAN&sort=displayName&since=2019-02-10&until=2019-03-26&timeframe=day&reverse=false&groupSelect=groupByRepos&breakdown=false&tabAuthor=WuPeiHsuan&tabRepo=CS2113-AY1819S2-T11-2_main_master[RepoSense]]
+* *Code contributed*: [https://nuscs2113-ay1819s2.github.io/dashboard-beta/#search=WUPEIHSUAN&sort=displayName&since=2019-02-10&until=2019-04-09&timeframe=day&reverse=false&groupSelect=groupByRepos&breakdown=false&tabAuthor=WuPeiHsuan&tabRepo=CS2113-AY1819S2-T11-2_main_master&repoSort=true[RepoSense]]
 
 * *Other contributions*:
 
