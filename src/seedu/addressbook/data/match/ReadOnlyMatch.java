@@ -3,6 +3,7 @@ package seedu.addressbook.data.match;
 import java.util.Set;
 
 import seedu.addressbook.data.player.Name;
+import seedu.addressbook.data.team.TeamName;
 
 /**
  * A read-only immutable interface for a match in the addressbook.
@@ -12,9 +13,9 @@ public interface ReadOnlyMatch {
 
     Date getDate();
 
-    Home getHome();
+    TeamName getHome();
 
-    Away getAway();
+    TeamName getAway();
 
     TicketSales getHomeSales();
 

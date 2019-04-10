@@ -5,6 +5,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.addressbook.data.player.Name;
+import seedu.addressbook.data.team.TeamName;
 
 /**
  * Represents a match in the address book.
@@ -13,8 +14,8 @@ import seedu.addressbook.data.player.Name;
 public class Match implements ReadOnlyMatch {
 
     private Date date;
-    private Home home;
-    private Away away;
+    private TeamName home;
+    private TeamName away;
     private TicketSales homeSales;
     private TicketSales awaySales;
 
@@ -24,7 +25,7 @@ public class Match implements ReadOnlyMatch {
     /**
      * Assumption: Every field must be present and not null.
      */
-    public Match(Date date, Home home, Away away, TicketSales homeSales, TicketSales awaySales,
+    public Match(Date date, TeamName home, TeamName away, TicketSales homeSales, TicketSales awaySales,
                  Set<Name> goalScorers, Set<Name> ownGoalScorers) {
         this.date = date;
         this.home = home;
@@ -49,12 +50,12 @@ public class Match implements ReadOnlyMatch {
     }
 
     @Override
-    public Home getHome() {
+    public TeamName getHome() {
         return home;
     }
 
     @Override
-    public Away getAway() {
+    public TeamName getAway() {
         return away;
     }
 
