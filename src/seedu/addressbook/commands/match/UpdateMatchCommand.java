@@ -79,5 +79,4 @@ public class UpdateMatchCommand extends Command {
         Set<Name> ownGoalscorers = updateMatchDescriptor.getOwnGoalScorers();
         return new Match(date, home, away, homeSales, awaySales, goalScorers, ownGoalscorers);
     }
-
 }
