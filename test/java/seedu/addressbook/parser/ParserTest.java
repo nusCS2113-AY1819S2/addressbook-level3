@@ -58,11 +58,7 @@ public class ParserTest {
         parseAndAssertCommandType(input, ListCommand.class);
     }
 
-    @Test
-    public void sortCommand_parsedCorrectly() {
-        final String input = "sort name";
-        parseAndAssertCommandType(input, SortCommand.class);
-    }
+
 
     @Test
     public void exitCommand_parsedCorrectly() {
@@ -283,6 +279,65 @@ public class ParserTest {
         return addCommand;
     }
 
+    //@@author WuPeiHsuan
+    /**
+     * Test sort command
+     */
+
+    @Test
+    public void sortCommand_parsedCorrectly() {
+        final String input = "sort name";
+        parseAndAssertCommandType(input, SortCommand.class);
+    }
+
+    @Test
+    public void sortCommand_invalidArgs() {
+        // no keywords
+        final String[] inputs = {
+                "sort",
+                "sort address",
+                "sort 123",
+                "sort Appointment"
+        };
+        final String resultMessage =
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+
+    /**
+     * Test invalid status
+     */
+    @Test
+    public void addCommand_invalidStatus() {
+        final String validName = Name.EXAMPLE;
+        final String validPhoneArg = "p/" + Phone.EXAMPLE;
+        final String validEmailArg = "e/" + Email.EXAMPLE;
+        final String anyAddress = "a/" + Address.EXAMPLE;
+        final String addCommandFormatString = "add $s $s $s $s $s $s $s";
+        final String validAppointmentArg = "m/" + Appointment.EXAMPLE;
+        final String validDoctorArg = "p/" + Doctor.EXAMPLE;
+        final String invalidStatus1 = "s/";
+        final String invalidStatus2 = "s/abc";
+        final String invalidStatus3 = "s/critical";
+
+        // test each incorrect person data field argument individually
+        final String[] inputs = {
+                // invalid status 1
+                String.format(addCommandFormatString, validName, validPhoneArg, validEmailArg, anyAddress, validAppointmentArg, validDoctorArg, invalidStatus1),
+                // invalid status 2
+                String.format(addCommandFormatString, validName, validPhoneArg, validEmailArg, anyAddress, validAppointmentArg, validDoctorArg, invalidStatus2),
+                // invalid status 3
+                String.format(addCommandFormatString, validName, validPhoneArg, validEmailArg, anyAddress, validAppointmentArg, validDoctorArg, invalidStatus3)
+
+        };
+
+        for (String input : inputs) {
+            parseAndAssertCommandType(input, IncorrectCommand.class);
+        }
+
+    }
+
+    //@@author
     /**
      * Utility methods
      */
