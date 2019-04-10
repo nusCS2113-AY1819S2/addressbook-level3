@@ -93,6 +93,7 @@ be seen using the `viewall` command.
 Persons can have any number of tags (including 0)
 ****
 
+Please input appointment times in blocks of 15minutes, and ensure that no repeated appointment timings.
 Examples:
 
 * `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01 m/2009 12 11 14 30 d/DoctorTan s/Observation`
