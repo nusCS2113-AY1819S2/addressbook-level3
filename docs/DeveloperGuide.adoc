@@ -34,9 +34,287 @@
 
 image::mainClassDiagram.png[]
 
+//@@author WuPeiHsuan
+
 == Testing
 
-* In IntelliJ, right-click on the `test` folder and choose `Run 'All Tests'`
+=== Running Tests
+
+There are two ways to run tests.
+
+*Method 1: Using IntelliJ JUnit test runner*
+
+* To run all tests, right-click on the `src/test/java` folder and choose `Run 'All Tests'`
+* To run a subset of tests, you can right-click on a test package, test class, or a test and choose `Run 'ABC'`
+
+*Method 2: Using Gradle*
+
+* Open a console and run the command `gradlew clean allTests` (Mac/Linux: `./gradlew clean allTests`)
+
+=== Types of tests
+
+.  *Non-GUI Tests* - These are tests not involving the GUI. They include,
+..  _Unit tests_ targeting the lowest level methods/classes. +
+e.g. `seedu.addressbook.common.UtilsTest`
+..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
+e.g. `seedu.addressbook.storage.StorageFileTest`
+..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
+e.g. `seedu.addressbook.logic.LogicTest`
+//@@author
+
+
+== Implementation
+
+This section describes some noteworthy details on how certain features are implemented.
+
+//@@author WuPeiHsuan
+=== Sort feature
+==== Current Implementation
+
+The sort mechanism is facilitated by `UniquePersonList` and `SortCommand`. `UniquePersonList` stores a list of all persons in the address book as an `internalList`. Additionally, it implements the following operations:
+
+* `UniquePersonList#SortByName()` -- Sort `internalList` by name column in alphabetical order
+* `SortCommand#getPersonsSortedByDate()` -- Return a list sorted by appointment column in chronological order
+* `SortCommand#getPersonsSortedByStatus()` -- Return a list sorted by status column according to the degree of urgency. The sequence of the status in this order is as follows: Critical, Waiting for Surgery, Life Support, Waiting for doctor appointment, Therapy and Observation.
+
+
+These operations are exposed in `AddressBook` as `AddressBook#sorted(String attribute)`. Corresponding operation will be called depending on attribute the user wants to sort the list by.
+
+Given below is two examples usage scenario and how the sort mechanism behaves at each step.
+
+Example 1:
+
+Step 1. The user launches the application for the first time. The `UniquePersonList` will be initialized with the initial address book state.
+
+Step 2. The user executes `add n/…` to add some new people. These people will be added sequentially to the end of the list.
+
+Step 3. The user then decides to execute the command `list`. Commands that do not modify the address book, such as list, will usually not call `AddressBook#sorted(String attribute)` . Thus, the `internalList` remains unchanged.
+
+Step 4. The user decides to view the list sorted by their name by executing the `sort name` command. This command will call `AddressBook#sorted(String attribute)` and pass the string “name” to the method. Since the value of parameter is “name”, `SortByName()` will be called. `internalList` will then be sorted by name column in alphabetical order. At last, `internalList` will be returned and displayed to the user.
+
+Example 2:
+
+Step 1. The user launches the application for the first time. The `UniquePersonList` will be initialized with the initial address book state.
+
+Step 2. The user executes `add n/…` to add some new people. These people will be added sequentially to the end of the list.
+
+Step 3. The user then decides to execute the command `list`. Commands that do not modify the address book, such as list, will usually not call `AddressBook#sorted(String attribute)` . Thus, the `internalList` remains unchanged.
+
+Step 4. The user decides to view the list sorted by their name by executing the `sort appointment` command. This command will call `SortCommand#execute()` and pass the string “appointment” to the method. Since the value of parameter is “appointment”, `SortCommand#getPersonsSortedByDate()` will be called. A list sorted by appointment column in chronological order will be returned and displayed to the user.
+
+
+=== Add Status feature
+==== Current Implementation
+
+the add status feature facilitated by the `Status` class, it implements the following operations:
+
+* `status(String)` -- The constructor for the class `Status`.
+* `toString()` -- Returns a String containing the name of the patient's status.
+* `isValidStatus()` -- Checks if if a given string is a valid status.
+* `equals(Object)` -- Checks if two patients' status are equal.
+* `isCorrectStatus()` -- Checks if if a given string is any of following status: Critical / Waiting for Surgery / Life Support / Waiting for doctor appointment / Therapy / Observation.
+
+In addition to the Appointment class, we update the ReadOnlyPerson interface and the Person class (which implements the interface) to ensure that every Person object is constructed with an Appointment class. To be specific, the following operations are added or updated.
+
+* `Person(Status status)` --  The class `Person` now requires a Status object during its construction.
+* `getStatus()` -- The class `Person` implements a method that returns the Status object of a Person.
+
+
+//@@author shawn-t
+=== Refer feature
+==== Current Implementation
+
+The refer feature is facilitated by the ReferCommand class and AddressBook class, and it implements the following operations:
+
+* `toRefer = new Person(
+             person.getName(),
+             person.getPhone(),
+             person.getEmail(),
+             person.getAddress(),
+             person.getAppointment(),
+             new Doctor("Dr Seuss"),
+             new Status("Referred"),
+             person.getTags()
+             );` -- Copies and modifies taget person's parameters
+* `addressBook.removePerson(person)` -- removes target person
+* `addressBook.addPerson(toRefer)` -- adds the edited person back into the addressbook
+
+Given below is an example usage scenario and how the refer feature is incorporated at each step.
+
+Step 1. The user executes command "refer john"
+
+Step 2. ReferCommand class looks through the Addressbook for all entries containing the keyword "john"
+
+Step 3. If there is only one entry, ReferCommand modifies the entry's Doctor and Status parameters, deletes the old and adds the newly modified patient into the addressbook. If there are multiple entires, ReferCommand class prints all entries in the address book with the keyword and prompts user to key unique keyword (Repeats to Step 1).
+
+Step4. The successful execution returns a MESSAGE_SUCCESS along with the patient's particulars that are updated.
+
+//@@author liguanlong
+
+=== Login/Register/Logout Feature 
+==== Current Implementation
+
+The login / register mechanism is facilitated by `AccountManager`, it implements the following operations:
+
+* `AccountManager()` -- The constructor for the class `AccountManager`.
+* `loadAccounts()` -- Loads all the account information from local storage.
+* `storeAccounts()` -- Stores all the account information to local storage.
+* `getLoginStatus()` -- Returns the login status to the caller.
+* `setLoginStatus(boolean)` -- Sets the login status according to the parameter.
+* `accountCommandHandler(String)` -- Handles the user input, checks if there is a match for username and password match if the user's command is `login`, trys to regster a new account if the user's command is `register`, returns a string to indicate the outcome.
+* `register(String, String)` -- Creates a new account for user.
+* `logout` --  Logs the user out of the system
+
+
+Given below is an example usage scenario and how the login/register/logout mechanism behaves at each step.
+
+Step 1. The user launches the application. The `AccountManager` will be initialized, `loadAccounts` will be called to load all the accounts to a `HashMap` from local storage, the `HashMap` is used to keep track of all the account information.
+
+Step2. The user executes `register Doe 123` command to register a new account with username Doe and password 123. The new username and the corresponding password will be temporarily put into the `HashMap`.
+
+Step3. The user executes `login Doe 123` command to login to the system, if the login is successful, `setLoginStatus` will be called to set the login status accordingly, and the user will then be able to start using the addressbook.
+
+Step4. The user executes some other commands.
+
+Step5. The user executes `logout` command, `setLoginStatus` will be called to set the login status accordingly, and the user will be directed back to the login page.
+
+Step6. The user terminates the program, `storeAccounts` will be called to store all the account information in the HashMap to the local storage.
+
+The following sequence diagram shows how the login/register/logout mechanism works:
+
+image:https://raw.githubusercontent.com/cs2113-ay1819s2-t11-2/main/master/docs/images/Login_Register_Logout_Sequence_Diagram.png[width=800,height=]
+
+The following activity diagram explains the behaviour of the system during the execution of login/register/logout command.
+
+image:https://raw.githubusercontent.com/cs2113-ay1819s2-t11-2/main/master/docs/images/Login_Register_Logout_dialog_map.png[width=800,height=]
+
+==== Design Considerations
+
+===== Aspect: Data structure to keep account information during runtime
+
+* **Alternative 1 (current choice):** Use a HashMap to keep the username password pairs.
+** Pros: Higher performance, O(1) for most of the operations.
+** Cons: Larger memory overhead.
+* ** Alternative 2:** Use a TreeMap to keep the username password pairs. 
+** Pros: Lower performance, O(log(n)) for most of the operations.
+** Cons: Less memory overhead.
+
+HashMap is used because memory is not a serious issue for this program as the program is not memory consuming in nature.
+  
+===== Aspect: File format to keep account information in local storage
+
+* **Alternative 1 (current choice):** Use a Java Properties file to store the username password pairs .
+** Pros: High readability, easy to implement as it only requires java.util package to work, small in file size.
+** Cons: Does not support hierarchical data structure well.
+* **Alternative 2:** Use a JSON file to store the username password pairs .
+** Pros: Key-vaule pair format, similar to HashMap.
+** Cons: Large in file size.
+* ** Alternative 3:** Use a CSV file to store the username password pairs.
+** Pros: Small in file size.
+** Cons: Complicated to convert to/from HashMap. 
+* ** Alternative 4:** Use a XML file to store the username password pairs
+** Pros: Compatible with HashMap. 
+** Cons: Large in file size.
+
+//@@matthiaslum
+
+//@@author matthiaslum
+
+=== Add Doctor feature
+==== Current Implementation
+
+the add doctor feature facilitated by the `Doctor` class, it implements the following operations:
+
+* `Doctor(String)` -- The constructor for the class `Doctor`.
+* `toString()` -- Returns a String containing the name of the patient's doctor.
+* `isValidName()` -- Checks if the date is alphanumeric.
+* `equals(Object)` -- Checks if two patients' doctors are equal.
+
+In addition to the Appointment class, we update the ReadOnlyPerson interface and the Person class (which implements the interface) to ensure that every Person object is constructed with an Appointment class. To be specific, the following operations are added or updated.
+
+* `Person(Doctor doctor)` --  The class `Person` now requires a Doctor object during its construction.
+* `getDoctor()` -- The class `Person` implements a method that returns the Doctor object of a Person.
+* `getAsTextShowAll()` -- This operation is updated to allow a person's doctor to be printed when an addresbook's lastShownList is printed onto the UI.
+
+The example usage scenario is similar to the scenario of the Add appointment feature below.
+
+=== Add appointment feature 
+==== Current Implementation
+
+the add appointment feature is facilitated by the `Appointment` class, it implements the following operations:
+
+* `Appointment(String)` -- The constructor for the class `Appointment`.
+* `toString()` -- Returns a String containing the date of the appointment.
+* `isValidDate()` -- Checks if the date is alphanumeric.
+* `equals(Object)` -- Checks if two appointment dates are equal.
+
+In addition to the Appointment class, we update the ReadOnlyPerson interface and the Person class (which implements the interface) to ensure that every Person object is constructed with an Appointment class. To be specific, the following operations are added or updated.
+
+* `Person(Apppointment appointment)` --  The class `Person` now requires an Appointment object during its construction.
+* `getAppointment()` -- The class `Person` implements a method that returns the Appointment object of a Person.
+* `getAsTextShowAll()` -- This operation is updated to allow a person's appointment date to be printed when an addresbook's lastShownList is printed onto the UI.
+
+Next, the parser is updated to recognize user input corresponding to the Appointment object of a person. It works together with an updated `Add` Command. When adding a new person through the add command, the user has to write `m/APPOINTMENTDATE' to signify the `Appointment` portion of a `Person`. 
+
+Given below is an example usage scenario and how the `Appointment` feature is incorporated at each step.
+
+Step 1. The user executes command `Add NAME [p]p/PHONE [p]e/EMAIL [p]a/ADDRESS m/APPOINTMENT [t/TAG]...\n\t"`
+
+Step 2. The parser parses the user command, and creates the relevant object for `Appointment`, `Address` etc, and a new `Person` object is constructed. The `Logic` class executes the `AddCommand` with the prepared arguments. 
+
+Step 3. The `Addressbook` trys to add the new person into the `uniquePersonList`. But first, the `uniquePersonList` checks if the new Person object is a duplicate of an existing Person object in the Addressbook. If the Person is not a duplicate, it is added into the Addresbook and the Addressbook is saved.
+
+Step4. The successful execution returns a MESSAGE_SUCCESS along with the added person. The MainWindow displays the result and prints the added person into the GUI.
+
+=== DoctorAppointments command 
+==== Current Implementation
+
+This is a new command, that is executed as `DoctorAppointments DOCTORNAME`. It finds all Persons in the addressbook that are assigned to a doctor with the same name as DOCTORNAME. Then, it prints out a list of them sorted according to Appointment dates. The first person from the top has the earliest appointment date. Let us split the implementation documentation into two parts. (1) Returning a list of persons corresponding to the user input's name of the doctor in chronological order. (2)Printing only the relevant information of these persons in a neat manner similar to a time-table.
+
+For the first part, finding and sorting the list of corresponding persons is facilitated by the `DoctorAppointmentsCommand` class and the `Person` class. The following operations are implemented in the `DoctorAppointmentsCommand` class.
+
+* `execute()` -- Upon execution, a new `Indicator` class stores information indicating that `DoctorAppointmentsCommand` is the most recently invoked command. Then, the following method `getPersonsWithNameContainingAnyKeyword(keywords)` is called. 
+* `getPersonsWithNameContainingAnyKeyword(keywords)` -- This method is adapted from the `FindCommand` class method. In addition to the original command, this method utilizes the package on LocalDate and Collections.Sort. This method updates a `LocalDate` field in a `Person` object (to be explained in the next paragraph). This method also calls SortDate() which is a separate sorting class that helps to compare `LocalDate` dates and sort them based on chronological order. This method returns an ArrayList of Persons that have the doctor's name corresponding to the user input's doctor. The ArrayList is sorted based on their appointment dates.
+
+We update the `Person` class to contain an additional field `LocalDate date` which is originally set to null for every person in the addressbook. Then the following getters and setters are implemented in the `Person` class and their method signatures are updated in the `ReadOnlyPerson` interface.
+
+* `getLocalDate()`
+* `setLocalDate()`
+
+Given below is an example usage scenario and how the Persons corresponding to a certain doctor are sorted and listed in Chronological order.
+
+Step 1. The user executes command `DoctorAppointments DOCTORNAME"`
+
+Step 2. The parser parses the command and prepares the keyword arguments for the `DoctorAppointmentsCommand` class. 
+
+Step 3. `DoctorAppointmentsCommand` is executed and the `Indicator` class records that this is the most recently invoked command. The execute command calls `getPersonsWithNameContainingAnyKeyword(keywords)`. For every Person in the existing addressbook, the Doctor's name is checked against the keyword (containing DOCTORNAME). If the doctor's name of the Person corresponds to DOCTORNAME, the `LocalDate` class parses the person's appointment date, and the Person's `LocalDate` date field is set to be the parsed appointment date.
+
+Step 4. The person is added into the matchedPersons list.
+
+Step 5. The list of matchedPersons are sorted based on the `Localdate` date field in each person.
+
+Step 6. The sorted list of matchedPersons are returned and displayed in a table format (explained in second part)
+
+For the second part of the implementation, we discuss how the list of matchedPersons is formatted to print in a certain manner. To facilitate the printing, we mainly update the format() method of the UI `Formatter` class. 
+
+To facilitate the update, a new `Indicator` class is created and a new method is implemented in the `ReadonlyPerson` interface.
+
+* `Indicator.setLastCommand(String)` --when called, stores a String that records the last invoked user Command.
+* `Indicator.getLastCommand()` --when called, provides information on the last invoked user Command.
+* `getAsTextNameDateDoctor()` --This is a method of the `ReadOnlyPerson` interface. It is a new String builder that builds a String of information about the Person. The information contains only the name and appointment date of the person. The String is padded on the right with whitespace to ensure a tabular format.
+
+The UI `Formatter` is updated in the following way.
+* `format(Persons)` --Checks if the last invoked user Command is the `DoctorAppointmentsCommand`. If it is, calls the new String builder method `getAsTextNameDateDoctor()` for each Person to be formatted.
+
+Given below is an example usage scenario and the formatter formats the Person to be printed in a tabular format. It continues from Step 6 above. 
+
+Step 7. When the dispay method is called in step 6, the format method in `Formatter` is called. 
+
+Step 8. A separate String builder method getAsTextNameDateDoctor() is called, and the String is padded on the right by whitespace. 
+
+Step 9. The `MainWindow` displays the newly formatted Persons in neat rows, displaying only the relevant information on Name and Appointment Date.
+
+//@@author
 
 [appendix]
 == User Stories
@@ -259,229 +537,6 @@ Use case ends.
 . AddressBook cloese and quits the application.
 +
 Use case ends.
-
-== Implementation
-
-This section describes some noteworthy details on how certain features are implemented.
-
-//@@author WuPeiHsuan
-=== Sort feature
-==== Current Implementation
-
-The sort mechanism is facilitated by `UniquePersonList`. It stores a list of all persons in the address book as an `internalList`. Additionally, it implements the following operations:
-
-* `UniquePersonList#SortByName()` -- Sort `internalList` by name column in alphabetical order
-* `UniquePersonList#SortByAppointment()` -- Sort `internalList` by appointment column in chronological order
-* `UniquePersonList#SortByStatus()` -- Sort `internalList` by status column according to the degree of urgency. The sequence of the status in this order is as follows: Critical, Waiting for Surgery, Life-support, Waiting for doctor appointment, Therapy and Observation.
-
-
-These operations are exposed in `AddressBook` as `AddressBook#sorted(String attribute)`. Corresponding operation will be called depending on attribute the user wants to sort the list by.
-
-Given below is an example usage scenario and how the sort mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `UniquePersonList` will be initialized with the initial address book state.
-
-Step 2. The user executes `add n/…` to add some new people. These people will be added sequentially to the end of the list.
-
-Step 3. The user then decides to execute the command `list`. Commands that do not modify the address book, such as list, will usually not call `AddressBook#sorted(String attribute)` . Thus, the `internalList` remains unchanged.
-
-Step 4. The user decides to view the list sorted by their name by executing the `sort name` command. This command will call `AddressBook#sorted(String attribute)` and pass the string “name” to the method. Since the value of parameter is “name”, `SortByName()` will be called. `internalList` will then be sorted by name column in alphabetical order. At last, `internalList` will be returned and displayed to the user.
-
-//@@author shawn-t
-=== Refer feature
-==== Current Implementation
-
-The refer feature is facilitated by the ReferCommand class and AddressBook class, and it implements the following operations:
-
-* `toRefer = new Person(
-             person.getName(),
-             person.getPhone(),
-             person.getEmail(),
-             person.getAddress(),
-             person.getAppointment(),
-             new Doctor("Dr Seuss"),
-             new Status("Referred"),
-             person.getTags()
-             );` -- Copies and modifies taget person's parameters
-* `addressBook.removePerson(person)` -- removes target person
-* `addressBook.addPerson(toRefer)` -- adds the edited person back into the addressbook
-
-Given below is an example usage scenario and how the refer feature is incorporated at each step.
-
-Step 1. The user executes command "refer john"
-
-Step 2. ReferCommand class looks through the Addressbook for all entries containing the keyword "john"
-
-Step 3. If there is only one entry, ReferCommand modifies the entry's Doctor and Status parameters, deletes the old and adds the newly modified patient into the addressbook. If there are multiple entires, ReferCommand class prints all entries in the address book with the keyword and prompts user to key unique keyword (Repeats to Step 1).
-
-Step4. The successful execution returns a MESSAGE_SUCCESS along with the patient's particulars that are updated.
-
-//@@author liguanlong
-
-=== Login/Register/Logout Feature 
-==== Current Implementation
-
-The login / register mechanism is facilitated by `AccountManager`, it implements the following operations:
-
-* `AccountManager()` -- The constructor for the class `AccountManager`.
-* `loadAccounts()` -- Loads all the account information from local storage.
-* `storeAccounts()` -- Stores all the account information to local storage.
-* `getLoginStatus()` -- Returns the login status to the caller.
-* `setLoginStatus(boolean)` -- Sets the login status according to the parameter.
-* `accountCommandHandler(String)` -- Handles the user input, checks if there is a match for username and password match if the user's command is `login`, trys to regster a new account if the user's command is `register`, returns a string to indicate the outcome.
-* `register(String, String)` -- Creates a new account for user.
-* `logout` --  Logs the user out of the system
-
-
-Given below is an example usage scenario and how the login/register/logout mechanism behaves at each step.
-
-Step 1. The user launches the application. The `AccountManager` will be initialized, `loadAccounts` will be called to load all the accounts to a `HashMap` from local storage, the `HashMap` is used to keep track of all the account information.
-
-Step2. The user executes `register Doe 123` command to register a new account with username Doe and password 123. The new username and the corresponding password will be temporarily put into the `HashMap`.
-
-Step3. The user executes `login Doe 123` command to login to the system, if the login is successful, `setLoginStatus` will be called to set the login status accordingly, and the user will then be able to start using the addressbook.
-
-Step4. The user executes some other commands.
-
-Step5. The user executes `logout` command, `setLoginStatus` will be called to set the login status accordingly, and the user will be directed back to the login page.
-
-Step6. The user terminates the program, `storeAccounts` will be called to store all the account information in the HashMap to the local storage.
-
-The following sequence diagram shows how the login/register/logout mechanism works:
-
-image:https://raw.githubusercontent.com/cs2113-ay1819s2-t11-2/main/master/docs/images/Login_Register_Logout_Sequence_Diagram.png[width=800,height=]
-
-The following activity diagram explains the behaviour of the system during the execution of login/register/logout command.
-
-image:https://raw.githubusercontent.com/cs2113-ay1819s2-t11-2/main/master/docs/images/Login_Register_Logout_dialog_map.png[width=800,height=]
-
-==== Design Considerations
-
-===== Aspect: Data structure to keep account information during runtime
-
-* **Alternative 1 (current choice):** Use a HashMap to keep the username password pairs.
-** Pros: Higher performance, O(1) for most of the operations.
-** Cons: Larger memory overhead.
-* ** Alternative 2:** Use a TreeMap to keep the username password pairs. 
-** Pros: Lower performance, O(log(n)) for most of the operations.
-** Cons: Less memory overhead.
-
-HashMap is used because memory is not a serious issue for this program as the program is not memory consuming in nature.
-  
-===== Aspect: File format to keep account information in local storage
-
-* **Alternative 1 (current choice):** Use a Java Properties file to store the username password pairs .
-** Pros: High readability, easy to implement as it only requires java.util package to work, small in file size.
-** Cons: Does not support hierarchical data structure well.
-* **Alternative 2:** Use a JSON file to store the username password pairs .
-** Pros: Key-vaule pair format, similar to HashMap.
-** Cons: Large in file size.
-* ** Alternative 3:** Use a CSV file to store the username password pairs.
-** Pros: Small in file size.
-** Cons: Complicated to convert to/from HashMap. 
-* ** Alternative 4:** Use a XML file to store the username password pairs
-** Pros: Compatible with HashMap. 
-** Cons: Large in file size.
-
-//@@matthiaslum
-
-//@@author matthiaslum
-
-=== Add Doctor feature
-==== Current Implementation
-
-the add doctor feature facilitated by the `Doctor` class, it implements the following operations:
-
-* `Doctor(String)` -- The constructor for the class `Doctor`.
-* `toString()` -- Returns a String containing the name of the patient's doctor.
-* `isValidName()` -- Checks if the date is alphanumeric.
-* `equals(Object)` -- Checks if two patients' doctors are equal.
-
-In addition to the Appointment class, we update the ReadOnlyPerson interface and the Person class (which implements the interface) to ensure that every Person object is constructed with an Appointment class. To be specific, the following operations are added or updated.
-
-* `Person(Doctor doctor)` --  The class `Person` now requires a Doctor object during its construction.
-* `getDoctor()` -- The class `Person` implements a method that returns the Doctor object of a Person.
-* `getAsTextShowAll()` -- This operation is updated to allow a person's doctor to be printed when an addresbook's lastShownList is printed onto the UI.
-
-The example usage scenario is similar to the scenario of the Add appointment feature below.
-
-=== Add appointment feature 
-==== Current Implementation
-
-the add appointment feature is facilitated by the `Appointment` class, it implements the following operations:
-
-* `Appointment(String)` -- The constructor for the class `Appointment`.
-* `toString()` -- Returns a String containing the date of the appointment.
-* `isValidDate()` -- Checks if the date is alphanumeric.
-* `equals(Object)` -- Checks if two appointment dates are equal.
-
-In addition to the Appointment class, we update the ReadOnlyPerson interface and the Person class (which implements the interface) to ensure that every Person object is constructed with an Appointment class. To be specific, the following operations are added or updated.
-
-* `Person(Apppointment appointment)` --  The class `Person` now requires an Appointment object during its construction.
-* `getAppointment()` -- The class `Person` implements a method that returns the Appointment object of a Person.
-* `getAsTextShowAll()` -- This operation is updated to allow a person's appointment date to be printed when an addresbook's lastShownList is printed onto the UI.
-
-Next, the parser is updated to recognize user input corresponding to the Appointment object of a person. It works together with an updated `Add` Command. When adding a new person through the add command, the user has to write `m/APPOINTMENTDATE' to signify the `Appointment` portion of a `Person`. 
-
-Given below is an example usage scenario and how the `Appointment` feature is incorporated at each step.
-
-Step 1. The user executes command `Add NAME [p]p/PHONE [p]e/EMAIL [p]a/ADDRESS m/APPOINTMENT [t/TAG]...\n\t"`
-
-Step 2. The parser parses the user command, and creates the relevant object for `Appointment`, `Address` etc, and a new `Person` object is constructed. The `Logic` class executes the `AddCommand` with the prepared arguments. 
-
-Step 3. The `Addressbook` trys to add the new person into the `uniquePersonList`. But first, the `uniquePersonList` checks if the new Person object is a duplicate of an existing Person object in the Addressbook. If the Person is not a duplicate, it is added into the Addresbook and the Addressbook is saved.
-
-Step4. The successful execution returns a MESSAGE_SUCCESS along with the added person. The MainWindow displays the result and prints the added person into the GUI.
-
-=== DoctorAppointments command 
-==== Current Implementation
-
-This is a new command, that is executed as `DoctorAppointments DOCTORNAME`. It finds all Persons in the addressbook that are assigned to a doctor with the same name as DOCTORNAME. Then, it prints out a list of them sorted according to Appointment dates. The first person from the top has the earliest appointment date. Let us split the implementation documentation into two parts. (1) Returning a list of persons corresponding to the user input's name of the doctor in chronological order. (2)Printing only the relevant information of these persons in a neat manner similar to a time-table.
-
-For the first part, finding and sorting the list of corresponding persons is facilitated by the `DoctorAppointmentsCommand` class and the `Person` class. The following operations are implemented in the `DoctorAppointmentsCommand` class.
-
-* `execute()` -- Upon execution, a new `Indicator` class stores information indicating that `DoctorAppointmentsCommand` is the most recently invoked command. Then, the following method `getPersonsWithNameContainingAnyKeyword(keywords)` is called. 
-* `getPersonsWithNameContainingAnyKeyword(keywords)` -- This method is adapted from the `FindCommand` class method. In addition to the original command, this method utilizes the package on LocalDate and Collections.Sort. This method updates a `LocalDate` field in a `Person` object (to be explained in the next paragraph). This method also calls SortDate() which is a separate sorting class that helps to compare `LocalDate` dates and sort them based on chronological order. This method returns an ArrayList of Persons that have the doctor's name corresponding to the user input's doctor. The ArrayList is sorted based on their appointment dates.
-
-We update the `Person` class to contain an additional field `LocalDate date` which is originally set to null for every person in the addressbook. Then the following getters and setters are implemented in the `Person` class and their method signatures are updated in the `ReadOnlyPerson` interface.
-
-* `getLocalDate()`
-* `setLocalDate()`
-
-Given below is an example usage scenario and how the Persons corresponding to a certain doctor are sorted and listed in Chronological order.
-
-Step 1. The user executes command `DoctorAppointments DOCTORNAME"`
-
-Step 2. The parser parses the command and prepares the keyword arguments for the `DoctorAppointmentsCommand` class. 
-
-Step 3. `DoctorAppointmentsCommand` is executed and the `Indicator` class records that this is the most recently invoked command. The execute command calls `getPersonsWithNameContainingAnyKeyword(keywords)`. For every Person in the existing addressbook, the Doctor's name is checked against the keyword (containing DOCTORNAME). If the doctor's name of the Person corresponds to DOCTORNAME, the `LocalDate` class parses the person's appointment date, and the Person's `LocalDate` date field is set to be the parsed appointment date.
-
-Step 4. The person is added into the matchedPersons list.
-
-Step 5. The list of matchedPersons are sorted based on the `Localdate` date field in each person.
-
-Step 6. The sorted list of matchedPersons are returned and displayed in a table format (explained in second part)
-
-For the second part of the implementation, we discuss how the list of matchedPersons is formatted to print in a certain manner. To facilitate the printing, we mainly update the format() method of the UI `Formatter` class. 
-
-To facilitate the update, a new `Indicator` class is created and a new method is implemented in the `ReadonlyPerson` interface.
-
-* `Indicator.setLastCommand(String)` --when called, stores a String that records the last invoked user Command.
-* `Indicator.getLastCommand()` --when called, provides information on the last invoked user Command.
-* `getAsTextNameDateDoctor()` --This is a method of the `ReadOnlyPerson` interface. It is a new String builder that builds a String of information about the Person. The information contains only the name and appointment date of the person. The String is padded on the right with whitespace to ensure a tabular format.
-
-The UI `Formatter` is updated in the following way.
-* `format(Persons)` --Checks if the last invoked user Command is the `DoctorAppointmentsCommand`. If it is, calls the new String builder method `getAsTextNameDateDoctor()` for each Person to be formatted.
-
-Given below is an example usage scenario and the formatter formats the Person to be printed in a tabular format. It continues from Step 6 above. 
-
-Step 7. When the dispay method is called in step 6, the format method in `Formatter` is called. 
-
-Step 8. A separate String builder method getAsTextNameDateDoctor() is called, and the String is padded on the right by whitespace. 
-
-Step 9. The `MainWindow` displays the newly formatted Persons in neat rows, displaying only the relevant information on Name and Appointment Date.
-
-//@@author
 
 [appendix]
 == Non Functional Requirements
