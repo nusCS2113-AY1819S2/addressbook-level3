@@ -12,7 +12,7 @@ import seedu.addressbook.data.player.ReadOnlyPlayer;
  */
 public class ViewAllCommand extends Command {
 
-    public static final String COMMAND_WORD = "viewall";
+    public static final String COMMAND_WORD = "displayProfile";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Shows all details of the player "
             + "identified by the index number in the last shown player listing.\n\t"

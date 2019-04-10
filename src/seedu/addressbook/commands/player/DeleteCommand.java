@@ -12,7 +12,7 @@ import seedu.addressbook.data.player.UniquePlayerList;
  */
 public class DeleteCommand extends Command {
 
-    public static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_WORD = "deletePlayer";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
             + "Deletes the player identified by the index number used in the last player listing.\n\t"

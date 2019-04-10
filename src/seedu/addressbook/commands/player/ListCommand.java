@@ -12,7 +12,7 @@ import seedu.addressbook.data.player.ReadOnlyPlayer;
  */
 public class ListCommand extends Command {
 
-    public static final String COMMAND_WORD = "list";
+    public static final String COMMAND_WORD = "listPlayer";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
             + "Displays all players in the league as a list with index numbers.\n\t"

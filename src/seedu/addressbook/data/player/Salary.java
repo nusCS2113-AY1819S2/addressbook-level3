@@ -34,7 +34,7 @@ public class Salary {
     public static boolean isValidSalary(String test) {
         try {
             Double i = Double.parseDouble(test);
-            return (test.matches(SALARY_VALIDATION_REGEX) && i >= 0);
+            return (test.matches(SALARY_VALIDATION_REGEX) && i > 0);
         } catch (NumberFormatException nfe) {
             return false;
         }
