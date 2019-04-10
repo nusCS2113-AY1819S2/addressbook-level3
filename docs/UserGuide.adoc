@@ -75,7 +75,7 @@ items with `...` after them can have multiple instances. Order of parameters are
 Note that the appointment date must be in the format of YYYY MM DD HH MM, in other for the DoctorAppointment Command to work.
 The hour and minute follows the 24hour clock format. Incorrect time formats will throw an error in parsing.
 
-The status must be any of following status: Critical / Waiting for Surgery / Life-support / Waiting for doctor appointment / Therapy / Observation.
+The status must be any of following status: Critical / Waiting for Surgery / Life Support / Waiting for doctor appointment / Therapy / Observation.
 
 Put a `p` before the phone / email / address prefixes to mark it as `private`. `private` details can only
 be seen using the `viewall` command.
@@ -104,10 +104,11 @@ Refers patient to Dr Seuss if there is only one entry and shows a success messag
 if there are multiple entries, prints all patients in the address book with the keyword and prompts user to key unique keyword. +
 Format: `refer John`
 
+//@@author WuPeiHsuan
 == Listing all persons in sorted order : `sort`
 
 Shows a list of all persons sorted by desired attribute in alphabetical order in the address book. +
-Desired attribute could be name, appointment or status. +
+Desired attribute must be name, appointment or status. +
 Format: `sort DESIRED_ATTRIBUTE`
 
 Examples:
@@ -121,6 +122,8 @@ The sequence of the status in this order is as follows: Critical, Waiting for Su
 
 * `sort appointment` +
 Shows a list of all persons sorted by appointment date in chronological order in the address book.
+
+//@@author
 
 == Listing all appointments of a Doctor : `DoctorAppointments`
 
