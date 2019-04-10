@@ -28,6 +28,9 @@ public class UniquePlayerList implements Iterable<Player> {
         }
     }
 
+    /**
+     * Signals that an operation would have violated the 'no duplicated jn` property
+     */
     public static class DuplicateJerseyInSameTeamException extends DuplicateDataException {
         protected DuplicateJerseyInSameTeamException() {
             super("Operation would result in duplicate jersey numbers in the same team");
@@ -112,7 +115,7 @@ public class UniquePlayerList implements Iterable<Player> {
      */
     public boolean containsSameJnSameTm(ReadOnlyPlayer toCheck) {
         for (Player player: internalList) {
-            if(player.getTeamName().toString().equals(toCheck.getTeamName().toString())) {
+            if (player.getTeamName().toString().equals(toCheck.getTeamName().toString())) {
                 if (player.getJerseyNumber().toString().equals(toCheck.getJerseyNumber().toString())) {
                     return true;
                 }

@@ -10,12 +10,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+
 import seedu.addressbook.data.match.ReadOnlyMatch;
 import seedu.addressbook.data.player.Name;
 
@@ -136,13 +136,13 @@ public class MatchApachePoiWriter {
 
     /**
      * create the String of all goal scorers in a match
-     * @param GoalScorers a List of Name objects of all goal scorers in a match
+     * @param goalScorers a List of Name objects of all goal scorers in a match
      * @return a comma-separated string with names of all goalScorers in a match
      */
-    private String createGoalScorerString(List<Name> GoalScorers) {
+    private String createGoalScorerString(List<Name> goalScorers) {
         String finalGsString = "";
 
-        for (Name name : GoalScorers) {
+        for (Name name : goalScorers) {
             finalGsString = finalGsString.concat(name.toString() + ", ");
         }
 
@@ -151,17 +151,17 @@ public class MatchApachePoiWriter {
 
     /**
      * create the String of all own goal scorers in a match
-     * @param OwnGoalScorers a List of Name objects of all own-goal scorers in a match
+     * @param ownGoalScorers a List of Name objects of all own-goal scorers in a match
      * @return a comma-separated string with names of all own-goal scorers in a match
      */
-    private String createOwnGoalScorerString(List<Name> OwnGoalScorers) {
-        String finalOGSString = "";
+    private String createOwnGoalScorerString(List<Name> ownGoalScorers) {
+        String finalOgsString = "";
 
-        for (Name name : OwnGoalScorers) {
-            finalOGSString = finalOGSString.concat(name.toString() + ", ");
+        for (Name name : ownGoalScorers) {
+            finalOgsString = finalOgsString.concat(name.toString() + ", ");
         }
 
-        return finalOGSString;
+        return finalOgsString;
     }
 
 }

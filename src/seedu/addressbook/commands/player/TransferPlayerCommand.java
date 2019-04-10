@@ -31,8 +31,8 @@ public class TransferPlayerCommand extends Command {
                     + "The jersey number in destination team must be available \n"
                     + "Destination team cannot be the same as player's current team";
 
-    public static final String MESSAGE_SUCCESS = "Player %1$s is successfully transferred from %2$s to %3$s, " +
-            "%1$s 's new jersey number is %4$s";
+    public static final String MESSAGE_SUCCESS = "Player %1$s is successfully transferred from %2$s to %3$s, "
+            + "%1$s 's new jersey number is %4$s";
     public static final String MESSAGE_PLAYER_NOT_FOUND = "This player %1$s does not exist in the league tracker";
     public static final String MESSAGE_NO_SUCH_TEAM = "This team %1$s does not exist, please enter an existing team";
     public static final String MESSAGE_DESTINATION_IS_CURRENT = "Destination team is same as current team %1$s";
@@ -137,7 +137,7 @@ public class TransferPlayerCommand extends Command {
      * restores the oldPlayer removed during transfer
      * @param oldPlayer player before transfer
      */
-    private void restoreRemovedPlayer(Player oldPlayer){
+    private void restoreRemovedPlayer(Player oldPlayer) {
         try {
             addressBook.addPlayer(oldPlayer);
         } catch (UniquePlayerList.DuplicatePlayerException dpe) {
