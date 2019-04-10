@@ -1,5 +1,6 @@
 package seedu.addressbook.commands;
 
+import seedu.addressbook.commands.finance.ExportFinanceCommand;
 import seedu.addressbook.commands.finance.GetFinanceCommand;
 import seedu.addressbook.commands.finance.GetLeagueFinanceCommand;
 import seedu.addressbook.commands.finance.ListFinanceCommand;
@@ -8,6 +9,7 @@ import seedu.addressbook.commands.finance.ViewFinanceCommand;
 import seedu.addressbook.commands.match.AddMatchCommand;
 import seedu.addressbook.commands.match.ClearMatchCommand;
 import seedu.addressbook.commands.match.DeleteMatchCommand;
+import seedu.addressbook.commands.match.ExportMatchCommand;
 import seedu.addressbook.commands.match.FindMatchCommand;
 import seedu.addressbook.commands.match.ListMatchCommand;
 import seedu.addressbook.commands.player.AddCommand;
@@ -128,6 +130,10 @@ public class HelpCommand extends Command {
             + "------------------------------------------------- \n"
             + "3.5 Show all details of the finance of the team"
             + "\n" + ViewFinanceCommand.MESSAGE_USAGE
+            + "-----------------------------------------------------"
+            + "------------------------------------------------- \n"
+            + "3.6 Export all finance records into an Excel File"
+            + "\n" + ExportFinanceCommand.MESSAGE_USAGE
             + "\n"
             + "================================================================================= \n" + "\n"
             + "4. Commands on Finance in League Tracker \n" + "\n"
@@ -149,6 +155,10 @@ public class HelpCommand extends Command {
             + "-------------------------------------------------- \n"
             + "4.5 List all matches in League Tracker"
             + "\n" + ListMatchCommand.MESSAGE_USAGE + "\n"
+            + "-----------------------------------------------------"
+            + "------------------------------------------------- \n"
+            + "4.6 Export all match information in League Tracker to an Excel File"
+            + "\n" + ExportMatchCommand.MESSAGE_USAGE + "\n"
             + "================================================================================= \n" + "\n"
             + "5. General commands in League Tracker \n" + "\n"
             + "5.1 Display a help sheet"

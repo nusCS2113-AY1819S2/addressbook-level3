@@ -71,7 +71,8 @@ public class AddressBook {
      *
      * @throws DuplicatePlayerException if an equivalent player already exists.
      */
-    public void addPlayer(Player toAdd) throws DuplicatePlayerException {
+    public void addPlayer(Player toAdd) throws DuplicatePlayerException,
+            UniquePlayerList.DuplicateJerseyInSameTeamException {
         allPlayers.add(toAdd);
         for (Team team : allTeams) {
             if (team.getTeamName().toString().equals((toAdd.getTeamName().toString()))) {
