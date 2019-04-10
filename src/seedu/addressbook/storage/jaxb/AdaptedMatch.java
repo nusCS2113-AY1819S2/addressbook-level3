@@ -9,13 +9,12 @@ import javax.xml.bind.annotation.XmlElement;
 
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.match.Away;
 import seedu.addressbook.data.match.Date;
-import seedu.addressbook.data.match.Home;
 import seedu.addressbook.data.match.Match;
 import seedu.addressbook.data.match.ReadOnlyMatch;
 import seedu.addressbook.data.match.TicketSales;
 import seedu.addressbook.data.player.Name;
+import seedu.addressbook.data.team.TeamName;
 
 /**
  * JAXB-friendly adapted match data holder class.
@@ -52,9 +51,9 @@ public class AdaptedMatch {
     public AdaptedMatch(ReadOnlyMatch source) {
         date = source.getDate().fullDate;
 
-        home = source.getHome().fullHome;
+        home = source.getHome().fullName;
 
-        away = source.getAway().fullAway;
+        away = source.getAway().fullName;
 
         homeSales = source.getHomeSales().value;
 
@@ -109,8 +108,8 @@ public class AdaptedMatch {
             ownGoalScorers.add(player.toModelType());
         }
         final Date date = new Date(this.date);
-        final Home home = new Home(this.home);
-        final Away away = new Away(this.away);
+        final TeamName home = new TeamName(this.home);
+        final TeamName away = new TeamName(this.away);
         final TicketSales homeSales = new TicketSales(this.homeSales);
         final TicketSales awaySales = new TicketSales(this.awaySales);
         return new Match(date, home, away, homeSales, awaySales, goalScorers, ownGoalScorers);

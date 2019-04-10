@@ -7,15 +7,14 @@ import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.match.Away;
 import seedu.addressbook.data.match.Date;
-import seedu.addressbook.data.match.Home;
 import seedu.addressbook.data.match.Match;
 import seedu.addressbook.data.match.ReadOnlyMatch;
 import seedu.addressbook.data.match.TicketSales;
 import seedu.addressbook.data.match.UniqueMatchList.MatchNotFoundException;
 import seedu.addressbook.data.match.UpdateMatchDescriptor;
 import seedu.addressbook.data.player.Name;
+import seedu.addressbook.data.team.TeamName;
 
 /**
  * Updates a match identified using it's last displayed index from the address book.
@@ -72,13 +71,12 @@ public class UpdateMatchCommand extends Command {
                                          UpdateMatchDescriptor updateMatchDescriptor) {
 
         Date date = target.getDate();
-        Home home = target.getHome();
-        Away away = target.getAway();
+        TeamName home = target.getHome();
+        TeamName away = target.getAway();
         TicketSales homeSales = updateMatchDescriptor.getHomeSales();
         TicketSales awaySales = updateMatchDescriptor.getAwaySales();
         Set<Name> goalScorers = updateMatchDescriptor.getGoalScorers();
         Set<Name> ownGoalscorers = updateMatchDescriptor.getOwnGoalScorers();
         return new Match(date, home, away, homeSales, awaySales, goalScorers, ownGoalscorers);
     }
-
 }
