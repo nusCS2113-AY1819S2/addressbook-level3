@@ -1,0 +1,184 @@
+= Matthias Lum - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images/matthiaslum.png
+:stylesDir: ../stylesheets
+
+== PROJECT: Doctor on Call
+
+---
+
+== Overview
+
+Doctor on Call is a secure desktop address book application used for doctors to keep records of their patients' details, status and appointment details. The doctor logs in with his username and password. He interacts with it using a CLI and can  print a timetable showing him a list of all patients who have appointments with him. He is also able to refer patients to other doctors. Do note that the "person" in the traditional addresbook shall now be named patient.
+
+== Summary of contributions
+
+* *Major enhancement*: added a `DoctorsAppointment` command that generates a timetable for the doctor, displaying in chronological order the appointments he has.
+** What it does: First, it searches for all patients who are patients of this doctor. Then, it sorts them by their appointment date. Lastly, it removes the unimportant information of the patient and displays it on the UI.
+** Justification: This feature improves the productivity and time management skills of a doctor because in one glance, he is able to see all the appointments that he has. 
+** Highlights: This enhancement required the implementation of new attributes to a person. Two new columns were added to store the information about the doctor and the appointment date. It required changes to the existing add command and in-depth analysis of the parser, logic, person and mainwindow classes. The implementation of this command utilized several methods and packages such as the LocalDateTime package. The methods used to implement the new classes here were studied and used by other team members, especially for the `SortAppointment` command.
+
+** Credits: _{utilized the Java package LocalDateTime, and adapted much code from the name class corresponding to a person}_
+
+* *Minor enhancement*: added two new columns that allows a doctor to add appointment date and doctors corresponding to a patient.
+
+* *Code contributed*: [https://nuscs2113-ay1819s2.github.io/dashboard-beta/#search=&sort=displayName&since=2019-02-10&until=2019-03-26&timeframe=day&reverse=false&groupSelect=groupByRepos&breakdown=false&tabAuthor=matthiaslum&tabRepo=CS2113-AY1819S2-T11-2_main_master[Reposense]] 
+
+* *Other contributions*:
+
+** Project management:
+*** Booked group study rooms for weekly meetings and helped organize timings to meet.
+** Enhancements to existing features:
+***Created the two classes on doctor and appointment, of which various other commands and sorts require these classes.
+** Documentation:
+*** Did tweaks to the user guide and developer guide.
+** Community:
+*** Reviewed the Pull requests of other members
+*** Reported bugs and fixed them for v1.3
+
+** Tools:
+*** Integrated a java package LocalDateTime.
+
+_{you can add/remove categories in the list above}_
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+== Adding a person: `add`
+
+Adds a person to the address book. +
+Format: `add NAME [p]p/PHONE_NUMBER [p]e/EMAIL [p]a/ADDRESS m/APPOINTMENTDATE d/DOCTORNAME s/STATUS [t/TAG]...`
+
+****
+Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional,
+items with `...` after them can have multiple instances. Order of parameters are fixed.
+
+Note that the appointment date must be in the format of YYYY MM DD HH MM, in other for the DoctorAppointment Command to work.
+The hour and minute follows the 24hour clock format. Incorrect time formats will throw an error in parsing.
+
+The status must be any of following status: Critical / Waiting for Surgery / Life-support / Waiting for doctor appointment / Therapy / Observation.
+
+Put a `p` before the phone / email / address prefixes to mark it as `private`. `private` details can only
+be seen using the `viewall` command.
+
+Persons can have any number of tags (including 0)
+****
+
+Examples:
+
+* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01 m/2009 12 11 14 30 d/DoctorTan s/Observation`
+* `add Betsy Crowe pp/1234567 e/betsycrowe@gmail.com pa/Newgate Prison m/2011 11 04 08 00 d/DoctorTan s/Observation t/criminal t/friend`
+
+== Listing all appointments of a Doctor : `DoctorAppointments`
+
+Displays a list of all persons who have appointments with a specific doctor. 
+The list of persons are sorted by on chronological order of their appointment dates.
+For easy-readability, only the name and appointment date of each person is displayed.
+
+Examples: 
+
+* `DoctorAppointments DoctorTan` +
+Shows a list of all patients who have appointments with DoctorTan.
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+=== Add Doctor feature
+==== Current Implementation
+
+the add doctor feature facilitated by the `Doctor` class, it implements the following operations:
+
+* `Doctor(String)` -- The constructor for the class `Doctor`.
+* `toString()` -- Returns a String containing the name of the patient's doctor.
+* `isValidName()` -- Checks if the date is alphanumeric.
+* `equals(Object)` -- Checks if two patients' doctors are equal.
+
+In addition to the Appointment class, we update the ReadOnlyPerson interface and the Person class (which implements the interface) to ensure that every Person object is constructed with an Appointment class. To be specific, the following operations are added or updated.
+
+* `Person(Doctor doctor)` --  The class `Person` now requires a Doctor object during its construction.
+* `getDoctor()` -- The class `Person` implements a method that returns the Doctor object of a Person.
+* `getAsTextShowAll()` -- This operation is updated to allow a person's doctor to be printed when an addresbook's lastShownList is printed onto the UI.
+
+The example usage scenario is similar to the scenario of the Add appointment feature below.
+
+=== Add appointment feature 
+==== Current Implementation
+
+the add appointment feature facilitated by the `Appointment` class, it implements the following operations:
+
+* `Appointment(String)` -- The constructor for the class `Appointment`.
+* `toString()` -- Returns a String containing the date of the appointment.
+* `isValidDate()` -- Checks if the date is alphanumeric.
+* `equals(Object)` -- Checks if two appointment dates are equal.
+
+In addition to the Appointment class, we update the ReadOnlyPerson interface and the Person class (which implements the interface) to ensure that every Person object is constructed with an Appointment class. To be specific, the following operations are added or updated.
+
+* `Person(Apppointment appointment)` --  The class `Person` now requires an Appointment object during its construction.
+* `getAppointment()` -- The class `Person` implements a method that returns the Appointment object of a Person.
+* `getAsTextShowAll()` -- This operation is updated to allow a person's appointment date to be printed when an addresbook's lastShownList is printed onto the UI.
+
+Next, the parser is updated to recognize user input corresponding to the Appointment object of a person. It works together with an updated `Add` Command. When adding a new person through the add command, the user has to write `m/APPOINTMENTDATE' to signify the `Appointment` portion of a `Person`. 
+
+Given below is an example usage scenario and how the `Appointment` feature is incorporated at each step.
+
+Step 1. The user executes command `Add NAME [p]p/PHONE [p]e/EMAIL [p]a/ADDRESS m/APPOINTMENT [t/TAG]...\n\t"`
+
+Step 2. The parser parses the user command, and creates the relevant object for `Appointment`, `Address` etc, and a new `Person` object is constructed. The `Logic` class executes the `AddCommand` with the prepared arguments. 
+
+Step 3. The `Addressbook` trys to add the new person into the `uniquePersonList`. But first, the `uniquePersonList` checks if the new Person object is a duplicate of an existing Person object in the Addressbook. If the Person is not a duplicate, it is added into the Addresbook and the Addressbook is saved.
+
+Step4. The successful execution returns a MESSAGE_SUCCESS along with the added person. The MainWindow displays the result and prints the added person into the GUI.
+
+=== DoctorAppointments command 
+==== Current Implementation
+
+This is a new command, that is executed as `DoctorAppointments DOCTORNAME`. It finds all Persons in the addressbook that are assigned to a doctor with the same name as DOCTORNAME. Then, it prints out a list of them sorted according to Appointment dates. The first person from the top has the earliest appointment date. Let us split the implementation documentation into two parts. (1) Returning a list of persons corresponding to the user input's name of the doctor in chronological order. (2)Printing only the relevant information of these persons in a neat manner similar to a time-table.
+
+For the first part, finding and sorting the list of corresponding persons is facilitated by the `DoctorAppointmentsCommand` class and the `Person` class. The following operations are implemented in the `DoctorAppointmentsCommand` class.
+
+* `execute()` -- Upon execution, a new `Indicator` class stores information indicating that `DoctorAppointmentsCommand` is the most recently invoked command. Then, the following method `getPersonsWithNameContainingAnyKeyword(keywords)` is called. 
+* `getPersonsWithNameContainingAnyKeyword(keywords)` -- This method is adapted from the `FindCommand` class method. In addition to the original command, this method utilizes the package on LocalDate and Collections.Sort. This method updates a `LocalDate` field in a `Person` object (to be explained in the next paragraph). This method also calls SortDate() which is a separate sorting class that helps to compare `LocalDate` dates and sort them based on chronological order. This method returns an ArrayList of Persons that have the doctor's name corresponding to the user input's doctor. The ArrayList is sorted based on their appointment dates.
+
+We update the `Person` class to contain an additional field `LocalDate date` which is originally set to null for every person in the addressbook. Then the following getters and setters are implemented in the `Person` class and their method signatures are updated in the `ReadOnlyPerson` interface.
+
+* `getLocalDate()`
+* `setLocalDate()`
+
+Given below is an example usage scenario and how the Persons corresponding to a certain doctor are sorted and listed in Chronological order.
+
+Step 1. The user executes command `DoctorAppointments DOCTORNAME"`
+
+Step 2. The parser parses the command and prepares the keyword arguments for the `DoctorAppointmentsCommand` class. 
+
+Step 3. `DoctorAppointmentsCommand` is executed and the `Indicator` class records that this is the most recently invoked command. The execute command calls `getPersonsWithNameContainingAnyKeyword(keywords)`. For every Person in the existing addressbook, the Doctor's name is checked against the keyword (containing DOCTORNAME). If the doctor's name of the Person corresponds to DOCTORNAME, the `LocalDate` class parses the person's appointment date, and the Person's `LocalDate` date field is set to be the parsed appointment date.
+
+Step 4. The person is added into the matchedPersons list.
+
+Step 5. The list of matchedPersons are sorted based on the `Localdate` date field in each person.
+
+Step 6. The sorted list of matchedPersons are returned and displayed in a table format (explained in second part)
+
+For the second part of the implementation, we discuss how the list of matchedPersons is formatted to print in a certain manner. To facilitate the printing, we mainly update the format() method of the UI `Formatter` class. 
+
+To facilitate the update, a new `Indicator` class is created and a new method is implemented in the `ReadonlyPerson` interface.
+
+* `Indicator.setLastCommand(String)` --when called, stores a String that records the last invoked user Command.
+* `Indicator.getLastCommand()` --when called, provides information on the last invoked user Command.
+* `getAsTextNameDateDoctor()` --This is a method of the `ReadOnlyPerson` interface. It is a new String builder that builds a String of information about the Person. The information contains only the name and appointment date of the person. The String is padded on the right with whitespace to ensure a tabular format.
+
+The UI `Formatter` is updated in the following way.
+* `format(Persons)` --Checks if the last invoked user Command is the `DoctorAppointmentsCommand`. If it is, calls the new String builder method `getAsTextNameDateDoctor()` for each Person to be formatted.
+
+Given below is an example usage scenario and the formatter formats the Person to be printed in a tabular format. It continues from Step 6 above. 
+
+Step 7. When the dispay method is called in step 6, the format method in `Formatter` is called. 
+
+Step 8. A separate String builder method getAsTextNameDateDoctor() is called, and the String is padded on the right by whitespace. 
+
+Step 9. The `MainWindow` displays the newly formatted Persons in neat rows, displaying only the relevant information on Name and Appointment Date.
