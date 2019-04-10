@@ -1,5 +1,8 @@
 package seedu.addressbook.data.match;
 
+/**
+ * Represents a match score in LeagueTracker.
+ */
 public class Score {
 
     public final String fullScore;

@@ -327,7 +327,7 @@ public class AddressBook {
                 + countScore(toReplace.getOwnGoalScorers(), away.getPlayers());
         int awayScore = countScore(toReplace.getGoalScorers(), away.getPlayers())
                 + countScore(toReplace.getOwnGoalScorers(), home.getPlayers());
-        if ((toReplace.getGoalScorers().size() + toReplace.getOwnGoalScorers().size() != (homeScore + awayScore))){
+        if ((toReplace.getGoalScorers().size() + toReplace.getOwnGoalScorers().size() != (homeScore + awayScore))) {
             throw new PlayerNotInTeamException();
         }
         return String.valueOf(homeScore) + "-" + String.valueOf(awayScore);

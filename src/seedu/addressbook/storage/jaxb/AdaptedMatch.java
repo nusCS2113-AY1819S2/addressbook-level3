@@ -59,7 +59,7 @@ public class AdaptedMatch {
         homeSales = source.getHomeSales().value;
 
         awaySales = source.getAwaySales().value;
-        
+
         score = source.getScore().fullScore;
 
         goalScored = new ArrayList<>();
