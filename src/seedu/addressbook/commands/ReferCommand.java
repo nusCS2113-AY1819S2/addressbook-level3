@@ -86,7 +86,7 @@ public class ReferCommand extends Command {
                                 person.getAddress(),
                                 person.getAppointment(),
                                 new Doctor(referraldoctor),
-                                new Status("Referred"),
+                                person.getStatus(),
                                 person.getTags()
                         );
                     } catch (IllegalValueException e) {
