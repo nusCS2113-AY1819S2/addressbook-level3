@@ -2,6 +2,7 @@ package seedu.addressbook.parser;
 
 import seedu.addressbook.commands.*;
 import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.data.person.Doctor;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -325,8 +326,12 @@ public class Parser {
         }
 
         // if doctor name is present,
-//        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-//                ReferCommand.MESSAGE_USAGE));
+        String doctorToReferTo = matcherWithDoctorName.group("doctor");
+        doctorToReferTo = doctorToReferTo.trim();
+        if (!Doctor.isValidName(doctorToReferTo)) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ReferCommand.MESSAGE_INVALID_DOCTOR_NAME));
+        }
         return new ReferCommand(
                 matcherWithDoctorName.group("keywords"),
                 matcherWithDoctorName.group("doctor")

@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <AddressBook>
     <persons>
+        <name>John Doe</name>
+        <phone isPrivate="false">98765432</phone>
+        <email isPrivate="false">johnd@gmail.com</email>
+        <address isPrivate="false">John street, block 123, #01-01 </address>
+        <appointment>2009 12 11 14 30</appointment>
+        <doctor>Fire</doctor>
+        <status>Observation</status>
+        <tagged>referred</tagged>
+    </persons>
+    <persons>
         <name>John</name>
         <phone isPrivate="false">98765432</phone>
         <email isPrivate="false">johnd@gmail.com</email>
         <address isPrivate="false">John street, block 123, #01-01 </address>
         <appointment>2009 12 11 14 30</appointment>
         <doctor>Dr Seuss</doctor>
-        <status>Observation</status>
-    </persons>
-    <persons>
-        <name>John Doe</name>
-        <phone isPrivate="false">98765432</phone>
-        <email isPrivate="false">johnd@gmail.com</email>
-        <address isPrivate="false">John street, block 123, #01-01 </address>
-        <appointment>2009 12 11 14 30</appointment>
-        <doctor>Dr Wong</doctor>
         <status>Observation</status>
         <tagged>referred</tagged>
     </persons>
