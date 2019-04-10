@@ -2,7 +2,8 @@
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 ifdef::env-github,env-browser[:imagesDir: docs/images]
 
-image:https://travis-ci.org/CS2113-AY1819S2-M11-1/main.svg?branch=master["Build Status", link="https://travis-ci.org/CS2113-AY1819S2-M11-1/main"]
+https://travis-ci.org/CS2113-AY1819S2-M11-1/main[image:https://travis-ci.org/CS2113-AY1819S2-M11-1/main.svg?branch=master[Build Status]]
+https://coveralls.io/github//CS2113-AY1819S2-M11-1/main?branch=master[image:https://coveralls.io/repos/github/CS2113-AY1819S2-M11-1/main/badge.svg?branch=master[Coverage Status]]
 
 image::Ui.png[]
 
