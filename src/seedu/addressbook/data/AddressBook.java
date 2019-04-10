@@ -247,7 +247,7 @@ public class AddressBook {
      */
     public void updateMatch(ReadOnlyMatch toRemove, Match toReplace) throws MatchNotFoundException,
             MatchUpdatedException, TeamNotFoundException, PlayerNotInTeamException {
-        String score = computeScore(toRemove,toReplace);
+        String score = computeScore(toRemove, toReplace);
         toReplace.setScore(score);
         allMatches.update(toRemove, toReplace);
         for (Team team : allTeams) {
@@ -312,26 +312,37 @@ public class AddressBook {
         allFinances.sort();
     }
 
+    /**
+     * @param toRemove
+     * @param toReplace
+     * @return Computed score of both team
+     * @throws TeamNotFoundException if either team does not exit in LeagueTracker
+     * @throws PlayerNotInTeamException if any (own)goalScorers is not in either team
+     */
     public String computeScore(ReadOnlyMatch toRemove, Match toReplace) throws TeamNotFoundException,
-            PlayerNotInTeamException{
+            PlayerNotInTeamException {
         Team home = allTeams.find(toRemove.getHome());
         Team away = allTeams.find(toRemove.getAway());
-        int homeScore, awayScore;
-        homeScore = countScore(toReplace.getGoalScorers(), home.getPlayers())
+        int homeScore = countScore(toReplace.getGoalScorers(), home.getPlayers())
                 + countScore(toReplace.getOwnGoalScorers(), away.getPlayers());
-        awayScore = countScore(toReplace.getGoalScorers(), away.getPlayers())
+        int awayScore = countScore(toReplace.getGoalScorers(), away.getPlayers())
                 + countScore(toReplace.getOwnGoalScorers(), home.getPlayers());
-        if ((toReplace.getGoalScorers().size()+toReplace.getOwnGoalScorers().size() != (homeScore + awayScore))){
+        if ((toReplace.getGoalScorers().size() + toReplace.getOwnGoalScorers().size() != (homeScore + awayScore))){
             throw new PlayerNotInTeamException();
         }
-        return String.valueOf(homeScore)+ "-" + String.valueOf(awayScore);
+        return String.valueOf(homeScore) + "-" + String.valueOf(awayScore);
     }
 
-    public int countScore (List<Name> target, Set <Player> team){
+    /**
+     * @param target
+     * @param team
+     * @returns score of each team contributed by either goals or own goals.
+     */
+    public int countScore (List<Name> target, Set <Player> team) {
         int count = 0;
-        for (Name scorers : target){
-            for (Player players : team){
-                if (players.getName().equals(scorers)){
+        for (Name scorers : target) {
+            for (Player players : team) {
+                if (players.getName().equals(scorers)) {
                     count++;
                 }
             }

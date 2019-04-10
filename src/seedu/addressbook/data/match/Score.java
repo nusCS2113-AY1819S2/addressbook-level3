@@ -1,14 +1,13 @@
 package seedu.addressbook.data.match;
 
-import seedu.addressbook.data.exception.IllegalValueException;
-
-import java.util.Arrays;
-import java.util.List;
-
 public class Score {
 
     public final String fullScore;
 
+    /**
+     * Constructs given score
+     * @param score
+     */
     public Score(String score) {
         this.fullScore = score;
     }
@@ -29,5 +28,4 @@ public class Score {
     public int hashCode() {
         return fullScore.hashCode();
     }
-
 }

@@ -1,10 +1,10 @@
 package seedu.addressbook.data.match;
 
-import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.player.Name;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.data.player.Name;
 
 /**
  * Stores the details to update the match with.

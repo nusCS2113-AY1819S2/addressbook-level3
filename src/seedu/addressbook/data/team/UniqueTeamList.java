@@ -138,6 +138,11 @@ public class UniqueTeamList implements Iterable<Team> {
         internalList.add(toReplace);
     }
 
+    /**
+     * @param target
+     * @return targeted team from list of all teams.
+     * @throws TeamNotFoundException if team is not found
+     */
     public Team find (TeamName target) throws TeamNotFoundException {
         for (Team team : internalList) {
             if (team.getTeamName().equals(target)) {

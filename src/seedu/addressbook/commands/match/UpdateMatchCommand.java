@@ -1,5 +1,8 @@
 package seedu.addressbook.commands.match;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.common.Messages;
@@ -16,9 +19,6 @@ import seedu.addressbook.data.player.Name;
 import seedu.addressbook.data.player.UniquePlayerList;
 import seedu.addressbook.data.team.TeamName;
 import seedu.addressbook.data.team.UniqueTeamList.TeamNotFoundException;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Updates a match identified using it's last displayed index from the address book.
