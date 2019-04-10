@@ -42,6 +42,10 @@ public class AccountManager {
     public String accountCommandHandler(String userCommandText){
         String[] accountInfo = userCommandText.split(" ");
         try {
+            if (accountInfo.length == 1 && accountInfo[0].equals("exit")){
+                storeAccounts();
+                System.exit(0);
+            }
             if (accountInfo.length == 3 && accountInfo[0].equals("login")) {
                 if (this.accounts.containsKey(accountInfo[1]) && this.accounts.get(accountInfo[1]).equals(accountInfo[2])) {
                     this.currentAccount = accountInfo[1];
