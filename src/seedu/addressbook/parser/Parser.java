@@ -110,8 +110,7 @@ public class Parser {
     public static final Pattern MATCH_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<date>[^/]+)"
                     + "h/(?<home>[^/]+)"
-                    + "a/(?<away>[^/]+)"
-                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+                    + "a/(?<away>[^/]+)"); // variable number of tags
 
     public static final Pattern MATCH_UPDATE_DATA_ARGS_FORMAT =
             Pattern.compile("(?<targetIndex>\\d+)"
