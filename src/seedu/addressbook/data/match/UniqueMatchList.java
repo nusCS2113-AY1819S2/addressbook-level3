@@ -114,6 +114,9 @@ public class UniqueMatchList implements Iterable<Match> {
         }
     }
 
+    /**
+     * Sorts matches by date in chronological order, then teams in lexicographical order.
+     */
     public void sort () {
         Comparator<Match> customMatchCompare = Comparator
                 .comparing(Match::getDate)
