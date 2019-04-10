@@ -1,12 +1,13 @@
 package seedu.addressbook.commands.match;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.match.Date;
 import seedu.addressbook.data.match.Match;
+import seedu.addressbook.data.match.MatchDate;
 import seedu.addressbook.data.match.ReadOnlyMatch;
 import seedu.addressbook.data.match.Score;
 import seedu.addressbook.data.match.TicketSales;
@@ -37,9 +38,9 @@ public class AddMatchCommand extends Command {
      */
     public AddMatchCommand(String date,
                       String home,
-                      String away) throws IllegalValueException {
+                      String away) throws IllegalValueException, ParseException {
         this.toAdd = new Match(
-                new Date(date),
+                new MatchDate(date),
                 new TeamName(home),
                 new TeamName(away),
                 new TicketSales(""),

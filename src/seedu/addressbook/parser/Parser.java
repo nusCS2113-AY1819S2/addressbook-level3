@@ -1,7 +1,9 @@
 package seedu.addressbook.parser;
 
 import static seedu.addressbook.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.addressbook.data.match.MatchDate.MESSAGE_INVALID_DATE_FORMAT;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -49,6 +51,7 @@ import seedu.addressbook.commands.team.FindTeam;
 import seedu.addressbook.commands.team.ListTeam;
 import seedu.addressbook.commands.team.ViewTeam;
 import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.data.match.MatchDate;
 
 /**
  * Parses user input.
@@ -447,6 +450,8 @@ public class Parser {
             );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
+        } catch (java.text.ParseException pe) {
+            return new IncorrectCommand(MESSAGE_INVALID_DATE_FORMAT + "\nExample : " + MatchDate.EXAMPLE);
         }
     }
 

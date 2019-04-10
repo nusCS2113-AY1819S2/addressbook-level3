@@ -11,7 +11,7 @@ import seedu.addressbook.data.team.TeamName;
  */
 public interface ReadOnlyMatch {
 
-    Date getDate();
+    MatchDate getDate();
 
     TeamName getHome();
 
