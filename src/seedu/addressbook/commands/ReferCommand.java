@@ -78,6 +78,15 @@ public class ReferCommand extends Command {
             final Set<String> wordsInName = new HashSet<>(person.getName().getWordsInName());
             if (!Collections.disjoint(wordsInName, keywords)) {
                 if (wordsInName.equals(keywords)) { // if a full name match is found, it is THE entry
+
+
+                    Set<Tag> tagSet = person.getTags(); // add a refer tag
+                    try {
+                        tagSet.add(new Tag("referred"));
+                    } catch (IllegalValueException e) {
+                        e.printStackTrace();
+                    }
+
                     try {  // store particulars of target entry
                         toRefer = new Person(
                                 person.getName(),
@@ -87,11 +96,14 @@ public class ReferCommand extends Command {
                                 person.getAppointment(),
                                 new Doctor(referraldoctor),
                                 person.getStatus(),
-                                person.getTags()
+                                tagSet
+//                                person.getTags()
                         );
                     } catch (IllegalValueException e) {
                         e.printStackTrace();
                     }
+
+
                     try { // remove target entry
                         addressBook.removePerson(person);
                     } catch (UniquePersonList.PersonNotFoundException e) { // exception for person not found
