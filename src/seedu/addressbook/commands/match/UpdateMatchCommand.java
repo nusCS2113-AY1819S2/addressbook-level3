@@ -1,7 +1,7 @@
 package seedu.addressbook.commands.match;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
@@ -10,11 +10,15 @@ import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.match.Date;
 import seedu.addressbook.data.match.Match;
 import seedu.addressbook.data.match.ReadOnlyMatch;
+import seedu.addressbook.data.match.Score;
 import seedu.addressbook.data.match.TicketSales;
 import seedu.addressbook.data.match.UniqueMatchList.MatchNotFoundException;
+import seedu.addressbook.data.match.UniqueMatchList.MatchUpdatedException;
 import seedu.addressbook.data.match.UpdateMatchDescriptor;
 import seedu.addressbook.data.player.Name;
+import seedu.addressbook.data.player.UniquePlayerList;
 import seedu.addressbook.data.team.TeamName;
+import seedu.addressbook.data.team.UniqueTeamList.TeamNotFoundException;
 
 /**
  * Updates a match identified using it's last displayed index from the address book.
@@ -34,18 +38,19 @@ public class UpdateMatchCommand extends Command {
 
 
     public UpdateMatchCommand(int targetVisibleIndex, String homeSales, String awaySales,
-                              Set<String> goalScorers, Set<String> ownGoalScorers) throws IllegalValueException {
+                              List<String> goalScorers, List<String> ownGoalScorers) throws IllegalValueException {
         super(targetVisibleIndex);
-        final Set<Name> goalScorerSet = new HashSet<>();
+        final List<Name> goalScorerList = new ArrayList<>();
         for (String playerName : goalScorers) {
-            goalScorerSet.add(new Name(playerName));
+            goalScorerList.add(new Name(playerName));
         }
-        final Set<Name> ownGoalScorerSet = new HashSet<>();
+        final List<Name> ownGoalScorerList = new ArrayList<>();
         for (String playerName : ownGoalScorers) {
-            ownGoalScorerSet.add(new Name(playerName));
+            ownGoalScorerList.add(new Name(playerName));
         }
+
         this.updateMatchDescriptor = new UpdateMatchDescriptor(homeSales, awaySales,
-                                                                goalScorerSet, ownGoalScorerSet);
+                                                                goalScorerList, ownGoalScorerList);
     }
 
 
@@ -61,6 +66,12 @@ public class UpdateMatchCommand extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_MATCH_DISPLAYED_INDEX);
         } catch (MatchNotFoundException mnfe) {
             return new CommandResult(Messages.MESSAGE_MATCH_NOT_IN_LEAGUE_TRACKER);
+        } catch (MatchUpdatedException mue) {
+            return new CommandResult(Messages.MESSAGE_MATCH_UPDATED_BEFORE);
+        } catch (TeamNotFoundException tnfe) {
+            return new CommandResult(Messages.MESSAGE_TEAM_NOT_IN_LEAGUE_TRACKER);
+        } catch (UniquePlayerList.PlayerNotInTeamException pnite) {
+            return new CommandResult(Messages.MESSAGE_PLAYER_NOT_IN_TEAM);
         }
     }
 
@@ -69,14 +80,13 @@ public class UpdateMatchCommand extends Command {
      */
     private static Match createUpdateMatch(ReadOnlyMatch target,
                                          UpdateMatchDescriptor updateMatchDescriptor) {
-
         Date date = target.getDate();
         TeamName home = target.getHome();
         TeamName away = target.getAway();
         TicketSales homeSales = updateMatchDescriptor.getHomeSales();
         TicketSales awaySales = updateMatchDescriptor.getAwaySales();
-        Set<Name> goalScorers = updateMatchDescriptor.getGoalScorers();
-        Set<Name> ownGoalscorers = updateMatchDescriptor.getOwnGoalScorers();
-        return new Match(date, home, away, homeSales, awaySales, goalScorers, ownGoalscorers);
+        List<Name> goalScorers = updateMatchDescriptor.getGoalScorers();
+        List<Name> ownGoalscorers = updateMatchDescriptor.getOwnGoalScorers();
+        return new Match(date, home, away, homeSales, awaySales, goalScorers, ownGoalscorers, new Score(""));
     }
 }

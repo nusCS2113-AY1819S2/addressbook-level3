@@ -1,7 +1,7 @@
 package seedu.addressbook.data.match;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.player.Name;
@@ -14,25 +14,22 @@ import seedu.addressbook.data.player.Name;
 public class UpdateMatchDescriptor {
     private TicketSales homeSales;
     private TicketSales awaySales;
-    private Set<Name> goalScorers;
-    private Set<Name> ownGoalScorers;
-
-
-    public UpdateMatchDescriptor() {}
+    private List<Name> goalScorers;
+    private List<Name> ownGoalScorers;
 
     public UpdateMatchDescriptor(String homeSales,
                               String awaySales,
-                              Set<Name> goalScorers,
-                              Set<Name> ownGoalScorers) throws IllegalValueException {
+                              List<Name> goalScorers,
+                              List<Name> ownGoalScorers) throws IllegalValueException {
         this.homeSales = new TicketSales(homeSales);
         this.awaySales = new TicketSales(awaySales);
         if (goalScorers.isEmpty()) {
-            this.goalScorers = new HashSet<>();
+            this.goalScorers = new ArrayList<>();
         } else {
             this.goalScorers = goalScorers;
         }
         if (ownGoalScorers.isEmpty()) {
-            this.ownGoalScorers = new HashSet<>();
+            this.ownGoalScorers = new ArrayList<>();
         } else {
             this.ownGoalScorers = ownGoalScorers;
         }
@@ -64,19 +61,19 @@ public class UpdateMatchDescriptor {
         return awaySales;
     }
 
-    public void setGoalScorers(Set<Name> goalScorers) {
+    public void setGoalScorers(List<Name> goalScorers) {
         this.goalScorers = goalScorers;
     }
 
-    public Set<Name> getGoalScorers() {
+    public List<Name> getGoalScorers() {
         return goalScorers;
     }
 
-    public void setOwnGoalScorers(Set<Name> ownGoalScorers) {
+    public void setOwnGoalScorers(List<Name> ownGoalScorers) {
         this.ownGoalScorers = ownGoalScorers;
     }
 
-    public Set<Name> getOwnGoalScorers() {
+    public List<Name> getOwnGoalScorers() {
         return ownGoalScorers;
     }
 

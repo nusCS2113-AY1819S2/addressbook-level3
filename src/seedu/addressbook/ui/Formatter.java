@@ -59,7 +59,7 @@ public class Formatter {
     public String formatMatchResult(List<? extends ReadOnlyMatch> matches) {
         final List<String> formattedMatches = new ArrayList<>();
         for (ReadOnlyMatch match : matches) {
-            formattedMatches.add(match.getAsTextShowAll());
+            formattedMatches.add(match.getAsTextShowSome());
         }
         return format(asIndexedList(formattedMatches));
     }

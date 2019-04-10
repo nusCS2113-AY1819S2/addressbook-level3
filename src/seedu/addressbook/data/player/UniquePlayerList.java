@@ -33,8 +33,12 @@ public class UniquePlayerList implements Iterable<Player> {
      * there is no such matching player in the list.
      */
 
-    public static class PlayerNotFoundException extends Exception {
-    }
+    public static class PlayerNotFoundException extends Exception {}
+
+    /**
+     * Signals that a specified player that is assumed to be in a specified team cannot be found.
+     */
+    public static class PlayerNotInTeamException extends Exception {}
 
     private final List<Player> internalList = new ArrayList<>();
 

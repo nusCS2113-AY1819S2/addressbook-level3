@@ -1,6 +1,6 @@
 package seedu.addressbook.commands.match;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
@@ -8,6 +8,7 @@ import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.match.Date;
 import seedu.addressbook.data.match.Match;
 import seedu.addressbook.data.match.ReadOnlyMatch;
+import seedu.addressbook.data.match.Score;
 import seedu.addressbook.data.match.TicketSales;
 import seedu.addressbook.data.match.UniqueMatchList;
 import seedu.addressbook.data.team.TeamName;
@@ -43,8 +44,9 @@ public class AddMatchCommand extends Command {
                 new TeamName(away),
                 new TicketSales(""),
                 new TicketSales(""),
-                new HashSet<>(),
-                new HashSet<>()
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new Score("")
         );
     }
 

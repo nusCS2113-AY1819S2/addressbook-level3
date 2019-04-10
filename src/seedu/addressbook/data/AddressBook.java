@@ -1,5 +1,6 @@
 package seedu.addressbook.data;
 
+import java.util.List;
 import java.util.Set;
 
 import seedu.addressbook.data.finance.Finance;
@@ -10,11 +11,14 @@ import seedu.addressbook.data.match.ReadOnlyMatch;
 import seedu.addressbook.data.match.UniqueMatchList;
 import seedu.addressbook.data.match.UniqueMatchList.DuplicateMatchException;
 import seedu.addressbook.data.match.UniqueMatchList.MatchNotFoundException;
+import seedu.addressbook.data.match.UniqueMatchList.MatchUpdatedException;
+import seedu.addressbook.data.player.Name;
 import seedu.addressbook.data.player.Player;
 import seedu.addressbook.data.player.ReadOnlyPlayer;
 import seedu.addressbook.data.player.UniquePlayerList;
 import seedu.addressbook.data.player.UniquePlayerList.DuplicatePlayerException;
 import seedu.addressbook.data.player.UniquePlayerList.PlayerNotFoundException;
+import seedu.addressbook.data.player.UniquePlayerList.PlayerNotInTeamException;
 import seedu.addressbook.data.team.ReadOnlyTeam;
 import seedu.addressbook.data.team.Team;
 import seedu.addressbook.data.team.UniqueTeamList;
@@ -241,7 +245,10 @@ public class AddressBook {
     /**
      * Updates the equivalent match from League Tracker
      */
-    public void updateMatch(ReadOnlyMatch toRemove, Match toReplace) throws MatchNotFoundException {
+    public void updateMatch(ReadOnlyMatch toRemove, Match toReplace) throws MatchNotFoundException,
+            MatchUpdatedException, TeamNotFoundException, PlayerNotInTeamException {
+        String score = computeScore(toRemove, toReplace);
+        toReplace.setScore(score);
         allMatches.update(toRemove, toReplace);
         for (Team team : allTeams) {
             if (team.getTeamName().toString().equals(toRemove.getHome().toString())) {
@@ -305,6 +312,43 @@ public class AddressBook {
         allFinances.sort();
     }
 
+    /**
+     * @param toRemove
+     * @param toReplace
+     * @return Computed score of both team
+     * @throws TeamNotFoundException if either team does not exit in LeagueTracker
+     * @throws PlayerNotInTeamException if any (own)goalScorers is not in either team
+     */
+    public String computeScore(ReadOnlyMatch toRemove, Match toReplace) throws TeamNotFoundException,
+            PlayerNotInTeamException {
+        Team home = allTeams.find(toRemove.getHome());
+        Team away = allTeams.find(toRemove.getAway());
+        int homeScore = countScore(toReplace.getGoalScorers(), home.getPlayers())
+                + countScore(toReplace.getOwnGoalScorers(), away.getPlayers());
+        int awayScore = countScore(toReplace.getGoalScorers(), away.getPlayers())
+                + countScore(toReplace.getOwnGoalScorers(), home.getPlayers());
+        if ((toReplace.getGoalScorers().size() + toReplace.getOwnGoalScorers().size() != (homeScore + awayScore))) {
+            throw new PlayerNotInTeamException();
+        }
+        return String.valueOf(homeScore) + "-" + String.valueOf(awayScore);
+    }
+
+    /**
+     * @param target
+     * @param team
+     * @returns score of each team contributed by either goals or own goals.
+     */
+    public int countScore (List<Name> target, Set <Player> team) {
+        int count = 0;
+        for (Name scorers : target) {
+            for (Player players : team) {
+                if (players.getName().equals(scorers)) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
 
 
     @Override
