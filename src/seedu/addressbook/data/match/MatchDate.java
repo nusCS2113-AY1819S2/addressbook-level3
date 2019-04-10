@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Represents a match date in the address book.
  */
-public class MatchDate {
+public class MatchDate implements Comparable<MatchDate> {
 
     public static final String MESSAGE_INVALID_DATE_FORMAT = "Date should be valid and in format: dd mmm yyyy";
     public static final String EXAMPLE = "15 Jun 2019";
@@ -54,4 +54,8 @@ public class MatchDate {
         return calendar.hashCode();
     }
 
+    @Override
+    public int compareTo(MatchDate date) {
+        return this.calendar.compareTo(date.calendar);
+    }
 }

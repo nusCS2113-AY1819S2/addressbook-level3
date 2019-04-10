@@ -38,7 +38,7 @@ public class UpdateMatchCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + "h/1395 a/592 g/John g/Jack o/Jane o/Bob\n";
 
-    public static final String MESSAGE_UPDATE_MATCH_SUCCESS = "Edited team: %1$s";
+    public static final String MESSAGE_UPDATE_MATCH_SUCCESS = "Updated match: %1$s";
 
     private final UpdateMatchDescriptor updateMatchDescriptor;
 
