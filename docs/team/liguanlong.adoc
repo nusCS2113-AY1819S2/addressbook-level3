@@ -12,7 +12,7 @@ Doctor on Call is a desktop address book application designed to facilitate doct
 
 == Summary of Contributions
 
-* *Code contributed*: [https://nuscs2113-ay1819s2.github.io/dashboard-beta/#search=Li%20Guanlong&sort=displayName&since=2019-02-10&until=2019-04-10&timeframe=day&reverse=false&repoSort=true[the link to the RepoSense report page]]
+* *Code contributed*: [https://nuscs2113-ay1819s2.github.io/dashboard-beta/#search=liguanlong&sort=displayName&since=2019-02-10&until=2019-04-10&timeframe=day&reverse=false&repoSort=true[the link to the RepoSense report page]]
 
 * *Major enhancement*: added login/register/logout feature to the address book
 ** What it does: This featrue allows users to register and login using an account
