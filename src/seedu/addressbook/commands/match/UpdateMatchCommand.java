@@ -7,8 +7,8 @@ import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.match.Date;
 import seedu.addressbook.data.match.Match;
+import seedu.addressbook.data.match.MatchDate;
 import seedu.addressbook.data.match.ReadOnlyMatch;
 import seedu.addressbook.data.match.Score;
 import seedu.addressbook.data.match.TicketSales;
@@ -28,11 +28,17 @@ public class UpdateMatchCommand extends Command {
     public static final String COMMAND_WORD = "updatematch";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
-            + "Updates the match identified by the index number used in the last match listing.\n\t"
-            + "Parameters: INDEX\n\t"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Updates the details of the match identified by the index number used in the displayed match list.\n"
+            + "(listmatch must be used before this command to retrieve index for team to be deleted)\n\n"
+            + "Parameters: INDEX (must be a positive integer) "
+            + "h/HOMETICKETSALES "
+            + "a/AWAYTICKETSALES "
+            + "[g/GOALSCORERS] "
+            + "[o/OWNGOALSCORERS]\n"
+            + "Example: " + COMMAND_WORD + " 1 "
+            + "h/1395 a/592 g/John g/Jack o/Jane o/Bob\n";
 
-    public static final String MESSAGE_UPDATE_MATCH_SUCCESS = "Updated match: %1$s";
+    public static final String MESSAGE_UPDATE_MATCH_SUCCESS = "Edited team: %1$s";
 
     private final UpdateMatchDescriptor updateMatchDescriptor;
 
@@ -80,7 +86,7 @@ public class UpdateMatchCommand extends Command {
      */
     private static Match createUpdateMatch(ReadOnlyMatch target,
                                          UpdateMatchDescriptor updateMatchDescriptor) {
-        Date date = target.getDate();
+        MatchDate date = target.getDate();
         TeamName home = target.getHome();
         TeamName away = target.getAway();
         TicketSales homeSales = updateMatchDescriptor.getHomeSales();

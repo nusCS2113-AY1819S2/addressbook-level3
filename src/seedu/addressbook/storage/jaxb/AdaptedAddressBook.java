@@ -1,5 +1,6 @@
 package seedu.addressbook.storage.jaxb;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,7 +77,7 @@ public class AdaptedAddressBook {
      * @throws IllegalValueException if there were any data constraints violated in the adapted player
      * @throws IllegalValueException if there were any data constraints violated in the adapted match
      */
-    public AddressBook toModelType() throws IllegalValueException {
+    public AddressBook toModelType() throws IllegalValueException, ParseException {
         final List<Player> playerList = new ArrayList<>();
         final List<Team> teamList = new ArrayList<>();
         final List<Match> matchList = new ArrayList<>();

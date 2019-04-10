@@ -13,7 +13,7 @@ import seedu.addressbook.data.team.TeamName;
  */
 public class Match implements ReadOnlyMatch {
 
-    private Date date;
+    private MatchDate date;
     private TeamName home;
     private TeamName away;
     private TicketSales homeSales;
@@ -26,7 +26,7 @@ public class Match implements ReadOnlyMatch {
     /**
      * Assumption: Every field must be present and not null.
      */
-    public Match(Date date, TeamName home, TeamName away, TicketSales homeSales, TicketSales awaySales,
+    public Match(MatchDate date, TeamName home, TeamName away, TicketSales homeSales, TicketSales awaySales,
                  List<Name> goalScorers, List<Name> ownGoalScorers, Score score) {
         this.date = date;
         this.home = home;
@@ -47,7 +47,7 @@ public class Match implements ReadOnlyMatch {
     }
 
     @Override
-    public Date getDate() {
+    public MatchDate getDate() {
         return date;
     }
 
