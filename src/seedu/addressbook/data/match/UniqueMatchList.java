@@ -30,6 +30,11 @@ public class UniqueMatchList implements Iterable<Match> {
      */
     public static class MatchNotFoundException extends Exception {}
 
+    /**
+     * Signals that Match was already updated and updating again will fail.
+     */
+    public static class MatchUpdatedException extends Exception {}
+
     private final List<Match> internalList = new ArrayList<>();
 
     /**
@@ -118,7 +123,10 @@ public class UniqueMatchList implements Iterable<Match> {
     /**
      * Replaces equivalent match in list.
      */
-    public void update(ReadOnlyMatch toRemove, Match toReplace) throws MatchNotFoundException {
+    public void update(ReadOnlyMatch toRemove, Match toReplace) throws MatchNotFoundException, MatchUpdatedException {
+        if (!toRemove.notPlayed()) {
+            throw new MatchUpdatedException();
+        }
         final boolean matchFoundAndDeleted = internalList.remove(toRemove);
         if (!matchFoundAndDeleted) {
             throw new MatchNotFoundException();

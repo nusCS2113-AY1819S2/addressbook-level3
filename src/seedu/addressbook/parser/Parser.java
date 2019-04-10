@@ -2,10 +2,12 @@ package seedu.addressbook.parser;
 
 import static seedu.addressbook.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -463,34 +465,32 @@ public class Parser {
 
     /**
      * Extracts the goalScorers from the update match command's goal scorer arguments string.
-     * Merges duplicate tag strings.
      */
 
-    private static Set<String> getGoalScorersFromArgs(String goalScorersArguments) throws IllegalValueException {
+    private static List<String> getGoalScorersFromArgs(String goalScorersArguments) throws IllegalValueException {
         // no goalScorers
         if (goalScorersArguments.isEmpty()) {
-            return Collections.emptySet();
+            return Collections.emptyList();
         }
         // replace first delimiter prefix, then split
         final Collection<String> goalScorersStrings = Arrays.asList(goalScorersArguments.replaceFirst(" g/", "")
                                                                     .split(" g/"));
-        return new HashSet<>(goalScorersStrings);
+        return new ArrayList<>(goalScorersStrings);
     }
 
     /**
      * Extracts the ownGoalScorers from the update match command's own goal scorer arguments string.
-     * Merges duplicate tag strings.
      */
 
-    private static Set<String> getOwnGoalScorersFromArgs(String ownGoalScorersArguments) throws IllegalValueException {
+    private static List<String> getOwnGoalScorersFromArgs(String ownGoalScorersArguments) throws IllegalValueException {
         // no ownGoalScorers
         if (ownGoalScorersArguments.isEmpty()) {
-            return Collections.emptySet();
+            return Collections.emptyList();
         }
         // replace first delimiter prefix, then split
         final Collection<String> ownGoalScorersStrings = Arrays.asList(ownGoalScorersArguments.replaceFirst(" o/", "")
-                .split(" g/"));
-        return new HashSet<>(ownGoalScorersStrings);
+                .split(" o/"));
+        return new ArrayList<>(ownGoalScorersStrings);
     }
 
     /**
