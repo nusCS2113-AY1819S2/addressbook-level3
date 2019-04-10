@@ -22,7 +22,7 @@ Doctor on Call is a secure desktop address book application used for doctors to 
 
 * *Minor enhancement*: added two new columns that allows a doctor to add appointment date and doctors corresponding to a patient.
 
-* *Code contributed*: [https://nuscs2113-ay1819s2.github.io/dashboard-beta/#search=&sort=displayName&since=2019-02-10&until=2019-04-09&timeframe=day&reverse=false&repoSort=true[Reposense]] 
+* *Code contributed*: [https://nuscs2113-ay1819s2.github.io/dashboard-beta/#search=matthiaslum&sort=displayName&since=2019-02-10&until=2019-04-09&timeframe=day&reverse=false&repoSort=true[Reposense]] 
 
 * *Other contributions*:
 
