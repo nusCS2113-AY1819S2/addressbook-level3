@@ -76,8 +76,8 @@ public class MatchApachePoiWriter {
 
             for (int i = 1; i <= num; i++) {
                 ReadOnlyMatch matchNow = allMatches.get(i - 1);
-                Set<Name> goalScorers = matchNow.getGoalScorers();
-                Set<Name> ownGoalScorers = matchNow.getOwnGoalScorers();
+                List<Name> goalScorers = matchNow.getGoalScorers();
+                List<Name> ownGoalScorers = matchNow.getOwnGoalScorers();
                 String gsString = createGoalScorerString(goalScorers);
                 String ogsString = createOwnGoalScorerString(ownGoalScorers);
 
@@ -136,10 +136,10 @@ public class MatchApachePoiWriter {
 
     /**
      * create the String of all goal scorers in a match
-     * @param GoalScorers a Set of Name objects of all goal scorers in a match
+     * @param GoalScorers a List of Name objects of all goal scorers in a match
      * @return a comma-separated string with names of all goalScorers in a match
      */
-    private String createGoalScorerString(Set<Name> GoalScorers) {
+    private String createGoalScorerString(List<Name> GoalScorers) {
         String finalGsString = "";
 
         for (Name name : GoalScorers) {
@@ -151,10 +151,10 @@ public class MatchApachePoiWriter {
 
     /**
      * create the String of all own goal scorers in a match
-     * @param OwnGoalScorers a Set of Name objects of all own-goal scorers in a match
+     * @param OwnGoalScorers a List of Name objects of all own-goal scorers in a match
      * @return a comma-separated string with names of all own-goal scorers in a match
      */
-    private String createOwnGoalScorerString(Set<Name> OwnGoalScorers) {
+    private String createOwnGoalScorerString(List<Name> OwnGoalScorers) {
         String finalOGSString = "";
 
         for (Name name : OwnGoalScorers) {
