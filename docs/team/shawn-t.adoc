@@ -1,4 +1,4 @@
-= shawn-t (Teo Xuan Wei) - Project Portfolio
+= Teo Xuan Wei - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -16,19 +16,7 @@ This application was developed by team T11-2 of CS2113T in National University o
 
 * *Code contributed*:
 
-https://nus-cs2113-ay1819s2.github.io/dashboard/#=undefined&search=shawn-t
-
-https://github.com/CS2113-AY1819S2-T11-2/main/commits/master?author=shawn-t&since=2019-03-04%27T%2700:00:00+08:00&until=2019-03-04%27T%2723:59:59+08:00
-
-https://github.com/CS2113-AY1819S2-T11-2/main/commits/master?author=shawn-t&since=2019-03-16%27T%2700:00:00+08:00&until=2019-03-16%27T%2723:59:59+08:00
-
-https://github.com/CS2113-AY1819S2-T11-2/main/commits/master?author=shawn-t&since=2019-03-18%27T%2700:00:00+08:00&until=2019-03-18%27T%2723:59:59+08:00
-
-// Not tracked on RepoSense
-
-https://github.com/nusCS2113-AY1819S2/addressbook-level3/commit/ba34a7fef7c6dc505a3671c66416cda141694f94
-
-https://github.com/nusCS2113-AY1819S2/addressbook-level3/commit/741958db1ce28bc2bfd4e998361b7582c15c6496
+https://nuscs2113-ay1819s2.github.io/dashboard-beta/#search=&sort=displayName&since=2019-02-10&until=2019-04-09&timeframe=day&reverse=false&repoSort=true
 
 == Features implemented: Refer Patient (major/ main feature), length (minor feature)
 
