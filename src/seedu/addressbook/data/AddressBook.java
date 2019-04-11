@@ -173,11 +173,13 @@ public class AddressBook {
         for (Team team : allTeams) {
             if (team.getTeamName().toString().equals(toRemove.getHome().toString())) {
                 team.removeMatch(toRemove);
+                team.updatePoints();
             }
         }
         for (Team team : allTeams) {
             if (team.getTeamName().toString().equals(toRemove.getAway().toString())) {
                 team.removeMatch(toRemove);
+                team.updatePoints();
             }
         }
     }
@@ -189,6 +191,7 @@ public class AddressBook {
         allMatches.clear();
         for (Team team : allTeams) {
             team.clearMatchList();
+            team.clearResults();
         }
     }
 
