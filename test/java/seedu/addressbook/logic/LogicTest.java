@@ -825,7 +825,11 @@ public class LogicTest {
      * Executes the command and confirms that the result message is correct.
      */
     private void assertFinanceCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
-        assertFinanceCommandBehavior(inputCommand, expectedMessage, AddressBook.empty(), false, Collections.emptyList());
+        assertFinanceCommandBehavior(inputCommand,
+                expectedMessage,
+                AddressBook.empty(),
+                false,
+                Collections.emptyList());
     }
 
     /**
