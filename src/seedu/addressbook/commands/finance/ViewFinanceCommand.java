@@ -16,7 +16,7 @@ public class ViewFinanceCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Shows all details of the finance "
             + "identified by the index number in the last shown finance listing.\n\t"
             + "Parameters: INDEX\n\t"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Example: " + COMMAND_WORD + " 1 \n";
 
     public static final String MESSAGE_VIEW_FINANCE_DETAILS = "Viewing Finance of Team: %1$s";
 

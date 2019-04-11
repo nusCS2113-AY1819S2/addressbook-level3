@@ -1,7 +1,9 @@
 package seedu.addressbook.parser;
 
 import static seedu.addressbook.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.addressbook.data.match.MatchDate.MESSAGE_INVALID_DATE_FORMAT;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -16,6 +18,7 @@ import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.ExitCommand;
 import seedu.addressbook.commands.HelpCommand;
 import seedu.addressbook.commands.IncorrectCommand;
+import seedu.addressbook.commands.finance.ExportFinanceCommand;
 import seedu.addressbook.commands.finance.GetFinanceCommand;
 import seedu.addressbook.commands.finance.GetLeagueFinanceCommand;
 import seedu.addressbook.commands.finance.ListFinanceCommand;
@@ -24,6 +27,7 @@ import seedu.addressbook.commands.finance.ViewFinanceCommand;
 import seedu.addressbook.commands.match.AddMatchCommand;
 import seedu.addressbook.commands.match.ClearMatchCommand;
 import seedu.addressbook.commands.match.DeleteMatchCommand;
+import seedu.addressbook.commands.match.ExportMatchCommand;
 import seedu.addressbook.commands.match.FindMatchCommand;
 import seedu.addressbook.commands.match.ListMatchCommand;
 import seedu.addressbook.commands.match.UpdateMatchCommand;
@@ -47,6 +51,7 @@ import seedu.addressbook.commands.team.FindTeam;
 import seedu.addressbook.commands.team.ListTeam;
 import seedu.addressbook.commands.team.ViewTeam;
 import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.data.match.MatchDate;
 
 /**
  * Parses user input.
@@ -84,7 +89,8 @@ public class Parser {
 
     public static final Pattern TRANSFER_DATA_ARGS_FORMAT =
             Pattern.compile("(?<playerName>[^/]+)"
-                    + "tm/(?<destinationTeamName>[^/]+)");
+                    + "tm/(?<destinationTeamName>[^/]+)"
+                    + "jn/(?<newJerseyNumber>[^/]+)");
 
     public static final Pattern EDITPLAYER_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<targetIndex>\\d+)"
@@ -184,8 +190,14 @@ public class Parser {
         case ExportPlayerCommand.COMMAND_WORD:
             return new ExportPlayerCommand();
 
+        case ExportFinanceCommand.COMMAND_WORD:
+            return new ExportFinanceCommand();
+
         case ExportTeam.COMMAND_WORD:
             return new ExportTeam();
+
+        case ExportMatchCommand.COMMAND_WORD:
+            return new ExportMatchCommand();
 
         case DeleteTeam.COMMAND_WORD:
             return delTeam(arguments);
@@ -331,7 +343,8 @@ public class Parser {
         try {
             return new TransferPlayerCommand(
                     matcher.group("playerName"),
-                    matcher.group("destinationTeamName")
+                    matcher.group("destinationTeamName"),
+                    matcher.group("newJerseyNumber")
             );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
@@ -437,15 +450,11 @@ public class Parser {
             );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
+        } catch (java.text.ParseException pe) {
+            return new IncorrectCommand(MESSAGE_INVALID_DATE_FORMAT + "\nExample : " + MatchDate.EXAMPLE);
         }
     }
 
-    //    /**
-    //     * Checks whether the private prefix of a contact detail in the add command's arguments string is present.
-    //     */
-    //    private static boolean isPrivatePrefixPresent(String matchedPrefix) {
-    //        return matchedPrefix.equals("p");
-    //    }
 
     /**
      * Extracts the new player's tags from the add command's tag arguments string.
