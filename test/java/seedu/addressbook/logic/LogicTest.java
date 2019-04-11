@@ -30,6 +30,7 @@ import seedu.addressbook.commands.player.ViewAllCommand;
 import seedu.addressbook.commands.team.AddTeam;
 import seedu.addressbook.commands.team.ClearTeam;
 import seedu.addressbook.commands.team.DeleteTeam;
+import seedu.addressbook.commands.team.EditTeam;
 import seedu.addressbook.commands.team.FindTeam;
 import seedu.addressbook.commands.team.ViewTeam;
 import seedu.addressbook.common.Messages;
@@ -518,7 +519,6 @@ public class LogicTest {
     }*/
 
     /**
-     * Start Test for Finance Management
      * Executes the command and confirms that the result message is correct.
      */
     private void assertTeamCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
@@ -631,6 +631,89 @@ public class LogicTest {
 
     }
 
+    /**
+     * Confirms the 'invalid argument index number behaviour' for the given command
+     * targeting a single employee in the last shown list, using visible index.
+     * @param commandWord to test assuming it targets a single employee in the last shown list based on visible index.
+     */
+    private void assertInvalidIndexBehaviorForTeamEditCommand(String commandWord) throws Exception {
+        String invalidFormat = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                EditTeam.MESSAGE_USAGE);
+        String invalidIndexMessage = Messages.MESSAGE_INVALID_TEAM_DISPLAYED_INDEX;
+        TestDataHelper helper = new TestDataHelper();
+
+        Team t1 = helper.generateTeam(1);
+        Team t2 = helper.generateTeam(2);
+        List<Team> lastShownList = helper.generateTeamList(t1, t2);
+        String arbitraryParameter = "s/32123";
+
+        logic.setLastTeamShownList(lastShownList);
+
+        assertTeamCommandBehavior(commandWord + " -1 " + arbitraryParameter, invalidFormat,
+                AddressBook.empty(), false, lastShownList);
+        assertTeamCommandBehavior(commandWord + " 0 " + arbitraryParameter, invalidIndexMessage,
+                AddressBook.empty(), false, lastShownList);
+        assertTeamCommandBehavior(commandWord + " 3 " + arbitraryParameter, invalidIndexMessage,
+                AddressBook.empty(), false, lastShownList);
+    }
+
+    @Test
+    public void execute_editTeam_successful() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Team t1 = helper.generateTeam(1);
+        Team t2 = helper.generateTeam(2);
+        Team t3 = helper.generateTeam(3);
+        Team editedTeam = helper.generateEditTeam(t2, "country", "America");
+
+        List<Team> lastShownTeamList = helper.generateTeamList(t1, t2, t3);
+
+        AddressBook expectedAb = helper.generateTeamAddressBook(lastShownTeamList);
+        expectedAb.editTeam(t2, editedTeam);
+
+
+        helper.addToTeamAddressBook(addressBook, lastShownTeamList);
+        logic.setLastTeamShownList(lastShownTeamList);
+
+
+        assertTeamCommandBehavior(helper.generateEditTeamCommand("2", "country", "America"),
+                String.format(EditTeam.MESSAGE_EDIT_TEAM_SUCCESS, editedTeam),
+                expectedAb,
+                false,
+                lastShownTeamList);
+
+    }
+
+    @Test
+    public void execute_editTeam_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                EditTeam.MESSAGE_USAGE);
+        assertTeamCommandBehavior("editteam ", expectedMessage);
+        assertTeamCommandBehavior("editteam arg not number", expectedMessage);
+    }
+
+    @Test
+    public void execute_editTeam_noArgs() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+
+        Team t1 = helper.generateTeam(1);
+        Team t2 = helper.generateTeam(2);
+        Team t3 = helper.generateTeam(3);
+        List<Team> lastShownList = helper.generateTeamList(t1, t2, t3);
+
+        logic.setLastTeamShownList(lastShownList);
+
+        assertTeamCommandBehavior(helper.generateEditTeamCommand("2", null, null),
+                String.format(EditTeam.MESSAGE_NOARGS, EditTeam.MESSAGE_USAGE),
+                AddressBook.empty(),
+                false,
+                lastShownList);
+    }
+
+    @Test
+    public void execute_editTeam_invalidIndex() throws Exception {
+        assertInvalidIndexBehaviorForTeamEditCommand("editteam");
+    }
+
     @Test
     public void execute_listTeam_showsAllTeams() throws Exception {
         // prepare expectations
@@ -699,13 +782,13 @@ public class LogicTest {
     @Test
     public void execute_delTeam_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteTeam.MESSAGE_USAGE);
-        assertTeamCommandBehavior("delteam ", expectedMessage);
-        assertTeamCommandBehavior("delteam arg not number", expectedMessage);
+        assertTeamCommandBehavior("deleteteam ", expectedMessage);
+        assertTeamCommandBehavior("deleteteam arg not number", expectedMessage);
     }
 
     @Test
     public void execute_delTeam_invalidIndex() throws Exception {
-        assertInvalidIndexBehaviorForTeamCommand("delteam");
+        assertInvalidIndexBehaviorForTeamCommand("deleteteam");
     }
 
     @Test
@@ -723,7 +806,7 @@ public class LogicTest {
         helper.addToTeamAddressBook(addressBook, threeTeams);
         logic.setLastTeamShownList(threeTeams);
 
-        assertTeamCommandBehavior("delteam 2",
+        assertTeamCommandBehavior("deleteteam 2",
                 String.format(DeleteTeam.MESSAGE_DELETE_TEAM_SUCCESS, t2),
                 expectedAb,
                 false,
@@ -747,7 +830,7 @@ public class LogicTest {
         addressBook.removeTeam(t2);
         logic.setLastTeamShownList(threeTeams);
 
-        assertTeamCommandBehavior("delteam 2",
+        assertTeamCommandBehavior("deleteteam 2",
                 Messages.MESSAGE_TEAM_NOT_IN_LEAGUE_TRACKER,
                 expectedAb,
                 false,
@@ -1119,6 +1202,72 @@ public class LogicTest {
             Set<Tag> tags = team.getTags();
             for (Tag t : tags) {
                 cmd.add("t/" + t.tagName);
+            }
+            return cmd.toString();
+        }
+
+        /** Generates a new employee based on the detail given */
+
+        Team generateEditTeam(Team t, String editParam, String editDetail) throws Exception {
+            seedu.addressbook.data.team.TeamName teamName;
+            Country country;
+            Sponsor sponsor;
+            Set<Tag> tagsList;
+
+            if ("name".equals(editParam)) {
+                teamName = new seedu.addressbook.data.team.TeamName(editDetail);
+            } else {
+                teamName = t.getTeamName();
+            }
+
+            if ("country".equals(editParam)) {
+                country = new Country(editDetail);
+            } else {
+                country = t.getCountry();
+            }
+
+            if ("sponsor".equals(editParam)) {
+                sponsor = new Sponsor(editDetail);
+            } else {
+                sponsor = t.getSponsor();
+            }
+
+            if ("tag".equals((editParam))) {
+                tagsList = Collections.singleton(new Tag("tag"));
+            } else {
+                tagsList = t.getTags();
+            }
+
+            return new Team(teamName, country, sponsor, new HashSet<>(), new HashSet<>(), tagsList);
+        }
+
+        /** Generates the correct edit command based on the team given */
+
+        String generateEditTeamCommand(String index, String editParam, String editDetail) {
+            StringJoiner cmd = new StringJoiner(" ");
+
+            cmd.add("editteam");
+
+            cmd.add(index);
+
+            if (editParam == null || editDetail == null) {
+                return cmd.toString();
+            } else {
+                if (editParam.equals("name")) {
+                    cmd.add("n/" + editDetail);
+                }
+
+                if (editParam.equals("country")) {
+                    cmd.add("c/" + editDetail);
+                }
+
+                if (editParam.equals("sponsor")) {
+                    cmd.add("s/" + editDetail);
+                }
+
+                if (editParam.equals("tag")) {
+                    cmd.add("t/" + editDetail);
+                }
             }
             return cmd.toString();
         }

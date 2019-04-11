@@ -66,7 +66,7 @@ public interface ReadOnlyTeam {
         }
         builder.append("\nMatch List:\n");
         for (Match match : getMatches()) {
-            builder.append(match.getHome() + " vs " + match.getAway() + "\n");
+            builder.append(match.getAsTextShowSome() + "\n");
         }
         return builder.toString();
     }
