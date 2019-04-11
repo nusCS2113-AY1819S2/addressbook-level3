@@ -14,7 +14,6 @@ import java.util.StringJoiner;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.jupiter.api.Tags;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.addressbook.commands.Command;
@@ -660,7 +659,7 @@ public class LogicTest {
     }
 
     @Test
-    public void execute_EditTeam_successful() throws Exception {
+    public void execute_editTeam_successful() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Team t1 = helper.generateTeam(1);
         Team t2 = helper.generateTeam(2);
@@ -686,7 +685,7 @@ public class LogicTest {
     }
 
     @Test
-    public void execute_EditTeam_invalidArgsFormat() throws Exception {
+    public void execute_editTeam_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
                 EditTeam.MESSAGE_USAGE);
         assertTeamCommandBehavior("editteam ", expectedMessage);
@@ -694,7 +693,7 @@ public class LogicTest {
     }
 
     @Test
-    public void execute_EditTeam_noArgs() throws Exception {
+    public void execute_editTeam_noArgs() throws Exception {
         TestDataHelper helper = new TestDataHelper();
 
         Team t1 = helper.generateTeam(1);
@@ -712,7 +711,7 @@ public class LogicTest {
     }
 
     @Test
-    public void execute_editemp_invalidIndex() throws Exception {
+    public void execute_editTeam_invalidIndex() throws Exception {
         assertInvalidIndexBehaviorForTeamEditCommand("editteam");
     }
 
