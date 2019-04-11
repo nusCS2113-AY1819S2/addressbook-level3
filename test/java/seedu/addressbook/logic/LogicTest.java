@@ -783,7 +783,7 @@ public class LogicTest {
     }
 
     @Test
-    public void execute_findTeam_isCaseSensitive() thr  ows Exception {
+    public void execute_findTeam_isCaseSensitive() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Team tTarget1 = helper.generateTeamWithName("bla bla KEY bla");
         Team tTarget2 = helper.generateTeamWithName("bla KEY bla bceofeia");
