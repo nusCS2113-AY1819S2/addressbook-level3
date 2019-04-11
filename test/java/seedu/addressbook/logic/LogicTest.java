@@ -516,6 +516,9 @@ public class LogicTest {
 
     /**
      * Start Test for Team Management
+     */
+
+    /**
      * Executes the command and confirms that the result message is correct.
      */
     private void assertTeamCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
@@ -627,6 +630,8 @@ public class LogicTest {
                 Collections.emptyList());
 
     }
+
+
 
     @Test
     public void execute_listTeam_showsAllTeams() throws Exception {

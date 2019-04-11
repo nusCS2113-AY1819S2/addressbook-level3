@@ -150,7 +150,12 @@ public class Team implements ReadOnlyTeam {
         this.points = 3 * this.win + this.draw;
     }
 
-
+    public void clearResults() {
+        this.win = 0;
+        this.lose = 0;
+        this.draw = 0;
+        this.points = 0;
+    }
 
     public void addPlayer(Player player) {
         this.playerlist.add(player);
@@ -171,10 +176,54 @@ public class Team implements ReadOnlyTeam {
 
     public void addMatch(Match match) {
         this.matchlist.add(match);
+        if (teamName.toString().equals(match.getHome().toString()) && !match.notPlayed()) {
+            String result = match.getScore().toString();
+            String[] score = result.split("-");
+            if (Integer.valueOf(score[0]) > Integer.valueOf(score[1])) {
+                this.win++;
+            } else if (Integer.valueOf(score[0]) < Integer.valueOf(score[1])) {
+                this.lose++;
+            } else {
+                this.draw++;
+            }
+        }
+        if (teamName.toString().equals(match.getAway().toString()) && !match.notPlayed()) {
+            String result = match.getScore().toString();
+            String[] score = result.split("-");
+            if (Integer.valueOf(score[1]) > Integer.valueOf(score[0])) {
+                this.win++;
+            } else if (Integer.valueOf(score[1]) < Integer.valueOf(score[0])) {
+                this.lose++;
+            } else {
+                this.draw++;
+            }
+        }
     }
 
     public void removeMatch(ReadOnlyMatch match) {
         this.matchlist.remove(match);
+        if (teamName.toString().equals(match.getHome().toString()) && !match.notPlayed()) {
+            String result = match.getScore().toString();
+            String[] score = result.split("-");
+            if (Integer.valueOf(score[0]) > Integer.valueOf(score[1])) {
+                this.win--;
+            } else if (Integer.valueOf(score[0]) < Integer.valueOf(score[1])) {
+                this.lose--;
+            } else {
+                this.draw--;
+            }
+        }
+        if (teamName.toString().equals(match.getAway().toString()) && !match.notPlayed()) {
+            String result = match.getScore().toString();
+            String[] score = result.split("-");
+            if (Integer.valueOf(score[1]) > Integer.valueOf(score[0])) {
+                this.win--;
+            } else if (Integer.valueOf(score[1]) < Integer.valueOf(score[0])) {
+                this.lose--;
+            } else {
+                this.draw--;
+            }
+        }
     }
 
     public void clearMatchList() {
