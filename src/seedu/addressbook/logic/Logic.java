@@ -106,6 +106,17 @@ public class Logic {
     }
 
     /**
+     * Unmodifiable view of the current last shown list(finance).
+     */
+    public List<ReadOnlyFinance> getLastFinanceShownList() {
+        return Collections.unmodifiableList(lastFinanceShownList);
+    }
+
+    protected void setLastFinanceShownList(List<? extends ReadOnlyFinance> newList) {
+        lastFinanceShownList = newList;
+    }
+
+    /**
      * Parses the user command, executes it, and returns the result.
      * @throws Exception if there was any problem during command execution.
      */
