@@ -278,14 +278,15 @@ public class AddressBook {
     }
 
     /**
-     * Defensively copied UniqueMatchList of all matches in the address book at the time of the call.
+     * Defensively copied sorted UniqueMatchList of all matches in the address book at the time of the call.
      */
     public UniqueMatchList getAllMatches() {
+        allMatches.sort();
         return new UniqueMatchList(allMatches);
     }
 
     /**
-     * Defensively copied sorted UniqueTeamList of all matches in the address book at the time of the call.
+     * Defensively copied sorted UniqueTeamList of all teams in the address book at the time of the call.
      */
     public UniqueTeamList getAllTeams() {
         allTeams.sort();
