@@ -34,6 +34,7 @@ It is written in Java.
 *** Wrote additional tests for existing features 
 ** Documentation:
 *** Wrote the README page.
+*** Drew the class diagram.
 ** Community:
 *** PRs reviewed (with non-trivial review comments)
 *** Contributed to forum discussions
@@ -74,6 +75,10 @@ Shows a list of all persons sorted by appointment date in chronological order in
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
+
+== Design
+
+image::ClassDiagram.png[]
 
 == Testing
 
