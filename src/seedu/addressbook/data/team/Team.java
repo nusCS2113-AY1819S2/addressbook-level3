@@ -150,6 +150,9 @@ public class Team implements ReadOnlyTeam {
         this.points = 3 * this.win + this.draw;
     }
 
+    /**
+     * Clearing of match listing will trigger reset of teams result to 0
+     */
     public void clearResults() {
         this.win = 0;
         this.lose = 0;
@@ -199,6 +202,11 @@ public class Team implements ReadOnlyTeam {
             }
         }
     }
+
+    /**
+     * Removal of matches will result in corresponding changes in Team Score
+     * @param match
+     */
 
     public void removeMatch(ReadOnlyMatch match) {
         this.matchlist.remove(match);
