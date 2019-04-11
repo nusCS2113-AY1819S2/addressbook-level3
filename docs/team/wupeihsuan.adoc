@@ -18,9 +18,10 @@ It is written in Java.
 ** What it does: allows the user to view the list sorted by desired attribute. The attribute can be name, status or appointment.
 ** Justification: This feature improves the product significantly because a user might need to sort his patient according to his desired attribute so that he can prioritize the allocation of his resources.
 ** Highlights: This enhancement affects the internalList only when user sort by name. It also required an in-depth analysis of design alternatives.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
-* *Minor enhancement*: added a status column that allows the user to navigate to previous commands using up/down keys.
+
+* *Minor enhancement*: added a status column that allows the user to track the status of all the patients so that the user can know the stage of treatment in which the patient is undergoing. 
+.
 
 * *Code contributed*: [https://nuscs2113-ay1819s2.github.io/dashboard-beta/#search=WUPEIHSUAN&sort=displayName&since=2019-02-10&until=2019-04-09&timeframe=day&reverse=false&groupSelect=groupByRepos&breakdown=false&tabAuthor=WuPeiHsuan&tabRepo=CS2113-AY1819S2-T11-2_main_master&repoSort=true[RepoSense]]
 
@@ -30,8 +31,7 @@ It is written in Java.
 *** Managed releases `v1.1` - `v1.3` (3 releases) on GitHub
 *** Create milestones and set deadlines
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Wrote additional tests for existing features 
 ** Documentation:
 *** Wrote the README page.
 ** Community:
@@ -43,7 +43,6 @@ It is written in Java.
 *** Enable Travis CI for the team repo.
 
 
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
@@ -76,6 +75,31 @@ Shows a list of all persons sorted by appointment date in chronological order in
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+== Testing
+
+=== Running Tests
+
+There are two ways to run tests.
+
+*Method 1: Using IntelliJ JUnit test runner*
+
+* To run all tests, right-click on the `src/test/java` folder and choose `Run 'All Tests'`
+* To run a subset of tests, you can right-click on a test package, test class, or a test and choose `Run 'ABC'`
+
+*Method 2: Using Gradle*
+
+* Open a console and run the command `gradlew clean allTests` (Mac/Linux: `./gradlew clean allTests`)
+
+=== Types of tests
+
+.  *Non-GUI Tests* - These are tests not involving the GUI. They include,
+..  _Unit tests_ targeting the lowest level methods/classes. +
+e.g. `seedu.addressbook.common.UtilsTest`
+..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
+e.g. `seedu.addressbook.storage.StorageFileTest`
+..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
+e.g. `seedu.addressbook.logic.LogicTest`
+
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
@@ -83,28 +107,52 @@ This section describes some noteworthy details on how certain features are imple
 === Sort feature
 ==== Current Implementation
 
-The sort mechanism is facilitated by `UniquePersonList`. It stores a list of all persons in the address book as an `internalList`. Additionally, it implements the following operations:
+The sort mechanism is facilitated by `UniquePersonList` and `SortCommand`. `UniquePersonList` stores a list of all persons in the address book as an `internalList`. Additionally, it implements the following operations:
 
 * `UniquePersonList#SortByName()` -- Sort `internalList` by name column in alphabetical order
-* `UniquePersonList#SortByAppointment()` -- Sort `internalList` by appointment column in chronological order
-* `UniquePersonList#SortByStatus()` -- Sort `internalList` by status column according to the degree of urgency. The sequence of the status in this order is as follows: Critical, Waiting for Surgery, Life-support, Waiting for doctor appointment, Therapy and Observation.
+* `SortCommand#getPersonsSortedByDate()` -- Return a list sorted by appointment column in chronological order
+* `SortCommand#getPersonsSortedByStatus()` -- Return a list sorted by status column according to the degree of urgency. The sequence of the status in this order is as follows: Critical, Waiting for Surgery, Life Support, Waiting for doctor appointment, Therapy and Observation.
+
 
 These operations are exposed in `AddressBook` as `AddressBook#sorted(String attribute)`. Corresponding operation will be called depending on attribute the user wants to sort the list by.
 
-Given below is an example usage scenario and how the sort mechanism behaves at each step.
+Given below is two examples usage scenario and how the sort mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `UniquePersonList` will be initialized with the initial address book state.
+Example 1:
 
-Step 2. The user executes `add n/…` to add some new people. These people will be added sequentially to the end of the list.
+Step 1. The user launches the application for the first time. The `UniquePersonList` will be initialized with the initial address book state.
 
-Step 3. The user then decides to execute the command `list`. Commands that do not modify the address book, such as list, will usually not call `AddressBook#sorted(String attribute)` . Thus, the `internalList` remains unchanged.
+Step 2. The user executes `add n/…` to add some new people. These people will be added sequentially to the end of the list.
+
+Step 3. The user then decides to execute the command `list`. Commands that do not modify the address book, such as list, will usually not call `AddressBook#sorted(String attribute)` . Thus, the `internalList` remains unchanged.
 
 Step 4. The user decides to view the list sorted by their name by executing the `sort name` command. This command will call `AddressBook#sorted(String attribute)` and pass the string “name” to the method. Since the value of parameter is “name”, `SortByName()` will be called. `internalList` will then be sorted by name column in alphabetical order. At last, `internalList` will be returned and displayed to the user.
 
+Example 2:
+
+Step 1. The user launches the application for the first time. The `UniquePersonList` will be initialized with the initial address book state.
+
+Step 2. The user executes `add n/…` to add some new people. These people will be added sequentially to the end of the list.
+
+Step 3. The user then decides to execute the command `list`. Commands that do not modify the address book, such as list, will usually not call `AddressBook#sorted(String attribute)` . Thus, the `internalList` remains unchanged.
+
+Step 4. The user decides to view the list sorted by their name by executing the `sort appointment` command. This command will call `SortCommand#execute()` and pass the string “appointment” to the method. Since the value of parameter is “appointment”, `SortCommand#getPersonsSortedByDate()` will be called. A list sorted by appointment column in chronological order will be returned and displayed to the user.
 
 
-== PROJECT: PowerPointLabs
+=== Add Status feature
+==== Current Implementation
 
----
+the add status feature facilitated by the `Status` class, it implements the following operations:
 
-_{Optionally, you may include other projects in your portfolio.}_
+* `status(String)` -- The constructor for the class `Status`.
+* `toString()` -- Returns a String containing the name of the patient's status.
+* `isValidStatus()` -- Checks if if a given string is a valid status.
+* `equals(Object)` -- Checks if two patients' status are equal.
+* `isCorrectStatus()` -- Checks if if a given string is any of following status: Critical / Waiting for Surgery / Life Support / Waiting for doctor appointment / Therapy / Observation.
+
+In addition to the Appointment class, we update the ReadOnlyPerson interface and the Person class (which implements the interface) to ensure that every Person object is constructed with an Appointment class. To be specific, the following operations are added or updated.
+
+* `Person(Status status)` --  The class `Person` now requires a Status object during its construction.
+* `getStatus()` -- The class `Person` implements a method that returns the Status object of a Person.
+
+
