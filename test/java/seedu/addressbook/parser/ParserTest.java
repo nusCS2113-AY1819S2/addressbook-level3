@@ -431,14 +431,14 @@ public class ParserTest {
 
     @Test
     public void deleteTeam_noArgs() {
-        final String[] inputs = {"delteam", "delteam "};
+        final String[] inputs = {"deleteteam", "deleteteam "};
         final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteTeam.MESSAGE_USAGE);
         parseAndAssertIncorrectWithMessage(resultMessage, inputs);
     }
 
     @Test
     public void deleteTeam_argsIsNotSingleNumber() {
-        final String[] inputs = {"delteam notANumber ", "delteam 8*wh12", "delteam 1 2 3 4 5"};
+        final String[] inputs = {"deleteteam notANumber ", "deleteteam 8*wh12", "deleteteam 1 2 3 4 5"};
         final String resultMessage;
         resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteTeam.MESSAGE_USAGE);
         parseAndAssertIncorrectWithMessage(resultMessage, inputs);
@@ -447,7 +447,7 @@ public class ParserTest {
     @Test
     public void deleteTeam_numericArg_indexParsedCorrectly() {
         final int testIndex = 1;
-        final String input = "delteam " + testIndex;
+        final String input = "deleteteam " + testIndex;
         final DeleteTeam result = parseAndAssertCommandType(input, DeleteTeam.class);
         assertEquals(result.getTargetIndex(), testIndex);
     }

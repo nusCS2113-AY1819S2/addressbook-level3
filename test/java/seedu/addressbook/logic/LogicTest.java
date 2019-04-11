@@ -701,13 +701,13 @@ public class LogicTest {
     @Test
     public void execute_delTeam_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteTeam.MESSAGE_USAGE);
-        assertTeamCommandBehavior("delteam ", expectedMessage);
-        assertTeamCommandBehavior("delteam arg not number", expectedMessage);
+        assertTeamCommandBehavior("deleteteam ", expectedMessage);
+        assertTeamCommandBehavior("deleteteam arg not number", expectedMessage);
     }
 
     @Test
     public void execute_delTeam_invalidIndex() throws Exception {
-        assertInvalidIndexBehaviorForTeamCommand("delteam");
+        assertInvalidIndexBehaviorForTeamCommand("deleteteam");
     }
 
     @Test
@@ -725,7 +725,7 @@ public class LogicTest {
         helper.addToTeamAddressBook(addressBook, threeTeams);
         logic.setLastTeamShownList(threeTeams);
 
-        assertTeamCommandBehavior("delteam 2",
+        assertTeamCommandBehavior("deleteteam 2",
                 String.format(DeleteTeam.MESSAGE_DELETE_TEAM_SUCCESS, t2),
                 expectedAb,
                 false,
@@ -749,7 +749,7 @@ public class LogicTest {
         addressBook.removeTeam(t2);
         logic.setLastTeamShownList(threeTeams);
 
-        assertTeamCommandBehavior("delteam 2",
+        assertTeamCommandBehavior("deleteteam 2",
                 Messages.MESSAGE_TEAM_NOT_IN_LEAGUE_TRACKER,
                 expectedAb,
                 false,
@@ -783,7 +783,7 @@ public class LogicTest {
     }
 
     @Test
-    public void execute_findTeam_isCaseSensitive() throws Exception {
+    public void execute_findTeam_isCaseSensitive() thr  ows Exception {
         TestDataHelper helper = new TestDataHelper();
         Team tTarget1 = helper.generateTeamWithName("bla bla KEY bla");
         Team tTarget2 = helper.generateTeamWithName("bla KEY bla bceofeia");
