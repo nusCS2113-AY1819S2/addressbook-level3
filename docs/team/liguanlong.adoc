@@ -1,6 +1,9 @@
 //@@author liguanlong
 
 = Li Guanlong - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
 
 == PROJECT: Doctor on Call
 
