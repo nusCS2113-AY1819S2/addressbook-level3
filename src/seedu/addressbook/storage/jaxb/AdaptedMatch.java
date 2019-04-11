@@ -1,21 +1,22 @@
 package seedu.addressbook.storage.jaxb;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.match.Away;
-import seedu.addressbook.data.match.Date;
-import seedu.addressbook.data.match.Home;
 import seedu.addressbook.data.match.Match;
+import seedu.addressbook.data.match.MatchDate;
 import seedu.addressbook.data.match.ReadOnlyMatch;
+import seedu.addressbook.data.match.Score;
 import seedu.addressbook.data.match.TicketSales;
 import seedu.addressbook.data.player.Name;
+import seedu.addressbook.data.team.TeamName;
 
 /**
  * JAXB-friendly adapted match data holder class.
@@ -33,6 +34,8 @@ public class AdaptedMatch {
     private String homeSales;
     @XmlElement (required = true)
     private String awaySales;
+    @XmlElement (required = true)
+    private String score;
     @XmlElement
     private List<AdaptedName> goalScored = new ArrayList<>();
     @XmlElement
@@ -50,15 +53,18 @@ public class AdaptedMatch {
      * @param source future changes to this will not affect the created AdaptedMatch
      */
     public AdaptedMatch(ReadOnlyMatch source) {
-        date = source.getDate().fullDate;
+        DateFormat df = new SimpleDateFormat("dd MMM yyyy");
+        date = df.format(source.getDate().calendar.getTime());
 
-        home = source.getHome().fullHome;
+        home = source.getHome().fullName;
 
-        away = source.getAway().fullAway;
+        away = source.getAway().fullName;
 
         homeSales = source.getHomeSales().value;
 
         awaySales = source.getAwaySales().value;
+
+        score = source.getScore().fullScore;
 
         goalScored = new ArrayList<>();
         for (Name player : source.getGoalScorers()) {
@@ -91,7 +97,7 @@ public class AdaptedMatch {
             }
         }
         // second call only happens if home/away are all not null
-        return Utils.isAnyNull(date, home, away, homeSales, awaySales);
+        return Utils.isAnyNull(date, home, away, homeSales, awaySales, score);
     }
 
     /**
@@ -99,20 +105,21 @@ public class AdaptedMatch {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted match
      */
-    public Match toModelType() throws IllegalValueException {
-        final Set<Name> goalScorers = new HashSet<>();
+    public Match toModelType() throws IllegalValueException, ParseException {
+        final List<Name> goalScorers = new ArrayList<>();
         for (AdaptedName player : goalScored) {
             goalScorers.add(player.toModelType());
         }
-        final Set<Name> ownGoalScorers = new HashSet<>();
+        final List<Name> ownGoalScorers = new ArrayList<>();
         for (AdaptedName player : ownGoalScored) {
             ownGoalScorers.add(player.toModelType());
         }
-        final Date date = new Date(this.date);
-        final Home home = new Home(this.home);
-        final Away away = new Away(this.away);
+        final MatchDate date = new MatchDate(this.date);
+        final TeamName home = new TeamName(this.home);
+        final TeamName away = new TeamName(this.away);
         final TicketSales homeSales = new TicketSales(this.homeSales);
         final TicketSales awaySales = new TicketSales(this.awaySales);
-        return new Match(date, home, away, homeSales, awaySales, goalScorers, ownGoalScorers);
+        final Score score = new Score(this.score);
+        return new Match(date, home, away, homeSales, awaySales, goalScorers, ownGoalScorers, score);
     }
 }

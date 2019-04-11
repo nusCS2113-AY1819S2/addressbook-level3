@@ -24,7 +24,7 @@ public class FindTeam extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Finds all teams whose names contain any of "
             + "the specified keywords (case-sensitive) and displays them as a list with index numbers.\n\t"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n\t"
-            + "Example: " + COMMAND_WORD + " United";
+            + "Example: " + COMMAND_WORD + " United \n";
 
     private final Set<String> keywords;
 

@@ -14,7 +14,7 @@ import seedu.addressbook.ui.Stoppable;
 public class Main extends Application implements Stoppable {
 
     /** Version info of the program. */
-    public static final String VERSION = "League Tracker - Version 1.3 (first official release)";
+    public static final String VERSION = "League Tracker - Version 1.4";
 
     private Gui gui;
 

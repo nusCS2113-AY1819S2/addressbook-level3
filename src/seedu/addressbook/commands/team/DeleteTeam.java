@@ -19,7 +19,7 @@ public class DeleteTeam extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
             + "Deletes the team identified by the index number used in the last team listing.\n\t"
             + "Parameters: INDEX\n\t"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Example: " + COMMAND_WORD + " 1 \n";
 
     public static final String MESSAGE_DELETE_TEAM_SUCCESS = "Deleted team: %1$s";
 

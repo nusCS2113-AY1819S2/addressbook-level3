@@ -18,7 +18,7 @@ public class RankFinanceCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
             + "Displays a ranked list of all Finances in the league tracker with index numbers.\n\t"
-            + "Example: " + COMMAND_WORD;
+            + "Example: " + COMMAND_WORD + "\n";
 
     public static final String MESSAGE_FINANCE_REFRESH_PROBLEM =
             "invalid command due to finance refresh problem: duplicated team";

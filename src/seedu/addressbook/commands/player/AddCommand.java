@@ -55,6 +55,8 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New player added: %1$s";
     public static final String MESSAGE_DUPLICATE_PLAYER = "This player already exists in the address book";
     public static final String MESSAGE_NO_SUCH_TEAM = "This team %1$s does not exist, please enter an existing team";
+    public static final String MESSAGE_DUPLICATE_JERSEY_NUMBER = "The jersey number %1$s is already taken, "
+            + "please choose another jersey number";
 
     private final Player toAdd;
 
@@ -119,6 +121,9 @@ public class AddCommand extends Command {
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniquePlayerList.DuplicatePlayerException dpe) {
             return new CommandResult(MESSAGE_DUPLICATE_PLAYER);
+        } catch (UniquePlayerList.DuplicateJerseyInSameTeamException djste) {
+            return new CommandResult(String.format(MESSAGE_DUPLICATE_JERSEY_NUMBER,
+                    toAdd.getJerseyNumber().toString()));
         }
     }
 

@@ -11,6 +11,7 @@ import java.io.Writer;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.ParseException;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -118,7 +119,7 @@ public class StorageFile {
      *
      * @throws StorageOperationException if there were errors reading and/or converting data from file.
      */
-    public AddressBook load() throws StorageOperationException {
+    public AddressBook load() throws StorageOperationException, ParseException {
         try (final Reader fileReader =
                      new BufferedReader(new FileReader(path.toFile()))) {
 

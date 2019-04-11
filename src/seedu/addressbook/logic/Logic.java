@@ -15,7 +15,7 @@ import seedu.addressbook.parser.Parser;
 import seedu.addressbook.storage.StorageFile;
 
 /**
- * Represents the main Logic of the AddressBook.
+ * Represents the main Logic of the League Tracker.
  */
 public class Logic {
 

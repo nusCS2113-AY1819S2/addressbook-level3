@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -29,6 +30,11 @@ public class UniqueMatchList implements Iterable<Match> {
      * there is no such matching match in the list.
      */
     public static class MatchNotFoundException extends Exception {}
+
+    /**
+     * Signals that Match was already updated and updating again will fail.
+     */
+    public static class MatchUpdatedException extends Exception {}
 
     private final List<Match> internalList = new ArrayList<>();
 
@@ -109,6 +115,17 @@ public class UniqueMatchList implements Iterable<Match> {
     }
 
     /**
+     * Sorts matches by date in chronological order, then teams in lexicographical order.
+     */
+    public void sort () {
+        Comparator<Match> customMatchCompare = Comparator
+                .comparing(Match::getDate)
+                .thenComparing(Match::getHome)
+                .thenComparing(Match::getAway);
+        Collections.sort(internalList, customMatchCompare);
+    }
+
+    /**
      * Clears all matches in list.
      */
     public void clear() {
@@ -118,7 +135,10 @@ public class UniqueMatchList implements Iterable<Match> {
     /**
      * Replaces equivalent match in list.
      */
-    public void update(ReadOnlyMatch toRemove, Match toReplace) throws MatchNotFoundException {
+    public void update(ReadOnlyMatch toRemove, Match toReplace) throws MatchNotFoundException, MatchUpdatedException {
+        if (!toRemove.notPlayed()) {
+            throw new MatchUpdatedException();
+        }
         final boolean matchFoundAndDeleted = internalList.remove(toRemove);
         if (!matchFoundAndDeleted) {
             throw new MatchNotFoundException();

@@ -1,10 +1,11 @@
 package seedu.addressbook.data.match;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 import seedu.addressbook.data.player.Name;
+import seedu.addressbook.data.team.TeamName;
 
 /**
  * Represents a match in the address book.
@@ -12,20 +13,21 @@ import seedu.addressbook.data.player.Name;
  */
 public class Match implements ReadOnlyMatch {
 
-    private Date date;
-    private Home home;
-    private Away away;
+    private MatchDate date;
+    private TeamName home;
+    private TeamName away;
     private TicketSales homeSales;
     private TicketSales awaySales;
+    private Score score;
 
-    private final Set<Name> goalScorers = new HashSet<>();
-    private final Set<Name> ownGoalScorers = new HashSet<>();
+    private final List<Name> goalScorers = new ArrayList<>();
+    private final List<Name> ownGoalScorers = new ArrayList<>();
 
     /**
      * Assumption: Every field must be present and not null.
      */
-    public Match(Date date, Home home, Away away, TicketSales homeSales, TicketSales awaySales,
-                 Set<Name> goalScorers, Set<Name> ownGoalScorers) {
+    public Match(MatchDate date, TeamName home, TeamName away, TicketSales homeSales, TicketSales awaySales,
+                 List<Name> goalScorers, List<Name> ownGoalScorers, Score score) {
         this.date = date;
         this.home = home;
         this.away = away;
@@ -33,6 +35,7 @@ public class Match implements ReadOnlyMatch {
         this.awaySales = awaySales;
         this.goalScorers.addAll(goalScorers);
         this.ownGoalScorers.addAll(ownGoalScorers);
+        this.score = score;
     }
 
     /**
@@ -40,21 +43,21 @@ public class Match implements ReadOnlyMatch {
      */
     public Match(ReadOnlyMatch source) {
         this(source.getDate(), source.getHome(), source.getAway(), source.getHomeSales(),
-                source.getAwaySales(), source.getGoalScorers(), source.getOwnGoalScorers());
+                source.getAwaySales(), source.getGoalScorers(), source.getOwnGoalScorers(), source.getScore());
     }
 
     @Override
-    public Date getDate() {
+    public MatchDate getDate() {
         return date;
     }
 
     @Override
-    public Home getHome() {
+    public TeamName getHome() {
         return home;
     }
 
     @Override
-    public Away getAway() {
+    public TeamName getAway() {
         return away;
     }
 
@@ -69,26 +72,35 @@ public class Match implements ReadOnlyMatch {
     }
 
     @Override
-    public Set<Name> getGoalScorers() {
-        return new HashSet<>(goalScorers);
+    public List<Name> getGoalScorers() {
+        return new ArrayList<>(goalScorers);
     }
 
     @Override
-    public Set<Name> getOwnGoalScorers() {
-        return new HashSet<>(ownGoalScorers);
+    public List<Name> getOwnGoalScorers() {
+        return new ArrayList<>(ownGoalScorers);
+    }
+
+    @Override
+    public Score getScore() {
+        return score;
     }
 
     /**
      * Replaces this match's goalScorers with the goalScorers in {@code replacement}.
      */
-    public void setGoalScorers(Set<Name> replacement) {
+    public void setGoalScorers(List<Name> replacement) {
         goalScorers.clear();
         goalScorers.addAll(replacement);
     }
 
-    public void setOwnGoalScorers(Set<Name> replacement) {
+    public void setOwnGoalScorers(List<Name> replacement) {
         ownGoalScorers.clear();
         ownGoalScorers.addAll(replacement);
+    }
+
+    public void setScore(String score) {
+        this.score = new Score(score);
     }
 
     @Override
@@ -107,6 +119,6 @@ public class Match implements ReadOnlyMatch {
 
     @Override
     public String toString() {
-        return getAsTextShowAll();
+        return getAsTextShowSome();
     }
 }

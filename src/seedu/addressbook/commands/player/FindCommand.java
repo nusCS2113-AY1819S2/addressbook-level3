@@ -16,7 +16,7 @@ import seedu.addressbook.data.player.ReadOnlyPlayer;
  */
 public class FindCommand extends Command {
 
-    public static final String COMMAND_WORD = "find";
+    public static final String COMMAND_WORD = "findPlayer";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Finds all players whose names contain any of "
             + "the specified keywords (case-sensitive) and displays them as a list with index numbers.\n\t"

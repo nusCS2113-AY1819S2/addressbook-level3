@@ -1,5 +1,6 @@
 package seedu.addressbook.storage.jaxb;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -96,7 +97,7 @@ public class AdaptedTeam {
     /**
      * Converts this jaxb-friendly adapted team object into the team object.
      */
-    public Team toModelType() throws IllegalValueException {
+    public Team toModelType() throws IllegalValueException, ParseException {
         final Set<Tag> tags = new HashSet<>();
         final Set<Player> players = new HashSet<>();
         final Set<Match> matches = new HashSet<>();

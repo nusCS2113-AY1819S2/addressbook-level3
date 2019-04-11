@@ -15,7 +15,7 @@ public class ListMatchCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
             + "Displays all matches in the address book as a list with index numbers.\n\t"
-            + "Example: " + COMMAND_WORD;
+            + "Example: " + COMMAND_WORD + "\n";
 
 
     @Override

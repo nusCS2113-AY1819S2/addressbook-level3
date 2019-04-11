@@ -10,7 +10,7 @@ public class ClearMatchCommand extends Command {
 
     public static final String COMMAND_WORD = "clearmatch";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Clear matches in address book permanently.\n\t"
-            + "Example: " + COMMAND_WORD;
+            + "Example: " + COMMAND_WORD + "\n";
 
     public static final String MESSAGE_SUCCESS = "match list has been cleared!";
 
