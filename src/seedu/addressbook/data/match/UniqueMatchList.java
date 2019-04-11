@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -111,6 +112,17 @@ public class UniqueMatchList implements Iterable<Match> {
         if (!matchFoundAndDeleted) {
             throw new MatchNotFoundException();
         }
+    }
+
+    /**
+     * Sorts matches by date in chronological order, then teams in lexicographical order.
+     */
+    public void sort () {
+        Comparator<Match> customMatchCompare = Comparator
+                .comparing(Match::getDate)
+                .thenComparing(Match::getHome)
+                .thenComparing(Match::getAway);
+        Collections.sort(internalList, customMatchCompare);
     }
 
     /**
