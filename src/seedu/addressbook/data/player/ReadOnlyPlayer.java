@@ -3,6 +3,7 @@ package seedu.addressbook.data.player;
 import java.util.Set;
 
 import seedu.addressbook.data.tag.Tag;
+import seedu.addressbook.data.team.TeamName;
 
 /**
  * A read-only immutable interface for a Player in a football league.

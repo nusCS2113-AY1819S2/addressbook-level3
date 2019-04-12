@@ -6,9 +6,9 @@ import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.player.JerseyNumber;
 import seedu.addressbook.data.player.Name;
 import seedu.addressbook.data.player.Player;
-import seedu.addressbook.data.player.TeamName;
 import seedu.addressbook.data.player.UniquePlayerList;
 import seedu.addressbook.data.team.Team;
+import seedu.addressbook.data.team.TeamName;
 import seedu.addressbook.data.team.UniqueTeamList;
 
 /**
