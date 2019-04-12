@@ -759,6 +759,30 @@ public class LogicTest {
     }
 
     @Test
+    public void execute_viewTeam_successful() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Team t1 = helper.generateTeam(1);
+        Team t2 = helper.generateTeam(2);
+        List<Team> lastShownTeamList = helper.generateTeamList(t1, t2);
+        AddressBook expectedAB = helper.generateTeamAddressBook(lastShownTeamList);
+        helper.addToTeamAddressBook(addressBook, lastShownTeamList);
+
+        logic.setLastTeamShownList(lastShownTeamList);
+
+        assertTeamCommandBehavior("viewteam 1",
+                String.format(ViewTeam.MESSAGE_VIEW_TEAM_DETAILS, t1.getAsTextShowAll()),
+                expectedAB,
+                false,
+                lastShownTeamList);
+
+        assertTeamCommandBehavior("viewteam 2",
+                String.format(ViewTeam.MESSAGE_VIEW_TEAM_DETAILS, t2.getAsTextShowAll()),
+                expectedAB,
+                false,
+                lastShownTeamList);
+    }
+
+    @Test
     public void execute_tryToViewAllTeamMissingInAddressBook_errorMessage() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Team t1 = helper.generateTeam(1);
@@ -779,19 +803,19 @@ public class LogicTest {
     }
 
     @Test
-    public void execute_delTeam_invalidArgsFormat() throws Exception {
+    public void execute_deleteTeam_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteTeam.MESSAGE_USAGE);
         assertTeamCommandBehavior("deleteteam ", expectedMessage);
         assertTeamCommandBehavior("deleteteam arg not number", expectedMessage);
     }
 
     @Test
-    public void execute_delTeam_invalidIndex() throws Exception {
+    public void execute_deleteTeam_invalidIndex() throws Exception {
         assertInvalidIndexBehaviorForTeamCommand("deleteteam");
     }
 
     @Test
-    public void execute_delTeam_removesCorrectPerson() throws Exception {
+    public void execute_deleteTeam_removesCorrectPerson() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Team t1 = helper.generateTeam(1);
         Team t2 = helper.generateTeam(2);
@@ -813,7 +837,7 @@ public class LogicTest {
     }
 
     @Test
-    public void execute_delTeam_missingInAddressBook() throws Exception {
+    public void execute_deltetTeam_missingInAddressBook() throws Exception {
 
         TestDataHelper helper = new TestDataHelper();
         Team t1 = helper.generateTeam(1);

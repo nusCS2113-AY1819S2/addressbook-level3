@@ -198,18 +198,23 @@ public class AddressBook {
     /**
      * Removes the equivalent team from the address book.
      */
-    public void removeTeam(ReadOnlyTeam toRemove) throws
-            TeamNotFoundException,
-            PlayerNotFoundException,
-            MatchNotFoundException {
+    public void removeTeam(ReadOnlyTeam toRemove) throws TeamNotFoundException {
         allTeams.remove(toRemove);
         List<Player> players = toRemove.getPlayers();
         Set<Match> matches = toRemove.getMatches();
         for (Player player : players) {
-            allPlayers.remove(player);
+            try {
+                allPlayers.remove(player);
+            } catch (PlayerNotFoundException pnfe) {
+                // Assumption that all players are part of this team wen removing
+            }
         }
         for (Match match : matches) {
-            allMatches.remove(match);
+            try {
+                allMatches.remove(match);
+            } catch (MatchNotFoundException mnfe) {
+                // Assumption that all matches are part of this team when removing
+            }
         }
     }
 

@@ -40,10 +40,6 @@ public class DeleteTeam extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_TEAM_DISPLAYED_INDEX);
         } catch (UniqueTeamList.TeamNotFoundException tnfe) {
             return new CommandResult(Messages.MESSAGE_TEAM_NOT_IN_LEAGUE_TRACKER);
-        } catch (PlayerNotFoundException pnfe) {
-            return new CommandResult(Messages.MESSAGE_PLAYER_NOT_IN_LEAGUE);
-        } catch (MatchNotFoundException mnfe) {
-            return new CommandResult(Messages.MESSAGE_MATCH_NOT_IN_LEAGUE_TRACKER);
         }
     }
 }
