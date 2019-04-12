@@ -6,8 +6,8 @@ import javax.xml.bind.annotation.XmlElement;
 
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.data.finance.ReadOnlyFinance;
 import seedu.addressbook.data.finance.Finance;
+import seedu.addressbook.data.finance.ReadOnlyFinance;
 
 /**
  * JAXB-friendly adapted team data holder class.
