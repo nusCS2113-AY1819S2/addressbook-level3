@@ -10,7 +10,6 @@ import java.util.List;
 
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.DuplicateDataException;
-import seedu.addressbook.data.team.UniqueTeamList;
 
 /**
  * A list of matches. Does not allow null elements or duplicates.
