@@ -313,9 +313,9 @@ Specifically, you want to change the salary information to be '2000' in the leag
 .Information displayed after `listPlayer` command
 image::edit_list.png[]
 
-From the `listPlayer` command (See figure 9), you find out that the index number of player 'Lionel Messi' is 3.
+From the `listPlayer` command (See figure 9), you find out that the index number of player 'Lionel Messi' is 1.
 
-* `editPlayer 3 sal/2000`
+* `editPlayer 1 sal/2000`
 
 {empty} +
 
@@ -429,25 +429,27 @@ You can use the `transfer` command to transfer a player to another existing team
 
 Format :
 
-*  `transfer PLAYERNAME tm/DESTINATIONTEAM`
+*  `transfer PLAYERNAME tm/DESTINATIONTEAM jn/NEWJERSEYNUMBER`
 
 {empty} +
 
 NOTE: The player must already exist in League Tracker. +
       The destination team must already exist in League Tracker +
-      The destination team shall not be the same as the player's current team
+      The destination team shall not be the same as the player's current team +
+      The Jersey Number must be available in the destination team
 
 {empty} +
 
 Example:
 
-Let's say you want to transfer the player "Lionel Messi" who is currently in team "FC Barcelona" to team "Juventus".
+Let's say you want to transfer the player "Lionel Messi" who is currently in team "FC Barcelona" to team "Juventus",
+his jersey number will be 10 in Juventus.
 (Here in example, assume that the conditions stated above are all met)
 
-* `transfer Lionel Messi tm/Juventus`
+* `transfer Lionel Messi tm/Juventus jn/10`
 
 If the transfer is successfully executed, a success message will be shown to the user with player's name, his team before
-transfer and his team after transfer.(See figure 16)
+transfer, his team after transfer and his new jersey number.(See figure 16)
 
 {empty} +
 
@@ -678,6 +680,16 @@ data transfer, storage and further processing.
 
 ==== *Export Team Profiles to an Excel File*
 
+{empty} +
+
+==== *Export Finance Records to an Excel File*
+
+{empty} +
+
+==== *Export Match Information to an Excel File*
+
+{empty} +
+
 == Exiting the program
 
 You can use the Exit command to exit the program. +
@@ -718,14 +730,17 @@ Add Team to League : `addteam` +
 Delete Team from League : `delteam` +
 Edit Team's Profile : `editteam` +
 List Team in League : `listteam` +
-View Team in League : `viewteam`
+View Team in League : `viewteam` +
+Export all Team profiles to an Excel file : `exportTeam`
 
 === Match Schedule
 Add Match to League : `AddMatch` +
 Delete Match from League : `DeleteMatch` +
-List Matches in League : `ListMatches`
+List Matches in League : `ListMatches` +
+Export all match information to an Excel file : `exportMatch`
 
 === Finance
 Get League Finance : `GetLeagueFinance` +
 Get Team Finance : `GetTeamFinance` +
-List Team Finance : `ListTeamFinance`
+List Team Finance : `ListTeamFinance` +
+Export all Finance records to an Excel file : `exportFinance`

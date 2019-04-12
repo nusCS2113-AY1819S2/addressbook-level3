@@ -29,6 +29,15 @@ public class UniquePlayerList implements Iterable<Player> {
     }
 
     /**
+     * Signals that an operation would have violated the 'no duplicated jn` property
+     */
+    public static class DuplicateJerseyInSameTeamException extends DuplicateDataException {
+        protected DuplicateJerseyInSameTeamException() {
+            super("Operation would result in duplicate jersey numbers in the same team");
+        }
+    }
+
+    /**
      * Signals that an operation targeting a specified player in the list would fail because
      * there is no such matching player in the list.
      */
@@ -104,13 +113,34 @@ public class UniquePlayerList implements Iterable<Player> {
     }
 
     /**
+     *  Checks if the list contains a player in the same team with the same jersey number
+     * @param toCheck A player object to be checked
+     * @return a Boolean value indicating whether the player with same jersey number in same team already exists
+     */
+    public boolean containsSameJnSameTm(ReadOnlyPlayer toCheck) {
+        for (Player player: internalList) {
+            if (player.getTeamName().toString().equals(toCheck.getTeamName().toString())) {
+                if (player.getJerseyNumber().toString().equals(toCheck.getJerseyNumber().toString())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
      * Adds a player to the list.
      *
      * @throws DuplicatePlayerException if the player to add is a duplicate of an existing player in the list.
+     * @throws DuplicateJerseyInSameTeamException if the jersey number is already taken in the team
      */
-    public void add(Player toAdd) throws DuplicatePlayerException {
+    public void add(Player toAdd) throws DuplicatePlayerException, DuplicateJerseyInSameTeamException {
         if (contains(toAdd)) {
             throw new DuplicatePlayerException();
+        }
+
+        if (containsSameJnSameTm(toAdd)) {
+            throw new DuplicateJerseyInSameTeamException();
         }
         internalList.add(toAdd);
     }

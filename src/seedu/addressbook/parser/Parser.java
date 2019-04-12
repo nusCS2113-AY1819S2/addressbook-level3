@@ -18,6 +18,7 @@ import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.ExitCommand;
 import seedu.addressbook.commands.HelpCommand;
 import seedu.addressbook.commands.IncorrectCommand;
+import seedu.addressbook.commands.finance.ExportFinanceCommand;
 import seedu.addressbook.commands.finance.GetFinanceCommand;
 import seedu.addressbook.commands.finance.GetLeagueFinanceCommand;
 import seedu.addressbook.commands.finance.ListFinanceCommand;
@@ -26,6 +27,7 @@ import seedu.addressbook.commands.finance.ViewFinanceCommand;
 import seedu.addressbook.commands.match.AddMatchCommand;
 import seedu.addressbook.commands.match.ClearMatchCommand;
 import seedu.addressbook.commands.match.DeleteMatchCommand;
+import seedu.addressbook.commands.match.ExportMatchCommand;
 import seedu.addressbook.commands.match.FindMatchCommand;
 import seedu.addressbook.commands.match.ListMatchCommand;
 import seedu.addressbook.commands.match.UpdateMatchCommand;
@@ -87,7 +89,8 @@ public class Parser {
 
     public static final Pattern TRANSFER_DATA_ARGS_FORMAT =
             Pattern.compile("(?<playerName>[^/]+)"
-                    + "tm/(?<destinationTeamName>[^/]+)");
+                    + "tm/(?<destinationTeamName>[^/]+)"
+                    + "jn/(?<newJerseyNumber>[^/]+)");
 
     public static final Pattern EDITPLAYER_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<targetIndex>\\d+)"
@@ -186,8 +189,14 @@ public class Parser {
         case ExportPlayerCommand.COMMAND_WORD:
             return new ExportPlayerCommand();
 
+        case ExportFinanceCommand.COMMAND_WORD:
+            return new ExportFinanceCommand();
+
         case ExportTeam.COMMAND_WORD:
             return new ExportTeam();
+
+        case ExportMatchCommand.COMMAND_WORD:
+            return new ExportMatchCommand();
 
         case DeleteTeam.COMMAND_WORD:
             return delTeam(arguments);
@@ -333,7 +342,8 @@ public class Parser {
         try {
             return new TransferPlayerCommand(
                     matcher.group("playerName"),
-                    matcher.group("destinationTeamName")
+                    matcher.group("destinationTeamName"),
+                    matcher.group("newJerseyNumber")
             );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
@@ -444,12 +454,6 @@ public class Parser {
         }
     }
 
-    //    /**
-    //     * Checks whether the private prefix of a contact detail in the add command's arguments string is present.
-    //     */
-    //    private static boolean isPrivatePrefixPresent(String matchedPrefix) {
-    //        return matchedPrefix.equals("p");
-    //    }
 
     /**
      * Extracts the new player's tags from the add command's tag arguments string.

@@ -13,10 +13,10 @@ import seedu.addressbook.data.team.ReadOnlyTeam;
 public class Finance implements ReadOnlyFinance {
 
     public static final int NUMBER_OF_QUARTER = 4;
-    public static final Set<String> QUARTER_ONE_MONTHS = Set.of("JAN", "FEB", "MAR");
-    public static final Set<String> QUARTER_TWO_MONTHS = Set.of("APR", "MAY", "JUN");
-    public static final Set<String> QUARTER_THREE_MONTHS = Set.of("JUL", "AUG", "SEP");
-    public static final Set<String> QUARTER_FOUR_MONTHS = Set.of("OCT", "NOV", "DEC");
+    public static final Set<String> QUARTER_ONE_MONTHS = Set.of("Jan", "Feb", "Mar");
+    public static final Set<String> QUARTER_TWO_MONTHS = Set.of("Apr", "May", "Jun");
+    public static final Set<String> QUARTER_THREE_MONTHS = Set.of("Jul", "Aug", "Sep");
+    public static final Set<String> QUARTER_FOUR_MONTHS = Set.of("Oct", "Nov", "Dec");
 
     private String teamName;
     private double sponsorMoney = 0;
@@ -57,6 +57,22 @@ public class Finance implements ReadOnlyFinance {
         this.quarterFour = sponsorMoney / 4 + quarterFourTicketIncome;
 
         this.histogram = new Histogram(NUMBER_OF_QUARTER, quarterOne, quarterTwo, quarterThree, quarterFour);
+    }
+
+    public Finance(String teamName,
+                   double sponsorMoney,
+                   double ticketIncome,
+                   double quarterOne,
+                   double quarterTwo,
+                   double quarterThree,
+                   double quarterFour) {
+        this.teamName = teamName;
+        this.sponsorMoney = sponsorMoney;
+        this.ticketIncome = ticketIncome;
+        this.quarterOne = quarterOne;
+        this.quarterTwo = quarterTwo;
+        this.quarterThree = quarterThree;
+        this.quarterFour = quarterFour;
     }
 
     /**
