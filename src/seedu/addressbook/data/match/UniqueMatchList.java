@@ -32,6 +32,12 @@ public class UniqueMatchList implements Iterable<Match> {
     public static class MatchNotFoundException extends Exception {}
 
     /**
+     * Signals that adding a match in the list would fail because
+     * there cannot a match where homeTeam and awayTeam are the same.
+     */
+    public static class SameTeamException extends Exception {}
+
+    /**
      * Signals that Match was already updated and updating again will fail.
      */
     public static class MatchUpdatedException extends Exception {}
