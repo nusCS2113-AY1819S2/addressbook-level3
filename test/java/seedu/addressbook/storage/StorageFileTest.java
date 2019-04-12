@@ -24,7 +24,6 @@ import seedu.addressbook.data.player.Nationality;
 import seedu.addressbook.data.player.Player;
 import seedu.addressbook.data.player.PositionPlayed;
 import seedu.addressbook.data.player.Salary;
-import seedu.addressbook.data.player.TeamName;
 import seedu.addressbook.storage.StorageFile.StorageOperationException;
 
 public class StorageFileTest {
