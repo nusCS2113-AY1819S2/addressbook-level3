@@ -21,7 +21,7 @@ public class ReferCommand extends Command {
     public static final String MESSAGE_INVALID_DOCTOR_NAME = "Doctor's names should only contain spaces and/or alphanumeric characters\nSpecial characters like . ! @ # , etc are not allowed!\nPlease re-enter with an appropriate doctor name.";
 
     private final Set<String> keywords;
-    volatile String referraldoctor = "Dr Seuss";
+    private volatile String referraldoctor = "Dr Seuss";
 //    String params[];
 //    Set<String> tags;
     private Person toRefer;
@@ -43,6 +43,10 @@ public class ReferCommand extends Command {
         final Set<String> keywords = new HashSet<>(Arrays.asList(names));
         this.keywords = keywords;
         referraldoctor = doctorname;
+    }
+
+    public Set<String> getKeywords() {
+        return new HashSet<>(keywords);
     }
 
     @Override
