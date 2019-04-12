@@ -944,22 +944,48 @@ public class LogicTest {
         assertEquals(addressBook, saveFile.load());
     }
 
-    /*@Test
+    @Test
     public void execute_listFinance_showsAllFinances() throws Exception {
-        // prepare expectations
         TestDataHelper helper = new TestDataHelper();
-        AddressBook expectedAb = helper.generateFinanceAddressBook(2);
+        Team t1 = helper.generateTeam(1);
+        Team t2 = helper.generateTeam(2);
+        Finance f1 = helper.generateFinance(t1);
+        Finance f2 = helper.generateFinance(t2);
+        List<Finance> lastFinanceList = helper.generateFinanceList(f1, f2);
+        AddressBook expectedAb = helper.generateFinanceAddressBook(lastFinanceList);
         List<? extends ReadOnlyFinance> expectedList = expectedAb.getAllFinances().immutableListView();
 
-        // prepare address book state
-        helper.addToFinanceAddressBook(addressBook, 2);
+        addressBook.addTeam(t1);
+        addressBook.addTeam(t2);
 
         assertFinanceCommandBehavior("listfinance",
                 Command.getMessageForFinanceListShownSummary(expectedList),
                 expectedAb,
                 true,
                 expectedList);
-    }*/
+    }
+
+    @Test
+    public void execute_rankFinance_showsAllFinances() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Team t1 = helper.generateTeam(1);
+        Team t2 = helper.generateTeam(2);
+        Finance f1 = helper.generateFinance(t1);
+        Finance f2 = helper.generateFinance(t2);
+        List<Finance> lastFinanceList = helper.generateFinanceList(f1, f2);
+        AddressBook expectedAb = helper.generateFinanceAddressBook(lastFinanceList);
+        expectedAb.sortFinance();
+        List<? extends ReadOnlyFinance> expectedList = expectedAb.getAllFinances().immutableListView();
+
+        addressBook.addTeam(t1);
+        addressBook.addTeam(t2);
+
+        assertFinanceCommandBehavior("rankfinance",
+                Command.getMessageForFinanceListShownSummary(expectedList),
+                expectedAb,
+                true,
+                expectedList);
+    }
 
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
@@ -990,6 +1016,11 @@ public class LogicTest {
     }
 
     @Test
+    public void execute_getFinance_invalidIndex() throws Exception {
+        assertInvalidIndexBehaviorForTeamCommand("getfinance");
+    }
+
+    @Test
     public void execute_tryToViewAllFinanceMissingInAddressBook_errorMessage() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Finance f1 = helper.generateFinance(1);
@@ -1004,6 +1035,28 @@ public class LogicTest {
 
         assertFinanceCommandBehavior("viewfinance 2",
                 Messages.MESSAGE_FINANCE_NOT_IN_LEAGUE_TRACKER,
+                expectedAb,
+                false,
+                lastFinanceList);
+    }
+
+    @Test
+    public void execute_tryToGetAllFinanceMissingInAddressBook_errorMessage() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Team t1 = helper.generateTeam(1);
+        Team t2 = helper.generateTeam(2);
+        Finance f1 = helper.generateFinance(t1);
+        Finance f2 = helper.generateFinance(t2);
+        List<Finance> lastFinanceList = helper.generateFinanceList(f1, f2);
+
+        AddressBook expectedAb = new AddressBook();
+        expectedAb.addFinance(f1);
+
+        addressBook.addFinance(f1);
+        logic.setLastFinanceShownList(lastFinanceList);
+
+        assertFinanceCommandBehavior("getfinance 2",
+                Messages.MESSAGE_INVALID_TEAM_DISPLAYED_INDEX,
                 expectedAb,
                 false,
                 lastFinanceList);
@@ -1350,12 +1403,22 @@ public class LogicTest {
 
         /**
          * Generates a valid finance using the given seed.
-         * Each unique seed will generate a unique Person object.
+         * Each unique seed will generate a unique Finance object.
          *
-         * @param seed used to generate the player data field values
+         * @param seed used to generate the finance data field values
          */
         Finance generateFinance(int seed) throws Exception {
-            return new Finance(String.format("Finance " + seed), seed, seed, seed, seed, seed, seed);
+            return new Finance(String.format("FINANCE " + seed), seed, seed, seed, seed, seed, seed);
+        }
+
+        /**
+         * Generates a valid finance using the given ReadOnlyTeam.
+         * Each unique seed will generate a unique Finance object.
+         *
+         * @param aTeam used to generate the finance data field values
+         */
+        Finance generateFinance(ReadOnlyTeam aTeam) throws Exception {
+            return new Finance(aTeam);
         }
 
         /**
@@ -1393,7 +1456,7 @@ public class LogicTest {
         }
 
         /**
-         * Creates a list of Finances based on the give Person objects.
+         * Creates a list of Finances based on the give Finance objects.
          */
         List<Finance> generateFinanceList(Finance... finances) throws Exception {
             List<Finance> financeList = new ArrayList<>();
