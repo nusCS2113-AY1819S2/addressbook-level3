@@ -251,9 +251,7 @@ public class AddressBook {
      * Updates the equivalent match from League Tracker
      */
     public void updateMatch(ReadOnlyMatch toRemove, Match toReplace) throws MatchNotFoundException,
-            MatchUpdatedException, TeamNotFoundException, PlayerNotInTeamException {
-        String score = computeScore(toRemove, toReplace);
-        toReplace.setScore(score);
+            MatchUpdatedException {
         allMatches.update(toRemove, toReplace);
         for (Team team : allTeams) {
             if (team.getTeamName().toString().equals(toRemove.getHome().toString())) {

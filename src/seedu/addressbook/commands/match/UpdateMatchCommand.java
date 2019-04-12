@@ -65,6 +65,7 @@ public class UpdateMatchCommand extends Command {
         try {
             final ReadOnlyMatch target = getTargetMatch();
             Match updatedMatch = createUpdateMatch(target, updateMatchDescriptor);
+            updatedMatch.setScore(addressBook.computeScore(target, updatedMatch));
             addressBook.updateMatch(target, updatedMatch);
             return new CommandResult(String.format(MESSAGE_UPDATE_MATCH_SUCCESS, updatedMatch));
 
