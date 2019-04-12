@@ -339,6 +339,85 @@ public class ParserTest {
 
     //@@author
     /**
+     * Test refer person command
+     */
+    // @@author shawn-t
+    @Test
+    public void referCommand_invalidArgs() {
+        final String[] inputs = {
+                "refer",
+                "refer "
+        };
+        final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReferCommand.MESSAGE_USAGE);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+
+    @Test
+    public void referCommand_invalidDoctorNameInArgs() {
+        final String[] inputs = {
+                // invalid doctor names
+                "refer d/Dr. p/John Doe",
+                "refer d/Dr, p/John Doe",
+                "refer d/Dr! p/John Doe",
+                "refer d/Dr@ p/John Doe",
+                "refer d/#@! p/John Doe"
+        };
+        final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReferCommand.MESSAGE_INVALID_DOCTOR_NAME);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+
+//    @Test
+//    public void referCommand_validArgs_parsedCorrectly() {
+//        final String[] keywords = { "key1", "key2", "key3" };
+//        final Set<String> keySet = new HashSet<>(Arrays.asList(keywords));
+//
+//        final String input = "refer " + String.join(" ", keySet);
+//        final ReferCommand result =
+//                parseAndAssertCommandType(input, ReferCommand.class);
+//        assertEquals(keySet, result.getKeywords());
+//    }
+//
+//    @Test
+//    public void referCommand_duplicateKeys_parsedCorrectly() {
+//        final String[] keywords = { "key1", "key2", "key3" };
+//        final Set<String> keySet = new HashSet<>(Arrays.asList(keywords));
+//
+//        // duplicate every keyword
+//        final String input = "refer " + String.join(" ", keySet) + " " + String.join(" ", keySet);
+//        final ReferCommand result =
+//                parseAndAssertCommandType(input, ReferCommand.class);
+//        assertEquals(keySet, result.getKeywords());
+//    }
+//
+//    @Test
+//    public void referCommand_validPersonData_parsedCorrectly() {
+//        final String referArgsString = generateTestRefer();
+//        final ReferCommand result1 = parseAndAssertCommandType(referArgsString, ReferCommand.class);
+//        assertEquals(result1, referArgsString);
+//
+//        final String referArgsStringWithDoctorName = generateTestReferWithDoctorName();
+//        final ReferCommand result2 = parseAndAssertCommandType(referArgsStringWithDoctorName, ReferCommand.class);
+//        assertEquals(result2, referArgsStringWithDoctorName);
+//
+//    }
+//
+//    private static String generateTestRefer() {
+//        try {
+//            return "refer " + new Name(Name.EXAMPLE).toString();
+//        } catch (IllegalValueException ive) {
+//            throw new RuntimeException("test person data should be valid by definition");
+//        }
+//    }
+//
+//    private static String generateTestReferWithDoctorName() {
+//        try {
+//            return "refer d/" + new Doctor(Doctor.EXAMPLE).toString() + " p/" + new Name(Name.EXAMPLE).toString();
+//        } catch (IllegalValueException ive) {
+//            throw new RuntimeException("test person data should be valid by definition");
+//        }
+//    }
+
+    /**
      * Utility methods
      */
 

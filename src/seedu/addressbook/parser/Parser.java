@@ -306,6 +306,7 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
+    //@@author shawn-t
     private Command prepareRefer(String args) {
         final Matcher matcherWithDoctorName = PERSON_REFER_ARGS_FORMAT.matcher(args.trim());
 
@@ -328,7 +329,7 @@ public class Parser {
         // if doctor name is present,
         String doctorToReferTo = matcherWithDoctorName.group("doctor");
         doctorToReferTo = doctorToReferTo.trim();
-        if (!Doctor.isValidName(doctorToReferTo)) {
+        if (!Doctor.isValidName(doctorToReferTo)) { // if doctor name is invalid,
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     ReferCommand.MESSAGE_INVALID_DOCTOR_NAME));
         }
