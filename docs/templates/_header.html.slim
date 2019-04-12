@@ -35,6 +35,10 @@
           - if attr? 'site-seedu'
             li.nav-item
               =nav_link('LearningOutcomes', 'LearningOutcomes.html', 'LOs')
+          li.nav-item
+            =nav_link('AboutUs', 'AboutUs.html', 'About Us')
+          li.nav-item
+            =nav_link('ContactUs', 'ContactUs.html', 'Contact Us')
           - if attr? 'site-githuburl'
             li.navitem
               a.nav-link href=(attr 'site-githuburl')
