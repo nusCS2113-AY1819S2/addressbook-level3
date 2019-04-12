@@ -13,6 +13,7 @@ import seedu.addressbook.data.match.UniqueMatchList;
 import seedu.addressbook.data.match.UniqueMatchList.DuplicateMatchException;
 import seedu.addressbook.data.match.UniqueMatchList.MatchNotFoundException;
 import seedu.addressbook.data.match.UniqueMatchList.MatchUpdatedException;
+import seedu.addressbook.data.match.UniqueMatchList.SameTeamException;
 import seedu.addressbook.data.player.Name;
 import seedu.addressbook.data.player.Player;
 import seedu.addressbook.data.player.ReadOnlyPlayer;
@@ -105,21 +106,20 @@ public class AddressBook {
 
     /**
      * Adds a match to the address book.
-     *
      * @throws DuplicateMatchException if an equivalent match already exists.
      */
-    public void addMatch(Match toAdd) throws DuplicateMatchException {
+    public void addMatch(Match toAdd)
+            throws DuplicateMatchException,
+                    TeamNotFoundException,
+                    SameTeamException {
+        Team home = allTeams.find(toAdd.getHome());
+        Team away = allTeams.find(toAdd.getAway());
+        if (home.equals(away)) {
+            throw new SameTeamException();
+        }
+        home.addMatch(toAdd);
+        away.addMatch(toAdd);
         allMatches.add(toAdd);
-        for (Team team : allTeams) {
-            if (team.getTeamName().toString().equals(toAdd.getHome().toString())) {
-                team.addMatch(toAdd);
-            }
-        }
-        for (Team team : allTeams) {
-            if (team.getTeamName().toString().equals(toAdd.getAway().toString())) {
-                team.addMatch(toAdd);
-            }
-        }
     }
 
     /**
