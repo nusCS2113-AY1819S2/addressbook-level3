@@ -453,13 +453,13 @@ public class LogicTest {
         assertCommandBehavior("findPlayer ", expectedMessage);
     }
 
-    /*@Test
+    @Test
     public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Player pTarget1 = helper.generatePlayerWithName("bla bla KEY bla");
-        Player pTarget2 = helper.generatePlayerWithName("bla KEY bla bceofeia");
-        Player p1 = helper.generatePlayerWithName("KE Y");
-        Player p2 = helper.generatePlayerWithName("KEYKEYKEY sduauo");
+        Player pTarget1 = helper.generatePlayerWithName("bla bla KEY bla", 1);
+        Player pTarget2 = helper.generatePlayerWithName("bla KEY bla bceofeia", 2);
+        Player p1 = helper.generatePlayerWithName("KE Y", 3);
+        Player p2 = helper.generatePlayerWithName("KEYKEYKEY sduauo", 4);
 
         List<Player> fourPlayers = helper.generatePlayerList(p1, pTarget1, p2, pTarget2);
         AddressBook expectedAb = helper.generateAddressBook(fourPlayers);
@@ -471,7 +471,7 @@ public class LogicTest {
                 expectedAb,
                 true,
                 expectedList);
-    }*/
+    }
 
     @Test
     public void execute_find_isCaseSensitive() throws Exception {
@@ -493,13 +493,13 @@ public class LogicTest {
                 expectedList);
     }
 
-    /*@Test
+    @Test
     public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Player pTarget1 = helper.generatePlayerWithName("bla bla KEY bla");
-        Player pTarget2 = helper.generatePlayerWithName("bla rAnDoM bla bceofeia");
-        Player p1 = helper.generatePlayerWithName("key key");
-        Player p2 = helper.generatePlayerWithName("KEy sduauo");
+        Player pTarget1 = helper.generatePlayerWithName("bla bla KEY bla", 1);
+        Player pTarget2 = helper.generatePlayerWithName("bla rAnDoM bla bceofeia", 2);
+        Player p1 = helper.generatePlayerWithName("key key", 3);
+        Player p2 = helper.generatePlayerWithName("KEy sduauo", 4);
 
         List<Player> fourPlayers = helper.generatePlayerList(p1, pTarget1, p2, pTarget2);
         AddressBook expectedAb = helper.generateAddressBook(fourPlayers);
@@ -511,7 +511,7 @@ public class LogicTest {
                 expectedAb,
                 true,
                 expectedList);
-    }*/
+    }
 
     /**
      * Start Test for Team Management

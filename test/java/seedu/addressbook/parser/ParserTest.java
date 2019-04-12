@@ -283,7 +283,7 @@ public class ParserTest {
 
 
 
-    /*@Test
+    @Test
     public void addCommand_invalidPlayerDataInArgs() {
         // name, age, salary, gs, ga, jn and appearance are the ones that need to be tested
         final String invalidName = "[]\\[;]";
@@ -334,14 +334,11 @@ public class ParserTest {
                 // invalid Appearance
                 String.format(addCommandFormatString, validName, validAgeArg, validSalaryArg, validGsArg,
                         validGaArg, validJnArg, invalidAppearanceArg),
-                // invalid tag
-                String.format(addCommandFormatString, validName, validAgeArg, validSalaryArg, validGsArg,
-                        validGaArg, validJnArg, validAppearanceArg) + " " + invalidTagArg
         };
         for (String input : inputs) {
             parseAndAssertCommandType(input, IncorrectCommand.class);
         }
-    }*/
+    }
 
     @Test
     public void addCommand_validPlayerData_parsedCorrectly() {
