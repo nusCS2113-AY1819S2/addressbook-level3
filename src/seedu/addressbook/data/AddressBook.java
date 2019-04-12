@@ -6,6 +6,7 @@ import java.util.Set;
 import seedu.addressbook.data.finance.Finance;
 import seedu.addressbook.data.finance.ReadOnlyFinance;
 import seedu.addressbook.data.finance.UniqueFinanceList;
+import seedu.addressbook.data.finance.UniqueFinanceList.DuplicateFinanceException;
 import seedu.addressbook.data.match.Match;
 import seedu.addressbook.data.match.ReadOnlyMatch;
 import seedu.addressbook.data.match.UniqueMatchList;
@@ -311,10 +312,17 @@ public class AddressBook {
     }
 
     /**
-     * Sorts all persons from the address book.
+     * Sorts all finances from the address book.
      */
     public void sortFinance() {
         allFinances.sort();
+    }
+
+    /**
+     * Adds a finance to the address book.
+     */
+    public void addFinance(Finance toAdd) throws DuplicateFinanceException {
+        allFinances.add(toAdd);
     }
 
     /**
