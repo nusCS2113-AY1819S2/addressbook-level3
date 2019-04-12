@@ -3,8 +3,6 @@ package seedu.addressbook.commands.team;
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.common.Messages;
-import seedu.addressbook.data.match.UniqueMatchList.MatchNotFoundException;
-import seedu.addressbook.data.player.UniquePlayerList.PlayerNotFoundException;
 import seedu.addressbook.data.team.ReadOnlyTeam;
 import seedu.addressbook.data.team.UniqueTeamList;
 
