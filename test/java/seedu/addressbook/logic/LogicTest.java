@@ -113,6 +113,7 @@ public class LogicTest {
                                        List<? extends ReadOnlyPlayer> lastPlayerList) throws Exception {
 
         //Execute the command
+        logic.execute("addteam FC Barcelona c/a s/0");
         CommandResult r = logic.execute(inputCommand);
 
         //Confirm the result contains the right data
@@ -255,7 +256,7 @@ public class LogicTest {
     }
 
 
-    /*@Test
+    @Test
     public void execute_add_invalidPlayerData() throws Exception {
         assertCommandBehavior(
                 "addPlayer []\\[;] p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam ctry/China"
@@ -281,12 +282,9 @@ public class LogicTest {
         assertCommandBehavior(
                 "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam ctry/China "
                         + "jn/9 app/zero hs/Healthy", Appearance.MESSAGE_APPEARANCE_CONSTRAINTS);
-        assertCommandBehavior(
-                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam ctry/China "
-                        + "jn/9 app/0 hs/Healthy t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
-    }*/
+    }
 
-    /*@Test
+    @Test
     public void execute_add_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
@@ -301,9 +299,9 @@ public class LogicTest {
                 false,
                 Collections.emptyList());
 
-    }*/
+    }
 
-    /*@Test
+    @Test
     public void execute_addDuplicate_notAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
@@ -322,7 +320,7 @@ public class LogicTest {
                 false,
                 Collections.emptyList());
 
-    }*/
+    }
 
     @Test
     public void execute_list_showsAllPersons() throws Exception {
@@ -1068,7 +1066,7 @@ public class LogicTest {
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             Set<Tag> tags = new HashSet<>(Arrays.asList(tag1, tag2));
-            return new Team(teamName, country, sponsor, new HashSet<>(), new HashSet<>(), tags);
+            return new Team(teamName, country, sponsor, new HashSet<>(), new ArrayList<>(), tags);
         }
 
         /**
@@ -1083,7 +1081,7 @@ public class LogicTest {
                     new Country("Country " + ((char) (64 + seed))),
                     new Sponsor("40" + seed),
                     new HashSet<>(),
-                    new HashSet<>(),
+                    new ArrayList<>(),
                     new HashSet<>(Arrays.asList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))))
             );
         }
@@ -1137,7 +1135,7 @@ public class LogicTest {
                 tagsList = t.getTags();
             }
 
-            return new Team(teamName, country, sponsor, new HashSet<>(), new HashSet<>(), tagsList);
+            return new Team(teamName, country, sponsor, new HashSet<>(), new ArrayList<>(), tagsList);
         }
 
         /** Generates the correct edit command based on the team given */
@@ -1238,7 +1236,7 @@ public class LogicTest {
                     new Country("Country"),
                     new Sponsor("404"),
                     new HashSet<>(),
-                    new HashSet<>(),
+                    new ArrayList<>(),
                     Collections.singleton(new Tag("tag"))
             );
         }

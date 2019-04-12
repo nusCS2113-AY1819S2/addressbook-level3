@@ -1,6 +1,8 @@
 package seedu.addressbook.data.team;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -25,7 +27,7 @@ public class Team implements ReadOnlyTeam {
     private int lose;
     private int draw;
     private int points;
-    private final Set<Player> playerlist = new HashSet<>();
+    private final List<Player> playerlist = new ArrayList<>();
     private final Set<Match> matchlist = new HashSet<>();
     private final Set<Tag> tags = new HashSet<>();
     /**
@@ -35,7 +37,7 @@ public class Team implements ReadOnlyTeam {
                 Country country,
                 Sponsor sponsor,
                 Set<Match> matchlist,
-                Set<Player> playerlist,
+                List<Player> playerlist,
                 Set<Tag> tags) {
         this.teamName = teamName;
         this.country = country;
@@ -57,7 +59,7 @@ public class Team implements ReadOnlyTeam {
                 int draw,
                 int points,
                 Set<Match> matchlist,
-                Set<Player> playerlist,
+                List<Player> playerlist,
                 Set<Tag> tags) {
         this.teamName = teamName;
         this.country = country;
@@ -71,21 +73,9 @@ public class Team implements ReadOnlyTeam {
         this.tags.addAll(tags);
     }
 
-    /**
-     * Copy constructor.
-     */
-    public Team(ReadOnlyTeam source) {
-        this(source.getTeamName(),
-                source.getCountry(),
-                source.getSponsor(),
-                source.getMatches(),
-                source.getPlayers(),
-                source.getTags());
-    }
-
     @Override
-    public Set<Player> getPlayers() {
-        return new HashSet<>(playerlist);
+    public List<Player> getPlayers() {
+        return new ArrayList<>(playerlist);
     }
 
     @Override
@@ -133,19 +123,6 @@ public class Team implements ReadOnlyTeam {
         return draw;
     }
 
-    /**
-     * Replaces this team's tags with the tags in {@code replacement}.
-     */
-    public void setTags(Set<Tag> replacement) {
-        tags.clear();
-        tags.addAll(replacement);
-    }
-
-    public void setPlayers(Set<Player> replacement) {
-        playerlist.clear();
-        playerlist.addAll(replacement);
-    }
-
     public void updatePoints() {
         this.points = 3 * this.win + this.draw;
     }
@@ -179,7 +156,7 @@ public class Team implements ReadOnlyTeam {
 
     public void addMatch(Match match) {
         this.matchlist.add(match);
-        if (teamName.toString().equals(match.getHome().toString()) && !match.notPlayed()) {
+        if (teamName.equals(match.getHome()) && !match.notPlayed()) {
             String result = match.getScore().toString();
             String[] score = result.split("-");
             if (Integer.valueOf(score[0]) > Integer.valueOf(score[1])) {
@@ -190,7 +167,7 @@ public class Team implements ReadOnlyTeam {
                 this.draw++;
             }
         }
-        if (teamName.toString().equals(match.getAway().toString()) && !match.notPlayed()) {
+        if (teamName.equals(match.getAway()) && !match.notPlayed()) {
             String result = match.getScore().toString();
             String[] score = result.split("-");
             if (Integer.valueOf(score[1]) > Integer.valueOf(score[0])) {
@@ -210,7 +187,7 @@ public class Team implements ReadOnlyTeam {
 
     public void removeMatch(ReadOnlyMatch match) {
         this.matchlist.remove(match);
-        if (teamName.toString().equals(match.getHome().toString()) && !match.notPlayed()) {
+        if (teamName.equals(match.getHome()) && !match.notPlayed()) {
             String result = match.getScore().toString();
             String[] score = result.split("-");
             if (Integer.valueOf(score[0]) > Integer.valueOf(score[1])) {
@@ -221,7 +198,7 @@ public class Team implements ReadOnlyTeam {
                 this.draw--;
             }
         }
-        if (teamName.toString().equals(match.getAway().toString()) && !match.notPlayed()) {
+        if (teamName.equals(match.getAway()) && !match.notPlayed()) {
             String result = match.getScore().toString();
             String[] score = result.split("-");
             if (Integer.valueOf(score[1]) > Integer.valueOf(score[0])) {

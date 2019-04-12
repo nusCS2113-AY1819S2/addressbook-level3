@@ -203,7 +203,7 @@ public class AddressBook {
             PlayerNotFoundException,
             MatchNotFoundException {
         allTeams.remove(toRemove);
-        Set<Player> players = toRemove.getPlayers();
+        List<Player> players = toRemove.getPlayers();
         Set<Match> matches = toRemove.getMatches();
         for (Player player : players) {
             allPlayers.remove(player);
@@ -343,7 +343,7 @@ public class AddressBook {
      * @param team
      * @returns score of each team contributed by either goals or own goals.
      */
-    public int countScore (List<Name> target, Set <Player> team) {
+    public int countScore (List<Name> target, List<Player> team) {
         int count = 0;
         for (Name scorers : target) {
             for (Player players : team) {
