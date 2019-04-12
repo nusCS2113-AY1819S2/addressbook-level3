@@ -52,6 +52,7 @@ import seedu.addressbook.data.team.Country;
 import seedu.addressbook.data.team.ReadOnlyTeam;
 import seedu.addressbook.data.team.Sponsor;
 import seedu.addressbook.data.team.Team;
+import seedu.addressbook.data.team.TeamName;
 
 public class ParserTest {
 
@@ -400,7 +401,7 @@ public class ParserTest {
                 + " sal/" + player.getSalary().value
                 + " gs/" + player.getGoalsScored().value
                 + " ga/" + player.getGoalsAssisted().value
-                + " tm/" + player.getTeamName().fullTeam
+                + " tm/" + player.getTeamName().fullName
                 + " ctry/" + player.getNationality().fullCountry
                 + " jn/" + player.getJerseyNumber().value
                 + " app/" + player.getAppearance().value
