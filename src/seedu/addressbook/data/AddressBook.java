@@ -1,5 +1,6 @@
 package seedu.addressbook.data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import seedu.addressbook.data.exception.IllegalValueException;
@@ -38,6 +39,8 @@ public class AddressBook {
     private final UniqueMatchList allMatches;
     private final UniqueFinanceList allFinances;
 
+    private final List<String> transferRecords;
+
     /**
      * Creates an empty address book.
      */
@@ -46,6 +49,7 @@ public class AddressBook {
         allMatches = new UniqueMatchList();
         allTeams = new UniqueTeamList();
         allFinances = new UniqueFinanceList();
+        transferRecords = new ArrayList<>();
     }
 
     /**
@@ -53,15 +57,20 @@ public class AddressBook {
      *
      * @param players external changes to this will not affect this address book
      * @param matches external changes to this will not affect this address book
+     * @param teams external changes to this will not affect this address book
+     * @param finances external changes to this will not affect this address book
+     * @param transferRecords external changes to this will not affect this address book
      */
     public AddressBook(UniquePlayerList players,
                        UniqueTeamList teams,
                        UniqueMatchList matches,
-                       UniqueFinanceList finances) {
+                       UniqueFinanceList finances,
+                       ArrayList<String> transferRecords) {
         this.allPlayers = new UniquePlayerList(players);
         this.allTeams = new UniqueTeamList(teams);
         this.allMatches = new UniqueMatchList(matches);
         this.allFinances = new UniqueFinanceList(finances);
+        this.transferRecords = transferRecords;
     }
 
     public static AddressBook empty() {
@@ -81,6 +90,13 @@ public class AddressBook {
                 team.addPlayer(toAdd);
             }
         }
+    }
+
+    /**
+     * Adds a transfer record to the address book
+     */
+    public void addTransferRecord(String toAdd) {
+        transferRecords.add(toAdd);
     }
 
     /**
@@ -294,6 +310,13 @@ public class AddressBook {
     }
 
     /**
+     * Defensively copied transferRecords in the address book at the time of the call
+     */
+    public List<String> getAllTransferRecords() {
+        return this.transferRecords;
+    }
+
+    /**
      * Defensively copied sorted UniqueMatchList of all matches in the address book at the time of the call.
      */
     public UniqueMatchList getAllMatches() {
@@ -341,8 +364,8 @@ public class AddressBook {
     }
 
     /**
-     * @param toRemove
-     * @param toReplace
+     * @param toRemove the match to be removed
+     * @param toReplace the match to be added to replace the removed match
      * @return Computed score of both team
      * @throws TeamNotFoundException if either team does not exit in LeagueTracker
      * @throws PlayerNotInTeamException if any (own)goalScorers is not in either team
@@ -359,15 +382,15 @@ public class AddressBook {
         if ((toReplace.getGoalScorers().size() + toReplace.getOwnGoalScorers().size() != (homeScore + awayScore))) {
             throw new PlayerNotInTeamException();
         }
-        return String.valueOf(homeScore) + "-" + String.valueOf(awayScore);
+        return homeScore + "-" + awayScore;
     }
 
     /**
-     * @param target
-     * @param team
-     * @returns score of each team contributed by either goals or own goals.
+     * @param target a list of names of goals scorers/own goal scorers
+     * @param team a list of all teams in League Tracker
+     * @return score of each team contributed by either goals or own goals.
      */
-    public int countScore (List<Name> target, List <Player> team) {
+    private int countScore (List<Name> target, List <Player> team) {
         int count = 0;
         for (Name scorers : target) {
             for (Player players : team) {

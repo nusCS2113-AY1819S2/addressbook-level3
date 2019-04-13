@@ -2,10 +2,9 @@ package seedu.addressbook.commands;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
+import seedu.addressbook.data.match.ReadOnlyMatch;
 import seedu.addressbook.data.player.Player;
 import seedu.addressbook.data.player.ReadOnlyPlayer;
 import seedu.addressbook.data.team.ReadOnlyTeam;
@@ -30,17 +29,26 @@ public class DataAnalysisCommand extends Command {
     public CommandResult execute() {
         List<ReadOnlyPlayer> allPlayers = addressBook.getAllPlayers().immutableListView();
         List<ReadOnlyTeam> allTeams = addressBook.getAllTeams().immutableListView();
+        List<ReadOnlyMatch> allMatches = addressBook.getAllMatches().immutableListView();
 
+        String leagueTrackerInfo;
         String topScorer;
         String topScorerEachTeam;
-        String teamScoreBoard;
-        //String teamCommittedBoard;  not in v1.4
-        //String financialCrisis = DEFAULT_PLACE_HOLDER;   not in v1.4
+        String transferRecord;
 
         StringBuilder builder = new StringBuilder();
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
+
+        //get League Tracker Info
+        if (allPlayers.isEmpty() && allMatches.isEmpty() && allTeams.isEmpty()) {
+            leagueTrackerInfo = "League Tracker is currently empty\n\n";
+        } else {
+            leagueTrackerInfo = generateLeagueInfo(allTeams, allPlayers, allMatches);
+        }
+
+        builder.append(leagueTrackerInfo);
 
         //get top scorer(s) in the league
         if (allPlayers.isEmpty()) {
@@ -48,7 +56,6 @@ public class DataAnalysisCommand extends Command {
         } else {
             topScorer = generateTopScorer(allPlayers);
         }
-
 
         topScorer = "\n* Golden Boot :\n" + topScorer + "\n";
         builder.append(topScorer);
@@ -60,18 +67,13 @@ public class DataAnalysisCommand extends Command {
             topScorerEachTeam = generateTopScorerPerTeam(allTeams);
         }
 
-        topScorerEachTeam = "\n\n* List of Top Scorers in each team :\n" + topScorerEachTeam + "\n";
+        topScorerEachTeam = "\n* List of Top Scorers in each team :\n" + topScorerEachTeam + "\n";
         builder.append(topScorerEachTeam);
 
-        //get a score board for teams
-        /*if (allTeams.isEmpty()) {
-            teamScoreBoard = DEFAULT_PLACE_HOLDER;
-        } else {
-            teamScoreBoard = generateTeamScoreBoardString(allTeams);
-        }
-
-        teamScoreBoard = "Score Leader Board for teams :\n" + teamScoreBoard + "\n";
-        builder.append(teamScoreBoard);*/
+        //get transfer records
+        transferRecord = "\n* Records of all player transfers processed by League Tracker :\n"
+                + generateTransferRecord();
+        builder.append(transferRecord);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, dtf.format(now), builder.toString()));
 
@@ -115,9 +117,9 @@ public class DataAnalysisCommand extends Command {
 
 
     /**
-     *
-     * @param allPlayers
-     * @return
+     * Overloaded to take in List<Player> argument for String generation
+     * @param allPlayers A list of players to be processed for topscorer string
+     * @return a String containing name(s) of top goal scorers in the list passed in as argument
      */
     private String generateTopScorerOverloaded(List<Player> allPlayers) {
 
@@ -172,52 +174,50 @@ public class DataAnalysisCommand extends Command {
     }
 
     /**
-     * Generates a score board String for no.of goals scored by each team
-     * @param allTeams
-     * @return
+     * Generates output string for League Tracker status info
+     * @param allTeams a list of all teams in League Tracker
+     * @param allPlayer a list of all players in League Tracker
+     * @param allMatches a list of all matches in League Tracker
+     * @return a String of League Tracker status info
      */
-    private String generateTeamScoreBoardString (List<ReadOnlyTeam> allTeams) {
+    private String generateLeagueInfo (List<ReadOnlyTeam> allTeams,
+                                       List<ReadOnlyPlayer> allPlayer, List<ReadOnlyMatch> allMatches) {
+        String outputString = "Until generation of this report, League Tracker is tracking: \n";
+        String numOfPlayerString = " players\n";
+        String numOfTeamString = " teams\n";
+        String numOfMatchesString = " matches\n";
+        String numOfCompletedMatchesString = " tracked matches have been played to update data in League Tracker \n";
+        int numPlayed = 0;
 
-        String currentTeamString;
-        int i = 1;
+        numOfPlayerString = allPlayer.size() + numOfPlayerString;
+        numOfTeamString = allTeams.size() + numOfTeamString;
+        numOfMatchesString = allMatches.size() + numOfMatchesString;
 
-        StringBuilder builder = new StringBuilder();
-
-        Collections.sort(allTeams, new TeamGoalsScoredComparator());
-
-        //TODO Include goalsScored for each team in the team score board.
-
-        for (ReadOnlyTeam team : allTeams) {
-            i++;
-            currentTeamString = i + ". " + team.getTeamName().toString() + "\n";
-            builder.append(currentTeamString);
+        for (ReadOnlyMatch match : allMatches) {
+            if (!match.notPlayed()) {
+                numPlayed += 1;
+            }
         }
 
-        return builder.toString();
+        numOfCompletedMatchesString = numPlayed + numOfCompletedMatchesString;
+
+        return outputString + numOfPlayerString + numOfTeamString + numOfMatchesString
+                + numOfCompletedMatchesString + "\n";
     }
 
     /**
-     * Customized comparator to compare teams based on the total number of goals scored by their players
+     * Generates a string of all transfer records being processed in League Tracker
+     * @return a string of transfer records
      */
-    public class TeamGoalsScoredComparator implements Comparator<ReadOnlyTeam> {
-        @Override
-        public int compare(ReadOnlyTeam o1, ReadOnlyTeam o2) {
-            int o1Goals = 0;
-            int o2Goals = 0;
+    private String generateTransferRecord () {
+        List<String> allRecords = addressBook.getAllTransferRecords();
+        StringBuilder transferRecordBuilder = new StringBuilder();
 
-            List<Player> o1Players = o1.getPlayers();
-            List<Player> o2Players = o2.getPlayers();
-
-            for (Player player : o1Players) {
-                o1Goals += Integer.valueOf(player.getGoalsScored().toString());
-            }
-
-            for (Player player : o2Players) {
-                o2Goals += Integer.valueOf(player.getGoalsScored().toString());
-            }
-
-            return o1Goals - o2Goals;
+        for (String record : allRecords) {
+            transferRecordBuilder.append(record);
         }
+
+        return transferRecordBuilder.toString();
     }
 
 }

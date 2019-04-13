@@ -27,7 +27,7 @@ public class TransferPlayerCommand extends Command {
                     + "PLAYER_NAME tm/NEW_TEAM_NAME jn/NEW_JERSEY_NUMBER sal/NEW_SALARY\n"
                     + "Example: "
                     + COMMAND_WORD
-                    + " Lionel Messi tm/Real Madrid jn/10\n"
+                    + " Lionel Messi tm/Real Madrid jn/10 sal/2000\n"
                     + "Team and player entered must exist in league tracker \n"
                     + "The jersey number in destination team must be available \n"
                     + "Salary of the player in the new team must be in valid format \n"
@@ -40,6 +40,8 @@ public class TransferPlayerCommand extends Command {
     private static final String MESSAGE_DESTINATION_IS_CURRENT = "Destination team is same as current team %1$s";
     private static final String MESSAGE_JERSEY_NUMBER_TAKEN = "The jersey number %1$s has already "
             + "been taken in team %2$s. Try again with a different jersey number";
+    private static final String MESSAGE_TRANSFER_RECORD = "Player %1$s transferred from team %2$s to team %3$s \n";
+
 
     private final TeamName teamNameItem;
     private final Name playerNameItem;
@@ -118,6 +120,10 @@ public class TransferPlayerCommand extends Command {
         }
 
         //transfer done
+
+        addressBook.addTransferRecord(String.format(MESSAGE_TRANSFER_RECORD, oldPlayer.getName().toString(),
+                oldPlayer.getTeamName().toString(), this.teamNameItem.toString()));
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, oldPlayer.getName().toString(),
                 oldPlayer.getTeamName().toString(),
                 this.teamNameItem.toString(),
