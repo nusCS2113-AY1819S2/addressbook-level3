@@ -24,6 +24,7 @@ import seedu.addressbook.data.player.UniquePlayerList.PlayerNotFoundException;
 import seedu.addressbook.data.player.UniquePlayerList.PlayerNotInTeamException;
 import seedu.addressbook.data.team.ReadOnlyTeam;
 import seedu.addressbook.data.team.Team;
+import seedu.addressbook.data.team.TeamName;
 import seedu.addressbook.data.team.UniqueTeamList;
 import seedu.addressbook.data.team.UniqueTeamList.DuplicateTeamException;
 import seedu.addressbook.data.team.UniqueTeamList.TeamNotFoundException;
@@ -287,8 +288,57 @@ public class AddressBook {
     /**
      * Edits the equivalent team from League Tracker
      */
-    public void editTeam(ReadOnlyTeam toRemove, Team toReplace) throws UniqueTeamList.TeamNotFoundException {
+    public void editTeam(ReadOnlyTeam toRemove, Team toReplace) throws
+            UniqueTeamList.TeamNotFoundException,
+                IllegalValueException,
+                    SameTeamException {
+        for (Team team : allTeams) {
+            if (team.getTeamName().equals(toReplace.getTeamName())) {
+                throw new DuplicateTeamException();
+            }
+        }
+        replaceTeamNameForAllMatch(toRemove, toReplace);
         allTeams.edit(toRemove, toReplace);
+    }
+
+    /**
+     * Replaces TeamName of a team in match list.
+     * @param toRemove
+     * @param toReplace
+     * @throws SameTeamException
+     * @throws IllegalValueException
+     */
+    public void replaceTeamNameForAllMatch (ReadOnlyTeam toRemove, Team toReplace) throws
+            SameTeamException,
+                IllegalValueException {
+        for (Match match : allMatches) {
+            replaceTeamNameInMatch(match, toRemove, toReplace);
+        }
+    }
+
+    /**
+     * Replaces TeamName of a team in a match.
+     * @param match
+     * @param toRemove
+     * @param toReplace
+     * @throws SameTeamException
+     * @throws IllegalValueException
+     */
+    public void replaceTeamNameInMatch (Match match, ReadOnlyTeam toRemove, Team toReplace) throws
+            SameTeamException,
+                IllegalValueException {
+        if (match.getHome().equals(toRemove.getTeamName())) {
+            if(toReplace.getTeamName().equals(match.getAway())){
+                throw new SameTeamException();
+            }
+            match.setHome(toReplace.getTeamName().fullName);
+        }
+        if (match.getAway().equals(toRemove.getTeamName())) {
+            if(toReplace.getTeamName().equals(match.getHome())){
+                throw new SameTeamException();
+            }
+            match.setAway(toReplace.getTeamName().fullName);
+        }
     }
 
     /**

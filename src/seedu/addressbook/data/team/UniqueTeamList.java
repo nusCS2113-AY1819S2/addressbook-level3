@@ -21,7 +21,7 @@ public class UniqueTeamList implements Iterable<Team> {
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
     public static class DuplicateTeamException extends DuplicateDataException {
-        protected DuplicateTeamException() {
+        public DuplicateTeamException() {
             super("Operation would result in duplicate Teams");
         }
     }

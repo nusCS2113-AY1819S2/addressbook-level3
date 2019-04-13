@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.player.Name;
 import seedu.addressbook.data.team.TeamName;
 
@@ -94,13 +95,33 @@ public class Match implements ReadOnlyMatch {
         goalScorers.addAll(replacement);
     }
 
+    /**
+     * Replaces this match's ownGoalScorers with the ownGoalScorers in {@code replacement}.
+     */
     public void setOwnGoalScorers(List<Name> replacement) {
         ownGoalScorers.clear();
         ownGoalScorers.addAll(replacement);
     }
 
+    /**
+     * Replaces this match's score with the scores in {@code replacement}.
+     */
     public void setScore(String score) {
         this.score = new Score(score);
+    }
+
+    /**
+     * Replaces this match's home teamName with the teamName in {@code replacement}.
+     */
+    public void setHome (String home) throws IllegalValueException {
+        this.home = new TeamName(home);
+    }
+
+    /**
+     * Replaces this match's away teamName with the teamName in {@code replacement}.
+     */
+    public void setAway (String away) throws IllegalValueException {
+        this.away = new TeamName(away);
     }
 
     @Override

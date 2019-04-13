@@ -7,6 +7,7 @@ import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.data.match.UniqueMatchList;
 import seedu.addressbook.data.tag.Tag;
 import seedu.addressbook.data.team.Country;
 import seedu.addressbook.data.team.EditTeamDescriptor;
@@ -16,6 +17,8 @@ import seedu.addressbook.data.team.Team;
 import seedu.addressbook.data.team.TeamName;
 import seedu.addressbook.data.team.UniqueTeamList;
 
+import static seedu.addressbook.commands.match.AddMatchCommand.MESSAGE_SAME_TEAM;
+import static seedu.addressbook.commands.team.AddTeam.MESSAGE_DUPLICATE_TEAM;
 
 
 /**
@@ -70,8 +73,11 @@ public class EditTeam extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_TEAM_DISPLAYED_INDEX);
         } catch (UniqueTeamList.TeamNotFoundException tnfe) {
             return new CommandResult(Messages.MESSAGE_TEAM_NOT_IN_LEAGUE_TRACKER);
+        } catch (IllegalValueException ive) {
+            return new CommandResult(ive.getMessage());
+        } catch (UniqueMatchList.SameTeamException ste) {
+            return new CommandResult(MESSAGE_SAME_TEAM);
         }
-
     }
 
     /**
