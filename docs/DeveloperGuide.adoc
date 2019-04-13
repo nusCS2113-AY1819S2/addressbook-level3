@@ -166,8 +166,122 @@ Classes used by multiple components (eg.Utils.java) are collated in the `seedu.a
 (`main` > `src` > `seedu` > `addressbook` > `common`)
 
 == Implementation
- [to be edited]
-In this section, the detailed implementations of classes and features will be shown.
+This section describes some noteworthy details on how certain features are implemented. +
+
+=== Team Feature
+
+==== Current Implementation
+* The team feature is facilitated by `AddTeam`, `ClearTeam`, `DeleteTeam`, `EditTeam`, `FindTeam`, `ListTeam`, `ViewTeam` +
+* The feature mainly uses the `addressbook` class, `Team` class and the `Command` class. +
+
+The class diagram below illustrates the `Team`class. +
+
+* The following section covers some of the feature implementation. +
+
+1. <<AddTeam>> +
+2. <<EditTeam>> +
+3. <<Point System>> +
+
+==== AddTeam
+
+The AddTeam Command creates a record of the team with the attributes provided by the user. +
+
+The user is minimally required to provide the name, country and the annual sponsorship for the creation of teams. The program will automatically check for duplication of team to ensure that all team's name are unique. +
+
+Given below is an example usage scenario and how the add team mechanism behaves at each step.
+
+Step 1. The user enters in a note with its *associated parameters*. e.g `addteam Liver Pool c/UK s/10000000`.
+
+Step 2. The _Logic_ calls _parseCommand_ with that input.
+
+Step 3. The _Parser_ is called and returns a _AddTeam_ object to _Logic_.
+
+Step 4. The _Logic_ will call _execute_ method on the _AddTeam_ object.
+
+Step 5. _AddTeam_ will call the _Team_ Constructor with the provided arguments.
+
+Step 6. _Team_ constructor return a Team object with the provided arguments.
+
+Step 7. _AddressBook_ is called to add Team to the teamlist in the AddressBook itself.
+
+Step 6. If the team already exists, _DuplicateTeamException_ will be thrown. This will return a string message "This team already exists in the team list".
+
+Step 7. Else, _add(team)_ method is called and team is added.
+
+The sequence diagram below illustrates how the mechanism for adding teams function.
+
+==== EditTeam
+
+The EditTeam Command edits record of a existing team with the attributes provided by the user. +
+
+The user is minimally required to provide the at least one attribute. e.g `name, country, annual sponsorship` for the editing of teams. The program will check that for repeated team's name. +
+
+Given below is an example usage scenario and how the edit team mechanism behaves at each step.
+
+Step 1. The user enters in a note with its *associated parameters*. e.g `editteam n/Liver Pool`.
+
+Step 2. The _Logic_ calls _parseCommand_ with that input.
+
+Step 3. The _Parser_ is called and returns a _EditTeam_ object to _Logic_.
+
+Step 4. The _Logic_ will call _execute_ method on the _EditTeam_ object.
+
+Step 5. _EditTeam_ will call the _EditTeamDescriptor_ with the provided arguments.
+
+Step 6. _EditTeam_ will call a method within it's class to genernate attributes of the edited team.
+
+Step 7. _EditTeam_ will call _Team_ Constructor with the new attricutes.
+
+Step 8. _Team_ constructor return a Team object with the new attributes.
+
+Step 9. _AddressBook_ is called to remove the old Team and add the new Team to the teamlist in the AddressBook itself.
+
+Step 6. If the team's name already exists, _DuplicateTeamException_ will be thrown. This will return a string message "This team's name already exists in the team list".
+
+Step 7. Else, _edit(team)_ method is called with the old team removed and the new team added.
+
+==== Point System
+
+The Point System keeps track of the `win`, `lose`, `draw` and `points` of the team in the current league. Changes in match records will automatically result in coresponding changes to the listed attributes. +
+
+After the matchrecord is updated, it will call for the `Team` class and performs the following action.
+
+1. `Team` class will check the results of the matches and increment the win, lose and draw records of both teams involved.
+2. The `Team` class will call for the update points method and calulate the points from the new win, lose and draw records.
+3. Removal of these matches will also result in coresponding changes in the parameter
+
+The new parametes will be reflected when `listteam` commad is called.
+
+==== Design Consideration
+
+Aspect: Checking for *duplicate teams* in adding
+
+* **Alternative 1(current choice):** Implement a method to check new teams entered. If a new team has exactly the same name as exisitng teams in the League Tracker, it will be classified as duplicate team and cannot be added.
+** Pros: Ease of implementation
+** Cons: If the names are just slightly different it will not be able to differentiate it to be the same team. +
+1. TeamA
+2. Team A +
+
+* **Alternative 2:** Implement a method to prompt user if given teams with names silmilar to existing teams' name.
+** Pros: Can reduce the amount of duplicate teams that are added.
+** Cons: Difficult of implemnetation and false positive could be an issue.
+1. Team A
+2. Team B
+
+Final decision: Alternative 1 was chosen due to the ease of implementation.
+
+Aspect: Prevents team's name to be edited when tied to other players or matches
+
+* **Alternative 1(current choice):** Implement a method to check if name is edited and ensure that no match or players are tied to the team if so.
+** Pros: Ease of implementation
+** Cons: It becomes impossible of user to change the team's name entire without the removal of the entire team's record adding it back in
+
+* **Alternative 2:** Implement a method to change the change of team name entire throughout the whole league tracker.
+** Pros: More user friendly.
+** Cons: Difficult of implemnetation and may result in slower processing as all records need to be run through at least once.
+
+Final decision: Alternative 1 was chosen due to the rarity of team's name edited during a game season.
+
 
 == Documentation
 Following AddressBook3, our League Tracker uses AsciiDoc for writing documentation.We choose AsciiDoc as it provides both a human-readable,
@@ -283,7 +397,7 @@ Here are the steps to create a new release.
 * Reasonably comfortable using CLI apps
 
 
-*Value proposition*: 
+*Value proposition*:
 
 * Manage league/teamName/player faster than a typical mouse/GUI driven app. +
 * Easy access to records needed. +
@@ -410,6 +524,161 @@ Use Case: Edit Player
   will be printed
 +
 Use case ends.
+
+
+[discrete]
+=== Use case: Add team
+
+*MSS*
+
+1. User requests to add a new team with given fields
+2. League Tracker adds the team
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The given fields are invalid
++
+[none]
+** 1ai. League Tracker shows an error message
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Delete task
+
+*MSS*
+
+1.  User requests to list teams
+2.  League Tracker shows a list of teams
+3.  User requests to delete a specific team in the team list
+4.  League Tracker deletes the team
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+[none]
+* 3a. The given index is invalid.
++
+[none]
+** 3ai. League Tracker shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Edit team
+
+*MSS*
+
+1. User requests to list teams
+2. League Tracker shows a list of teams
+3. User requests to edit a specific team in the list with the given fields
+4. League Tracker edits the task
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty
++
+Use case ends.
+
+[none]
+* 3a. The given index is invalid
++
+[none]
+** 3ai. League Tracker returns an error
++
+Use case resumes at step 2.
+
+[none]
+* 3b. The given fields are invalid
++
+[none]
+** 3bi. League Tracker returns an error
++
+Use case resumes at step 2.
+
+
+[discrete]
+=== Use case: Find team
+
+*MSS*
+
+1. User requests to find a team with keyword
+2. League Tracker shows teams with names matching keyword
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty
++
+Use case ends.
+
+[none]
+* 2b. The given index is invalid
++
+[none]
+** 2bi. League Tracker returns an error
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: List team
+
+*MSS*
+
+1. User requests to list all teams
+2. League Tracker shows all teams
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty
++
+Use case ends.
+
+
+[discrete]
+=== Use case: view team
+
+*MSS*
+
+1. User requests to list teams
+2. League Tracker shows a list of teams
+3. User requests to view a specific team in the list in detail
+4. League Tracker display the team
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty
++
+Use case ends.
+
+[none]
+* 3a. The given index is invalid
++
+[none]
+** 3ai. League Tracker returns an error
++
+Use case resumes at step 2.
+
 
 [appendix]
 == Glossary

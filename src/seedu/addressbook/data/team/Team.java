@@ -155,7 +155,7 @@ public class Team implements ReadOnlyTeam {
      * Adding of Matches will also initialize the computing for win lose and draw counter
      */
 
-    public void addMatch(Match match) throws IllegalValueException {
+    public void addMatch(Match match) {
         this.matchlist.add(match);
         if (teamName.equals(match.getHome()) && !match.notPlayed()) {
             String result = match.getScore().toString();
@@ -186,7 +186,7 @@ public class Team implements ReadOnlyTeam {
      * @param match
      */
 
-    public void removeMatch(ReadOnlyMatch match) throws IllegalValueException {
+    public void removeMatch(ReadOnlyMatch match) {
         this.matchlist.remove(match);
         if (teamName.equals(match.getHome()) && !match.notPlayed()) {
             String result = match.getScore().toString();

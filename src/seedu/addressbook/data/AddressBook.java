@@ -292,7 +292,7 @@ public class AddressBook {
     /**
      * Edits the equivalent team from League Tracker
      */
-    public void editTeam(ReadOnlyTeam toRemove, Team toReplace) throws UniqueTeamList.TeamNotFoundException {
+    public void editTeam(ReadOnlyTeam toRemove, Team toReplace) throws TeamNotFoundException, DuplicateTeamException {
         allTeams.edit(toRemove, toReplace);
     }
 
