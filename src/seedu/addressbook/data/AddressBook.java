@@ -105,12 +105,8 @@ public class AddressBook {
     }
 
     /**
-<<<<<<< HEAD
      * Adds a match to the League Tracker.
      *
-=======
-     * Adds a match to the address book.
->>>>>>> 8485de45f40252b0481197e9b23908afd0bd2f92
      * @throws DuplicateMatchException if an equivalent match already exists.
      */
     public void addMatch(Match toAdd)
@@ -217,11 +213,7 @@ public class AddressBook {
     public void removeTeam(ReadOnlyTeam toRemove) throws TeamNotFoundException {
         allTeams.remove(toRemove);
         List<Player> players = toRemove.getPlayers();
-<<<<<<< HEAD
-        Set<Match> matches = toRemove.getMatches();
-=======
         List<Match> matches = toRemove.getMatches();
->>>>>>> 8485de45f40252b0481197e9b23908afd0bd2f92
         for (Player player : players) {
             try {
                 allPlayers.remove(player);
@@ -341,11 +333,7 @@ public class AddressBook {
     }
 
     /**
-<<<<<<< HEAD
-     * Sorts all persons from the League Tracker.
-=======
      * Sorts all finances from the address book.
->>>>>>> 8485de45f40252b0481197e9b23908afd0bd2f92
      */
     public void sortFinance() {
         allFinances.sort();
@@ -385,11 +373,8 @@ public class AddressBook {
      * @param team
      * @returns score of each team contributed by either goals or own goals.
      */
-<<<<<<< HEAD
+
     public int countScore (List<Name> target, List<Player> team) {
-=======
-    public int countScore (List<Name> target, List <Player> team) {
->>>>>>> 8485de45f40252b0481197e9b23908afd0bd2f92
         int count = 0;
         for (Name scorers : target) {
             for (Player players : team) {
