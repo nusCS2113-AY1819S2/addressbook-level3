@@ -77,6 +77,12 @@ public class LogicTest {
         logic = new Logic(saveFile, addressBook);
     }
 
+    /**
+     *  input command to add a dummy team for testing
+     *  This is a valid addteam command
+     */
+    private static String initializeTeam = " addteam FC Barcelona c/a s/0";
+
     @Test
     public void constructor() {
         //Constructor is called in the setup() method which executes before every test, no need to call it here again.
@@ -116,7 +122,7 @@ public class LogicTest {
                                        List<? extends ReadOnlyPlayer> lastPlayerList) throws Exception {
 
         //Execute the command
-        logic.execute("addteam FC Barcelona c/a s/0");
+        logic.execute(initializeTeam);
         CommandResult r = logic.execute(inputCommand);
 
         //Confirm the result contains the right data
