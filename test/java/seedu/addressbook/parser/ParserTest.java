@@ -620,11 +620,8 @@ public class ParserTest {
         }
     }
 
-    @Test
-
-
     /**
-     * generates a test team
+     * Generates a test team
      */
     private static Team generateTestTeam() {
         try {
@@ -654,21 +651,6 @@ public class ParserTest {
         }
         return addTeam;
     }
-
-    /**
-     * Converts team to edit command string
-     */
-    private static String convertTeamToEditTeamString(ReadOnlyTeam team) {
-        String editTeam = "editteam 1"
-                + " n/" + team.getTeamName().fullName
-                + " c/" + team.getCountry().value
-                + " s/" + team.getSponsor().value;
-        for (Tag tag : team.getTags()) {
-            editTeam += " t/" + tag.tagName;
-        }
-        return editTeam;
-    }
-
 
     /**
      * Test ListFinanceCommand
