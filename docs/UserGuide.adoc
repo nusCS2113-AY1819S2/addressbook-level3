@@ -109,11 +109,29 @@ Format: `length`
 Shows a list of all persons in the address book. +
 Format: `list`
 
-== Referring person indicated by user : `refer`
+//@@author shawn-t
+== Referring patient indicated by user : `refer`
+Refers a patient from the address book to a doctor. +
+Refer is overloaded with two formats.
 
-Refers patient to Dr Seuss if there is only one entry and shows a success message with patient's updated particulars. +
-if there are multiple entries, prints all patients in the address book with the keyword and prompts user to key unique keyword. +
-Format: `refer John`
+Format1: `refer NAME [MORE_NAMES]`
+Refers target patient to default doctor, Dr Seuss, and shows a success message with patient's updated particulars if there is only one unique entry. +
+if there are multiple entries, all patient entries with the target keywords in the address book will be printed out and user will be prompted to identify the correct patient. +
+if patient does not exist in the addressbook, prints out an error message. +
+
+Examples:
+* `refer John`
+* `refer John Doe`
+* `refer Doe`
+
+Format 2: `refer d/ DOCTORNAME p/NAME [MORE_NAMES]`
+Refers target patient to a doctor specified by user. Format 2 works exactly like format 1. +
+If input contains an invalid doctor names (non-alpha numerical), an invalid command format message will be shown.
+
+Examples:
+* `refer d/DoctorTan p/John Doe`
+* `refer d/Dr Tan p/John Doe`
+* `refer d/Dr Tan p/Doe`
 
 //@@author WuPeiHsuan
 == Listing all persons in sorted order : `sort`
