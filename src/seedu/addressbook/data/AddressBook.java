@@ -1,6 +1,5 @@
 package seedu.addressbook.data;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import seedu.addressbook.data.exception.IllegalValueException;
@@ -107,7 +106,7 @@ public class AddressBook {
      * @param toReplace
      */
     public void replaceNameForAllMatches (ReadOnlyPlayer toRemove, Player toReplace) {
-        for (Match match : allMatches){ //for all match
+        for (Match match : allMatches) { //for all match
             if (match.getGoalScorers().contains(toRemove.getName())) {
                 match.setGoalScorers(replaceNameInMatch(
                         match.getGoalScorers(), toRemove.getName(), toReplace.getName()));
@@ -123,12 +122,12 @@ public class AddressBook {
      * @return
      */
     public List<Name> replaceNameInMatch (List<Name> goalScorers, Name toRemove, Name toReplace) {
-        for (Name name : goalScorers ) {
+        for (Name name : goalScorers) {
             if (name.equals(toRemove)) {
-                goalScorers.set((goalScorers.indexOf(toRemove)),toReplace);
+                goalScorers.set((goalScorers.indexOf(toRemove)), toReplace);
             }
         }
-       return goalScorers;
+        return goalScorers;
     }
 
     /**
