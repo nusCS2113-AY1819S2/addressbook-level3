@@ -165,7 +165,11 @@ public class HelpCommand extends Command {
             + "\n" + HelpCommand.MESSAGE_USAGE
             + "----------------------------------------------------"
             + "-------------------------------------------------- \n"
-            + "5.2 Exit from League Tracker"
+            + "5.2 Analyze data stored in League Tracker"
+            + "\n" + DataAnalysisCommand.MESSAGE_USAGE
+            + "----------------------------------------------------"
+            + "-------------------------------------------------- \n"
+            + "5.3 Exit from League Tracker"
             + "\n" + ExitCommand.MESSAGE_USAGE;
 
 

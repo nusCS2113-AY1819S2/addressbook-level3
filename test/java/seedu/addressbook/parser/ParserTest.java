@@ -14,9 +14,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.addressbook.commands.Command;
+import seedu.addressbook.commands.DataAnalysisCommand;
 import seedu.addressbook.commands.ExitCommand;
 import seedu.addressbook.commands.HelpCommand;
 import seedu.addressbook.commands.IncorrectCommand;
+import seedu.addressbook.commands.finance.ExportFinanceCommand;
 import seedu.addressbook.commands.finance.GetFinanceCommand;
 import seedu.addressbook.commands.finance.GetLeagueFinanceCommand;
 import seedu.addressbook.commands.finance.ListFinanceCommand;
@@ -29,17 +31,22 @@ import seedu.addressbook.commands.match.FindMatchCommand;
 import seedu.addressbook.commands.match.ListMatchCommand;
 import seedu.addressbook.commands.match.UpdateMatchCommand;
 import seedu.addressbook.commands.match.ViewMatchCommand;
+import seedu.addressbook.commands.match.ExportMatchCommand;
 import seedu.addressbook.commands.player.AddCommand;
 import seedu.addressbook.commands.player.ClearCommand;
 import seedu.addressbook.commands.player.DeleteCommand;
+import seedu.addressbook.commands.player.EditPlayerCommand;
+import seedu.addressbook.commands.player.ExportPlayerCommand;
 import seedu.addressbook.commands.player.FindCommand;
 import seedu.addressbook.commands.player.ListCommand;
 import seedu.addressbook.commands.player.SortCommand;
+import seedu.addressbook.commands.player.TransferPlayerCommand;
 import seedu.addressbook.commands.player.ViewAllCommand;
 import seedu.addressbook.commands.team.AddTeam;
 import seedu.addressbook.commands.team.ClearTeam;
 import seedu.addressbook.commands.team.DeleteTeam;
 import seedu.addressbook.commands.team.EditTeam;
+import seedu.addressbook.commands.team.ExportTeam;
 import seedu.addressbook.commands.team.FindTeam;
 import seedu.addressbook.commands.team.ListTeam;
 import seedu.addressbook.commands.team.ViewTeam;
@@ -210,8 +217,6 @@ public class ParserTest {
     }
 
 
-
-
     /**
      * Test add player command
      */
@@ -293,8 +298,7 @@ public class ParserTest {
     }
 
 
-
-    /*@Test
+    @Test
     public void addCommand_invalidPlayerDataInArgs() {
         // name, age, salary, gs, ga, jn and appearance are the ones that need to be tested
         final String invalidName = "[]\\[;]";
@@ -345,14 +349,11 @@ public class ParserTest {
                 // invalid Appearance
                 String.format(addCommandFormatString, validName, validAgeArg, validSalaryArg, validGsArg,
                         validGaArg, validJnArg, invalidAppearanceArg),
-                // invalid tag
-                String.format(addCommandFormatString, validName, validAgeArg, validSalaryArg, validGsArg,
-                        validGaArg, validJnArg, validAppearanceArg) + " " + invalidTagArg
         };
         for (String input : inputs) {
             parseAndAssertCommandType(input, IncorrectCommand.class);
         }
-    }*/
+    }
 
     @Test
     public void addCommand_validPlayerData_parsedCorrectly() {
@@ -376,7 +377,95 @@ public class ParserTest {
         assertEquals(result.getPlayer(), testPlayer);
     }
 
+    /**
+    * transferPlayer Command testing
+    */
+    @Test
+    public void transferCommand_parsedCorrectly() {
+        final String input = "transfer Lionel Messi tm/A jn/10 sal/200";
+        final TransferPlayerCommand result = parseAndAssertCommandType(input, TransferPlayerCommand.class);
+        assertEquals(result.getClass(), TransferPlayerCommand.class);
+    }
 
+    @Test
+    public void transferCommand_noArgs() {
+        final String[] inputs = {"transfer ", "transfer "};
+        final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                TransferPlayerCommand.MESSAGE_USAGE);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+
+    @Test
+    public void transferCommand_invalidArgs_wrongPrefix() {
+        final String[] inputs = {"transfer wrong args format",
+                // no team name prefix
+                String.format("transfer Messi %1$s jn/20 sal/100", TeamName.EXAMPLE),
+                // no jersey number prefix
+                String.format("transfer Messi tm/FC Barcelona %1$s sal/100", JerseyNumber.EXAMPLE),
+                // no salary prefix
+                String.format("transfer Messi tm/FC Barcelona jn/10 %1$s", Salary.EXAMPLE)
+        };
+        final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                TransferPlayerCommand.MESSAGE_USAGE);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+
+    /**
+     * editPlayer Command testing
+     */
+
+    @Test
+    public void editPlayerCommand_validEditData_parsedCorrectly() {
+        final String input = "editPlayer 1 p/CB";
+        final EditPlayerCommand result = parseAndAssertCommandType(input, EditPlayerCommand.class);
+        assertEquals(result.getClass(), EditPlayerCommand.class);
+    }
+
+    @Test
+    public void editPlayer_noArgs() {
+        final String[] inputs = {"editPlayer ", "editPlayer"};
+        final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                EditPlayerCommand.MESSAGE_USAGE);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+
+    @Test
+    public void editPlayerCommand_invalidArgs_wrongPrefix() {
+        final String[] inputs = {"editPlayer", "editPlayer ", "editPlayer wrong args format",
+
+                // wrong position prefix
+                String.format("editPlayer 1 wp/%1$s", PositionPlayed.EXAMPLE),
+
+                // wrong age prefix
+                String.format("editPlayer 1 wa/%1$s", Age.EXAMPLE),
+
+                // wrong salary prefix
+                String.format("editPlayer 1 wsal/%1$s", Salary.EXAMPLE),
+
+                // wrong GoalsScored prefix
+                String.format("editPlayer 1 wgs/%1$s", GoalsScored.EXAMPLE),
+
+                // wrong GoalsAssisted prefix
+                String.format("editPlayer 1 wga/%1$s", GoalsAssisted.EXAMPLE),
+
+                // wrong TeamName prefix
+                String.format("editPlayer 1 wtm/%1$s", TeamName.EXAMPLE),
+
+                // wrong Nationality prefix
+                String.format("editPlayer 1 wctry/%1$s", Nationality.EXAMPLE),
+
+                // wrong JerseyNumber prefix
+                String.format("editPlayer 1 wjn/%1$s", JerseyNumber.EXAMPLE),
+
+                // wrong Appearance prefix
+                String.format("editPlayer 1 wapp/%1$s", Appearance.EXAMPLE),
+
+                // wrong HealthStatus prefix
+                String.format("editPlayer 1 whs/%1$s", HealthStatus.EXAMPLE),
+        };
+        final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditPlayerCommand.MESSAGE_USAGE);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
 
     /**
      * generates a test player
@@ -425,11 +514,50 @@ public class ParserTest {
     }
 
     /**
+     * Test for export commands
+     */
+
+    @Test
+    public void exportPlayerCommand_parsedCorrectly() {
+        final String input = "exportPlayer";
+        parseAndAssertCommandType(input, ExportPlayerCommand.class);
+    }
+
+    @Test
+    public void exportTeamCommand_parsedCorrectly() {
+        final String input = "exportTeam";
+        parseAndAssertCommandType(input, ExportTeam.class);
+    }
+
+    @Test
+    public void exportMatchCommand_parsedCorrectly() {
+        final String input = "exportMatch";
+        parseAndAssertCommandType(input, ExportMatchCommand.class);
+    }
+
+    @Test
+    public void exportFinanceCommand_parsedCorrectly() {
+        final String input = "exportFinance";
+        parseAndAssertCommandType(input, ExportFinanceCommand.class);
+    }
+
+    /**
+     * Test for data analysis
+     */
+
+    @Test
+    public void dataAnalysisCommand_parsedCorrectly() {
+        final String input = "generateReport";
+        parseAndAssertCommandType(input, DataAnalysisCommand.class);
+    }
+
+
+    /**
      * Test for team management begin here
      */
 
     @Test
-    public void clearTeamCommand_parsedCorretly() {
+    public void clearTeamCommand_parsedCorrectly() {
         final String input = "clearteam";
         parseAndAssertCommandType(input, ClearTeam.class);
     }
@@ -635,7 +763,7 @@ public class ParserTest {
     }
 
     /**
-     * generates a test team
+     * Generates a test team
      */
     private static Team generateTestTeam() {
         try {
@@ -665,21 +793,6 @@ public class ParserTest {
         }
         return addTeam;
     }
-
-    /**
-     * Converts team to add command string
-     */
-    private static String convertTeamToEditTeamString(ReadOnlyTeam team) {
-        String editTeam = "editteam 1"
-                + " n/" + team.getTeamName().fullName
-                + " c/" + team.getCountry().value
-                + " s/" + team.getSponsor().value;
-        for (Tag tag : team.getTags()) {
-            editTeam += " t/" + tag.tagName;
-        }
-        return editTeam;
-    }
-
 
     /**
      * Test ListFinanceCommand
@@ -848,7 +961,6 @@ public class ParserTest {
     public void findMatchCommand_validArgs_parsedCorrectly() {
         final String[] keywords = { "13", "Jan", "1991" };
         final Set<String> keySet = new HashSet<>(Arrays.asList(keywords));
-
         final String input = "findmatch " + String.join(" ", keySet);
         final FindMatchCommand result =
                 parseAndAssertCommandType(input, FindMatchCommand.class);
@@ -1008,6 +1120,7 @@ public class ParserTest {
             assertEquals(result.feedbackToUser, feedbackMessage);
         }
     }
+
 
     /**
      * Utility method for parsing input and asserting the class/type of the returned command object.

@@ -17,9 +17,6 @@ public class EditTeamDescriptor {
     private Sponsor sponsor;
     private Set<Tag> tagset;
 
-
-    public EditTeamDescriptor() {}
-
     public EditTeamDescriptor(String name,
                               String country,
                               String sponsor,
@@ -47,16 +44,6 @@ public class EditTeamDescriptor {
         } else {
             this.tagset = tagset;
         }
-    }
-
-    /**
-     * Copy constructor.
-     */
-    public EditTeamDescriptor(EditTeamDescriptor toCopy) {
-        setTeamName(toCopy.teamName);
-        setCountry(toCopy.country);
-        setSponsor(toCopy.sponsor);
-        setTags(toCopy.tagset);
     }
 
     public void setTeamName(TeamName teamName) {
