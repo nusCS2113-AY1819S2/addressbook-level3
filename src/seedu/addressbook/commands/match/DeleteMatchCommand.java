@@ -6,6 +6,7 @@ import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.match.ReadOnlyMatch;
 import seedu.addressbook.data.match.UniqueMatchList.MatchNotFoundException;
+import seedu.addressbook.data.player.UniquePlayerList;
 
 
 /**
@@ -41,6 +42,8 @@ public class DeleteMatchCommand extends Command {
             return new CommandResult(Messages.MESSAGE_MATCH_NOT_IN_LEAGUE_TRACKER);
         } catch (IllegalValueException ive) {
             return new CommandResult(ive.getMessage());
+        } catch (UniquePlayerList.PlayerNotFoundException pnfe) {
+            return new CommandResult(Messages.MESSAGE_PLAYER_NOT_IN_LEAGUE);
         }
     }
 

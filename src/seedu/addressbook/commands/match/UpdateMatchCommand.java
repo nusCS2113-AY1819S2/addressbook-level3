@@ -81,6 +81,8 @@ public class UpdateMatchCommand extends Command {
             return new CommandResult(Messages.MESSAGE_PLAYER_NOT_IN_TEAM);
         } catch (IllegalValueException ive) {
             return new CommandResult(ive.getMessage());
+        } catch (UniquePlayerList.PlayerNotFoundException pnfe) {
+            return new CommandResult(Messages.MESSAGE_PLAYER_NOT_IN_LEAGUE);
         }
     }
 
