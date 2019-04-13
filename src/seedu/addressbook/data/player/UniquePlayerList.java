@@ -189,6 +189,22 @@ public class UniquePlayerList implements Iterable<Player> {
         Collections.sort(internalList, customPlayerCompare);
     }
 
+    /**
+     * Finds players with matching Name from list of players.
+     *
+     * @param target
+     * @return
+     * @throws PlayerNotFoundException if player is not found
+     */
+    public Player find (Name target) throws PlayerNotFoundException {
+        for (Player player : internalList) {
+            if (player.getName().equals(target)) {
+                return player;
+            }
+        }
+        throw new PlayerNotFoundException();
+    }
+
     @Override
     public Iterator<Player> iterator() {
         return internalList.iterator();

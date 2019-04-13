@@ -169,17 +169,15 @@ public class AddressBook {
      *
      * @throws MatchNotFoundException if no such match could be found.
      */
-    public void removeMatch(ReadOnlyMatch toRemove)
-            throws MatchNotFoundException,
-                    IllegalValueException {
+    public void removeMatch(ReadOnlyMatch toRemove) throws
+            MatchNotFoundException,
+                IllegalValueException,
+                    PlayerNotFoundException {
         allMatches.remove(toRemove);
         for (Name goalScorer : toRemove.getGoalScorers()) {
-            for (Player player : allPlayers) {
-                if (player.getName().equals(goalScorer)) {
-                    player.subtractScore();
-                }
-            }
+            allPlayers.find(goalScorer).subtractScore();
         }
+
         for (Team team : allTeams) {
             if (team.getTeamName().toString().equals(toRemove.getHome().toString())) {
                 team.removeMatch(toRemove);
@@ -262,18 +260,16 @@ public class AddressBook {
     /**
      * Updates the equivalent match from League Tracker
      */
-    public void updateMatch(ReadOnlyMatch toRemove, Match toReplace)
-            throws MatchNotFoundException,
+    public void updateMatch(ReadOnlyMatch toRemove, Match toReplace) throws
+            MatchNotFoundException,
                 MatchUpdatedException,
-                IllegalValueException {
+                    IllegalValueException,
+                        PlayerNotFoundException {
         allMatches.update(toRemove, toReplace);
         for (Name goalScorer : toReplace.getGoalScorers()) {
-            for (Player player : allPlayers) {
-                if (player.getName().equals(goalScorer)) {
-                    player.addScore();
-                }
-            }
+            allPlayers.find(goalScorer).addScore();
         }
+
         for (Team team : allTeams) {
             if (team.getTeamName().toString().equals(toRemove.getHome().toString())) {
                 team.removeMatch(toRemove);
