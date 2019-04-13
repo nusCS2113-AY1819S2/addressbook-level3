@@ -29,12 +29,12 @@ public class AdaptedAddressBook {
     private List<AdaptedPlayer> players = new ArrayList<>();
     @XmlElement
     private List<AdaptedTeam> teams = new ArrayList<>();
-
     @XmlElement
     private List<AdaptedMatch> matches = new ArrayList<>();
     @XmlElement
     private List<AdaptedFinance> finances = new ArrayList<>();
-
+    @XmlElement
+    private List<String> transferRecords = new ArrayList<>();
 
 
     /**
@@ -51,11 +51,13 @@ public class AdaptedAddressBook {
         players = new ArrayList<>();
         matches = new ArrayList<>();
         finances = new ArrayList<>();
+        transferRecords = new ArrayList<>();
 
         source.getAllPlayers().forEach(player -> players.add(new AdaptedPlayer(player)));
         source.getAllMatches().forEach(match -> matches.add(new AdaptedMatch(match)));
         source.getAllTeams().forEach(team -> teams.add(new AdaptedTeam(team)));
         source.getAllFinances().forEach(finance -> finances.add(new AdaptedFinance(finance)));
+        source.getAllTransferRecords().forEach(transferRecord -> transferRecords.add(transferRecord));
 
     }
 
@@ -88,6 +90,7 @@ public class AdaptedAddressBook {
         final List<Team> teamList = new ArrayList<>();
         final List<Match> matchList = new ArrayList<>();
         final List<Finance> financeList = new ArrayList<>();
+        final ArrayList<String> transferRecordsLists = new ArrayList<>();
 
         for (AdaptedPlayer player : players) {
             playerList.add(player.toModelType());
@@ -105,10 +108,15 @@ public class AdaptedAddressBook {
             financeList.add(finance.toModelType());
         }
 
+        for (String record : transferRecords) {
+            transferRecordsLists.add(record);
+        }
+
         return new AddressBook(
                 new UniquePlayerList(playerList),
                 new UniqueTeamList(teamList),
                 new UniqueMatchList(matchList),
-                new UniqueFinanceList(financeList));
+                new UniqueFinanceList(financeList),
+                transferRecordsLists);
     }
 }
