@@ -641,34 +641,106 @@ The Finance Feature in the application helps you to manage and keep track of fin
 {empty} +
 
 ==== *Get League Finance*
-You can use the Get League Finance command to view the total financial income in USD of the league. +
+You can use the Get League Finance command to view the total financial condition of the league. +
 
-Format : `getLeagueFinance`
+Format : `getlf`
 
 Example: +
-`getLeagueFinance`
+`getlf`
 {empty} +
+
+.result after typing "getlf"
+image::result_after_getlf.png[]
 {empty} +
+[NOTE]
+====
+The histogram of financial incomes of four quarters helps you to better visualise the trend of changes
+of financial income.
+====
+{empty} +
+
 
 ==== *Get Team Finance*
 You can use the Get Team Finance command to view the financial condition in USD of a selected Team in League Tracker. +
 
-Format : `finance INDEX`
+Format : `getfinance INDEX`
 
 Example: +
 
-* `ListTeam` +
-* `finance 1`
+* `Listteam` +
+* `getfinance 4`
 {empty} +
+
+.the list of teams displayed after typing "listteam"
+image::after_listteam.png[]
+
+.result of getting finance of the selected team
+image::result_of_getfinance.png[]
+{empty} +
+[TIP]
+====
+This Get Team Finance command enables you to view the financial condition of a team from the list of teams.
+This is applicable when you are viewing the team list and then you get curious about the financial condition of
+a certain team in the team list.
+====
 {empty} +
 
 ==== *List Team Finance*
 You can use the List Team Finance command to view the list of financial condition in USD of all Teams in the league. +
 
-Format : `listFinance`
+Format : `listfinance`
 
 Example: +
-`listFinance` +
+`listfinance` +
+{empty} +
+
+.result of listing finances
+image::list_finance.png[]
+{empty} +
+[NOTE]
+====
+The order of the finance list corresponds to the order of the list of teams.
+====
+{empty} +
+
+==== *View Team Finance*
+You can use the View Team Finance command to view the financial condition in USD of a selected Team in League Tracker
+from the finance list. +
+
+Format : `viewfinance INDEX`
+
+Example: +
+
+* `Listfinance` +
+* `viewfinance 4`
+{empty} +
+
+.the list of finances displayed after typing "listfinance"
+image::list_finance.png[]
+
+.result of viewing finance of the selected team from the finance list
+image::view_finance.png[]
+{empty} +
+[NOTE]
+====
+This View Team Finance command gives you a more detailed version of the financial condition compared to
+the result of Get Team Finance command. More information on sponsorship and ticket income is given.
+====
+{empty} +
+
+==== *Rank Team Finance*
+You can use the Rank Team Finance command to view a ranked list of financial incomes of all Teams from high to low. +
+
+Format : `rankfinance`
+
+Example: +
+`rankfinance` +
+{empty} +
+
+.result of ranking finances
+image::rank_finance.png[]
+{empty} +
+{empty} +
 
 === Export
 The Export Feature in League Tracker allows user to export data stored in League Tracker to Excel files to facilitate
