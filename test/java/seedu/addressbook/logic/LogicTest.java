@@ -764,20 +764,20 @@ public class LogicTest {
         Team t1 = helper.generateTeam(1);
         Team t2 = helper.generateTeam(2);
         List<Team> lastShownTeamList = helper.generateTeamList(t1, t2);
-        AddressBook expectedAB = helper.generateTeamAddressBook(lastShownTeamList);
+        AddressBook expectedAb = helper.generateTeamAddressBook(lastShownTeamList);
         helper.addToTeamAddressBook(addressBook, lastShownTeamList);
 
         logic.setLastTeamShownList(lastShownTeamList);
 
         assertTeamCommandBehavior("viewteam 1",
                 String.format(ViewTeam.MESSAGE_VIEW_TEAM_DETAILS, t1.getAsTextShowAll()),
-                expectedAB,
+                expectedAb,
                 false,
                 lastShownTeamList);
 
         assertTeamCommandBehavior("viewteam 2",
                 String.format(ViewTeam.MESSAGE_VIEW_TEAM_DETAILS, t2.getAsTextShowAll()),
-                expectedAB,
+                expectedAb,
                 false,
                 lastShownTeamList);
     }
