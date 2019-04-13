@@ -73,6 +73,8 @@ public class AddMatchCommand extends Command {
             return new CommandResult(Messages.MESSAGE_TEAM_NOT_IN_LEAGUE_TRACKER);
         } catch (UniqueMatchList.SameTeamException ste) {
             return new CommandResult(MESSAGE_SAME_TEAM);
+        } catch (IllegalValueException ive) {
+            return new CommandResult(ive.getMessage());
         }
     }
 

@@ -79,6 +79,8 @@ public class UpdateMatchCommand extends Command {
             return new CommandResult(Messages.MESSAGE_TEAM_NOT_IN_LEAGUE_TRACKER);
         } catch (UniquePlayerList.PlayerNotInTeamException pnite) {
             return new CommandResult(Messages.MESSAGE_PLAYER_NOT_IN_TEAM);
+        } catch (IllegalValueException ive) {
+            return new CommandResult(ive.getMessage());
         }
     }
 

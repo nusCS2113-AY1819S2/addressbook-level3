@@ -141,7 +141,9 @@ public class UniqueMatchList implements Iterable<Match> {
     /**
      * Replaces equivalent match in list.
      */
-    public void update(ReadOnlyMatch toRemove, Match toReplace) throws MatchNotFoundException, MatchUpdatedException {
+    public void update(ReadOnlyMatch toRemove, Match toReplace)
+            throws MatchNotFoundException,
+            MatchUpdatedException {
         if (!toRemove.notPlayed()) {
             throw new MatchUpdatedException();
         }

@@ -3,6 +3,7 @@ package seedu.addressbook.commands.match;
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.common.Messages;
+import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.match.ReadOnlyMatch;
 import seedu.addressbook.data.match.UniqueMatchList.MatchNotFoundException;
 
@@ -38,6 +39,8 @@ public class DeleteMatchCommand extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_MATCH_DISPLAYED_INDEX);
         } catch (MatchNotFoundException mnfe) {
             return new CommandResult(Messages.MESSAGE_MATCH_NOT_IN_LEAGUE_TRACKER);
+        } catch (IllegalValueException ive) {
+            return new CommandResult(ive.getMessage());
         }
     }
 

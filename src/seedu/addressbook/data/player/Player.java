@@ -142,6 +142,24 @@ public class Player implements ReadOnlyPlayer {
         tags.addAll(replacement);
     }
 
+    /**
+     *  Increases player's score by 1
+     */
+    public void addScore () throws IllegalValueException {
+        goalsScored = new GoalsScored (String.valueOf(Integer.valueOf(goalsScored.value) + 1));
+    }
+
+    /**
+     *  Decreases player's score by 1
+     */
+    public void subtractScore () throws IllegalValueException {
+        goalsScored = new GoalsScored (String.valueOf(Integer.valueOf(goalsScored.value) - 1));
+    }
+
+    public void clearGoals () throws IllegalValueException {
+        goalsScored = new GoalsScored("0");
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
