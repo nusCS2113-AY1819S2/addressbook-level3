@@ -5,7 +5,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Set;
 
 import seedu.addressbook.data.player.Player;
 import seedu.addressbook.data.player.ReadOnlyPlayer;
@@ -114,12 +113,13 @@ public class DataAnalysisCommand extends Command {
         return outputString;
     }
 
+
     /**
-     * Overloaded to take in set data structure
-     * @param allPlayers a set of all players in a team
-     * @return a string of top scorer(s) with number of goals attached
+     *
+     * @param allPlayers
+     * @return
      */
-    private String generateTopScorer (Set<Player> allPlayers) {
+    private String generateTopScorerOverloaded(List<Player> allPlayers) {
 
         String outputString = "";
         int highestGoals = -1;
@@ -129,14 +129,15 @@ public class DataAnalysisCommand extends Command {
             try {
                 currentGoals = Integer.parseInt(player.getGoalsScored().toString());
             } catch (NumberFormatException nfe) {
-                System.out.println("invalid goals scored detected");
+                System.out.println("invalid goals Scored detected");
             }
 
             if (currentGoals > highestGoals) {
                 highestGoals = currentGoals;
-                outputString = player.getName().toString();
+                outputString = player.getName().toString() + " from " + player.getTeamName().toString();
             } else if (currentGoals == highestGoals) {
-                outputString = outputString.concat("/" + player.getName().toString());
+                outputString = outputString.concat("/" + player.getName().toString()
+                        + " from " + player.getTeamName().toString());
             }
         }
 
@@ -148,6 +149,7 @@ public class DataAnalysisCommand extends Command {
 
         return outputString;
     }
+
 
     /**
      * Generates output string for scorer(s) in each team
@@ -162,7 +164,7 @@ public class DataAnalysisCommand extends Command {
 
         for (ReadOnlyTeam team : allTeams) {
             currentTeamString = team.getTeamName().toString() + ": "
-                    + generateTopScorer(team.getPlayers()) + "\n";
+                    + generateTopScorerOverloaded(team.getPlayers()) + "\n";
             builder.append(currentTeamString);
         }
 
@@ -203,8 +205,8 @@ public class DataAnalysisCommand extends Command {
             int o1Goals = 0;
             int o2Goals = 0;
 
-            Set<Player> o1Players = o1.getPlayers();
-            Set<Player> o2Players = o2.getPlayers();
+            List<Player> o1Players = o1.getPlayers();
+            List<Player> o2Players = o2.getPlayers();
 
             for (Player player : o1Players) {
                 o1Goals += Integer.valueOf(player.getGoalsScored().toString());

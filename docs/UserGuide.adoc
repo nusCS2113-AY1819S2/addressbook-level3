@@ -591,10 +591,10 @@ The Match Schedule Feature in the application helps you to manage information of
 ==== *Add Matches*
 You can use the Add Matches command to add a new match to the League Tracker. +
 
-Format : `addmatch dd/mm/yyyy h/hometeam a/awayteam`
+Format : `addmatch dd mmm yyyy h/hometeam a/awayteam`
 
 Example: +
- `addmatch 28/02/2019 h/Fulham a/Chelsea` +
+ `addmatch 28 Feb 2019 h/Fulham a/Chelsea` +
  
 Adds a new match with the specified details.
 {empty} +

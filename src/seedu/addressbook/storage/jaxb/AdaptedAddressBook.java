@@ -32,6 +32,8 @@ public class AdaptedAddressBook {
 
     @XmlElement
     private List<AdaptedMatch> matches = new ArrayList<>();
+    @XmlElement
+    private List<AdaptedFinance> finances = new ArrayList<>();
 
 
 
@@ -48,10 +50,12 @@ public class AdaptedAddressBook {
     public AdaptedAddressBook(AddressBook source) {
         players = new ArrayList<>();
         matches = new ArrayList<>();
+        finances = new ArrayList<>();
 
         source.getAllPlayers().forEach(player -> players.add(new AdaptedPlayer(player)));
         source.getAllMatches().forEach(match -> matches.add(new AdaptedMatch(match)));
         source.getAllTeams().forEach(team -> teams.add(new AdaptedTeam(team)));
+        source.getAllFinances().forEach(finance -> finances.add(new AdaptedFinance(finance)));
 
     }
 
@@ -67,7 +71,8 @@ public class AdaptedAddressBook {
     public boolean isAnyRequiredFieldMissing() {
         return players.stream().anyMatch(AdaptedPlayer::isAnyRequiredFieldMissing)
                 || matches.stream().anyMatch(AdaptedMatch::isAnyRequiredFieldMissing)
-                || teams.stream().anyMatch(AdaptedTeam::isAnyRequiredFieldMissing);
+                || teams.stream().anyMatch(AdaptedTeam::isAnyRequiredFieldMissing)
+                || finances.stream().anyMatch(AdaptedFinance::isAnyRequiredFieldMissing);
 
     }
 
@@ -76,6 +81,7 @@ public class AdaptedAddressBook {
      * Converts this jaxb-friendly {@code AdaptedAddressBook} object into the corresponding(@code AddressBook} object.
      * @throws IllegalValueException if there were any data constraints violated in the adapted player
      * @throws IllegalValueException if there were any data constraints violated in the adapted match
+     * @throws IllegalValueException if there were any data constraints violated in the adapted finance
      */
     public AddressBook toModelType() throws IllegalValueException, ParseException {
         final List<Player> playerList = new ArrayList<>();
@@ -93,6 +99,10 @@ public class AdaptedAddressBook {
 
         for (AdaptedMatch match : matches) {
             matchList.add(match.toModelType());
+        }
+
+        for (AdaptedFinance finance : finances) {
+            financeList.add(finance.toModelType());
         }
 
         return new AddressBook(

@@ -1,5 +1,6 @@
 package seedu.addressbook.data.team;
 
+import java.util.List;
 import java.util.Set;
 
 import seedu.addressbook.data.match.Match;
@@ -17,8 +18,8 @@ public interface ReadOnlyTeam {
     TeamName getTeamName();
     Country getCountry();
     Sponsor getSponsor();
-    Set<Player> getPlayers();
-    Set<Match> getMatches();
+    List<Player> getPlayers();
+    List<Match> getMatches();
     int getPoints();
     int getWins();
     int getDraws();
@@ -66,7 +67,7 @@ public interface ReadOnlyTeam {
         }
         builder.append("\nMatch List:\n");
         for (Match match : getMatches()) {
-            builder.append(match.getHome() + " vs " + match.getAway() + "\n");
+            builder.append(match.getAsTextShowSome() + "\n");
         }
         return builder.toString();
     }

@@ -20,6 +20,7 @@ import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.commands.ExitCommand;
 import seedu.addressbook.commands.HelpCommand;
+import seedu.addressbook.commands.finance.ViewFinanceCommand;
 import seedu.addressbook.commands.player.AddCommand;
 import seedu.addressbook.commands.player.AddFastCommand;
 import seedu.addressbook.commands.player.ClearCommand;
@@ -29,10 +30,13 @@ import seedu.addressbook.commands.player.ViewAllCommand;
 import seedu.addressbook.commands.team.AddTeam;
 import seedu.addressbook.commands.team.ClearTeam;
 import seedu.addressbook.commands.team.DeleteTeam;
+import seedu.addressbook.commands.team.EditTeam;
 import seedu.addressbook.commands.team.FindTeam;
 import seedu.addressbook.commands.team.ViewTeam;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.AddressBook;
+import seedu.addressbook.data.finance.Finance;
+import seedu.addressbook.data.finance.ReadOnlyFinance;
 import seedu.addressbook.data.player.Age;
 import seedu.addressbook.data.player.Appearance;
 import seedu.addressbook.data.player.GoalsAssisted;
@@ -45,12 +49,12 @@ import seedu.addressbook.data.player.Player;
 import seedu.addressbook.data.player.PositionPlayed;
 import seedu.addressbook.data.player.ReadOnlyPlayer;
 import seedu.addressbook.data.player.Salary;
-import seedu.addressbook.data.player.TeamName;
 import seedu.addressbook.data.tag.Tag;
 import seedu.addressbook.data.team.Country;
 import seedu.addressbook.data.team.ReadOnlyTeam;
 import seedu.addressbook.data.team.Sponsor;
 import seedu.addressbook.data.team.Team;
+import seedu.addressbook.data.team.TeamName;
 import seedu.addressbook.storage.StorageFile;
 
 public class LogicTest {
@@ -515,7 +519,6 @@ public class LogicTest {
     }*/
 
     /**
-     * Start Test for Team Management
      * Executes the command and confirms that the result message is correct.
      */
     private void assertTeamCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
@@ -628,6 +631,89 @@ public class LogicTest {
 
     }
 
+    /**
+     * Confirms the 'invalid argument index number behaviour' for the given command
+     * targeting a single employee in the last shown list, using visible index.
+     * @param commandWord to test assuming it targets a single employee in the last shown list based on visible index.
+     */
+    private void assertInvalidIndexBehaviorForTeamEditCommand(String commandWord) throws Exception {
+        String invalidFormat = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                EditTeam.MESSAGE_USAGE);
+        String invalidIndexMessage = Messages.MESSAGE_INVALID_TEAM_DISPLAYED_INDEX;
+        TestDataHelper helper = new TestDataHelper();
+
+        Team t1 = helper.generateTeam(1);
+        Team t2 = helper.generateTeam(2);
+        List<Team> lastShownList = helper.generateTeamList(t1, t2);
+        String arbitraryParameter = "s/32123";
+
+        logic.setLastTeamShownList(lastShownList);
+
+        assertTeamCommandBehavior(commandWord + " -1 " + arbitraryParameter, invalidFormat,
+                AddressBook.empty(), false, lastShownList);
+        assertTeamCommandBehavior(commandWord + " 0 " + arbitraryParameter, invalidIndexMessage,
+                AddressBook.empty(), false, lastShownList);
+        assertTeamCommandBehavior(commandWord + " 3 " + arbitraryParameter, invalidIndexMessage,
+                AddressBook.empty(), false, lastShownList);
+    }
+
+    @Test
+    public void execute_editTeam_successful() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Team t1 = helper.generateTeam(1);
+        Team t2 = helper.generateTeam(2);
+        Team t3 = helper.generateTeam(3);
+        Team editedTeam = helper.generateEditTeam(t2, "country", "America");
+
+        List<Team> lastShownTeamList = helper.generateTeamList(t1, t2, t3);
+
+        AddressBook expectedAb = helper.generateTeamAddressBook(lastShownTeamList);
+        expectedAb.editTeam(t2, editedTeam);
+
+
+        helper.addToTeamAddressBook(addressBook, lastShownTeamList);
+        logic.setLastTeamShownList(lastShownTeamList);
+
+
+        assertTeamCommandBehavior(helper.generateEditTeamCommand("2", "country", "America"),
+                String.format(EditTeam.MESSAGE_EDIT_TEAM_SUCCESS, editedTeam),
+                expectedAb,
+                false,
+                lastShownTeamList);
+
+    }
+
+    @Test
+    public void execute_editTeam_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                EditTeam.MESSAGE_USAGE);
+        assertTeamCommandBehavior("editteam ", expectedMessage);
+        assertTeamCommandBehavior("editteam arg not number", expectedMessage);
+    }
+
+    @Test
+    public void execute_editTeam_noArgs() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+
+        Team t1 = helper.generateTeam(1);
+        Team t2 = helper.generateTeam(2);
+        Team t3 = helper.generateTeam(3);
+        List<Team> lastShownList = helper.generateTeamList(t1, t2, t3);
+
+        logic.setLastTeamShownList(lastShownList);
+
+        assertTeamCommandBehavior(helper.generateEditTeamCommand("2", null, null),
+                String.format(EditTeam.MESSAGE_NOARGS, EditTeam.MESSAGE_USAGE),
+                AddressBook.empty(),
+                false,
+                lastShownList);
+    }
+
+    @Test
+    public void execute_editTeam_invalidIndex() throws Exception {
+        assertInvalidIndexBehaviorForTeamEditCommand("editteam");
+    }
+
     @Test
     public void execute_listTeam_showsAllTeams() throws Exception {
         // prepare expectations
@@ -696,13 +782,13 @@ public class LogicTest {
     @Test
     public void execute_delTeam_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteTeam.MESSAGE_USAGE);
-        assertTeamCommandBehavior("delteam ", expectedMessage);
-        assertTeamCommandBehavior("delteam arg not number", expectedMessage);
+        assertTeamCommandBehavior("deleteteam ", expectedMessage);
+        assertTeamCommandBehavior("deleteteam arg not number", expectedMessage);
     }
 
     @Test
     public void execute_delTeam_invalidIndex() throws Exception {
-        assertInvalidIndexBehaviorForTeamCommand("delteam");
+        assertInvalidIndexBehaviorForTeamCommand("deleteteam");
     }
 
     @Test
@@ -720,7 +806,7 @@ public class LogicTest {
         helper.addToTeamAddressBook(addressBook, threeTeams);
         logic.setLastTeamShownList(threeTeams);
 
-        assertTeamCommandBehavior("delteam 2",
+        assertTeamCommandBehavior("deleteteam 2",
                 String.format(DeleteTeam.MESSAGE_DELETE_TEAM_SUCCESS, t2),
                 expectedAb,
                 false,
@@ -744,7 +830,7 @@ public class LogicTest {
         addressBook.removeTeam(t2);
         logic.setLastTeamShownList(threeTeams);
 
-        assertTeamCommandBehavior("delteam 2",
+        assertTeamCommandBehavior("deleteteam 2",
                 Messages.MESSAGE_TEAM_NOT_IN_LEAGUE_TRACKER,
                 expectedAb,
                 false,
@@ -815,6 +901,165 @@ public class LogicTest {
                 expectedAb,
                 true,
                 expectedList);
+    }
+
+    /**
+     * Start Test for Finance Management
+     * Executes the command and confirms that the result message is correct.
+     */
+    private void assertFinanceCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
+        assertFinanceCommandBehavior(inputCommand,
+                expectedMessage,
+                AddressBook.empty(),
+                false,
+                Collections.emptyList());
+    }
+
+    /**
+     * Executes the command and confirms that the result message is correct and
+     * also confirms that the following three parts of the Logic object's state are as expected:<br>
+     * - the internal address book data are same as those in the {@code expectedAddressBook} <br>
+     * - the internal 'last shown list' matches the {@code expectedLastList} <br>
+     * - the storage file content matches data in {@code expectedAddressBook} <br>
+     */
+    private void assertFinanceCommandBehavior(String inputCommand,
+                                           String expectedMessage,
+                                           AddressBook expectedAddressBook,
+                                           boolean isRelevantFinancesExpected,
+                                           List<? extends ReadOnlyFinance> lastFinanceList) throws Exception {
+
+        //Execute the command
+        CommandResult r = logic.execute(inputCommand);
+
+        //Confirm the result contains the right data
+        assertEquals(expectedMessage, r.feedbackToUser);
+        assertEquals(r.getRelevantFinances().isPresent(), isRelevantFinancesExpected);
+        if (isRelevantFinancesExpected) {
+            assertEquals(lastFinanceList, r.getRelevantFinances().get());
+        }
+
+        //Confirm the state of data is as expected
+        assertEquals(expectedAddressBook, addressBook);
+        assertEquals(lastFinanceList, logic.getLastFinanceShownList());
+        assertEquals(addressBook, saveFile.load());
+    }
+
+    @Test
+    public void execute_listFinance_showsAllFinances() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Team t1 = helper.generateTeam(1);
+        Team t2 = helper.generateTeam(2);
+        Finance f1 = helper.generateFinance(t1);
+        Finance f2 = helper.generateFinance(t2);
+        List<Finance> lastFinanceList = helper.generateFinanceList(f1, f2);
+        AddressBook expectedAb = helper.generateFinanceAddressBook(lastFinanceList);
+        List<? extends ReadOnlyFinance> expectedList = expectedAb.getAllFinances().immutableListView();
+
+        addressBook.addTeam(t1);
+        addressBook.addTeam(t2);
+
+        assertFinanceCommandBehavior("listfinance",
+                Command.getMessageForFinanceListShownSummary(expectedList),
+                expectedAb,
+                true,
+                expectedList);
+    }
+
+    @Test
+    public void execute_rankFinance_showsAllFinances() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Team t1 = helper.generateTeam(1);
+        Team t2 = helper.generateTeam(2);
+        Finance f1 = helper.generateFinance(t1);
+        Finance f2 = helper.generateFinance(t2);
+        List<Finance> lastFinanceList = helper.generateFinanceList(f1, f2);
+        AddressBook expectedAb = helper.generateFinanceAddressBook(lastFinanceList);
+        expectedAb.sortFinance();
+        List<? extends ReadOnlyFinance> expectedList = expectedAb.getAllFinances().immutableListView();
+
+        addressBook.addTeam(t1);
+        addressBook.addTeam(t2);
+
+        assertFinanceCommandBehavior("rankfinance",
+                Command.getMessageForFinanceListShownSummary(expectedList),
+                expectedAb,
+                true,
+                expectedList);
+    }
+
+    /**
+     * Confirms the 'invalid argument index number behaviour' for the given command
+     * targeting a single finance in the last shown list, using visible index.
+     */
+    private void assertInvalidIndexBehaviorForFinanceCommand(String commandWord) throws Exception {
+        String expectedMessage = Messages.MESSAGE_INVALID_FINANCE_DISPLAYED_INDEX;
+        TestDataHelper helper = new TestDataHelper();
+        List<Finance> lastFinanceList = helper.generateFinanceList(2);
+
+        logic.setLastFinanceShownList(lastFinanceList);
+
+        assertFinanceCommandBehavior(commandWord + " -1", expectedMessage, AddressBook.empty(), false, lastFinanceList);
+        assertFinanceCommandBehavior(commandWord + " 0", expectedMessage, AddressBook.empty(), false, lastFinanceList);
+        assertFinanceCommandBehavior(commandWord + " 3", expectedMessage, AddressBook.empty(), false, lastFinanceList);
+    }
+
+    @Test
+    public void execute_viewFinance_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewFinanceCommand.MESSAGE_USAGE);
+        assertFinanceCommandBehavior("viewfinance ", expectedMessage);
+        assertFinanceCommandBehavior("viewfinance arg not number", expectedMessage);
+    }
+
+    @Test
+    public void execute_viewFinance_invalidIndex() throws Exception {
+        assertInvalidIndexBehaviorForFinanceCommand("viewfinance");
+    }
+
+    @Test
+    public void execute_getFinance_invalidIndex() throws Exception {
+        assertInvalidIndexBehaviorForTeamCommand("getfinance");
+    }
+
+    @Test
+    public void execute_tryToViewAllFinanceMissingInAddressBook_errorMessage() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Finance f1 = helper.generateFinance(1);
+        Finance f2 = helper.generateFinance(2);
+        List<Finance> lastFinanceList = helper.generateFinanceList(f1, f2);
+
+        AddressBook expectedAb = new AddressBook();
+        expectedAb.addFinance(f1);
+
+        addressBook.addFinance(f1);
+        logic.setLastFinanceShownList(lastFinanceList);
+
+        assertFinanceCommandBehavior("viewfinance 2",
+                Messages.MESSAGE_FINANCE_NOT_IN_LEAGUE_TRACKER,
+                expectedAb,
+                false,
+                lastFinanceList);
+    }
+
+    @Test
+    public void execute_tryToGetAllFinanceMissingInAddressBook_errorMessage() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Team t1 = helper.generateTeam(1);
+        Team t2 = helper.generateTeam(2);
+        Finance f1 = helper.generateFinance(t1);
+        Finance f2 = helper.generateFinance(t2);
+        List<Finance> lastFinanceList = helper.generateFinanceList(f1, f2);
+
+        AddressBook expectedAb = new AddressBook();
+        expectedAb.addFinance(f1);
+
+        addressBook.addFinance(f1);
+        logic.setLastFinanceShownList(lastFinanceList);
+
+        assertFinanceCommandBehavior("getfinance 2",
+                Messages.MESSAGE_INVALID_TEAM_DISPLAYED_INDEX,
+                expectedAb,
+                false,
+                lastFinanceList);
     }
 
     /**
@@ -981,7 +1226,7 @@ public class LogicTest {
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             Set<Tag> tags = new HashSet<>(Arrays.asList(tag1, tag2));
-            return new Team(teamName, country, sponsor, new HashSet<>(), new HashSet<>(), tags);
+            return new Team(teamName, country, sponsor, new ArrayList<>(), new ArrayList<>(), tags);
         }
 
         /**
@@ -995,8 +1240,8 @@ public class LogicTest {
                     new seedu.addressbook.data.team.TeamName("Team " + seed),
                     new Country("Country " + ((char) (64 + seed))),
                     new Sponsor("40" + seed),
-                    new HashSet<>(),
-                    new HashSet<>(),
+                    new ArrayList<>(),
+                    new ArrayList<>(),
                     new HashSet<>(Arrays.asList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))))
             );
         }
@@ -1014,6 +1259,72 @@ public class LogicTest {
             Set<Tag> tags = team.getTags();
             for (Tag t : tags) {
                 cmd.add("t/" + t.tagName);
+            }
+            return cmd.toString();
+        }
+
+        /** Generates a new employee based on the detail given */
+
+        Team generateEditTeam(Team t, String editParam, String editDetail) throws Exception {
+            seedu.addressbook.data.team.TeamName teamName;
+            Country country;
+            Sponsor sponsor;
+            Set<Tag> tagsList;
+
+            if ("name".equals(editParam)) {
+                teamName = new seedu.addressbook.data.team.TeamName(editDetail);
+            } else {
+                teamName = t.getTeamName();
+            }
+
+            if ("country".equals(editParam)) {
+                country = new Country(editDetail);
+            } else {
+                country = t.getCountry();
+            }
+
+            if ("sponsor".equals(editParam)) {
+                sponsor = new Sponsor(editDetail);
+            } else {
+                sponsor = t.getSponsor();
+            }
+
+            if ("tag".equals((editParam))) {
+                tagsList = Collections.singleton(new Tag("tag"));
+            } else {
+                tagsList = t.getTags();
+            }
+
+            return new Team(teamName, country, sponsor, new ArrayList<>(), new ArrayList<>(), tagsList);
+        }
+
+        /** Generates the correct edit command based on the team given */
+
+        String generateEditTeamCommand(String index, String editParam, String editDetail) {
+            StringJoiner cmd = new StringJoiner(" ");
+
+            cmd.add("editteam");
+
+            cmd.add(index);
+
+            if (editParam == null || editDetail == null) {
+                return cmd.toString();
+            } else {
+                if (editParam.equals("name")) {
+                    cmd.add("n/" + editDetail);
+                }
+
+                if (editParam.equals("country")) {
+                    cmd.add("c/" + editDetail);
+                }
+
+                if (editParam.equals("sponsor")) {
+                    cmd.add("s/" + editDetail);
+                }
+
+                if (editParam.equals("tag")) {
+                    cmd.add("t/" + editDetail);
+                }
             }
             return cmd.toString();
         }
@@ -1084,10 +1395,87 @@ public class LogicTest {
                     new seedu.addressbook.data.team.TeamName(name),
                     new Country("Country"),
                     new Sponsor("404"),
-                    new HashSet<>(),
-                    new HashSet<>(),
+                    new ArrayList<>(),
+                    new ArrayList<>(),
                     Collections.singleton(new Tag("tag"))
             );
         }
+
+        /**
+         * Generates a valid finance using the given seed.
+         * Each unique seed will generate a unique Finance object.
+         *
+         * @param seed used to generate the finance data field values
+         */
+        Finance generateFinance(int seed) throws Exception {
+            return new Finance(String.format("FINANCE " + seed), seed, seed, seed, seed, seed, seed);
+        }
+
+        /**
+         * Generates a valid finance using the given ReadOnlyTeam.
+         * Each unique seed will generate a unique Finance object.
+         *
+         * @param aTeam used to generate the finance data field values
+         */
+        Finance generateFinance(ReadOnlyTeam aTeam) throws Exception {
+            return new Finance(aTeam);
+        }
+
+        /**
+         * Generates an AddressBook with auto-generated finances.
+         */
+        AddressBook generateFinanceAddressBook(int num) throws Exception {
+            AddressBook addressBook = new AddressBook();
+            addToFinanceAddressBook(addressBook, num);
+            return addressBook;
+        }
+
+        /**
+         * Generates an AddressBook based on the list of Finances given.
+         */
+        AddressBook generateFinanceAddressBook(List<Finance> finances) throws Exception {
+            AddressBook addressBook = new AddressBook();
+            addToFinanceAddressBook(addressBook, finances);
+            return addressBook;
+        }
+
+        /**
+         * Adds auto-generated Finance objects to the given AddressBook
+         */
+        void addToFinanceAddressBook(AddressBook addressBook, int num) throws Exception {
+            addToFinanceAddressBook(addressBook, generateFinanceList(num));
+        }
+
+        /**
+         * Adds the given list of finances to the given AddressBook
+         */
+        void addToFinanceAddressBook(AddressBook addressBook, List<Finance> financesToAdd) throws Exception {
+            for (Finance f : financesToAdd) {
+                addressBook.addFinance(f);
+            }
+        }
+
+        /**
+         * Creates a list of Finances based on the give Finance objects.
+         */
+        List<Finance> generateFinanceList(Finance... finances) throws Exception {
+            List<Finance> financeList = new ArrayList<>();
+            for (Finance f : finances) {
+                financeList.add(f);
+            }
+            return financeList;
+        }
+
+        /**
+         * Generates a list of Finances based on the number given.
+         */
+        List<Finance> generateFinanceList(int num) throws Exception {
+            List<Finance> finances = new ArrayList<>();
+            for (int j = 1; j <= num; j++) {
+                finances.add(generateFinance(j));
+            }
+            return finances;
+        }
+
     }
 }
