@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.addressbook.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -23,7 +24,14 @@ import seedu.addressbook.commands.finance.GetLeagueFinanceCommand;
 import seedu.addressbook.commands.finance.ListFinanceCommand;
 import seedu.addressbook.commands.finance.RankFinanceCommand;
 import seedu.addressbook.commands.finance.ViewFinanceCommand;
+import seedu.addressbook.commands.match.AddMatchCommand;
+import seedu.addressbook.commands.match.ClearMatchCommand;
+import seedu.addressbook.commands.match.DeleteMatchCommand;
 import seedu.addressbook.commands.match.ExportMatchCommand;
+import seedu.addressbook.commands.match.FindMatchCommand;
+import seedu.addressbook.commands.match.ListMatchCommand;
+import seedu.addressbook.commands.match.UpdateMatchCommand;
+import seedu.addressbook.commands.match.ViewMatchCommand;
 import seedu.addressbook.commands.player.AddCommand;
 import seedu.addressbook.commands.player.ClearCommand;
 import seedu.addressbook.commands.player.DeleteCommand;
@@ -43,6 +51,11 @@ import seedu.addressbook.commands.team.FindTeam;
 import seedu.addressbook.commands.team.ListTeam;
 import seedu.addressbook.commands.team.ViewTeam;
 import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.data.match.Match;
+import seedu.addressbook.data.match.MatchDate;
+import seedu.addressbook.data.match.ReadOnlyMatch;
+import seedu.addressbook.data.match.Score;
+import seedu.addressbook.data.match.TicketSales;
 import seedu.addressbook.data.player.Age;
 import seedu.addressbook.data.player.Appearance;
 import seedu.addressbook.data.player.GoalsAssisted;
@@ -166,7 +179,6 @@ public class ParserTest {
         final ViewAllCommand result = parseAndAssertCommandType(input, ViewAllCommand.class);
         assertEquals(result.getTargetIndex(), testIndex);
     }
-
 
     /**
      * Test find players by keyword in name command
@@ -861,6 +873,245 @@ public class ParserTest {
         assertEquals(result.getTargetIndex(), testIndex);
     }
 
+    /**
+     * Test for match commands start here
+     *
+     * Test 0-argument match commands
+     */
+
+    @Test
+    public void clearMatchCommand_parsedCorrectly() {
+        final String input = "clearmatch";
+        parseAndAssertCommandType(input, ClearMatchCommand.class);
+    }
+
+    @Test
+    public void listMatchCommand_parsedCorrectly() {
+        final String input = "listmatch";
+        parseAndAssertCommandType(input, ListMatchCommand.class);
+    }
+
+    /**
+     * Test Single index argument match commands
+     */
+
+    @Test
+    public void deleteMatchCommand_noArgs() {
+        final String[] inputs = {"deletematch", "deletematch "};
+        final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteMatchCommand.MESSAGE_USAGE);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+
+    @Test
+    public void deleteMatchCommand_argsIsNotSingleNumber() {
+        final String[] inputs = {"deletematch alphabets ", "deletematch 2p2", "deletematch 1 2 3 4 5"};
+        final String resultMessage;
+        resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteMatchCommand.MESSAGE_USAGE);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+
+    @Test
+    public void deleteMatchCommand_numericArg_indexParsedCorrectly() {
+        final int testIndex = 1;
+        final String input = "deletematch " + testIndex;
+        final DeleteMatchCommand result = parseAndAssertCommandType(input, DeleteMatchCommand.class);
+        assertEquals(result.getTargetIndex(), testIndex);
+    }
+
+    @Test
+    public void viewMatchCommand_noArgs() {
+        final String[] inputs = { "viewmatch", "viewmatch " };
+        final String resultMessage =
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewMatchCommand.MESSAGE_USAGE);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+
+    @Test
+    public void viewMatchCommand_argsIsNotSingleNumber() {
+        final String[] inputs = { "viewmatch notAnumber ", "viewmatch 8*wh12", "viewmatch 1 2 3 4 5" };
+        final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewMatchCommand.MESSAGE_USAGE);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+
+    @Test
+    public void viewMatchCommand_numericArg_indexParsedCorrectly() {
+        final int testIndex = 3;
+        final String input = "viewmatch " + testIndex;
+        final ViewMatchCommand result = parseAndAssertCommandType(input, ViewMatchCommand.class);
+        assertEquals(result.getTargetIndex(), testIndex);
+    }
+
+    /**
+     * Test find matches by keyword in date command
+     */
+
+    @Test
+    public void findMatchCommand_invalidArgs() {
+        // no keywords
+        final String[] inputs = {"findmatch", "findmatch "};
+        final String resultMessage =
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindMatchCommand.MESSAGE_USAGE);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+
+    @Test
+    public void findMatchCommand_validArgs_parsedCorrectly() {
+        final String[] keywords = { "13", "Jan", "1991" };
+        final Set<String> keySet = new HashSet<>(Arrays.asList(keywords));
+        final String input = "findmatch " + String.join(" ", keySet);
+        final FindMatchCommand result =
+                parseAndAssertCommandType(input, FindMatchCommand.class);
+        assertEquals(keySet, result.getKeywords());
+    }
+
+    @Test
+    public void findMatchCommand_duplicateKeys_parsedCorrectly() {
+        final String[] keywords = { "13", "Jan", "1991" };
+        final Set<String> keySet = new HashSet<>(Arrays.asList(keywords));
+
+        // duplicate every keyword
+        final String input = "findmatch " + String.join(" ", keySet) + " " + String.join(" ", keySet);
+        final FindMatchCommand result =
+                parseAndAssertCommandType(input, FindMatchCommand.class);
+        assertEquals(keySet, result.getKeywords());
+    }
+
+    /**
+     * Test add match command
+     */
+
+    @Test
+    public void addMatchCommand_invalidArgs() {
+        final String[] inputs = {"addmatch", "addmatch ", "addmatch wrong args format",
+                // no home prefix
+                String.format("addmatch %1$s %2$s a/%3$s",
+                        MatchDate.EXAMPLE, "Chelsea", "Everton"),
+
+                // no away prefix
+                String.format("addmatch %1$s h/%2$s %3$s",
+                        MatchDate.EXAMPLE, "Chelsea", "Everton"),
+        };
+        final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMatchCommand.MESSAGE_USAGE);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+
+    @Test
+    public void addMatchCommand_invalidMatchDataInArgs() {
+        // matchdate, home and away are the ones that need to be tested
+        final String invalidMatchDate = "32 Feb 01";
+        final String validMatchDate = MatchDate.EXAMPLE;
+        final String invalidHomeArg = "h/has_underscore";
+        final String validHomeArg = "h/Chelsea";
+        final String invalidAwayArg = "a/contains_underscore";
+        final String validAwayArg = "a/Everton";
+
+        final String addMatchFormatString = "addmatch %1$s %2$s %3$s ";
+
+        // test each incorrect match data field argument individually
+        final String[] inputs = {
+                // invalid date
+                String.format(addMatchFormatString, invalidMatchDate, validHomeArg, validAwayArg),
+                // invalid home
+                String.format(addMatchFormatString, validMatchDate, invalidHomeArg, validAwayArg),
+                // invalid away
+                String.format(addMatchFormatString, validMatchDate, validHomeArg, invalidAwayArg),
+        };
+        for (String input : inputs) {
+            parseAndAssertCommandType(input, IncorrectCommand.class);
+        }
+    }
+
+    @Test
+    public void addMatchCommand_validMatchData_parsedCorrectly() {
+        final Match testMatch = generateTestMatch();
+        final String input = convertMatchToAddMatchString(testMatch);
+        final AddMatchCommand result = parseAndAssertCommandType(input, AddMatchCommand.class);
+        assertEquals(result.getMatch(), testMatch);
+    }
+
+
+    @Test
+    public void updateMatchCommand_noArgs() {
+        final String[] inputs = {"updatematch", "updatematch "};
+        final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateMatchCommand.MESSAGE_USAGE);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+
+    @Test
+    public void updateMatchCommand_argsIsNotSingleNumber() {
+        final String[] inputs = {"updatematch notAnumber ", "updatematch 8*wh12", "updatematch 1 2 3 4 5"};
+        final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateMatchCommand.MESSAGE_USAGE);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+
+    @Test
+    public void updateMatchCommand_invalidMatchDataInArgs() {
+        // homeSales, awaySales, goalScorers and ownGoalScorers are the ones that need to be tested
+        final String invalidHomeSales = "h/should_be_numbers";
+        final String validHomeSales = "h/" + TicketSales.EXAMPLE;
+        final String invalidAwaySales = "a/should_be_numbers";
+        final String validAwaySales = "a/" + TicketSales.EXAMPLE;
+        final String invalidGoalScorersArg = "g/contain_underscore";
+        final String validGoalScorersArg = "g/" + Name.EXAMPLE;
+        final String invalidOwnGoalScorersArg = "o/contain_underscore";
+        final String validOwnGoalScorersArg = "o/" + Name.EXAMPLE;
+
+        final String updateMatchFormatString = "updatematch 1 %1$s %2$s %3$s %4$s";
+
+        // test each incorrect match data field argument individually
+        final String[] inputs = {
+                // invalid homesales
+                String.format(updateMatchFormatString, invalidHomeSales, validAwaySales,
+                        validGoalScorersArg, validOwnGoalScorersArg),
+                // invalid awaysales
+                String.format(updateMatchFormatString, validHomeSales, invalidAwaySales,
+                        validGoalScorersArg, validOwnGoalScorersArg),
+                // invalid goalscorer
+                String.format(updateMatchFormatString, validHomeSales, validAwaySales,
+                        invalidGoalScorersArg, validOwnGoalScorersArg),
+                // invalid owngoalscorer
+                String.format(updateMatchFormatString, validHomeSales, validAwaySales,
+                        validGoalScorersArg, invalidOwnGoalScorersArg)
+        };
+        for (String input : inputs) {
+            parseAndAssertCommandType(input, IncorrectCommand.class);
+        }
+    }
+
+    /**
+     * Generates a test match
+     */
+    private static Match generateTestMatch() {
+        try {
+            return new Match(
+                    new MatchDate(MatchDate.EXAMPLE),
+                    new TeamName("Chelsea"),
+                    new TeamName("Everton"),
+                    new TicketSales(""),
+                    new TicketSales(""),
+                    new ArrayList<>(),
+                    new ArrayList<>(),
+                    new Score("")
+            );
+        } catch (IllegalValueException ive) {
+            throw new RuntimeException("test match data should be valid by definition");
+        } catch (ParseException pe) {
+            throw new RuntimeException(pe.getMessage());
+        }
+    }
+
+    /**
+     * Converts a match to addMatchCommand string.
+     *
+     * @param match
+     * @return
+     */
+    private static String convertMatchToAddMatchString(ReadOnlyMatch match) {
+        return "addmatch "
+                + match.getDate().toString()
+                + " h/" + match.getHome().fullName
+                + " a/" + match.getAway().fullName;
+    }
 
     /**
      * Utility methods
