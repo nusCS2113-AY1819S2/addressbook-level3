@@ -56,7 +56,11 @@ public class EditPlayerCommand extends Command {
     public static final String MESSAGE_NOATTRIBUTE_WARNING = "At least one attribute must be provided for edition";
     public static final String MESSAGE_TEAMNAME_BLOCK = "Changing player's team is not allowed "
             + "with Edit Command, please use tranferPlayer Command if you need to transfer "
-            + "%1$s from %2$s to other teams in League Tracker.";
+            + "%1$s from %2$s to other teams in League Tracker."
+            + "\nType help for a helpsheet of commands available in League Tracker";
+    public static final String MESSAGE_GS_BLOCK = "For version 1.4, edition of "
+            + "goals scored will not be entertained."
+            + "\nType help for a helpsheet of commands available in League Tracker";
 
     private final Name nameItem;
     private final PositionPlayed positionItem;
@@ -70,6 +74,7 @@ public class EditPlayerCommand extends Command {
     private final HealthStatus hsItem;
     private final Set<Tag> tagItem;
     private final Boolean isTeamEdited;
+    private final Boolean isGoalsScoredEdited;
 
 
     public EditPlayerCommand(int targetIndex,
@@ -96,6 +101,7 @@ public class EditPlayerCommand extends Command {
         this.tagItem = tagSet;
 
         this.isTeamEdited = (teamName != null);
+        this.isGoalsScoredEdited = (goalsScored != null);
     }
 
     @Override
@@ -111,6 +117,9 @@ public class EditPlayerCommand extends Command {
                         oldPlayer.getTeamName().toString()));
             }
 
+            if (isGoalsScoredEdited) {
+                return new CommandResult(MESSAGE_GS_BLOCK);
+            }
             final Player inputPlayer = createInputPlayer(this.nameItem, this.positionItem,
                     this.ageItem, this.salaryItem, this.gsItem, this.gaItem, null,
                     this.nationalityItem, jnItem, appItem, hsItem, tagItem);
