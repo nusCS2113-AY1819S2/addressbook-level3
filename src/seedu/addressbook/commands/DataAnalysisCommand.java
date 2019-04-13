@@ -117,7 +117,7 @@ public class DataAnalysisCommand extends Command {
 
 
     /**
-     * Overloaded to take in List<Player> argument for String generation
+     * Overloaded to take in a list of Player class objects as the argument for String generation
      * @param allPlayers A list of players to be processed for topscorer string
      * @return a String containing name(s) of top goal scorers in the list passed in as argument
      */
