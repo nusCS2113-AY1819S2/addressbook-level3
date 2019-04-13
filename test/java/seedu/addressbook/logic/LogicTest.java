@@ -69,6 +69,12 @@ public class LogicTest {
     private AddressBook addressBook;
     private Logic logic;
 
+    /**
+     *  input command to add a dummy team for testing
+     *  This is a valid addteam command
+     */
+    private String initializeTeam = " addteam FC Barcelona c/a s/0";
+
     @Before
     public void setup() throws Exception {
         saveFile = new StorageFile(saveFolder.newFile("testSaveFile.txt").getPath());
@@ -76,12 +82,6 @@ public class LogicTest {
         saveFile.save(addressBook);
         logic = new Logic(saveFile, addressBook);
     }
-
-    /**
-     *  input command to add a dummy team for testing
-     *  This is a valid addteam command
-     */
-    private static String initializeTeam = " addteam FC Barcelona c/a s/0";
 
     @Test
     public void constructor() {
