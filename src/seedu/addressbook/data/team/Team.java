@@ -237,11 +237,12 @@ public class Team implements ReadOnlyTeam {
         }
     }
 
-    public void clearMatchList() throws IllegalValueException{
+    /**
+     * Clears match list in teams.
+     * @throws IllegalValueException
+     */
+    public void clearMatchList() throws IllegalValueException {
         this.matchlist.clear();
-        for (Player player : playerlist) {
-            player.clearGoals();
-        }
     }
 
     @Override
