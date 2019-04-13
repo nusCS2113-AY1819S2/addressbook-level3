@@ -1173,7 +1173,7 @@ public class LogicTest {
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             Set<Tag> tags = new HashSet<>(Arrays.asList(tag1, tag2));
-            return new Team(teamName, country, sponsor, new HashSet<>(), new HashSet<>(), tags);
+            return new Team(teamName, country, sponsor, new ArrayList<>(), new ArrayList<>(), tags);
         }
 
         /**
@@ -1187,8 +1187,8 @@ public class LogicTest {
                     new seedu.addressbook.data.team.TeamName("Team " + seed),
                     new Country("Country " + ((char) (64 + seed))),
                     new Sponsor("40" + seed),
-                    new HashSet<>(),
-                    new HashSet<>(),
+                    new ArrayList<>(),
+                    new ArrayList<>(),
                     new HashSet<>(Arrays.asList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))))
             );
         }
@@ -1242,7 +1242,7 @@ public class LogicTest {
                 tagsList = t.getTags();
             }
 
-            return new Team(teamName, country, sponsor, new HashSet<>(), new HashSet<>(), tagsList);
+            return new Team(teamName, country, sponsor, new ArrayList<>(), new ArrayList<>(), tagsList);
         }
 
         /** Generates the correct edit command based on the team given */
@@ -1342,8 +1342,8 @@ public class LogicTest {
                     new seedu.addressbook.data.team.TeamName(name),
                     new Country("Country"),
                     new Sponsor("404"),
-                    new HashSet<>(),
-                    new HashSet<>(),
+                    new ArrayList<>(),
+                    new ArrayList<>(),
                     Collections.singleton(new Tag("tag"))
             );
         }

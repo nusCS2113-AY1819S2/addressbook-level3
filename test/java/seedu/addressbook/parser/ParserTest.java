@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.addressbook.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -631,8 +632,8 @@ public class ParserTest {
                     new seedu.addressbook.data.team.TeamName(TeamName.EXAMPLE),
                     new Country(Country.EXAMPLE),
                     new Sponsor(Sponsor.EXAMPLE),
-                    new HashSet<>(),
-                    new HashSet<>(),
+                    new ArrayList<>(),
+                    new ArrayList<>(),
                     new HashSet<>(Arrays.asList(new Tag("tag1"), new Tag("tag2"), new Tag("tag3")))
             );
         } catch (IllegalValueException ive) {
