@@ -3,7 +3,6 @@ package seedu.addressbook.parser;
 import static seedu.addressbook.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.addressbook.data.match.MatchDate.MESSAGE_INVALID_DATE_FORMAT;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -15,6 +14,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.addressbook.commands.Command;
+import seedu.addressbook.commands.DataAnalysisCommand;
 import seedu.addressbook.commands.ExitCommand;
 import seedu.addressbook.commands.HelpCommand;
 import seedu.addressbook.commands.IncorrectCommand;
@@ -91,7 +91,8 @@ public class Parser {
     public static final Pattern TRANSFER_DATA_ARGS_FORMAT =
             Pattern.compile("(?<playerName>[^/]+)"
                     + "tm/(?<destinationTeamName>[^/]+)"
-                    + "jn/(?<newJerseyNumber>[^/]+)");
+                    + "jn/(?<newJerseyNumber>[^/]+)"
+                    + "sal/(?<newSalary>[^/]+)");
 
     public static final Pattern EDITPLAYER_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<targetIndex>\\d+)"
@@ -198,6 +199,9 @@ public class Parser {
 
         case ExportMatchCommand.COMMAND_WORD:
             return new ExportMatchCommand();
+
+        case DataAnalysisCommand.COMMAND_WORD:
+            return new DataAnalysisCommand();
 
         case DeleteTeam.COMMAND_WORD:
             return delTeam(arguments);
@@ -347,7 +351,8 @@ public class Parser {
             return new TransferPlayerCommand(
                     matcher.group("playerName"),
                     matcher.group("destinationTeamName"),
-                    matcher.group("newJerseyNumber")
+                    matcher.group("newJerseyNumber"),
+                    matcher.group("newSalary")
             );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
