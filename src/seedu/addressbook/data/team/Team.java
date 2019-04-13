@@ -1,9 +1,12 @@
 package seedu.addressbook.data.team;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.match.Match;
 import seedu.addressbook.data.match.ReadOnlyMatch;
 import seedu.addressbook.data.player.Player;
@@ -25,8 +28,8 @@ public class Team implements ReadOnlyTeam {
     private int lose;
     private int draw;
     private int points;
-    private final Set<Player> playerlist = new HashSet<>();
-    private final Set<Match> matchlist = new HashSet<>();
+    private final List<Player> playerlist = new ArrayList<>();
+    private final List<Match> matchlist = new ArrayList<>();
     private final Set<Tag> tags = new HashSet<>();
     /**
      * Assumption: Every field must be present and not null.
@@ -34,8 +37,8 @@ public class Team implements ReadOnlyTeam {
     public Team(TeamName teamName,
                 Country country,
                 Sponsor sponsor,
-                Set<Match> matchlist,
-                Set<Player> playerlist,
+                List<Match> matchlist,
+                List<Player> playerlist,
                 Set<Tag> tags) {
         this.teamName = teamName;
         this.country = country;
@@ -56,8 +59,8 @@ public class Team implements ReadOnlyTeam {
                 int lose,
                 int draw,
                 int points,
-                Set<Match> matchlist,
-                Set<Player> playerlist,
+                List<Match> matchlist,
+                List<Player> playerlist,
                 Set<Tag> tags) {
         this.teamName = teamName;
         this.country = country;
@@ -84,13 +87,13 @@ public class Team implements ReadOnlyTeam {
     }
 
     @Override
-    public Set<Player> getPlayers() {
-        return new HashSet<>(playerlist);
+    public List<Player> getPlayers() {
+        return new ArrayList<>(playerlist);
     }
 
     @Override
-    public Set<Match> getMatches() {
-        return new HashSet<>(matchlist);
+    public List<Match> getMatches() {
+        return new ArrayList<>(matchlist);
     }
 
     @Override
@@ -141,7 +144,7 @@ public class Team implements ReadOnlyTeam {
         tags.addAll(replacement);
     }
 
-    public void setPlayers(Set<Player> replacement) {
+    public void setPlayers(List<Player> replacement) {
         playerlist.clear();
         playerlist.addAll(replacement);
     }
@@ -177,7 +180,7 @@ public class Team implements ReadOnlyTeam {
      * Adding of Matches will also initialize the computing for win lose and draw counter
      */
 
-    public void addMatch(Match match) {
+    public void addMatch(Match match) throws IllegalValueException {
         this.matchlist.add(match);
         if (teamName.toString().equals(match.getHome().toString()) && !match.notPlayed()) {
             String result = match.getScore().toString();
@@ -208,7 +211,7 @@ public class Team implements ReadOnlyTeam {
      * @param match
      */
 
-    public void removeMatch(ReadOnlyMatch match) {
+    public void removeMatch(ReadOnlyMatch match) throws IllegalValueException {
         this.matchlist.remove(match);
         if (teamName.toString().equals(match.getHome().toString()) && !match.notPlayed()) {
             String result = match.getScore().toString();
@@ -234,7 +237,11 @@ public class Team implements ReadOnlyTeam {
         }
     }
 
-    public void clearMatchList() {
+    /**
+     * Clears match list in teams.
+     * @throws IllegalValueException
+     */
+    public void clearMatchList() throws IllegalValueException {
         this.matchlist.clear();
     }
 
