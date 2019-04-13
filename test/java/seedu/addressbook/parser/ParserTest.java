@@ -27,11 +27,11 @@ import seedu.addressbook.commands.finance.ViewFinanceCommand;
 import seedu.addressbook.commands.match.AddMatchCommand;
 import seedu.addressbook.commands.match.ClearMatchCommand;
 import seedu.addressbook.commands.match.DeleteMatchCommand;
+import seedu.addressbook.commands.match.ExportMatchCommand;
 import seedu.addressbook.commands.match.FindMatchCommand;
 import seedu.addressbook.commands.match.ListMatchCommand;
 import seedu.addressbook.commands.match.UpdateMatchCommand;
 import seedu.addressbook.commands.match.ViewMatchCommand;
-import seedu.addressbook.commands.match.ExportMatchCommand;
 import seedu.addressbook.commands.player.AddCommand;
 import seedu.addressbook.commands.player.ClearCommand;
 import seedu.addressbook.commands.player.DeleteCommand;
@@ -948,10 +948,7 @@ public class ParserTest {
     @Test
     public void findMatchCommand_invalidArgs() {
         // no keywords
-        final String[] inputs = {
-                "findmatch",
-                "findmatch "
-        };
+        final String[] inputs = {"findmatch", "findmatch "};
         final String resultMessage =
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindMatchCommand.MESSAGE_USAGE);
         parseAndAssertIncorrectWithMessage(resultMessage, inputs);
@@ -1081,6 +1078,9 @@ public class ParserTest {
         }
     }
 
+    /**
+     * Generates a test match
+     */
     private static Match generateTestMatch() {
         try {
             return new Match(
@@ -1100,6 +1100,12 @@ public class ParserTest {
         }
     }
 
+    /**
+     * Converts a match to addMatchCommand string.
+     *
+     * @param match
+     * @return
+     */
     private static String convertMatchToAddMatchString(ReadOnlyMatch match) {
         return "addmatch "
                 + match.getDate().toString()
