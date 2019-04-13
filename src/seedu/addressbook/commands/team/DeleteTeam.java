@@ -3,8 +3,6 @@ package seedu.addressbook.commands.team;
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.common.Messages;
-import seedu.addressbook.data.match.UniqueMatchList.MatchNotFoundException;
-import seedu.addressbook.data.player.UniquePlayerList.PlayerNotFoundException;
 import seedu.addressbook.data.team.ReadOnlyTeam;
 import seedu.addressbook.data.team.UniqueTeamList;
 
@@ -40,10 +38,6 @@ public class DeleteTeam extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_TEAM_DISPLAYED_INDEX);
         } catch (UniqueTeamList.TeamNotFoundException tnfe) {
             return new CommandResult(Messages.MESSAGE_TEAM_NOT_IN_LEAGUE_TRACKER);
-        } catch (PlayerNotFoundException pnfe) {
-            return new CommandResult(Messages.MESSAGE_PLAYER_NOT_IN_LEAGUE);
-        } catch (MatchNotFoundException mnfe) {
-            return new CommandResult(Messages.MESSAGE_MATCH_NOT_IN_LEAGUE_TRACKER);
         }
     }
 }
