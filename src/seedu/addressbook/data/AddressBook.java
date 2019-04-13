@@ -89,6 +89,9 @@ public class AddressBook {
 
     public void editPlayer(ReadOnlyPlayer toEdit, Player newPlayer) throws UniquePlayerList.PlayerNotFoundException {
         allPlayers.edit(toEdit, newPlayer);
+        if (!toEdit.getName().equals(newPlayer.getName())) {
+            replaceNameForAllMatches(toEdit, newPlayer);
+        }
         for (Team team : allTeams) {
             if (team.getTeamName().toString().equals(toEdit.getTeamName().toString())) {
                 team.removePlayer(toEdit);
@@ -98,7 +101,37 @@ public class AddressBook {
     }
 
     /**
-     * Adds a team to the League Tracker.
+     * Replaces name of a goalScorer in all matches.
+     * @param toRemove
+     * @param toReplace
+     */
+    public void replaceNameForAllMatches (ReadOnlyPlayer toRemove, Player toReplace) {
+        for (Match match : allMatches) { //for all match
+            if (match.getGoalScorers().contains(toRemove.getName())) {
+                match.setGoalScorers(replaceNameInMatch(
+                        match.getGoalScorers(), toRemove.getName(), toReplace.getName()));
+            }
+        }
+    }
+
+    /**
+     * Replaces name of a goalScorer in a match.
+     * @param goalScorers
+     * @param toRemove
+     * @param toReplace
+     * @return
+     */
+    public List<Name> replaceNameInMatch (List<Name> goalScorers, Name toRemove, Name toReplace) {
+        for (Name name : goalScorers) {
+            if (name.equals(toRemove)) {
+                goalScorers.set((goalScorers.indexOf(toRemove)), toReplace);
+            }
+        }
+        return goalScorers;
+    }
+
+    /**
+     * Adds a team to the address book.
      */
     public void addTeam(Team toAdd) throws DuplicateTeamException {
         allTeams.add(toAdd);
