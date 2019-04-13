@@ -56,10 +56,6 @@ public class AddTeam extends Command {
         );
     }
 
-    public AddTeam(Team toAdd) {
-        this.toAdd = toAdd;
-    }
-
     public ReadOnlyTeam getTeam() {
         return toAdd;
     }

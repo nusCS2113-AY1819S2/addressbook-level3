@@ -511,7 +511,7 @@ image::addteam.png[]
 ==== *Delete Team*
 You can use the Delete Team command to delete an existing Team from League Tracker. +
 
-Format : `delteam INDEX`
+Format : `deleteteam INDEX`
 
 Example: +
 
@@ -520,7 +520,7 @@ Example: +
 .After listing
 image::listteam.png[]
 
-* `delteam 1` +
+* `deleteteam 1` +
 
 Deletes the 1st Team in the Team list.
 
@@ -530,7 +530,7 @@ image::delteam.png[]
 
 ==== *Edit Team*
 You can use the Edit Team command to edit information of a Team in League Tracker. +
-Format : `editteam INDEX [c/COUNTRY] [s/SPONSORSHIP] [t/TAGS]`
+Format : `editteam INDEX [n/NAME] [c/COUNTRY] [s/SPONSORSHIP] [t/TAGS]`
 
 Example: +
 
@@ -547,6 +547,20 @@ image::editteam.png[]
 Edits the name of the 1st Team in the Team list to United Malaysia.
 {empty} +
 {empty} +
+
+[NOTE]
+====
+Team's name cannot be edited if existing players or matches are tied to the team. +
+Inputing `t/nil` for tags will remove all tags for the team.
+
+====
+
+==== *Find Team*
+You can use the Find Team command to find teams containing certain keywords. +
+Format : `findteam KEYWORD`
+
+Example: +
+
 
 ==== *List Team*
 You can use the List Team command to see the list of all current teams in the league. +
@@ -727,7 +741,7 @@ Display a Player's Profile : `displayProfile`
 === Teams
 
 Add Team to League : `addteam` +
-Delete Team from League : `delteam` +
+Delete Team from League : `deleteteam` +
 Edit Team's Profile : `editteam` +
 List Team in League : `listteam` +
 View Team in League : `viewteam` +

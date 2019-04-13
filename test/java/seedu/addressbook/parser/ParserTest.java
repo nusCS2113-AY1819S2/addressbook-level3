@@ -283,7 +283,7 @@ public class ParserTest {
 
 
 
-    /*@Test
+    @Test
     public void addCommand_invalidPlayerDataInArgs() {
         // name, age, salary, gs, ga, jn and appearance are the ones that need to be tested
         final String invalidName = "[]\\[;]";
@@ -334,14 +334,11 @@ public class ParserTest {
                 // invalid Appearance
                 String.format(addCommandFormatString, validName, validAgeArg, validSalaryArg, validGsArg,
                         validGaArg, validJnArg, invalidAppearanceArg),
-                // invalid tag
-                String.format(addCommandFormatString, validName, validAgeArg, validSalaryArg, validGsArg,
-                        validGaArg, validJnArg, validAppearanceArg) + " " + invalidTagArg
         };
         for (String input : inputs) {
             parseAndAssertCommandType(input, IncorrectCommand.class);
         }
-    }*/
+    }
 
     @Test
     public void addCommand_validPlayerData_parsedCorrectly() {
@@ -624,7 +621,7 @@ public class ParserTest {
     }
 
     /**
-     * generates a test team
+     * Generates a test team
      */
     private static Team generateTestTeam() {
         try {
@@ -654,21 +651,6 @@ public class ParserTest {
         }
         return addTeam;
     }
-
-    /**
-     * Converts team to add command string
-     */
-    private static String convertTeamToEditTeamString(ReadOnlyTeam team) {
-        String editTeam = "editteam 1"
-                + " n/" + team.getTeamName().fullName
-                + " c/" + team.getCountry().value
-                + " s/" + team.getSponsor().value;
-        for (Tag tag : team.getTags()) {
-            editTeam += " t/" + tag.tagName;
-        }
-        return editTeam;
-    }
-
 
     /**
      * Test ListFinanceCommand

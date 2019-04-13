@@ -69,6 +69,12 @@ public class LogicTest {
     private AddressBook addressBook;
     private Logic logic;
 
+    /**
+     *  input command to add a dummy team for testing
+     *  This is a valid addteam command
+     */
+    private String initializeTeam = " addteam FC Barcelona c/a s/0";
+
     @Before
     public void setup() throws Exception {
         saveFile = new StorageFile(saveFolder.newFile("testSaveFile.txt").getPath());
@@ -116,6 +122,7 @@ public class LogicTest {
                                        List<? extends ReadOnlyPlayer> lastPlayerList) throws Exception {
 
         //Execute the command
+        logic.execute(initializeTeam);
         CommandResult r = logic.execute(inputCommand);
 
         //Confirm the result contains the right data
@@ -258,7 +265,7 @@ public class LogicTest {
     }
 
 
-    /*@Test
+    @Test
     public void execute_add_invalidPlayerData() throws Exception {
         assertCommandBehavior(
                 "addPlayer []\\[;] p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam ctry/China"
@@ -284,12 +291,9 @@ public class LogicTest {
         assertCommandBehavior(
                 "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam ctry/China "
                         + "jn/9 app/zero hs/Healthy", Appearance.MESSAGE_APPEARANCE_CONSTRAINTS);
-        assertCommandBehavior(
-                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam ctry/China "
-                        + "jn/9 app/0 hs/Healthy t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
-    }*/
+    }
 
-    /*@Test
+    @Test
     public void execute_add_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
@@ -304,9 +308,9 @@ public class LogicTest {
                 false,
                 Collections.emptyList());
 
-    }*/
+    }
 
-    /*@Test
+    @Test
     public void execute_addDuplicate_notAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
@@ -325,7 +329,7 @@ public class LogicTest {
                 false,
                 Collections.emptyList());
 
-    }*/
+    }
 
     @Test
     public void execute_list_showsAllPersons() throws Exception {
@@ -458,13 +462,13 @@ public class LogicTest {
         assertCommandBehavior("findPlayer ", expectedMessage);
     }
 
-    /*@Test
+    @Test
     public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Player pTarget1 = helper.generatePlayerWithName("bla bla KEY bla");
-        Player pTarget2 = helper.generatePlayerWithName("bla KEY bla bceofeia");
-        Player p1 = helper.generatePlayerWithName("KE Y");
-        Player p2 = helper.generatePlayerWithName("KEYKEYKEY sduauo");
+        Player pTarget1 = helper.generatePlayerWithName("bla bla KEY bla", 1);
+        Player pTarget2 = helper.generatePlayerWithName("bla KEY bla bceofeia", 2);
+        Player p1 = helper.generatePlayerWithName("KE Y", 3);
+        Player p2 = helper.generatePlayerWithName("KEYKEYKEY sduauo", 4);
 
         List<Player> fourPlayers = helper.generatePlayerList(p1, pTarget1, p2, pTarget2);
         AddressBook expectedAb = helper.generateAddressBook(fourPlayers);
@@ -476,7 +480,7 @@ public class LogicTest {
                 expectedAb,
                 true,
                 expectedList);
-    }*/
+    }
 
     @Test
     public void execute_find_isCaseSensitive() throws Exception {
@@ -498,13 +502,13 @@ public class LogicTest {
                 expectedList);
     }
 
-    /*@Test
+    @Test
     public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Player pTarget1 = helper.generatePlayerWithName("bla bla KEY bla");
-        Player pTarget2 = helper.generatePlayerWithName("bla rAnDoM bla bceofeia");
-        Player p1 = helper.generatePlayerWithName("key key");
-        Player p2 = helper.generatePlayerWithName("KEy sduauo");
+        Player pTarget1 = helper.generatePlayerWithName("bla bla KEY bla", 1);
+        Player pTarget2 = helper.generatePlayerWithName("bla rAnDoM bla bceofeia", 2);
+        Player p1 = helper.generatePlayerWithName("key key", 3);
+        Player p2 = helper.generatePlayerWithName("KEy sduauo", 4);
 
         List<Player> fourPlayers = helper.generatePlayerList(p1, pTarget1, p2, pTarget2);
         AddressBook expectedAb = helper.generateAddressBook(fourPlayers);
@@ -516,7 +520,7 @@ public class LogicTest {
                 expectedAb,
                 true,
                 expectedList);
-    }*/
+    }
 
     /**
      * Executes the command and confirms that the result message is correct.
@@ -760,6 +764,30 @@ public class LogicTest {
     }
 
     @Test
+    public void execute_viewTeam_successful() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Team t1 = helper.generateTeam(1);
+        Team t2 = helper.generateTeam(2);
+        List<Team> lastShownTeamList = helper.generateTeamList(t1, t2);
+        AddressBook expectedAb = helper.generateTeamAddressBook(lastShownTeamList);
+        helper.addToTeamAddressBook(addressBook, lastShownTeamList);
+
+        logic.setLastTeamShownList(lastShownTeamList);
+
+        assertTeamCommandBehavior("viewteam 1",
+                String.format(ViewTeam.MESSAGE_VIEW_TEAM_DETAILS, t1.getAsTextShowAll()),
+                expectedAb,
+                false,
+                lastShownTeamList);
+
+        assertTeamCommandBehavior("viewteam 2",
+                String.format(ViewTeam.MESSAGE_VIEW_TEAM_DETAILS, t2.getAsTextShowAll()),
+                expectedAb,
+                false,
+                lastShownTeamList);
+    }
+
+    @Test
     public void execute_tryToViewAllTeamMissingInAddressBook_errorMessage() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Team t1 = helper.generateTeam(1);
@@ -780,19 +808,19 @@ public class LogicTest {
     }
 
     @Test
-    public void execute_delTeam_invalidArgsFormat() throws Exception {
+    public void execute_deleteTeam_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteTeam.MESSAGE_USAGE);
         assertTeamCommandBehavior("deleteteam ", expectedMessage);
         assertTeamCommandBehavior("deleteteam arg not number", expectedMessage);
     }
 
     @Test
-    public void execute_delTeam_invalidIndex() throws Exception {
+    public void execute_deleteTeam_invalidIndex() throws Exception {
         assertInvalidIndexBehaviorForTeamCommand("deleteteam");
     }
 
     @Test
-    public void execute_delTeam_removesCorrectPerson() throws Exception {
+    public void execute_deleteTeam_removesCorrectPerson() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Team t1 = helper.generateTeam(1);
         Team t2 = helper.generateTeam(2);
@@ -814,7 +842,7 @@ public class LogicTest {
     }
 
     @Test
-    public void execute_delTeam_missingInAddressBook() throws Exception {
+    public void execute_deltetTeam_missingInAddressBook() throws Exception {
 
         TestDataHelper helper = new TestDataHelper();
         Team t1 = helper.generateTeam(1);
