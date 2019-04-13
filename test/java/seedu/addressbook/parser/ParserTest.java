@@ -11,6 +11,7 @@ import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
+
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.DataAnalysisCommand;
 import seedu.addressbook.commands.ExitCommand;
@@ -365,39 +366,37 @@ public class ParserTest {
     }
 
     /**
-     * transferPlayer Command testing
-     */
-     @Test
-     public void transferCommand_parsedCorrectly() {
-         final String input = "transfer Lionel Messi tm/A jn/10 sal/200";
-         final TransferPlayerCommand result = parseAndAssertCommandType(input, TransferPlayerCommand.class);
-         assertEquals(result.getClass(), TransferPlayerCommand.class);
-     }
+    * transferPlayer Command testing
+    */
+    @Test
+    public void transferCommand_parsedCorrectly() {
+        final String input = "transfer Lionel Messi tm/A jn/10 sal/200";
+        final TransferPlayerCommand result = parseAndAssertCommandType(input, TransferPlayerCommand.class);
+        assertEquals(result.getClass(), TransferPlayerCommand.class);
+    }
 
-     @Test
-     public void transferCommand_noArgs() {
-         final String[] inputs = {"transfer ", "transfer "};
-         final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                 TransferPlayerCommand.MESSAGE_USAGE);
-         parseAndAssertIncorrectWithMessage(resultMessage, inputs);
-     }
+    @Test
+    public void transferCommand_noArgs() {
+        final String[] inputs = {"transfer ", "transfer "};
+        final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                TransferPlayerCommand.MESSAGE_USAGE);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
 
-     @Test
-     public void transferCommand_invalidArgs_wrongPrefix() {
-         final String[] inputs = {"transfer wrong args format",
-                 // no team name prefix
-                 String.format("transfer Messi %1$s jn/20 sal/100", TeamName.EXAMPLE),
-
-                 // no jersey number prefix
-                 String.format("transfer Messi tm/FC Barcelona %1$s sal/100", JerseyNumber.EXAMPLE),
-
-                 // no salary prefix
-                 String.format("transfer Messi tm/FC Barcelona jn/10 %1$s", Salary.EXAMPLE)
-         };
-         final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                 TransferPlayerCommand.MESSAGE_USAGE);
-         parseAndAssertIncorrectWithMessage(resultMessage, inputs);
-     }
+    @Test
+    public void transferCommand_invalidArgs_wrongPrefix() {
+        final String[] inputs = {"transfer wrong args format",
+                // no team name prefix
+                String.format("transfer Messi %1$s jn/20 sal/100", TeamName.EXAMPLE),
+                // no jersey number prefix
+                String.format("transfer Messi tm/FC Barcelona %1$s sal/100", JerseyNumber.EXAMPLE),
+                // no salary prefix
+                String.format("transfer Messi tm/FC Barcelona jn/10 %1$s", Salary.EXAMPLE)
+        };
+        final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                TransferPlayerCommand.MESSAGE_USAGE);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
 
     /**
      * editPlayer Command testing
