@@ -56,7 +56,7 @@ public class TransferPlayerCommand extends Command {
         this.salaryItem = new Salary(newSalary);
     }
 
-    public static String getMessagePlayerNotFound (){
+    public static String getMessagePlayerNotFound () {
         return MESSAGE_PLAYER_NOT_FOUND;
     }
 
