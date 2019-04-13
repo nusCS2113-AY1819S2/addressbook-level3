@@ -107,8 +107,6 @@ public class EditPlayerCommand extends Command {
     @Override
     public CommandResult execute() {
 
-
-
         try {
             final ReadOnlyPlayer oldPlayer = getTargetPlayer();
 
