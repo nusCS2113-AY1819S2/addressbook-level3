@@ -21,6 +21,10 @@ import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.commands.ExitCommand;
 import seedu.addressbook.commands.HelpCommand;
 import seedu.addressbook.commands.finance.ViewFinanceCommand;
+import seedu.addressbook.commands.match.DeleteMatchCommand;
+import seedu.addressbook.commands.match.FindMatchCommand;
+import seedu.addressbook.commands.match.UpdateMatchCommand;
+import seedu.addressbook.commands.match.ViewMatchCommand;
 import seedu.addressbook.commands.player.AddCommand;
 import seedu.addressbook.commands.player.AddFastCommand;
 import seedu.addressbook.commands.player.ClearCommand;
@@ -37,6 +41,11 @@ import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.finance.Finance;
 import seedu.addressbook.data.finance.ReadOnlyFinance;
+import seedu.addressbook.data.match.Match;
+import seedu.addressbook.data.match.MatchDate;
+import seedu.addressbook.data.match.ReadOnlyMatch;
+import seedu.addressbook.data.match.Score;
+import seedu.addressbook.data.match.TicketSales;
 import seedu.addressbook.data.player.Age;
 import seedu.addressbook.data.player.Appearance;
 import seedu.addressbook.data.player.GoalsAssisted;
@@ -842,7 +851,7 @@ public class LogicTest {
     }
 
     @Test
-    public void execute_deltetTeam_missingInAddressBook() throws Exception {
+    public void execute_deleteTeam_missingInAddressBook() throws Exception {
 
         TestDataHelper helper = new TestDataHelper();
         Team t1 = helper.generateTeam(1);
@@ -1089,6 +1098,127 @@ public class LogicTest {
                 false,
                 lastFinanceList);
     }
+
+    /**
+     * Executes the command and confirms that the result message is correct.
+     */
+    private void assertMatchCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
+        assertMatchCommandBehavior(inputCommand, expectedMessage, AddressBook.empty(), false, Collections.emptyList());
+    }
+
+    /**
+     * Executes the command and confirms that the result message is correct and
+     * also confirms that the following three parts of the Logic object's state are as expected:<br>
+     * - the internal address book data are same as those in the {@code expectedAddressBook} <br>
+     * - the internal 'last shown list' matches the {@code expectedLastList} <br>
+     * - the storage file content matches data in {@code expectedAddressBook} <br>
+     */
+    private void assertMatchCommandBehavior(String inputCommand,
+                                            String expectedMessage,
+                                            AddressBook expectedAddressBook,
+                                            boolean isRelevantMatchesExpected,
+                                            List<? extends ReadOnlyMatch> lastMatchList) throws Exception {
+
+        //Execute the command
+        CommandResult r = logic.execute(inputCommand);
+
+        //Confirm the result contains the right data
+        assertEquals(expectedMessage, r.feedbackToUser);
+        assertEquals(r.getRelevantMatches().isPresent(), isRelevantMatchesExpected);
+        if (isRelevantMatchesExpected) {
+            assertEquals(lastMatchList, r.getRelevantMatches().get());
+        }
+
+        //Confirm the state of data is as expected
+        assertEquals(expectedAddressBook, addressBook);
+        assertEquals(lastMatchList, logic.getLastMatchList());
+        assertEquals(addressBook, saveFile.load());
+    }
+
+    /**
+     * Confirms the 'invalid argument index number behaviour' for the given command
+     * targeting a match in the last shown list, using visible index.
+     * @param commandWord to test assuming it targets a match in the last shown list based on visible index.
+     */
+    private void assertInvalidIndexBehaviorForMatchUpdateCommand(String commandWord) throws Exception {
+        String invalidFormat = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                UpdateMatchCommand.MESSAGE_USAGE);
+        String invalidIndexMessage = Messages.MESSAGE_INVALID_MATCH_DISPLAYED_INDEX;
+        LogicTest.TestDataHelper helper = new LogicTest.TestDataHelper();
+
+        Match match1 = helper.generateMatch(1);
+        Match match2 = helper.generateMatch(2);
+        List<Match> lastShownList = helper.generateMatchList(match1, match2);
+        String arbitraryParameter = "h/1 a/1";
+
+        logic.setLastMatchList(lastShownList);
+
+        assertMatchCommandBehavior(commandWord + " -1 " + arbitraryParameter, invalidFormat,
+                AddressBook.empty(), false, lastShownList);
+        assertMatchCommandBehavior(commandWord + " 0 " + arbitraryParameter, invalidIndexMessage,
+                AddressBook.empty(), false, lastShownList);
+        assertMatchCommandBehavior(commandWord + " 3 " + arbitraryParameter, invalidIndexMessage,
+                AddressBook.empty(), false, lastShownList);
+    }
+
+    /**
+     * Confirms the 'invalid argument index number behaviour' for the given command
+     * targeting a single match in the last shown list, using visible index.
+     */
+    private void assertInvalidIndexBehaviorForMatchCommand(String commandWord) throws Exception {
+        String expectedMessage = Messages.MESSAGE_INVALID_MATCH_DISPLAYED_INDEX;
+        LogicTest.TestDataHelper helper = new LogicTest.TestDataHelper();
+        List<Match> lastMatchList = helper.generateMatchList(2);
+
+        logic.setLastMatchList(lastMatchList);
+
+        assertMatchCommandBehavior(commandWord + " -1", expectedMessage, AddressBook.empty(), false, lastMatchList);
+        assertMatchCommandBehavior(commandWord + " 0", expectedMessage, AddressBook.empty(), false, lastMatchList);
+        assertMatchCommandBehavior(commandWord + " 3", expectedMessage, AddressBook.empty(), false, lastMatchList);
+    }
+
+    @Test
+    public void execute_updateMatch_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                UpdateMatchCommand.MESSAGE_USAGE);
+        assertMatchCommandBehavior("updatematch ", expectedMessage);
+    }
+
+    @Test
+    public void execute_updateMatch_invalidIndex() throws Exception {
+        assertInvalidIndexBehaviorForMatchUpdateCommand("updatematch");
+    }
+
+    @Test
+    public void execute_viewMatch_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewMatchCommand.MESSAGE_USAGE);
+        assertMatchCommandBehavior("viewmatch ", expectedMessage);
+        assertMatchCommandBehavior("viewmatch arg not number", expectedMessage);
+    }
+
+    @Test
+    public void execute_viewMatch_invalidIndex() throws Exception {
+        assertInvalidIndexBehaviorForMatchCommand("viewmatch");
+    }
+
+    @Test
+    public void execute_deleteMatch_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteMatchCommand.MESSAGE_USAGE);
+        assertMatchCommandBehavior("deletematch ", expectedMessage);
+        assertMatchCommandBehavior("deletematch arg not number", expectedMessage);
+    }
+
+    @Test
+    public void execute_deleteMatch_invalidIndex() throws Exception {
+        assertInvalidIndexBehaviorForMatchCommand("deletematch");
+    }
+
+    @Test
+    public void execute_findMatch_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindMatchCommand.MESSAGE_USAGE);
+        assertMatchCommandBehavior("findmatch ", expectedMessage);
+    }
+
 
     /**
      * A utility class to generate test data.
@@ -1505,5 +1635,48 @@ public class LogicTest {
             return finances;
         }
 
+        /**
+         * Test Cases for Match from here onwards
+         */
+
+        /**
+         * Generates a valid match using the given seed.
+         * Each unique seed will generate a unique Match object.
+         *
+         * @param seed used to generate the match data field values
+         */
+        Match generateMatch(int seed) throws Exception {
+            return new Match(
+                    new MatchDate(seed + " Jan " + "20" + seed),
+                    new TeamName("Team " + ((char) (64 + seed))),
+                    new TeamName("Team " + ((char) (65 + seed))),
+                    new TicketSales (seed + "50"),
+                    new TicketSales (seed + "00"),
+                    new ArrayList<>(),
+                    new ArrayList<>(),
+                    new Score(""));
+        }
+
+        /**
+         * Creates a list of Matches based on the given Match objects.
+         */
+        List<Match> generateMatchList(Match... matches) throws Exception {
+            List<Match> matchList = new ArrayList<>();
+            for (Match match : matches) {
+                matchList.add(match);
+            }
+            return matchList;
+        }
+
+        /**
+         * Generates a list of Matches based on the number given.
+         */
+        List<Match> generateMatchList(int num) throws Exception {
+            List<Match> matches = new ArrayList<>();
+            for (int j = 1; j <= num; j++) {
+                matches.add(generateMatch(j));
+            }
+            return matches;
+        }
     }
 }
