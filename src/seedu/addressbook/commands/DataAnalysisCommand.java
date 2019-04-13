@@ -63,15 +63,15 @@ public class DataAnalysisCommand extends Command {
         topScorerEachTeam = "\n\n* List of Top Scorers in each team :\n" + topScorerEachTeam + "\n";
         builder.append(topScorerEachTeam);
 
-//        //get a score board for teams
-//        if (allTeams.isEmpty()) {
-//            teamScoreBoard = DEFAULT_PLACE_HOLDER;
-//        } else {
-//            teamScoreBoard = generateTeamScoreBoardString(allTeams);
-//        }
-//
-//        teamScoreBoard = "Score Leader Board for teams :\n" + teamScoreBoard + "\n";
-//        builder.append(teamScoreBoard);
+        //get a score board for teams
+        /*if (allTeams.isEmpty()) {
+            teamScoreBoard = DEFAULT_PLACE_HOLDER;
+        } else {
+            teamScoreBoard = generateTeamScoreBoardString(allTeams);
+        }
+
+        teamScoreBoard = "Score Leader Board for teams :\n" + teamScoreBoard + "\n";
+        builder.append(teamScoreBoard);*/
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, dtf.format(now), builder.toString()));
 
@@ -183,7 +183,7 @@ public class DataAnalysisCommand extends Command {
 
         StringBuilder builder = new StringBuilder();
 
-        Collections.sort(allTeams,new TeamGoalsScoredComparator());
+        Collections.sort(allTeams, new TeamGoalsScoredComparator());
 
         //TODO Include goalsScored for each team in the team score board.
 
@@ -216,7 +216,7 @@ public class DataAnalysisCommand extends Command {
                 o2Goals += Integer.valueOf(player.getGoalsScored().toString());
             }
 
-            return o1Goals-o2Goals;
+            return o1Goals - o2Goals;
         }
     }
 

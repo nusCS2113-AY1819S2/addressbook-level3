@@ -138,7 +138,7 @@ public class TransferPlayerCommand extends Command {
                                                     Salary salaryItem,
                                                     Player oldPlayer) {
         return new Player(oldPlayer.getName(), oldPlayer.getPositionPlayed(), oldPlayer.getAge(),
-                salaryItem,oldPlayer.getGoalsScored() , oldPlayer.getGoalsAssisted(),
+                salaryItem, oldPlayer.getGoalsScored(), oldPlayer.getGoalsAssisted(),
                 teamNameItem, oldPlayer.getNationality(), jerseyNumberItem,
                 oldPlayer.getAppearance(), oldPlayer.getHealthStatus(), oldPlayer.getTags());
     }
