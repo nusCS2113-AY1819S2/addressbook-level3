@@ -74,18 +74,6 @@ public class Team implements ReadOnlyTeam {
         this.tags.addAll(tags);
     }
 
-    /**
-     * Copy constructor.
-     */
-    public Team(ReadOnlyTeam source) {
-        this(source.getTeamName(),
-                source.getCountry(),
-                source.getSponsor(),
-                source.getMatches(),
-                source.getPlayers(),
-                source.getTags());
-    }
-
     @Override
     public List<Player> getPlayers() {
         return new ArrayList<>(playerlist);
@@ -136,19 +124,6 @@ public class Team implements ReadOnlyTeam {
         return draw;
     }
 
-    /**
-     * Replaces this team's tags with the tags in {@code replacement}.
-     */
-    public void setTags(Set<Tag> replacement) {
-        tags.clear();
-        tags.addAll(replacement);
-    }
-
-    public void setPlayers(List<Player> replacement) {
-        playerlist.clear();
-        playerlist.addAll(replacement);
-    }
-
     public void updatePoints() {
         this.points = 3 * this.win + this.draw;
     }
@@ -182,7 +157,7 @@ public class Team implements ReadOnlyTeam {
 
     public void addMatch(Match match) throws IllegalValueException {
         this.matchlist.add(match);
-        if (teamName.toString().equals(match.getHome().toString()) && !match.notPlayed()) {
+        if (teamName.equals(match.getHome()) && !match.notPlayed()) {
             String result = match.getScore().toString();
             String[] score = result.split("-");
             if (Integer.valueOf(score[0]) > Integer.valueOf(score[1])) {
@@ -193,7 +168,7 @@ public class Team implements ReadOnlyTeam {
                 this.draw++;
             }
         }
-        if (teamName.toString().equals(match.getAway().toString()) && !match.notPlayed()) {
+        if (teamName.equals(match.getAway()) && !match.notPlayed()) {
             String result = match.getScore().toString();
             String[] score = result.split("-");
             if (Integer.valueOf(score[1]) > Integer.valueOf(score[0])) {
@@ -213,7 +188,7 @@ public class Team implements ReadOnlyTeam {
 
     public void removeMatch(ReadOnlyMatch match) throws IllegalValueException {
         this.matchlist.remove(match);
-        if (teamName.toString().equals(match.getHome().toString()) && !match.notPlayed()) {
+        if (teamName.equals(match.getHome()) && !match.notPlayed()) {
             String result = match.getScore().toString();
             String[] score = result.split("-");
             if (Integer.valueOf(score[0]) > Integer.valueOf(score[1])) {
@@ -224,7 +199,7 @@ public class Team implements ReadOnlyTeam {
                 this.draw--;
             }
         }
-        if (teamName.toString().equals(match.getAway().toString()) && !match.notPlayed()) {
+        if (teamName.equals(match.getAway()) && !match.notPlayed()) {
             String result = match.getScore().toString();
             String[] score = result.split("-");
             if (Integer.valueOf(score[1]) > Integer.valueOf(score[0])) {

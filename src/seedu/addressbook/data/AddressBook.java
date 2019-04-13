@@ -30,7 +30,7 @@ import seedu.addressbook.data.team.UniqueTeamList.TeamNotFoundException;
 
 
 /**
- * Represents the entire address book. Contains the data of the address book.
+ * Represents the entire League Tracker. Contains the data of the League Tracker.
  */
 public class AddressBook {
 
@@ -42,7 +42,7 @@ public class AddressBook {
     private final List<String> transferRecords;
 
     /**
-     * Creates an empty address book.
+     * Creates an empty League Tracker.
      */
     public AddressBook() {
         allPlayers = new UniquePlayerList();
@@ -53,7 +53,7 @@ public class AddressBook {
     }
 
     /**
-     * Constructs an address book with the given data.
+     * Constructs a League Tracker with the given data.
      *
      * @param players external changes to this will not affect this address book
      * @param matches external changes to this will not affect this address book
@@ -105,12 +105,45 @@ public class AddressBook {
 
     public void editPlayer(ReadOnlyPlayer toEdit, Player newPlayer) throws UniquePlayerList.PlayerNotFoundException {
         allPlayers.edit(toEdit, newPlayer);
+        if (!toEdit.getName().equals(newPlayer.getName())) {
+            replaceNameForAllMatches(toEdit, newPlayer);
+        }
         for (Team team : allTeams) {
             if (team.getTeamName().toString().equals(toEdit.getTeamName().toString())) {
                 team.removePlayer(toEdit);
                 team.addPlayer(newPlayer);
             }
         }
+    }
+
+    /**
+     * Replaces name of a goalScorer in all matches.
+     * @param toRemove
+     * @param toReplace
+     */
+    public void replaceNameForAllMatches (ReadOnlyPlayer toRemove, Player toReplace) {
+        for (Match match : allMatches) { //for all match
+            if (match.getGoalScorers().contains(toRemove.getName())) {
+                match.setGoalScorers(replaceNameInMatch(
+                        match.getGoalScorers(), toRemove.getName(), toReplace.getName()));
+            }
+        }
+    }
+
+    /**
+     * Replaces name of a goalScorer in a match.
+     * @param goalScorers
+     * @param toRemove
+     * @param toReplace
+     * @return
+     */
+    public List<Name> replaceNameInMatch (List<Name> goalScorers, Name toRemove, Name toReplace) {
+        for (Name name : goalScorers) {
+            if (name.equals(toRemove)) {
+                goalScorers.set((goalScorers.indexOf(toRemove)), toReplace);
+            }
+        }
+        return goalScorers;
     }
 
     /**
@@ -121,7 +154,8 @@ public class AddressBook {
     }
 
     /**
-     * Adds a match to the address book.
+     * Adds a match to the League Tracker.
+     *
      * @throws DuplicateMatchException if an equivalent match already exists.
      */
     public void addMatch(Match toAdd)
@@ -139,35 +173,35 @@ public class AddressBook {
     }
 
     /**
-     * Checks if an equivalent player exists in the address book.
+     * Checks if an equivalent player exists in the League Tracker.
      */
     public boolean containsPlayer(ReadOnlyPlayer key) {
         return allPlayers.contains(key);
     }
 
     /**
-     * Checks if an equivalent team exists in the address book.
+     * Checks if an equivalent team exists in the League Tracker.
      */
     public boolean containsTeam(ReadOnlyTeam key) {
         return allTeams.contains(key);
     }
 
     /**
-     * Checks if an equivalent match exists in the address book.
+     * Checks if an equivalent match exists in the League Tracker.
      */
     public boolean containsMatch(ReadOnlyMatch key) {
         return allMatches.contains(key);
     }
 
     /**
-     * Checks if an equivalent finance exists in the address book.
+     * Checks if an equivalent finance exists in the League Tracker.
      */
     public boolean containsFinance(ReadOnlyFinance key) {
         return allFinances.contains(key);
     }
 
     /**
-     * Removes the equivalent player from the address book.
+     * Removes the equivalent player from the League Tracker.
      *
      * @throws PlayerNotFoundException if no such Player could be found.
      */
@@ -181,7 +215,7 @@ public class AddressBook {
     }
 
     /**
-     * Removes the equivalent match from the address book.
+     * Removes the equivalent match from the League Tracker.
      *
      * @throws MatchNotFoundException if no such match could be found.
      */
@@ -209,7 +243,7 @@ public class AddressBook {
     }
 
     /**
-     * Clears all matches from the address book.
+     * Clears all matches from the League Tracker.
      */
     public void clearMatch() throws IllegalValueException {
         allMatches.clear();
@@ -223,32 +257,37 @@ public class AddressBook {
     }
 
     /**
-     * Removes the equivalent team from the address book.
+     * Removes the equivalent team from the League Tracker.
      */
-    public void removeTeam(ReadOnlyTeam toRemove) throws
-            TeamNotFoundException,
-            PlayerNotFoundException,
-            MatchNotFoundException {
+    public void removeTeam(ReadOnlyTeam toRemove) throws TeamNotFoundException {
         allTeams.remove(toRemove);
         List<Player> players = toRemove.getPlayers();
         List<Match> matches = toRemove.getMatches();
         for (Player player : players) {
-            allPlayers.remove(player);
+            try {
+                allPlayers.remove(player);
+            } catch (PlayerNotFoundException pnfe) {
+                // Assumption that all players are part of this team wen removing
+            }
         }
         for (Match match : matches) {
-            allMatches.remove(match);
+            try {
+                allMatches.remove(match);
+            } catch (MatchNotFoundException mnfe) {
+                // Assumption that all matches are part of this team when removing
+            }
         }
     }
 
     /**
-     * Sorts all persons from the address book.
+     * Sorts all persons from the League Tracker.
      */
     public void sort() {
         allPlayers.sort();
     }
 
     /**
-     * Clears all persons from the address book.
+     * Clears all persons from the League Tracker.
      */
     public void clearPlayer() {
         allPlayers.clear();
@@ -258,7 +297,7 @@ public class AddressBook {
     }
 
     /**
-     * Clears all teams from the address book.
+     * Clears all teams from the League Tracker.
      */
     public void clearTeam() {
         allTeams.clear();
@@ -303,7 +342,7 @@ public class AddressBook {
     }
 
     /**
-     * Defensively copied UniquePlayerList of all players in the address book at the time of the call.
+     * Defensively copied UniquePlayerList of all players in the League Tracker at the time of the call.
      */
     public UniquePlayerList getAllPlayers() {
         return new UniquePlayerList(allPlayers);
@@ -317,7 +356,7 @@ public class AddressBook {
     }
 
     /**
-     * Defensively copied sorted UniqueMatchList of all matches in the address book at the time of the call.
+     * Defensively copied sorted UniqueMatchList of all matches in the League Tracker book at the time of the call.
      */
     public UniqueMatchList getAllMatches() {
         allMatches.sort();
@@ -325,7 +364,7 @@ public class AddressBook {
     }
 
     /**
-     * Defensively copied sorted UniqueTeamList of all teams in the address book at the time of the call.
+     * Defensively copied sorted UniqueTeamList of all teams in the League Tracker book at the time of the call.
      */
     public UniqueTeamList getAllTeams() {
         allTeams.sort();
@@ -333,14 +372,14 @@ public class AddressBook {
     }
 
     /**
-     * Defensively copied UniqueFinanceList of all finances in the address book at the time of the call.
+     * Defensively copied UniqueFinanceList of all finances in the League Tracker at the time of the call.
      */
     public UniqueFinanceList getAllFinances() {
         return new UniqueFinanceList(allFinances);
     }
 
     /**
-     * Refresh all finances to match all existing teams in the address book at the time of the call.
+     * Refresh all finances to match all existing teams in the League Tracker book at the time of the call.
      */
     public void refreshFinance() throws UniqueFinanceList.DuplicateFinanceException {
         allFinances.clear();

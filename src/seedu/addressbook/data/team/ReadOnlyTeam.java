@@ -57,8 +57,9 @@ public interface ReadOnlyTeam {
         builder.append(getLoses())
                 .append(" | Points: ");
         builder.append(getPoints())
-                .append(" | Tags: ");
+                .append(" | Tags:");
         for (Tag tag : getTags()) {
+            builder.append(" ");
             builder.append(tag);
         }
         builder.append("\nPlayer List:\n");
@@ -87,8 +88,9 @@ public interface ReadOnlyTeam {
         builder.append(getLoses())
                 .append(" | Points: ");
         builder.append(getPoints())
-                .append(" | Tags: ");
+                .append(" | Tags:");
         for (Tag tag : getTags()) {
+            builder.append(" ");
             builder.append(tag);
         }
         return builder.toString();

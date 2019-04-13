@@ -39,6 +39,8 @@ public class EditTeam extends Command {
             + "c/" + Country.EXAMPLE + "\n";
 
     public static final String MESSAGE_EDIT_TEAM_SUCCESS = "Edited team: %1$s";
+    public static final String MESSAGE_EDIT_TEAM_FAIL = "Team's name cannot be change with exiting player"
+            + " or matches tied to the team";
     public static final String MESSAGE_NOARGS = "At least one field to edit must be provided.\n%1$s";
 
     private final EditTeamDescriptor editTeamDescriptor;
@@ -61,6 +63,11 @@ public class EditTeam extends Command {
         try {
             final ReadOnlyTeam teamToEdit = getTargetTeam();
             Team editedTeam = createEditedTeam(teamToEdit, editTeamDescriptor);
+
+            if ((!teamToEdit.getPlayers().isEmpty() || !teamToEdit.getMatches().isEmpty())
+                    && (!editedTeam.getTeamName().equals(teamToEdit.getTeamName()))) {
+                return new CommandResult(MESSAGE_EDIT_TEAM_FAIL);
+            }
 
             addressBook.editTeam(teamToEdit, editedTeam);
 
