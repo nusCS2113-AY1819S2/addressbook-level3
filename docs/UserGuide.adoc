@@ -18,7 +18,7 @@ Please refer to the <<DeveloperGuide#setting-up, Setting up>> section to learn h
 . Click `Run Main.main()`
 . The GUI should appear in a few seconds
 +
-image:https://raw.githubusercontent.com/cs2113-ay1819s2-t11-2/main/master/docs/images/Ui.png[width=800]
+image:https://raw.githubusercontent.com/cs2113-ay1819s2-t11-2/main/master/docs/images/UI_1.4.png[width=800]
 
 == Viewing help : `help`
 
@@ -99,38 +99,36 @@ Examples:
 * `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01 m/2009 12 11 14 30 d/DoctorTan s/Observation`
 * `add Betsy Crowe pp/1234567 e/betsycrowe@gmail.com pa/Newgate Prison m/2011 11 04 08 00 d/DoctorTan s/Observation t/criminal t/friend`
 
-== Finding out the current length of the address book : `length`
-
-Shows the number of entries in the address book. +
-Format: `length`
-
 == Listing all persons : `list`
 
 Shows a list of all persons in the address book. +
 Format: `list`
 
 //@@author shawn-t
-== Referring patient indicated by user : `refer`
+== Getting length of the address book : `length`
+
+Shows the number of entries in the address book at the point of query. +
+Format: `length`
+
+//@@author shawn-t
+== Referring a patient to a doctor: `refer`
 Refers a patient from the address book to a doctor. +
-Refer is overloaded with two formats.
+Note: This command is overloaded with two formats.
 
-Format1: `refer NAME [MORE_NAMES]`
-Refers target patient to default doctor, Dr Seuss, and shows a success message with patient's updated particulars if there is only one unique entry. +
-if there are multiple entries, all patient entries with the target keywords in the address book will be printed out and user will be prompted to identify the correct patient. +
-if patient does not exist in the addressbook, prints out an error message. +
+Format 1: `refer NAME [MORE_NAMES]` +
+Refers target patient to a default doctor, Dr Seuss, and shows a success message with patient's updated particulars if there is only one unique entry. If there are multiple entries, all patient entries with the target keywords in the addressbook will be printed and user will be prompted to identify the correct patient. If target patient does not exist in the addressbook, an error message will be printed. +
 
-Examples:
-* `refer John`
-* `refer John Doe`
+Examples: +
+* `refer John` +
+* `refer John Doe` +
 * `refer Doe`
 
-Format 2: `refer d/ DOCTORNAME p/NAME [MORE_NAMES]`
-Refers target patient to a doctor specified by user. Format 2 works exactly like format 1. +
-If input contains an invalid doctor names (non-alpha numerical), an invalid command format message will be shown.
+Format 2: `refer d/ DOCTORNAME p/NAME [MORE_NAMES]` +
+Refers target patient to a doctor specified by the user. Format 2 works exactly like format 1. If input contains an invalid doctor name (non-alphanumeric), an invalid command format message will be printed.
 
-Examples:
-* `refer d/DoctorTan p/John Doe`
-* `refer d/Dr Tan p/John Doe`
+Examples: +
+* `refer d/DoctorTan p/John Doe` +
+* `refer d/Dr Tan p/John Doe` +
 * `refer d/Dr Tan p/Doe`
 
 //@@author WuPeiHsuan

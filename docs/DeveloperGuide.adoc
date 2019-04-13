@@ -384,8 +384,9 @@ Use case resumes at step 2.
 *Main success scenario:*
 
 . The user requests to refer patient to another doctor.
-. AddressBook finds patient in the list and copies patient together with particulars to a separate list archive with an addition tag specifying which doctor he/ she is being referred to.
-. AddressBook deletes patient entry from the main list.
+. AddressBook finds patient from the list of entries, and extract all the relevant particulars of the target patient.
+. Addressbook stores the extracted particulars in a temporary location and updates it with the new doctor's name and patient tag.
+. AddressBook deletes the old patient entry from the main list and updates the main list with the newly updated entry.
 +
 Use case ends.
 
