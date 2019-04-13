@@ -6,6 +6,7 @@ import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.player.JerseyNumber;
 import seedu.addressbook.data.player.Name;
 import seedu.addressbook.data.player.Player;
+import seedu.addressbook.data.player.Salary;
 import seedu.addressbook.data.player.TeamName;
 import seedu.addressbook.data.player.UniquePlayerList;
 import seedu.addressbook.data.team.Team;
@@ -23,31 +24,34 @@ public class TransferPlayerCommand extends Command {
                     + "Transfers a player from one team to another in the League Tracker. "
                     + "\n"
                     + "Parameters: "
-                    + "PLAYER_NAME tm/NEW_TEAM_NAME jn/NEW_JERSEY_NUMBER\n"
+                    + "PLAYER_NAME tm/NEW_TEAM_NAME jn/NEW_JERSEY_NUMBER sal/NEW_SALARY\n"
                     + "Example: "
                     + COMMAND_WORD
                     + " Lionel Messi tm/Real Madrid jn/10\n"
                     + "Team and player entered must exist in league tracker \n"
                     + "The jersey number in destination team must be available \n"
+                    + "Salary of the player in the new team must be in valid format \n"
                     + "Destination team cannot be the same as player's current team";
 
     public static final String MESSAGE_SUCCESS = "Player %1$s is successfully transferred from %2$s to %3$s, "
-            + "%1$s 's new jersey number is %4$s";
-    public static final String MESSAGE_PLAYER_NOT_FOUND = "This player %1$s does not exist in the league tracker";
-    public static final String MESSAGE_NO_SUCH_TEAM = "This team %1$s does not exist, please enter an existing team";
-    public static final String MESSAGE_DESTINATION_IS_CURRENT = "Destination team is same as current team %1$s";
-    public static final String MESSAGE_JERSEY_NUMBER_TAKEN = "The jersey number %1$s has already "
+            + "%1$s 's new jersey number is %4$s, %1$s 's salary is %5$s in %3$s";
+    private static final String MESSAGE_PLAYER_NOT_FOUND = "This player %1$s does not exist in the league tracker";
+    private static final String MESSAGE_NO_SUCH_TEAM = "This team %1$s does not exist, please enter an existing team";
+    private static final String MESSAGE_DESTINATION_IS_CURRENT = "Destination team is same as current team %1$s";
+    private static final String MESSAGE_JERSEY_NUMBER_TAKEN = "The jersey number %1$s has already "
             + "been taken in team %2$s. Try again with a different jersey number";
 
     private final TeamName teamNameItem;
     private final Name playerNameItem;
     private final JerseyNumber jerseyNumberItem;
+    private final Salary salaryItem;
 
     public TransferPlayerCommand(String playerName, String destinationTeamName,
-                                 String newJerseyNumber) throws IllegalValueException {
+                                 String newJerseyNumber, String newSalary) throws IllegalValueException {
         this.teamNameItem = new TeamName(destinationTeamName);
         this.playerNameItem = new Name(playerName);
         this.jerseyNumberItem = new JerseyNumber(newJerseyNumber);
+        this.salaryItem = new Salary(newSalary);
     }
 
     @Override
@@ -82,7 +86,8 @@ public class TransferPlayerCommand extends Command {
                     MESSAGE_PLAYER_NOT_FOUND, this.playerNameItem.toString()
             ));
         } else {
-            newPlayer = createPlayerAfterTransfer(this.teamNameItem, this.jerseyNumberItem, oldPlayer);
+            newPlayer = createPlayerAfterTransfer(this.teamNameItem, this.jerseyNumberItem,
+                    this.salaryItem, oldPlayer);
         }
 
         // check if the destination team exists
@@ -116,19 +121,24 @@ public class TransferPlayerCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, oldPlayer.getName().toString(),
                 oldPlayer.getTeamName().toString(),
                 this.teamNameItem.toString(),
-                this.jerseyNumberItem.toString()));
+                this.jerseyNumberItem.toString(),
+                this.salaryItem.toString()));
     }
 
     /**
      * creates the player after transfer
      * @param teamNameItem Team Name of the destination team
      * @param oldPlayer player before transfer
+     * @param salaryItem Salary of the player in the destination team
+     * @param jerseyNumberItem jersey number of the player in the destination team
      * @return player after transfer
      */
     private static Player createPlayerAfterTransfer(TeamName teamNameItem,
-                                                    JerseyNumber jerseyNumberItem, Player oldPlayer) {
+                                                    JerseyNumber jerseyNumberItem,
+                                                    Salary salaryItem,
+                                                    Player oldPlayer) {
         return new Player(oldPlayer.getName(), oldPlayer.getPositionPlayed(), oldPlayer.getAge(),
-                oldPlayer.getSalary(), oldPlayer.getGoalsScored(), oldPlayer.getGoalsAssisted(),
+                salaryItem,oldPlayer.getGoalsScored() , oldPlayer.getGoalsAssisted(),
                 teamNameItem, oldPlayer.getNationality(), jerseyNumberItem,
                 oldPlayer.getAppearance(), oldPlayer.getHealthStatus(), oldPlayer.getTags());
     }
