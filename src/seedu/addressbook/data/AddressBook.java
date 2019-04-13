@@ -1,7 +1,6 @@
 package seedu.addressbook.data;
 
 import java.util.List;
-import java.util.Set;
 
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.finance.Finance;
@@ -174,6 +173,13 @@ public class AddressBook {
             throws MatchNotFoundException,
                     IllegalValueException {
         allMatches.remove(toRemove);
+        for (Name goalScorer : toRemove.getGoalScorers()) {
+            for (Player player : allPlayers) {
+                if (player.getName().equals(goalScorer)) {
+                    player.subtractScore();
+                }
+            }
+        }
         for (Team team : allTeams) {
             if (team.getTeamName().toString().equals(toRemove.getHome().toString())) {
                 team.removeMatch(toRemove);
@@ -261,6 +267,13 @@ public class AddressBook {
                 MatchUpdatedException,
                 IllegalValueException {
         allMatches.update(toRemove, toReplace);
+        for (Name goalScorer : toReplace.getGoalScorers()) {
+            for (Player player : allPlayers) {
+                if (player.getName().equals(goalScorer)) {
+                    player.addScore();
+                }
+            }
+        }
         for (Team team : allTeams) {
             if (team.getTeamName().toString().equals(toRemove.getHome().toString())) {
                 team.removeMatch(toRemove);

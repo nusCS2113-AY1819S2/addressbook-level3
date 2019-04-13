@@ -9,7 +9,6 @@ import java.util.Set;
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.match.Match;
 import seedu.addressbook.data.match.ReadOnlyMatch;
-import seedu.addressbook.data.player.Name;
 import seedu.addressbook.data.player.Player;
 import seedu.addressbook.data.player.ReadOnlyPlayer;
 import seedu.addressbook.data.tag.Tag;
@@ -183,13 +182,6 @@ public class Team implements ReadOnlyTeam {
 
     public void addMatch(Match match) throws IllegalValueException {
         this.matchlist.add(match);
-        for (Name goalScorer : match.getGoalScorers()) {
-            for (Player player : playerlist) {
-                if (player.getName().equals(goalScorer)) {
-                    player.addScore();
-                }
-            }
-        }
         if (teamName.toString().equals(match.getHome().toString()) && !match.notPlayed()) {
             String result = match.getScore().toString();
             String[] score = result.split("-");
@@ -221,13 +213,6 @@ public class Team implements ReadOnlyTeam {
 
     public void removeMatch(ReadOnlyMatch match) throws IllegalValueException {
         this.matchlist.remove(match);
-        for (Name goalScorer : match.getGoalScorers()) {
-            for (Player player : playerlist) {
-                if (player.getName().equals(goalScorer)) {
-                    player.subtractScore();
-                }
-            }
-        }
         if (teamName.toString().equals(match.getHome().toString()) && !match.notPlayed()) {
             String result = match.getScore().toString();
             String[] score = result.split("-");
