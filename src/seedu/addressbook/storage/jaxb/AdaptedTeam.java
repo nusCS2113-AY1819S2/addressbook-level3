@@ -100,7 +100,7 @@ public class AdaptedTeam {
     public Team toModelType() throws IllegalValueException, ParseException {
         final Set<Tag> tags = new HashSet<>();
         final List<Player> players = new ArrayList<>();
-        final Set<Match> matches = new HashSet<>();
+        final List<Match> matches = new ArrayList<>();
         for (AdaptedMatch match : matchlist) {
             matches.add(match.toModelType());
         }

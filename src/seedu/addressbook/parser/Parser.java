@@ -31,6 +31,7 @@ import seedu.addressbook.commands.match.ExportMatchCommand;
 import seedu.addressbook.commands.match.FindMatchCommand;
 import seedu.addressbook.commands.match.ListMatchCommand;
 import seedu.addressbook.commands.match.UpdateMatchCommand;
+import seedu.addressbook.commands.match.ViewMatchCommand;
 import seedu.addressbook.commands.player.AddCommand;
 import seedu.addressbook.commands.player.AddFastCommand;
 import seedu.addressbook.commands.player.ClearCommand;
@@ -113,7 +114,7 @@ public class Parser {
     public static final Pattern MATCH_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<date>[^/]+)"
                     + "h/(?<home>[^/]+)"
-                    + "a/(?<away>[^/]+)"); // variable number of tags
+                    + "a/(?<away>[^/]+)");
 
     public static final Pattern MATCH_UPDATE_DATA_ARGS_FORMAT =
             Pattern.compile("(?<targetIndex>\\d+)"
@@ -263,6 +264,9 @@ public class Parser {
 
         case ViewTeam.COMMAND_WORD:
             return prepareViewTeam(arguments);
+
+        case ViewMatchCommand.COMMAND_WORD:
+            return prepareViewMatch(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -666,6 +670,20 @@ public class Parser {
         } catch (ParseException | NumberFormatException e) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     ViewTeam.MESSAGE_USAGE));
+        }
+    }
+
+    /**
+     * Parses arguments in the context of the view match command.
+     */
+    private Command prepareViewMatch(String args) {
+
+        try {
+            final int targetIndex = parseArgsAsDisplayedIndex(args);
+            return new ViewMatchCommand(targetIndex);
+        } catch (ParseException | NumberFormatException e) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ViewMatchCommand.MESSAGE_USAGE));
         }
     }
 

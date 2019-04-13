@@ -139,8 +139,10 @@ public class UniqueTeamList implements Iterable<Team> {
     }
 
     /**
+     * Finds team with matching teamName from list of teams.
+     *
      * @param target
-     * @return targeted team from list of all teams.
+     * @return
      * @throws TeamNotFoundException if team is not found
      */
     public Team find (TeamName target) throws TeamNotFoundException {

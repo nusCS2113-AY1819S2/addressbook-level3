@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.match.Match;
 import seedu.addressbook.data.match.ReadOnlyMatch;
 import seedu.addressbook.data.player.Player;
@@ -28,7 +29,7 @@ public class Team implements ReadOnlyTeam {
     private int draw;
     private int points;
     private final List<Player> playerlist = new ArrayList<>();
-    private final Set<Match> matchlist = new HashSet<>();
+    private final List<Match> matchlist = new ArrayList<>();
     private final Set<Tag> tags = new HashSet<>();
     /**
      * Assumption: Every field must be present and not null.
@@ -36,7 +37,7 @@ public class Team implements ReadOnlyTeam {
     public Team(TeamName teamName,
                 Country country,
                 Sponsor sponsor,
-                Set<Match> matchlist,
+                List<Match> matchlist,
                 List<Player> playerlist,
                 Set<Tag> tags) {
         this.teamName = teamName;
@@ -58,7 +59,7 @@ public class Team implements ReadOnlyTeam {
                 int lose,
                 int draw,
                 int points,
-                Set<Match> matchlist,
+                List<Match> matchlist,
                 List<Player> playerlist,
                 Set<Tag> tags) {
         this.teamName = teamName;
@@ -79,8 +80,8 @@ public class Team implements ReadOnlyTeam {
     }
 
     @Override
-    public Set<Match> getMatches() {
-        return new HashSet<>(matchlist);
+    public List<Match> getMatches() {
+        return new ArrayList<>(matchlist);
     }
 
     @Override
@@ -154,7 +155,7 @@ public class Team implements ReadOnlyTeam {
      * Adding of Matches will also initialize the computing for win lose and draw counter
      */
 
-    public void addMatch(Match match) {
+    public void addMatch(Match match) throws IllegalValueException {
         this.matchlist.add(match);
         if (teamName.equals(match.getHome()) && !match.notPlayed()) {
             String result = match.getScore().toString();
@@ -185,7 +186,7 @@ public class Team implements ReadOnlyTeam {
      * @param match
      */
 
-    public void removeMatch(ReadOnlyMatch match) {
+    public void removeMatch(ReadOnlyMatch match) throws IllegalValueException {
         this.matchlist.remove(match);
         if (teamName.equals(match.getHome()) && !match.notPlayed()) {
             String result = match.getScore().toString();
@@ -211,7 +212,11 @@ public class Team implements ReadOnlyTeam {
         }
     }
 
-    public void clearMatchList() {
+    /**
+     * Clears match list in teams.
+     * @throws IllegalValueException
+     */
+    public void clearMatchList() throws IllegalValueException {
         this.matchlist.clear();
     }
 

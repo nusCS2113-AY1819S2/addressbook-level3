@@ -48,12 +48,12 @@ import seedu.addressbook.data.player.Player;
 import seedu.addressbook.data.player.PositionPlayed;
 import seedu.addressbook.data.player.ReadOnlyPlayer;
 import seedu.addressbook.data.player.Salary;
-import seedu.addressbook.data.player.TeamName;
 import seedu.addressbook.data.tag.Tag;
 import seedu.addressbook.data.team.Country;
 import seedu.addressbook.data.team.ReadOnlyTeam;
 import seedu.addressbook.data.team.Sponsor;
 import seedu.addressbook.data.team.Team;
+import seedu.addressbook.data.team.TeamName;
 
 public class ParserTest {
 
@@ -399,7 +399,7 @@ public class ParserTest {
                 + " sal/" + player.getSalary().value
                 + " gs/" + player.getGoalsScored().value
                 + " ga/" + player.getGoalsAssisted().value
-                + " tm/" + player.getTeamName().fullTeam
+                + " tm/" + player.getTeamName().fullName
                 + " ctry/" + player.getNationality().fullCountry
                 + " jn/" + player.getJerseyNumber().value
                 + " app/" + player.getAppearance().value
@@ -629,7 +629,11 @@ public class ParserTest {
                     new seedu.addressbook.data.team.TeamName(TeamName.EXAMPLE),
                     new Country(Country.EXAMPLE),
                     new Sponsor(Sponsor.EXAMPLE),
+<<<<<<< HEAD
                     new HashSet<>(),
+=======
+                    new ArrayList<>(),
+>>>>>>> 8485de45f40252b0481197e9b23908afd0bd2f92
                     new ArrayList<>(),
                     new HashSet<>(Arrays.asList(new Tag("tag1"), new Tag("tag2"), new Tag("tag3")))
             );

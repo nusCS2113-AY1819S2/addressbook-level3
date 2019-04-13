@@ -19,7 +19,7 @@ public interface ReadOnlyTeam {
     Country getCountry();
     Sponsor getSponsor();
     List<Player> getPlayers();
-    Set<Match> getMatches();
+    List<Match> getMatches();
     int getPoints();
     int getWins();
     int getDraws();

@@ -1,17 +1,19 @@
 package seedu.addressbook.data;
 
 import java.util.List;
-import java.util.Set;
 
+import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.finance.Finance;
 import seedu.addressbook.data.finance.ReadOnlyFinance;
 import seedu.addressbook.data.finance.UniqueFinanceList;
+import seedu.addressbook.data.finance.UniqueFinanceList.DuplicateFinanceException;
 import seedu.addressbook.data.match.Match;
 import seedu.addressbook.data.match.ReadOnlyMatch;
 import seedu.addressbook.data.match.UniqueMatchList;
 import seedu.addressbook.data.match.UniqueMatchList.DuplicateMatchException;
 import seedu.addressbook.data.match.UniqueMatchList.MatchNotFoundException;
 import seedu.addressbook.data.match.UniqueMatchList.MatchUpdatedException;
+import seedu.addressbook.data.match.UniqueMatchList.SameTeamException;
 import seedu.addressbook.data.player.Name;
 import seedu.addressbook.data.player.Player;
 import seedu.addressbook.data.player.ReadOnlyPlayer;
@@ -103,22 +105,26 @@ public class AddressBook {
     }
 
     /**
+<<<<<<< HEAD
      * Adds a match to the League Tracker.
      *
+=======
+     * Adds a match to the address book.
+>>>>>>> 8485de45f40252b0481197e9b23908afd0bd2f92
      * @throws DuplicateMatchException if an equivalent match already exists.
      */
-    public void addMatch(Match toAdd) throws DuplicateMatchException {
+    public void addMatch(Match toAdd)
+            throws TeamNotFoundException,
+                    SameTeamException,
+                    IllegalValueException {
+        Team home = allTeams.find(toAdd.getHome());
+        Team away = allTeams.find(toAdd.getAway());
+        if (home.equals(away)) {
+            throw new SameTeamException();
+        }
+        home.addMatch(toAdd);
+        away.addMatch(toAdd);
         allMatches.add(toAdd);
-        for (Team team : allTeams) {
-            if (team.getTeamName().toString().equals(toAdd.getHome().toString())) {
-                team.addMatch(toAdd);
-            }
-        }
-        for (Team team : allTeams) {
-            if (team.getTeamName().toString().equals(toAdd.getAway().toString())) {
-                team.addMatch(toAdd);
-            }
-        }
     }
 
     /**
@@ -168,8 +174,15 @@ public class AddressBook {
      *
      * @throws MatchNotFoundException if no such match could be found.
      */
-    public void removeMatch(ReadOnlyMatch toRemove) throws MatchNotFoundException {
+    public void removeMatch(ReadOnlyMatch toRemove) throws
+            MatchNotFoundException,
+                IllegalValueException,
+                    PlayerNotFoundException {
         allMatches.remove(toRemove);
+        for (Name goalScorer : toRemove.getGoalScorers()) {
+            allPlayers.find(goalScorer).subtractScore();
+        }
+
         for (Team team : allTeams) {
             if (team.getTeamName().toString().equals(toRemove.getHome().toString())) {
                 team.removeMatch(toRemove);
@@ -187,11 +200,14 @@ public class AddressBook {
     /**
      * Clears all matches from the League Tracker.
      */
-    public void clearMatch() {
+    public void clearMatch() throws IllegalValueException {
         allMatches.clear();
         for (Team team : allTeams) {
             team.clearMatchList();
             team.clearResults();
+        }
+        for (Player player : allPlayers) {
+            player.clearGoals();
         }
     }
 
@@ -201,7 +217,11 @@ public class AddressBook {
     public void removeTeam(ReadOnlyTeam toRemove) throws TeamNotFoundException {
         allTeams.remove(toRemove);
         List<Player> players = toRemove.getPlayers();
+<<<<<<< HEAD
         Set<Match> matches = toRemove.getMatches();
+=======
+        List<Match> matches = toRemove.getMatches();
+>>>>>>> 8485de45f40252b0481197e9b23908afd0bd2f92
         for (Player player : players) {
             try {
                 allPlayers.remove(player);
@@ -254,11 +274,16 @@ public class AddressBook {
     /**
      * Updates the equivalent match from League Tracker
      */
-    public void updateMatch(ReadOnlyMatch toRemove, Match toReplace) throws MatchNotFoundException,
-            MatchUpdatedException, TeamNotFoundException, PlayerNotInTeamException {
-        String score = computeScore(toRemove, toReplace);
-        toReplace.setScore(score);
+    public void updateMatch(ReadOnlyMatch toRemove, Match toReplace) throws
+            MatchNotFoundException,
+                MatchUpdatedException,
+                    IllegalValueException,
+                        PlayerNotFoundException {
         allMatches.update(toRemove, toReplace);
+        for (Name goalScorer : toReplace.getGoalScorers()) {
+            allPlayers.find(goalScorer).addScore();
+        }
+
         for (Team team : allTeams) {
             if (team.getTeamName().toString().equals(toRemove.getHome().toString())) {
                 team.removeMatch(toRemove);
@@ -316,10 +341,21 @@ public class AddressBook {
     }
 
     /**
+<<<<<<< HEAD
      * Sorts all persons from the League Tracker.
+=======
+     * Sorts all finances from the address book.
+>>>>>>> 8485de45f40252b0481197e9b23908afd0bd2f92
      */
     public void sortFinance() {
         allFinances.sort();
+    }
+
+    /**
+     * Adds a finance to the address book.
+     */
+    public void addFinance(Finance toAdd) throws DuplicateFinanceException {
+        allFinances.add(toAdd);
     }
 
     /**
@@ -329,8 +365,9 @@ public class AddressBook {
      * @throws TeamNotFoundException if either team does not exit in LeagueTracker
      * @throws PlayerNotInTeamException if any (own)goalScorers is not in either team
      */
-    public String computeScore(ReadOnlyMatch toRemove, Match toReplace) throws TeamNotFoundException,
-            PlayerNotInTeamException {
+    public String computeScore(ReadOnlyMatch toRemove, Match toReplace)
+            throws TeamNotFoundException,
+                PlayerNotInTeamException {
         Team home = allTeams.find(toRemove.getHome());
         Team away = allTeams.find(toRemove.getAway());
         int homeScore = countScore(toReplace.getGoalScorers(), home.getPlayers())
@@ -348,7 +385,11 @@ public class AddressBook {
      * @param team
      * @returns score of each team contributed by either goals or own goals.
      */
+<<<<<<< HEAD
     public int countScore (List<Name> target, List<Player> team) {
+=======
+    public int countScore (List<Name> target, List <Player> team) {
+>>>>>>> 8485de45f40252b0481197e9b23908afd0bd2f92
         int count = 0;
         for (Name scorers : target) {
             for (Player players : team) {
@@ -359,7 +400,6 @@ public class AddressBook {
         }
         return count;
     }
-
 
     @Override
     public boolean equals(Object other) {

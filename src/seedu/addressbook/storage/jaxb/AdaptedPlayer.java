@@ -21,8 +21,8 @@ import seedu.addressbook.data.player.Player;
 import seedu.addressbook.data.player.PositionPlayed;
 import seedu.addressbook.data.player.ReadOnlyPlayer;
 import seedu.addressbook.data.player.Salary;
-import seedu.addressbook.data.player.TeamName;
 import seedu.addressbook.data.tag.Tag;
+import seedu.addressbook.data.team.TeamName;
 
 /**
  * JAXB-friendly adapted player data holder class.
@@ -84,7 +84,7 @@ public class AdaptedPlayer {
         salary = source.getSalary().value;
         goalsScored = source.getGoalsScored().value;
         goalsAssisted = source.getGoalsAssisted().value;
-        teamName = source.getTeamName().fullTeam;
+        teamName = source.getTeamName().fullName;
         nationality = source.getNationality().fullCountry;
         jerseyNumber = source.getJerseyNumber().value;
         appearance = source.getAppearance().value;

@@ -65,6 +65,7 @@ public class UpdateMatchCommand extends Command {
         try {
             final ReadOnlyMatch target = getTargetMatch();
             Match updatedMatch = createUpdateMatch(target, updateMatchDescriptor);
+            updatedMatch.setScore(addressBook.computeScore(target, updatedMatch));
             addressBook.updateMatch(target, updatedMatch);
             return new CommandResult(String.format(MESSAGE_UPDATE_MATCH_SUCCESS, updatedMatch));
 
@@ -78,6 +79,10 @@ public class UpdateMatchCommand extends Command {
             return new CommandResult(Messages.MESSAGE_TEAM_NOT_IN_LEAGUE_TRACKER);
         } catch (UniquePlayerList.PlayerNotInTeamException pnite) {
             return new CommandResult(Messages.MESSAGE_PLAYER_NOT_IN_TEAM);
+        } catch (IllegalValueException ive) {
+            return new CommandResult(ive.getMessage());
+        } catch (UniquePlayerList.PlayerNotFoundException pnfe) {
+            return new CommandResult(Messages.MESSAGE_PLAYER_NOT_IN_LEAGUE);
         }
     }
 

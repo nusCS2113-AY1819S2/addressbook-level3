@@ -50,7 +50,7 @@ public class AddTeam extends Command {
                 new TeamName(name),
                 new Country(country),
                 new Sponsor(sponsor),
-                new HashSet<>(),
+                new ArrayList<>(),
                 new ArrayList<>(),
                 tagSet
         );
