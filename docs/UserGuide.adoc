@@ -1115,7 +1115,9 @@ List Matches in League : `ListMatches` +
 Export all match information to an Excel file : `exportMatch`
 
 === Finance
-Get League Finance : `GetLeagueFinance` +
-Get Team Finance : `GetTeamFinance` +
-List Team Finance : `ListTeamFinance` +
+Get League Finance : `getlf` +
+Get Team Finance : `getfinance` +
+List Team Finance : `Listfinance` +
+View Team Finance : `viewfinance` +
+Rank Team Finance : `rankfinance` +
 Export all Finance records to an Excel file : `exportFinance`
