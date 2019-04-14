@@ -730,8 +730,6 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Add Status feature
 
-=== Refer feature
-
 //@@author liguanlong
 === Login/Register/Logout Feature 
 
@@ -768,7 +766,7 @@ Expected: The user is directed back to the login page.
 Expected: Helping message is displayed on the screen.
 
 //@@author shawn-t
-=== Refer Doctor feature
+=== Refer feature
 
 [NOTE]
 Please ensure the following entries have been added into the addressbook before trying the test cases below. If there are not entries in the addressbook, the 'no such person' execption will be shown.
