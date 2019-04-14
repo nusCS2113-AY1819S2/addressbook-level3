@@ -337,9 +337,13 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |doctor |keep track of current and past appointments with patients that I have for the day |be on time to deliver treatment
 |`* * *` |doctor |have a custom-made address book  |filter out the patients that are not affiliated to me
 |`* * *` |doctor |sort my patient according to my desired attribute |prioritize the allocation of my resources
-|`* * *` |doctor |good authentication |my patients’ data are protected and not easily disclosed
-|`* * *` |doctor |be able to directly refer patients to respective specialists | focus on attending to patients with medical conditions relevant to my expertise, and ensure that others are properly referred to the correct doctor to attend to their specific medical condition(s).
-|`*` |doctor with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |doctor |have good authentication |my patients’ data are protected and not easily disclosed
+|`* * *` |doctor |be able to directly refer patients to respective specialists |focus on attending to patients with medical conditions relevant to my expertise, and ensure that others are properly referred to the correct doctor to attend to their specific medical condition(s).
+|`* * *`|doctor |print out a list of all patients who have appointments with me|keep track of my appointments
+|`* *`|doctor |print my timetable of appointments neatly| manage my appointment more conveniently
+|`* *` |doctor |track the status of all my patients |know the stage of treatment in which the patient is undergoing
+|`* *` |doctor |indicate my patients' appointment date when I add him/her into addressbook |keep track of their appointment date
+
 
 //@@author
 
