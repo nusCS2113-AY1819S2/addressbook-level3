@@ -510,7 +510,7 @@ The sequence diagram below illustrates how the mechanism for adding teams functi
 
 
 .Add Team Sequence Diagram
-image::AddTeamSQ.png[width="400"]
+image::AddTeamSQ.png[width="500"]
 
 ==== EditTeam
 
@@ -1160,8 +1160,6 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
-
 === Deleting a person
 
 . Deleting a person while all persons are listed
@@ -1174,14 +1172,22 @@ _{ more test cases ... }_
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Adding a team
 
+. Adding a team to the League Tracker
+
+.. Test case: `addteam aa c/cc s/90` +
+   Expected: First team is added to the list. Details of the added team shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `addteam ;/'; c/sad s0` +
+   Expected: No team is added. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect addteam commands to try: `addteam`, `addteam x c/asd s/90` (x is non-alphanumerical) +
+   Expected: Similar to previous.
 
 === Deleting a team
 
-. Deleting a person while all persons are listed
+. Deleting a team while all teams are listed
 
-.. Prerequisites: List all persons using the `listteam` command. Multiple persons in the list.
+.. Prerequisites: List all teams using the `listteam` command. Multiple teams in the list.
 .. Test case: `deleteteam 1` +
    Expected: First team is deleted from the list. Details of the deleted team shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `deleteteam 0` +
@@ -1191,17 +1197,15 @@ _{ more test cases ... }_
 
 === Editing a team
 
-. Editing a team while all persons are listed
+. Editing a team while all teams are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: List all teams using the `listteam` command. Multiple teams in the list.
 .. Test case: `editteam 1 n/aa` +
    Expected: First team is edited to having `aa` as team's name. Details of the edited contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Test case: `editteam 0` +
+   Expected: No team is edited. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect editteam commands to try: `editteam`, `editteam x` (where x is larger than the list size or invalid), `editteam 1 n/aa`(aa is the name of existing team) +
    Expected: Similar to previous.
-
-_{ more test cases ... }_
 
 === Viewing a Finance
 
@@ -1214,8 +1218,6 @@ _{ more test cases ... }_
 .. Expected: No finance is viewed. Message "The finance index provided is invalid" is shown.
 .. Other incorrect viewfinance commands to try: `viewfinance`, `viewfinance x` (where x is larger than the list size) +
    Expected: Similar to previous.
-
-_{ more test cases ... }_
 
 === Getting a Finance from the team list
 
