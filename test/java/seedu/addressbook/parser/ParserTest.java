@@ -351,7 +351,9 @@ public class ParserTest {
         final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReferCommand.MESSAGE_USAGE);
         parseAndAssertIncorrectWithMessage(resultMessage, inputs);
     }
+    //@@author
 
+    //@@author matthiaslum
     @Test
     public void appointmentCommand_invalidArgs() {
         final String[] inputs = {
@@ -374,7 +376,9 @@ public class ParserTest {
         final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ApptDateCommand.MESSAGE_USAGE);
         parseAndAssertIncorrectWithMessage(resultMessage, inputs);
     }
+    //@@author
 
+    //@@author shawn-t
     @Test
     public void referCommand_invalidDoctorNameInArgs() {
         final String[] inputs = {
@@ -388,7 +392,9 @@ public class ParserTest {
         final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReferCommand.MESSAGE_INVALID_DOCTOR_NAME);
         parseAndAssertIncorrectWithMessage(resultMessage, inputs);
     }
+    //@@author
 
+    //@@author matthiaslum
     @Test
     public void appointmentCommand_invalidDoctorNameInArgs() {
         final String[] inputs = {
@@ -429,6 +435,7 @@ public class ParserTest {
         final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ApptDateCommand.MESSAGE_DATE_CONSTRAINTS);
         parseAndAssertIncorrectWithMessage(resultMessage, inputs);
     }
+    //@@author
 
 //    @Test
 //    public void referCommand_validArgs_parsedCorrectly() {

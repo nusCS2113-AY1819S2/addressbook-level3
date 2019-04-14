@@ -1,3 +1,5 @@
+//@@author matthiaslum
+
 package seedu.addressbook.commands;
 
 
@@ -8,6 +10,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.*;
 
+/**
+ * Displays the appointment timetable for a doctor on a single day.
+ */
 public class ApptDateCommand extends Command {
 
     public static final String COMMAND_WORD = "apptDate";
@@ -49,9 +54,12 @@ public class ApptDateCommand extends Command {
     }
 
     /**
-     * Retrieve all persons in the address book whose names contain some of the specified keywords.
+     * Retrieve all Persons in the address book whose doctor's name is the same, and has an appointment with the doctor
+     * on the date specified by the user.
      *
-     * @return list of persons found
+     * At the same time, formats a nice timeline to be printed.
+     *
+     * @return list of persons found.
      */
     private List<ReadOnlyPerson> getPersonsWithSameDoctorSameDate() {
         final List<ReadOnlyPerson> matchedPersons = new ArrayList<>();
@@ -84,7 +92,6 @@ public class ApptDateCommand extends Command {
         }
         //add a duplicated fake person! So that the counter will not go out of index.
         matchedPersons.add(matchedPersons.get(0));
-        System.out.println(4);
         String timetable ="\t\tThis is your Appointment timetable for the date: "
                 + date
                 + "\n";
@@ -129,4 +136,4 @@ public class ApptDateCommand extends Command {
         return (indicator);
     }
 }
-
+//@@author
