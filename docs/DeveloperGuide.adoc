@@ -676,7 +676,7 @@ The username password pair: Admin Admin123 is registered by default for testing 
 Expected: An error message: `Invalid username or password, please try again` is displayed on the screen.
 .. Test case: `login Admin Admin123` +
 Expected: Login succeed.
-.. Other incorrect delete commands to try: `login`, `login Admin Admin123 Admin123` +
+.. Other incorrect login commands to try: `login`, `login Admin Admin123 Admin123` +
 Expected: Helping message is displayed on the screen.
 
 . Register
@@ -688,14 +688,14 @@ Expected: An error message: `The password should contain at least one lowercase 
 Expected: An error message: `The username has already been registered, please try a new username` is displayed on the screen.
 .. Test case: `register newuser New123` +
 Expected: Registration succeed.
-.. Other incorrect delete commands to try: `register`, `register Admin Admin123 Admin123` +
+.. Other incorrect register commands to try: `register`, `register Admin Admin123 Admin123` +
 Expected: Helping message is displayed on the screen.
 
 . Logout
 .. Prerequisites: The user has already logged in to the system.
 .. Test case: `logout` +
 Expected: The user is directed back to the login page.
-.. Other incorrect delete commands to try: `logout123` +
+.. Other incorrect logout commands to try: `logout123` +
 Expected: Helping message is displayed on the screen.
 //@@author
 
