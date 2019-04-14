@@ -94,11 +94,17 @@ public class Match implements ReadOnlyMatch {
         goalScorers.addAll(replacement);
     }
 
+    /**
+     * Replaces this match's ownGoalScorers with the goalScorers in {@code replacement}.
+     */
     public void setOwnGoalScorers(List<Name> replacement) {
         ownGoalScorers.clear();
         ownGoalScorers.addAll(replacement);
     }
 
+    /**
+     * Replaces this match's score with the goalScorers in {@code replacement}.
+     */
     public void setScore(String score) {
         this.score = new Score(score);
     }
