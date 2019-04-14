@@ -362,6 +362,22 @@ Step 9. The `MainWindow` displays the newly formatted Persons in neat rows, disp
 === ApptDate feature (coming in v1.4)
 
 //@@author
+
+[appendix]
+== Product Scope
+
+*Target user profile*:
+
+* hospital doctor who has several long-term patients he/she has to take care of.
+* prefer desktop apps over other types
+* can type fast
+* prefers typing over mouse input
+* is reasonably comfortable using CLI apps
+
+*Value proposition*: 
+* manage contacts faster than a typical mouse/GUI driven app
+* To reduce inefficient communication between patients and doctors, so as to reduce the chances of patients having delays in treatment.
+
 [appendix]
 == User Stories
 
