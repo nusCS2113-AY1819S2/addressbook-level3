@@ -1162,17 +1162,42 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Deleting a player
 
-. Deleting a person while all persons are listed
+. Deleting a player while all players are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Prerequisites: List all players using the `list` command. Multiple players in the list.
+.. Test case: `deletePlayer 1` +
+   Expected: First contact is deleted from the list. Details of the deleted contact shown.
+.. Test case: `deletePlayer 0` +
+   Expected: No player is deleted. Error details shown.
+.. Other incorrect delete commands to try: `deletePlayer`, `deletePlayer x` (where x is larger than the list size) +
    Expected: Similar to previous.
+
+=== Adding a player
+
+. Adding a player while the player's team already exists
+
+.. Prerequisites: The `TEAM` that the player is going to be added to must already exist.
+.. Test case: `addPlayer Lionel Messi p/RW a/31 sal/2000 gs/30 ga/25 tm/FC BARCELONA ctry/Argentina jn/10 app/40 hs/HEALTHY` +
+Expected: The player `Lionel Messi` is successfully added. Details of the player shown .
+.. Test case: `addPlayer Lionel Messi p/RW sal/2000 gs/30 ga/25 tm/FC BARCELONA ctry/Argentina jn/10 app/40 hs/HEALTHY` +
+Expected: No player is added. Error message shown.
+.. Other incorrect addPlayer commands to try: `addPlayer`, `addPlayer ___&*9 p/RW a/31 sal/2000 gs/30 ga/25 tm/FC BARCELONA ctry/Argentina jn/10 app/40 hs/HEALTHY`
+Expected: Similar to Previous
+
+=== Transferring a player
+
+. Transferring an existing player to an existing team that the player does not belong to
+
+.. Prerequisites: Player must exist in League Tracker. Destination team must exist in League Tracker.
+The jersey number in the destination team must be available.
+.. Test case: `transfer Lionel Messi tm/Real Madrid jn/10 sal/2000` +
+Expected: A success message will be shown with the player's name, new team, new jersey number and new salary.
+.. Test case: `transfer Lionel Messi jn/10 sal/2000` +
+Expected: No transfer is done. Error Message shown .
+.. Other incorrect commands to try: `transfer Lionel Messi tm/Real Madrid sal/2000`, `transfer Lionel Messi tm/Real Madrid jn/10`,
+`transfer`
 
 _{ more test cases ... }_
 
