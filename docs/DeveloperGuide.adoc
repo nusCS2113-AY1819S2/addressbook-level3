@@ -32,9 +32,48 @@
 
 == Design
 
-image::ClassDiagram.png[]
+[[Design-Architecture]]
+=== Architecture
 
 //@@author WuPeiHsuan
+.Architecture Diagram
+image::ClassDiagram.png[width="800"]
+
+The *_Architecture Diagram_* given above shows a detailed overview of how each class is related/ interacts with each other in the design of our project.
+
+//@@author shawn-t
+.Simplified Architecture Diagram
+image::Architecture.png[width="800"]
+
+The *_Simplified Architecture Diagram_* above is an abstraction of the first diagram provided. It categorises classes into the respective components by colour. Given below is a quick overview of each component.
+
+`Main` has only one class called link:https://github.com/cs2113-ay1819s2-t11-2/main/blob/master/src/seedu/addressbook/Main.java[`Main`]. It is responsible for,
+
+* At app launch: Initializing the components, and creating the GUI.
+* At shut down: Shutting down the components, closing the GUI and exiting the program.
+
+<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
+The following class plays an important role at the architecture level:
+
+* <<Design-Ui,*`UI`*>>: The UI of the App.
+* <<Design-Logic,*`Logic`*>>: The command executor.
+* <<Design-Data,*`Data`*>>: Holds the data of the App in-memory.
+* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+
+[discrete]
+==== How the architecture components interact with each other
+
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+
+.Component interactions for `delete 1` command
+image::SDforDeletePerson.png[width="800"]
+
+The sections below give more details of each component.
+
+[[Design-Commons]]
+=== Common classes
+
+Classes used by multiple components are in the `seedu.addressbook.commons` package. In our project, Messages class and Utils class are the only two classes in this package.
 
 == Testing
 
