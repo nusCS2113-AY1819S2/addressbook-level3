@@ -160,3 +160,38 @@ In addition to the Appointment class, we update the ReadOnlyPerson interface and
 * `getStatus()` -- The class `Person` implements a method that returns the Status object of a Person.
 
 
+//@@author WuPeiHsuan
+=== Sort feature
+
+.. Prerequisites: Please add some patient entries. +
+
+.. Test case 1: `sort name` +
+Expected: Prints out a list of all patients sort by name in lexicographically order. +
+
+.. Test case 2: `sort status` +
+Expected: Prints out a list of all patients sort by status according to the degree of urgency. +
+
+.. Test case 3: `sort appointment` +
+Expected: Prints out a list of all patients sort by appointment in chronological order. +
+
+.. Other incorrect commands to try: `sort`, `sort abc` + 
+Expected: An error message: `Invalid command format!` is displayed on the screen, with the displays the correct format below. 
+
+
+=== Add Status feature
+
+.. Prerequisites: The user has logged in to the system.
+
+.. Test case 1: `add John p/98765432 e/john@gmail.com a/John street, block 123, #01-01 m/2019 12 11 12 30 d/DoctorTan s/Observation` + 
+Expected: New person added: John Phone: 98765432 Email: john@gmail.com Address: John street, block 123, #01-01  Appointment: 2019 12 11 12 30 Doctor: DoctorTan Status: Observation Tags: 
+
+.. Test case 2: `add Amy p/98765432 e/john@gmail.com a/John street, block 123, #01-01 m/2019 12 11 12 30 d/DoctorTan s/Waiting for Surgery` + 
+Expected:  New person added: Amy Phone: 98765432 Email: john@gmail.com Address: John street, block 123, #01-01  Appointment: 2019 12 11 12 30 Doctor: DoctorTan Status: Waiting for Surgery Tags: 
+
+
+.. Other incorrect commands to try:  `add Sherry p/98765432 e/john@gmail.com a/John street, block 123, #01-01 m/2019 12 11 12 30 d/DoctorTan s/nothing` +
+Expected: An error message: Status should be Observation/ Critical / Waiting for Surgery / Therapy / Life Support / Waiting for doctor appointment
+
+//@@author 
+
+
