@@ -77,7 +77,7 @@ The sections below give more details of each component.
 === AccountManager Component
 
 *API* : link:https://github.com/cs2113-ay1819s2-t11-2/main/blob/master/src/seedu/addressbook/accountmanager/AccountManager.java[`AccountManager`] +
-For detailed implementation for AccountManager Component, please refer to <<Implementation - Login/Register/Logout Feature,*`Implementation - Login/Register/Logout Feature`*>>
+For detailed implementation for AccountManager Component, please refer to <<Implementation-Login/Register/Logout Feature,*`Implementation-Login/Register/Logout Feature`*>>
 
 [[Design-Data]]
 === Data Component
