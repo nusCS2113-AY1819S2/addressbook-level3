@@ -33,7 +33,7 @@
 //@@author WuPeiHsuan
 == Design
 
-image::ClassDiagram.png["800"]
+image::ClassDiagram.png[width="800"]
 
 
 //@@author shawn-t
@@ -49,6 +49,16 @@ The following class plays an important role at the architecture level:
 * <<Design-Logic,*`Logic`*>>: The command executor.
 * <<Design-Data,*`Data`*>>: Holds the data of the App in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+
+[discrete]
+==== How the architecture components interact with each other
+
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+
+.Component interactions for `delete 1` command
+image::SDforDeletePerson.png[width="800"]
+
+The sections below give more details of each component.
 
 [[Design-Commons]]
 === Common classes
