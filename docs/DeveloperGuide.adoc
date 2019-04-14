@@ -74,14 +74,65 @@ image::SDforDeletePerson.png[width="800"]
 The sections below give more details of each component.
 
 [[Design-AccountManager]]
-=== AccountManager classes
+=== AccountManager
 
-*API* : link:https://github.com/cs2113-ay1819s2-t11-2/main/blob/master/src/seedu/addressbook/accountmanager[`AccountManager`]
+*API* : link:https://github.com/cs2113-ay1819s2-t11-2/main/blob/master/src/seedu/addressbook/accountmanager/AccountManager.java[`AccountManager`]
+
+[[Design-Data]]
+=== Data Component
+
+image::DataComponent.png[width="800"]
+
+*API* : link:https://github.com/cs2113-ay1819s2-t11-2/main/blob/master/src/seedu/addressbook/data/AddressBook.java[`AddressBook.java`]
+
+The `AddressBook.java`,
+
+* stores the Address Book data.
+* exposes an unmodifiable `ReadOnlyPerson<Person>` that can be 'read' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+
+[[Design-Logic]]
+=== Logic Component
+
+*API* : link:https://github.com/cs2113-ay1819s2-t11-2/main/blob/master/src/seedu/addressbook/logic/Logic.java[`Logic.java`]
+
+.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  This results in a `Command` object which is executed by the `LogicManager`.
+.  The command execution can affect the `Model` (e.g. adding a person).
+.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+
+.Interactions Inside the Logic Component for the `delete 1` Command
+
+[[Design-Parser]]
+=== Parser Component
+
+*API* : link:https://github.com/cs2113-ay1819s2-t11-2/main/blob/master/src/seedu/addressbook/parser/Parser.java[`Parser.java`]
+
+[[Design-Storage]]
+=== Storage Component
+
+*API* : link:https://github.com/cs2113-ay1819s2-t11-2/main/blob/master/src/seedu/addressbook/storage/jaxb/StorageFile.java[`StorageFile.java`]
+
+The `Storage` component,
+
+* can save `UserPref` objects in json format and read it back.
+* can save the Address Book data in json format and read it back.
+
+[[Design-Ui]]
+=== Ui Component
+
+*API* : link:https://github.com/cs2113-ay1819s2-t11-2/main/blob/master/src/seedu/addressbook/ui[`UI`]
+The `UI` component,
+
+* Executes user commands using the `Logic` component.
+* Listens for changes to `Data` component so that the UI can be updated with the modified data.
 
 [[Design-Command]]
 === Command classes
 
-*API* : linkhttps://github.com/cs2113-ay1819s2-t11-2/main/blob/master/src/seedu/addressbook/commands[`Commands`]
+*API* : link:https://github.com/cs2113-ay1819s2-t11-2/main/blob/master/src/seedu/addressbook/commands[`Commands`]
 
 Classes in this component defines the behaviour of the respective commands. Examples include the SortCommand, ReferCommand DoctorAppointments classes, the IncorrectCommand class, as well as the CommandResult class.
 
@@ -91,38 +142,6 @@ Classes in this component defines the behaviour of the respective commands. Exam
 *API* : link:https://github.com/cs2113-ay1819s2-t11-2/main/blob/master/src/seedu/addressbook/common[`Common`]
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package. In our project, Messages class and Utils class are the only two classes in this package.
-
-[[Design-Data]]
-=== Data classes
-
-image::DataComponent.png[width="800"]
-
-*API* : link:https://github.com/cs2113-ay1819s2-t11-2/main/blob/master/src/seedu/addressbook/data[`Data`]
-
-The `Data`,
-
-* stores the Address Book data.
-* exposes an unmodifiable `ReadOnlyList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-
-[[Design-Logic]]
-=== Logic classes
-
-*API* : linkhttps://github.com/cs2113-ay1819s2-t11-2/main/blob/master/src/seedu/addressbook/data[`Data`]
-
-[[Design-Parser]]
-=== Parser classes
-
-*API* : link:https://github.com/cs2113-ay1819s2-t11-2/main/blob/master/src/seedu/addressbook/parser/Parser.java[`Parser.java`]
-
-[[Design-Storage]]
-=== Storage classes
-
-*API* : link:https://github.com/cs2113-ay1819s2-t11-2/main/blob/master/src/seedu/addressbook/storage/jaxb/StorageFile.java[`StorageFile.java`]
-
-[[Design-Ui]]
-=== Ui classes
-
-*API* : link:https://github.com/cs2113-ay1819s2-t11-2/main/blob/master/src/seedu/addressbook/ui[`UI`]
 
 == Testing
 
