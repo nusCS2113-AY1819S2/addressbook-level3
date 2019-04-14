@@ -78,8 +78,7 @@ public class AccountManager {
             // if no match with any command, return invalid format message
             return INVALID_FORMAT;
 
-        }
-        catch (Exception e){
+        } catch (Exception e){
             return INVALID_FORMAT;
         }
     }
