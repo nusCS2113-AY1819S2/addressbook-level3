@@ -1,12 +1,12 @@
 = About Us
 :site-section: AboutUs
-:relfileprefix: teamName/
+:relfileprefix: team/
 :imagesDir: images
 :stylesDir: stylesheets
 
 The LeagueTracker provides football league operator with an efficient method of managing the players, teams and matches in the season. It features many ways to keep track of the teams and players playing in the league. The LeagueTracker will help manager have an easier time in keeping track of the current situation in the football league. +
 {empty} +
-We are a teamName based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
