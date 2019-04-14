@@ -3,6 +3,8 @@ package seedu.addressbook.data.person;
 import seedu.addressbook.common.Utils;
 import seedu.addressbook.data.exception.DuplicateDataException;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /**
@@ -29,6 +31,8 @@ public class UniquePersonList implements Iterable<Person> {
     public static class PersonNotFoundException extends Exception {}
 
     private final List<Person> internalList = new ArrayList<>();
+
+
 
     /**
      * Constructs empty person list.
@@ -106,12 +110,55 @@ public class UniquePersonList implements Iterable<Person> {
         }
     }
 
+
+
     /**
      * Clears all persons in list.
      */
     public void clear() {
         internalList.clear();
     }
+
+    /**
+     * New method to get size of address book :D
+     * Returns the number of persons in the list.
+     */
+    public int size() {
+        return internalList.size();
+    }
+
+    //@@author WuPeiHsuan
+    /**
+     * Sorts all persons in list by name.
+     */
+    public void SortByName(){
+        Comparator<Person> person = (p1, p2) -> {
+            Name name1 = p1.getName();
+            Name name2 = p2.getName();
+            return name1.compareTo(name2);
+        };
+        Collections.sort(internalList, person);
+    }
+
+    public void SortByAppointment(){
+        Comparator<Person> person = (p1, p2) -> {
+            Appointment appointment1 = p1.getAppointment();
+            Appointment appointment2 = p2.getAppointment();
+            return appointment1.compareTo(appointment2);
+        };
+        Collections.sort(internalList, person);
+
+    }
+
+    public void SortByStatus(){
+        Comparator<Person> person = (p1, p2) -> {
+            Status status1 = p1.getStatus();
+            Status status2 = p2.getStatus();
+            return status1.compareTo(status2);
+        };
+        Collections.sort(internalList, person);
+    }
+    //@@author
 
     @Override
     public Iterator<Person> iterator() {

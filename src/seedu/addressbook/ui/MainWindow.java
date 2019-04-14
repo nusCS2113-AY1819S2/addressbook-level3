@@ -1,6 +1,5 @@
 package seedu.addressbook.ui;
 
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
@@ -15,13 +14,17 @@ import java.util.Optional;
 
 import static seedu.addressbook.common.Messages.*;
 
+import seedu.addressbook.accountmanager.AccountManager;
+
 /**
  * Main Window of the GUI.
  */
+
 public class MainWindow {
 
     private Logic logic;
     private Stoppable mainApp;
+    private AccountManager accountManager = new AccountManager();
 
     public MainWindow(){
     }
@@ -44,14 +47,29 @@ public class MainWindow {
     @FXML
     void onCommand(ActionEvent event) {
         try {
+            // utilize accountManager to handle login/register
             String userCommandText = commandInput.getText();
-            CommandResult result = logic.execute(userCommandText);
-            if(isExitCommand(result)){
-                exitApp();
-                return;
-            }
-            displayResult(result);
+            String loginResult = accountManager.accountCommandHandler(userCommandText);
+            CommandResult msg = new CommandResult(loginResult);
+            displayResult(msg);
             clearCommandInput();
+
+            if(accountManager.getLoginStatus()) // if logged in
+            {
+                String[] accountInfo = userCommandText.split(" ");
+                if(accountInfo.length == 1 && accountInfo[0].equals("logout")){ // if the command is logout
+                    accountManager.logout();
+                }
+                else{
+                    CommandResult result = logic.execute(userCommandText);
+                    if(isExitCommand(result)){
+                        exitApp();
+                        return;
+                    }
+                    displayResult(result);
+                    clearCommandInput();
+                }
+            }
         } catch (Exception e) {
             display(e.getMessage());
             throw new RuntimeException(e);
@@ -59,6 +77,7 @@ public class MainWindow {
     }
 
     private void exitApp() throws Exception {
+        accountManager.storeAccounts();
         mainApp.stop();
     }
 
@@ -89,7 +108,7 @@ public class MainWindow {
 
     public void displayWelcomeMessage(String version, String storageFilePath) {
         String storageFileInfo = String.format(MESSAGE_USING_STORAGE_FILE, storageFilePath);
-        display(MESSAGE_WELCOME, version, MESSAGE_PROGRAM_LAUNCH_ARGS_USAGE, storageFileInfo);
+        display(MESSAGE_WELCOME, version, AccountManager.LOGIN_PROMPT, MESSAGE_PROGRAM_LAUNCH_ARGS_USAGE, storageFileInfo);
     }
 
     /**

@@ -1,0 +1,52 @@
+//@@author liguanlong
+
+= About Us
+:site-section: AboutUs
+:relfileprefix: team/
+:imagesDir: images
+:stylesDir: stylesheets
+
+Doctor on Call was developed by team T11-2 of CS2113 in National University of Singapore. It is a desktop address book application designed to facilitate doctors to manage patient information and aims to reduce the inefficient communication between doctors and patients.
+
+== User Interface
+
+image:https://raw.githubusercontent.com/cs2113-ay1819s2-t11-2/main/master/docs/images/Ui.png[width=820]
+
+== The Project Team
+
+'''
+
+=== Wu Pei Hsuan 
+image:https://raw.githubusercontent.com/cs2113-ay1819s2-t11-2/main/master/docs/images/wupeihsuan.png[width=128]
+
+{empty}[https://github.com/WuPeiHsuan[GitHub]] [<<wupeihsuan#, Portfolio>>]
+
+Role: Developer
+
+'''
+
+=== Matthias Lum
+image:https://raw.githubusercontent.com/cs2113-ay1819s2-t11-2/main/master/docs/images/matthiaslum.png[width=128]
+
+{empty}[https://github.com/matthiaslum[GitHub]] [<<matthiaslum#, Portfolio>>]
+
+Role: Developer
+
+'''
+
+=== Teo Xuan Wei
+image:https://raw.githubusercontent.com/cs2113-ay1819s2-t11-2/main/master/docs/images/shawn-t.png[width=128]
+
+{empty}[https://github.com/shawn-t[GitHub]] [<<shawn-t#, Portfolio>>]
+
+Role: Developer
+
+'''
+
+=== Li Guanlong
+image:https://github.com/cs2113-ay1819s2-t11-2/main/blob/master/docs/images/liguanlong.png?raw=true[width=128]
+
+{empty}[https://github.com/liguanlong[GitHub]] [<<liguanlong#, Portfolio>>]
+
+Role: Developer
+

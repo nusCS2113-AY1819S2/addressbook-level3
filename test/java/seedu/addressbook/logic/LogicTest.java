@@ -125,25 +125,38 @@ public class LogicTest {
         assertCommandBehavior(
                 "add wrong args wrong args", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid, address", expectedMessage);
+                "add Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid, address m/2011 11 03 08 00 d/Doctor", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
+                "add Valid Name p/12345 valid@email.butNoPrefix a/valid, address m/2011 11 03 08 00 d/Doctor", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
+                "add Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address m/2011 11 03 08 00 d/Doctor", expectedMessage);
+        assertCommandBehavior(
+                "add Valid Name p/12345 e/valid@email a/valid, address but no appointment, d/DoctorTan s/Observation", expectedMessage);
+        assertCommandBehavior(
+                "add Valid Name p/12345 e/valid@email a/valid, address but no doctor, m/2021 12 15 13 30 s/Observation", expectedMessage);
     }
 
+    //@@author matthiaslum
     @Test
     public void execute_add_invalidPersonData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] p/12345 e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add []\\[;] p/12345 e/valid@e.mail a/valid, address, m/2021 12 15 13 00, d/DoctorTan s/Observation", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", Phone.MESSAGE_PHONE_CONSTRAINTS);
+                "add Valid Name p/not_numbers e/valid@e.mail a/valid, address, m/2021 12 15 13 15, d/DoctorTan s/Observation", Phone.MESSAGE_PHONE_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/notAnEmail a/valid, address", Email.MESSAGE_EMAIL_CONSTRAINTS);
+                "add Valid Name p/12345 e/notAnEmail a/valid, address, m/2021 12 15 13 30, d/DoctorTan s/Observation", Email.MESSAGE_EMAIL_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
-
+                "add Valid Name p/12345 e/valid@e.mail a/valid, address, m/2021 12 15 13 45, d/DoctorTan, s/Observation, t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+        assertCommandBehavior(
+                "add Valid Name p/12345 e/valid@e.mail a/valid, address, m/2021231231, d/DoctorTan s/Observation", Appointment.MESSAGE_APPOINTMENT_CONSTRAINTS);
+        assertCommandBehavior(
+                "add Valid Name p/12345 e/valid@e.mail a/valid, address, m/30nov, d/DoctorTan s/Observation", Appointment.MESSAGE_APPOINTMENT_CONSTRAINTS);
+        assertCommandBehavior(
+                "add Valid Name p/12345 e/valid@e.mail a/valid, address, m/2021 12 15 13 01, d/DoctorTan s/Observation", Appointment.MESSAGE_APPOINTMENT_CONSTRAINTS);
+        assertCommandBehavior(
+                "add Valid Name p/12345 e/valid@e.mail a/valid, address, m/1800 12 15 13 00, d/DoctorTan s/Observation", Appointment.MESSAGE_APPOINTMENT_CONSTRAINTS);
     }
+    //@@author
 
     @Test
     public void execute_add_successful() throws Exception {
@@ -161,6 +174,28 @@ public class LogicTest {
                               Collections.emptyList());
 
     }
+
+    //@@author matthiaslum
+    @Test
+    public void execute_add_same_doctor_diff_name_diff_appt_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Person toBeAdded = helper.generatePersonWithNameAppt("Rimmy", "2023 01 12 08 00");
+        Person newPerson = helper.generatePersonWithNameAppt("Rimmy JR", "2023 01 12 09 00");
+        AddressBook expectedAB = new AddressBook();
+        expectedAB.addPerson(toBeAdded);
+        addressBook.addPerson(toBeAdded); // person already in internal address book
+        expectedAB.addPerson(newPerson);
+
+        // execute command and verify result
+        assertCommandBehavior(helper.generateAddCommand(newPerson),
+                String.format(AddCommand.MESSAGE_SUCCESS, newPerson),
+                expectedAB,
+                false,
+                Collections.emptyList());
+
+    }
+    //@@author
 
     @Test
     public void execute_addDuplicate_notAllowed() throws Exception {
@@ -182,6 +217,29 @@ public class LogicTest {
                 Collections.emptyList());
 
     }
+
+    //@@author matthiaslum
+    @Test
+    public void execute_add_SameAppointment_notAllowed() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Person toBeAdded = helper.generatePersonWithNameAppt("Matthias", "2021 04 03 09 00");
+        AddressBook expectedAB = new AddressBook();
+        expectedAB.addPerson(toBeAdded);
+
+        // setup starting state
+        addressBook.addPerson(toBeAdded); // person already in internal address book
+        Person DifferentNameSameAppointment = helper.generatePersonWithNameAppt("Jacky", "2021 04 03 09 00");
+        // execute command and verify result
+        assertCommandBehavior(
+                helper.generateAddCommand(DifferentNameSameAppointment),
+                AddCommand.MESSAGE_DUPLICATE_PERSON,
+                expectedAB,
+                false,
+                Collections.emptyList());
+
+    }
+    //@@author
 
     @Test
     public void execute_list_showsAllPersons() throws Exception {
@@ -281,6 +339,21 @@ public class LogicTest {
         assertCommandBehavior("viewall ", expectedMessage);
         assertCommandBehavior("viewall arg not number", expectedMessage);
     }
+
+    //@@author matthiaslum
+    @Test
+    public void execute_appointment_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoctorAppointmentsCommand.MESSAGE_USAGE);
+        assertCommandBehavior("appointment", expectedMessage);
+    }
+
+    @Test
+    public void execute_apptDate_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ApptDateCommand.MESSAGE_USAGE);
+        assertCommandBehavior("apptDate ", expectedMessage);
+        assertCommandBehavior("apptDate Matthias ", expectedMessage);
+    }
+    //@@author
 
     @Test
     public void execute_viewAll_invalidIndex() throws Exception {
@@ -399,10 +472,10 @@ public class LogicTest {
     @Test
     public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Person pTarget1 = helper.generatePersonWithName("bla bla KEY bla");
-        Person pTarget2 = helper.generatePersonWithName("bla KEY bla bceofeia");
-        Person p1 = helper.generatePersonWithName("KE Y");
-        Person p2 = helper.generatePersonWithName("KEYKEYKEY sduauo");
+        Person pTarget1 = helper.generatePersonWithNameAppt("bla bla KEY bla", "2022 04 03 08 00");
+        Person pTarget2 = helper.generatePersonWithNameAppt("bla KEY bla bceofeia", "2022 04 03 08 15");
+        Person p1 = helper.generatePersonWithNameAppt("KE Y", "2022 04 03 08 30");
+        Person p2 = helper.generatePersonWithNameAppt("KEYKEYKEY sduauo", "2022 04 03 08 45");
 
         List<Person> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
         AddressBook expectedAB = helper.generateAddressBook(fourPersons);
@@ -419,10 +492,10 @@ public class LogicTest {
     @Test
     public void execute_find_isCaseSensitive() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Person pTarget1 = helper.generatePersonWithName("bla bla KEY bla");
-        Person pTarget2 = helper.generatePersonWithName("bla KEY bla bceofeia");
-        Person p1 = helper.generatePersonWithName("key key");
-        Person p2 = helper.generatePersonWithName("KEy sduauo");
+        Person pTarget1 = helper.generatePersonWithNameAppt("bla bla KEY bla", "2022 04 03 08 00");
+        Person pTarget2 = helper.generatePersonWithNameAppt("bla KEY bla bceofeia" , "2022 04 03 08 15" );
+        Person p1 = helper.generatePersonWithNameAppt("key key", "2022 04 03 08 30");
+        Person p2 = helper.generatePersonWithNameAppt("KEy sduauo", "2022 04 03 08 45");
 
         List<Person> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
         AddressBook expectedAB = helper.generateAddressBook(fourPersons);
@@ -439,10 +512,10 @@ public class LogicTest {
     @Test
     public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Person pTarget1 = helper.generatePersonWithName("bla bla KEY bla");
-        Person pTarget2 = helper.generatePersonWithName("bla rAnDoM bla bceofeia");
-        Person p1 = helper.generatePersonWithName("key key");
-        Person p2 = helper.generatePersonWithName("KEy sduauo");
+        Person pTarget1 = helper.generatePersonWithNameAppt("bla bla KEY bla", "2022 04 03 08 00");
+        Person pTarget2 = helper.generatePersonWithNameAppt("bla rAnDoM bla bceofeia", "2022 04 03 08 15");
+        Person p1 = helper.generatePersonWithNameAppt("key key", "2022 04 03 08 30");
+        Person p2 = helper.generatePersonWithNameAppt("KEy sduauo", "2022 04 03 08 45");
 
         List<Person> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
         AddressBook expectedAB = helper.generateAddressBook(fourPersons);
@@ -456,6 +529,90 @@ public class LogicTest {
                                 expectedList);
     }
 
+    //@@author matthiaslum
+    @Test
+    public void appointment_sorts_persons_chronologoically() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Person p1 = helper.generatePersonWithNameAppt("Kumar", "2021 01 10 11 00");
+        Person p2 = helper.generatePersonWithNameAppt("Betty", "2021 01 10 09 00");
+        Person p3 = helper.generatePersonWithNameAppt("Somali", "2021 01 10 10 00");
+        Person p4 = helper.generatePersonWithNameAppt("Xiao ming", "2021 01 08 11 00");
+        Person p5 = helper.generatePersonWithNameAppt("Lily", "2021 01 01 17 15");
+
+        List<Person> fivePersons = helper.generatePersonList(p1, p2, p3, p4, p5);
+        AddressBook expectedAB = helper.generateAddressBook(fivePersons);
+        List<Person> expectedList = helper.generatePersonList(p5, p4, p2, p3, p1);
+        helper.addToAddressBook(addressBook, fivePersons);
+
+        assertCommandBehavior("appointment DoctorTan",
+                Command.getMessageForAppointmentsShownSummary(expectedList, "DoctorTan"),
+                expectedAB,
+                true,
+                expectedList);
+    }
+
+    @Test
+    public void apptDate_sorts_persons_chronologoically() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Person p1 = helper.generatePersonWithNameAppt("Kumar", "2021 01 10 11 00");
+        Person p2 = helper.generatePersonWithNameAppt("Betty", "2021 01 10 09 00");
+        Person p3 = helper.generatePersonWithNameAppt("Somali", "2021 01 10 10 00");
+        Person p4 = helper.generatePersonWithNameAppt("Xiao ming", "2021 01 10 17 30");
+        Person p5 = helper.generatePersonWithNameAppt("Lily", "2021 01 10 17 00");
+
+        List<Person> fivePersons = helper.generatePersonList(p1, p2, p3, p4, p5);
+        AddressBook expectedAB = helper.generateAddressBook(fivePersons);
+        List<Person> expectedList = helper.generatePersonList(p2, p3, p1, p5, p4);
+        helper.addToAddressBook(addressBook, fivePersons);
+
+        assertCommandBehavior("apptDate DoctorTan m/2021 01 10",
+                Command.getMessageForAppointmentsShownSummary(expectedList, "DoctorTan"),
+                expectedAB,
+                true,
+                expectedList);
+    }
+
+    @Test
+    public void execute_appointment_isDoctorCaseSensitive() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Person pTarget1 = helper.generatePersonWithNameApptDoctor("Person1", "2022 04 03 08 00", "doctor tan");
+        Person pTarget2 = helper.generatePersonWithNameApptDoctor("Person2" , "2022 04 03 08 15", "doctor tan" );
+        Person p1 = helper.generatePersonWithNameApptDoctor("Person3", "2022 04 03 08 30", "DOCTOR TAN");
+        Person p2 = helper.generatePersonWithNameApptDoctor("Person4", "2022 04 03 08 45", "DOCTOR TAN");
+
+        List<Person> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
+        AddressBook expectedAB = helper.generateAddressBook(fourPersons);
+        List<Person> expectedList = helper.generatePersonList(pTarget1, pTarget2);
+        helper.addToAddressBook(addressBook, fourPersons);
+
+        assertCommandBehavior("appointment doctor tan",
+                Command.getMessageForAppointmentsShownSummary(expectedList, "doctor tan"),
+                expectedAB,
+                true,
+                expectedList);
+    }
+
+    @Test
+    public void execute_apptDate_isDoctorCaseSensitive() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Person pTarget1 = helper.generatePersonWithNameApptDoctor("Person1", "2022 04 03 08 00", "doctor tan");
+        Person pTarget2 = helper.generatePersonWithNameApptDoctor("Person2" , "2022 04 03 08 15", "doctor tan" );
+        Person p1 = helper.generatePersonWithNameApptDoctor("Person3", "2022 04 03 08 30", "DOCTOR TAN");
+        Person p2 = helper.generatePersonWithNameApptDoctor("Person4", "2022 04 03 08 45", "DOCTOR TAN");
+
+        List<Person> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
+        AddressBook expectedAB = helper.generateAddressBook(fourPersons);
+        List<Person> expectedList = helper.generatePersonList(pTarget1, pTarget2);
+        helper.addToAddressBook(addressBook, fourPersons);
+
+        assertCommandBehavior("apptDate doctor tan m/2022 04 03",
+                Command.getMessageForAppointmentsShownSummary(expectedList, "doctor tan"),
+                expectedAB,
+                true,
+                expectedList);
+    }
+    //@@author
+
     /**
      * A utility class to generate test data.
      */
@@ -466,10 +623,13 @@ public class LogicTest {
             Phone privatePhone = new Phone("111111", true);
             Email email = new Email("adam@gmail.com", false);
             Address privateAddress = new Address("111, alpha street", true);
+            Appointment appointment = new Appointment("2021 12 15 13 00");
+            Doctor doctor = new Doctor("DoctorTan");
+            Status status = new Status("Observation");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             Set<Tag> tags = new HashSet<>(Arrays.asList(tag1, tag2));
-            return new Person(name, privatePhone, email, privateAddress, tags);
+            return new Person(name, privatePhone, email, privateAddress, appointment, doctor, status, tags);
         }
 
         /**
@@ -481,11 +641,16 @@ public class LogicTest {
          * @param isAllFieldsPrivate determines if private-able fields (phone, email, address) will be private
          */
         Person generatePerson(int seed, boolean isAllFieldsPrivate) throws Exception {
+            String minute = String.valueOf(seed*15);
+            System.out.println(minute);
             return new Person(
                     new Name("Person " + seed),
                     new Phone("" + Math.abs(seed), isAllFieldsPrivate),
                     new Email(seed + "@email", isAllFieldsPrivate),
                     new Address("House of " + seed, isAllFieldsPrivate),
+                    new Appointment(("2021 12 15 13 " + minute) ),
+                    new Doctor("DoctorTan"),
+                    new Status("Observation"),
                     new HashSet<>(Arrays.asList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))))
             );
         }
@@ -499,8 +664,7 @@ public class LogicTest {
             cmd.add(p.getName().toString());
             cmd.add((p.getPhone().isPrivate() ? "pp/" : "p/") + p.getPhone());
             cmd.add((p.getEmail().isPrivate() ? "pe/" : "e/") + p.getEmail());
-            cmd.add((p.getAddress().isPrivate() ? "pa/" : "a/") + p.getAddress());
-
+            cmd.add((p.getAddress().isPrivate() ? "pa/" : "a/") + p.getAddress() + "m/"+p.getAppointment() + "d/"+p.getDoctor() + "s/"+p.getStatus());
             Set<Tag> tags = p.getTags();
             for(Tag t: tags){
                 cmd.add("t/" + t.tagName);
@@ -574,17 +738,37 @@ public class LogicTest {
         }
 
         /**
-         * Generates a Person object with given name. Other fields will have some dummy values.
+         * Generates a Person object with given name and given appointment. Other fields will have some dummy values.
          */
-         Person generatePersonWithName(String name) throws Exception {
+        Person generatePersonWithNameAppt(String name, String appointment) throws Exception {
             return new Person(
                     new Name(name),
                     new Phone("1", false),
                     new Email("1@email", false),
                     new Address("House of 1", false),
+                    new Appointment(appointment),
+                    new Doctor("DoctorTan"),
+                    new Status("Observation"),
                     Collections.singleton(new Tag("tag"))
             );
         }
+        //@@author matthiaslum
+        /**
+         * Generates a Person object with given name, given appointment, and given doctor. Other fields will have some dummy values.
+         */
+        Person generatePersonWithNameApptDoctor(String name, String appointment, String doctor) throws Exception {
+            return new Person(
+                    new Name(name),
+                    new Phone("1", false),
+                    new Email("1@email", false),
+                    new Address("House of 1", false),
+                    new Appointment(appointment),
+                    new Doctor(doctor),
+                    new Status("Observation"),
+                    Collections.singleton(new Tag("tag"))
+            );
+        }
+        //@@author
     }
 
 }

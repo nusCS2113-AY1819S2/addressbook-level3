@@ -2,6 +2,8 @@ package seedu.addressbook.parser;
 
 import seedu.addressbook.commands.*;
 import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.data.person.Appointment;
+import seedu.addressbook.data.person.Doctor;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -19,13 +21,28 @@ public class Parser {
     public static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
+    public static final Pattern PERSON_REFER_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("d/(?<doctor>[^/]+)"
+                    + "p/(?<keywords>\\S+(?:\\s+\\S+)*)");
+//            Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"
+//                    + "d/(?<doctor>[^/]+)");
+
     public static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
                     + " (?<isPhonePrivate>p?)p/(?<phone>[^/]+)"
                     + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
                     + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
+                    + "m/(?<appointment>[^/]+)"
+                    + "d/(?<doctor>[^/]+)"
+                    + "s/(?<status>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
+    public static final Pattern APPT_DATE_ARGS_FORMAT =
+            Pattern.compile("(?<name>[^/]+)"
+                    + "m/(?<date>[^/]+)");
+
+    public static final Pattern DOCTORS_APPOINTMENT_ARGS_FORMAT =
+            Pattern.compile("(?<name>[^/]+)");
 
     /**
      * Signals that the user input could not be parsed.
@@ -69,8 +86,17 @@ public class Parser {
             case FindCommand.COMMAND_WORD:
                 return prepareFind(arguments);
 
+            case DoctorAppointmentsCommand.COMMAND_WORD:
+                return prepareFindDoctor(arguments);
+
+            case LengthCommand.COMMAND_WORD:
+                return new LengthCommand();
+
             case ListCommand.COMMAND_WORD:
                 return new ListCommand();
+
+            case ReferCommand.COMMAND_WORD:
+                return prepareRefer(arguments);
 
             case ViewCommand.COMMAND_WORD:
                 return prepareView(arguments);
@@ -78,10 +104,16 @@ public class Parser {
             case ViewAllCommand.COMMAND_WORD:
                 return prepareViewAll(arguments);
 
+            case SortCommand.COMMAND_WORD:
+                return prepareSort(arguments);
+
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
 
-            case HelpCommand.COMMAND_WORD: // Fallthrough
+            case ApptDateCommand.COMMAND_WORD:
+                return  prepareAppt(arguments);
+
+            case HelpCommand.COMMAND_WORD:// Fallthrough
             default:
                 return new HelpCommand();
         }
@@ -93,6 +125,40 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
+    //@@author matthiaslum
+    private Command prepareAppt(String args){
+        final Matcher matcher = APPT_DATE_ARGS_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches())
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ApptDateCommand.MESSAGE_USAGE));
+        String doctor = matcher.group("name");
+        String appointment = matcher.group("date");
+        if (!Doctor.isValidName(doctor)){
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ApptDateCommand.MESSAGE_INVALID_DOCTOR_NAME));        }
+        if (!ApptDateCommand.isValidDate(appointment)){
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ApptDateCommand.MESSAGE_DATE_CONSTRAINTS));        }
+        return new ApptDateCommand(
+                matcher.group("name"),
+                matcher.group("date")
+        );
+    }
+
+    private Command prepareFindDoctor(String args) {
+        final Matcher matcher = DOCTORS_APPOINTMENT_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DoctorAppointmentsCommand.MESSAGE_USAGE));
+        }
+        final String doctorName = matcher.group("name").trim();
+        if (!Doctor.isValidName(doctorName)){
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DoctorAppointmentsCommand.MESSAGE_INVALID_DOCTOR_NAME));        }
+        return new DoctorAppointmentsCommand(doctorName);
+    }
+    //@@author
+
     private Command prepareAdd(String args){
         final Matcher matcher = PERSON_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
@@ -112,12 +178,36 @@ public class Parser {
                     matcher.group("address"),
                     isPrivatePrefixPresent(matcher.group("isAddressPrivate")),
 
+                    matcher.group("appointment"),
+
+                    matcher.group("doctor"),
+
+                    matcher.group("status"),
+
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
+
     }
+    //@@author WuPeiHsuan
+    private Command prepareSort(String args) {
+        args = args.trim();
+        switch (args) {
+
+            case "name":
+
+            case "appointment":
+
+            case "status":
+                return new SortCommand(args.trim());
+
+            default:
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
+        }
+    }
+    //@@author
 
     /**
      * Checks whether the private prefix of a contact detail in the add command's arguments string is present.
@@ -206,7 +296,6 @@ public class Parser {
         return Integer.parseInt(matcher.group("targetIndex"));
     }
 
-
     /**
      * Parses arguments in the context of the find person command.
      *
@@ -227,4 +316,46 @@ public class Parser {
     }
 
 
+    /**
+     * Parses arguments in the context of the refer patient command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    //@@author shawn-t
+    private Command prepareRefer(String args) {
+        final Matcher matcherWithDoctorName = PERSON_REFER_ARGS_FORMAT.matcher(args.trim());
+
+        // Validate arg string format
+        if (!matcherWithDoctorName.matches()) { // if doctor name is not present,
+
+            final Matcher matcherWithOnlyKeywords = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
+
+            if (!matcherWithOnlyKeywords.matches()) { // and keywords are not in the correct form,
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        ReferCommand.MESSAGE_USAGE));
+            }
+            // if keywords are in the correct form
+            // keywords delimited by whitespace
+            final String[] keywords = matcherWithOnlyKeywords.group("keywords").split("\\s+");
+            final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
+            return new ReferCommand(keywordSet);
+        }
+
+        // if doctor name is present,
+        String doctorToReferTo = matcherWithDoctorName.group("doctor");
+        doctorToReferTo = doctorToReferTo.trim();
+        if (!Doctor.isValidName(doctorToReferTo)) { // if doctor name is invalid,
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ReferCommand.MESSAGE_INVALID_DOCTOR_NAME));
+        }
+        return new ReferCommand(
+                matcherWithDoctorName.group("keywords"),
+                matcherWithDoctorName.group("doctor")
+        );
+
+    }
+
 }
+
+

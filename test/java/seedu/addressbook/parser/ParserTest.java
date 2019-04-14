@@ -58,6 +58,8 @@ public class ParserTest {
         parseAndAssertCommandType(input, ListCommand.class);
     }
 
+
+
     @Test
     public void exitCommand_parsedCorrectly() {
         final String input = "exit";
@@ -252,6 +254,9 @@ public class ParserTest {
                 new Phone(Phone.EXAMPLE, true),
                 new Email(Email.EXAMPLE, false),
                 new Address(Address.EXAMPLE, true),
+                new Appointment(Appointment.EXAMPLE),
+                new Doctor(Doctor.EXAMPLE),
+                new Status(Status.EXAMPLE),
                 new HashSet<>(Arrays.asList(new Tag("tag1"), new Tag("tag2"), new Tag("tag3")))
             );
         } catch (IllegalValueException ive) {
@@ -264,12 +269,224 @@ public class ParserTest {
                 + person.getName().fullName
                 + (person.getPhone().isPrivate() ? " pp/" : " p/") + person.getPhone().value
                 + (person.getEmail().isPrivate() ? " pe/" : " e/") + person.getEmail().value
-                + (person.getAddress().isPrivate() ? " pa/" : " a/") + person.getAddress().value;
+                + (person.getAddress().isPrivate() ? " pa/" : " a/") + person.getAddress().value
+                +("m/")+person.getAppointment().appointmentDate
+                +("d/")+person.getDoctor().doctorName
+                +("s/")+person.getStatus().status;
         for (Tag tag : person.getTags()) {
             addCommand += " t/" + tag.tagName;
         }
         return addCommand;
     }
+
+    //@@author WuPeiHsuan
+    /**
+     * Test sort command
+     */
+
+    @Test
+    public void sortCommand_parsedCorrectly() {
+        final String input = "sort name";
+        parseAndAssertCommandType(input, SortCommand.class);
+    }
+
+    @Test
+    public void sortCommand_invalidArgs() {
+        // no keywords
+        final String[] inputs = {
+                "sort",
+                "sort address",
+                "sort 123",
+                "sort Appointment"
+        };
+        final String resultMessage =
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+
+    /**
+     * Test invalid status
+     */
+    @Test
+    public void addCommand_invalidStatus() {
+        final String validName = Name.EXAMPLE;
+        final String validPhoneArg = "p/" + Phone.EXAMPLE;
+        final String validEmailArg = "e/" + Email.EXAMPLE;
+        final String anyAddress = "a/" + Address.EXAMPLE;
+        final String addCommandFormatString = "add $s $s $s $s $s $s $s";
+        final String validAppointmentArg = "m/" + Appointment.EXAMPLE;
+        final String validDoctorArg = "p/" + Doctor.EXAMPLE;
+        final String invalidStatus1 = "s/";
+        final String invalidStatus2 = "s/abc";
+        final String invalidStatus3 = "s/critical";
+
+        // test each incorrect person data field argument individually
+        final String[] inputs = {
+                // invalid status 1
+                String.format(addCommandFormatString, validName, validPhoneArg, validEmailArg, anyAddress, validAppointmentArg, validDoctorArg, invalidStatus1),
+                // invalid status 2
+                String.format(addCommandFormatString, validName, validPhoneArg, validEmailArg, anyAddress, validAppointmentArg, validDoctorArg, invalidStatus2),
+                // invalid status 3
+                String.format(addCommandFormatString, validName, validPhoneArg, validEmailArg, anyAddress, validAppointmentArg, validDoctorArg, invalidStatus3)
+
+        };
+
+        for (String input : inputs) {
+            parseAndAssertCommandType(input, IncorrectCommand.class);
+        }
+
+    }
+
+    //@@author
+    /**
+     * Test refer person command
+     */
+    // @@author shawn-t
+    @Test
+    public void referCommand_invalidArgs() {
+        final String[] inputs = {
+                "refer",
+                "refer "
+        };
+        final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReferCommand.MESSAGE_USAGE);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+    //@@author
+
+    //@@author matthiaslum
+    @Test
+    public void appointmentCommand_invalidArgs() {
+        final String[] inputs = {
+                "appointment",
+                "appointment  "
+        };
+        final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoctorAppointmentsCommand.MESSAGE_USAGE);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+
+    @Test
+    public void apptDateCommand_invalidArgs() {
+        final String[] inputs = {
+                "apptDate validname r23r2",
+                "apptDate  ",
+                "apptDate",
+                "apptDate NODATE",
+
+        };
+        final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ApptDateCommand.MESSAGE_USAGE);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+    //@@author
+
+    //@@author shawn-t
+    @Test
+    public void referCommand_invalidDoctorNameInArgs() {
+        final String[] inputs = {
+                // invalid doctor names
+                "refer d/Dr. p/John Doe",
+                "refer d/Dr, p/John Doe",
+                "refer d/Dr! p/John Doe",
+                "refer d/Dr@ p/John Doe",
+                "refer d/#@! p/John Doe"
+        };
+        final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReferCommand.MESSAGE_INVALID_DOCTOR_NAME);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+    //@@author
+
+    //@@author matthiaslum
+    @Test
+    public void appointmentCommand_invalidDoctorNameInArgs() {
+        final String[] inputs = {
+                // invalid doctor names
+                "appointment Dr.",
+                "appointment Dr,",
+                "appointment Dr!",
+                "appointment Dr@",
+                "appointment #@!"
+        };
+        final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoctorAppointmentsCommand.MESSAGE_INVALID_DOCTOR_NAME);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+
+    @Test
+    public void apptDateCommand_invalidDoctorNameInArgs() {
+        final String[] inputs = {
+                // invalid doctor names
+                "apptDate Dr. m/2020 11 12",
+                "apptDate Dr, m/2020 11 12",
+                "apptDate Dr! m/2020 11 12",
+                "apptDate Dr@ m/2020 11 12",
+                "apptDate #@! m/2020 11 12"
+        };
+        final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ApptDateCommand.MESSAGE_INVALID_DOCTOR_NAME);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+
+    @Test
+    public void apptDateCommand_invalidDateInArgs() {
+        final String[] inputs = {
+                // invalid doctor names
+                "apptDate Dr m/2020 11 12 21",
+                "apptDate Dr m/2020 100 22",
+                "apptDate Dr m/30Nov",
+                "apptDate Dr m/223232322323232233223",
+        };
+        final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ApptDateCommand.MESSAGE_DATE_CONSTRAINTS);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+    //@@author
+
+//    @Test
+//    public void referCommand_validArgs_parsedCorrectly() {
+//        final String[] keywords = { "key1", "key2", "key3" };
+//        final Set<String> keySet = new HashSet<>(Arrays.asList(keywords));
+//
+//        final String input = "refer " + String.join(" ", keySet);
+//        final ReferCommand result =
+//                parseAndAssertCommandType(input, ReferCommand.class);
+//        assertEquals(keySet, result.getKeywords());
+//    }
+//
+//    @Test
+//    public void referCommand_duplicateKeys_parsedCorrectly() {
+//        final String[] keywords = { "key1", "key2", "key3" };
+//        final Set<String> keySet = new HashSet<>(Arrays.asList(keywords));
+//
+//        // duplicate every keyword
+//        final String input = "refer " + String.join(" ", keySet) + " " + String.join(" ", keySet);
+//        final ReferCommand result =
+//                parseAndAssertCommandType(input, ReferCommand.class);
+//        assertEquals(keySet, result.getKeywords());
+//    }
+//
+//    @Test
+//    public void referCommand_validPersonData_parsedCorrectly() {
+//        final String referArgsString = generateTestRefer();
+//        final ReferCommand result1 = parseAndAssertCommandType(referArgsString, ReferCommand.class);
+//        assertEquals(result1, referArgsString);
+//
+//        final String referArgsStringWithDoctorName = generateTestReferWithDoctorName();
+//        final ReferCommand result2 = parseAndAssertCommandType(referArgsStringWithDoctorName, ReferCommand.class);
+//        assertEquals(result2, referArgsStringWithDoctorName);
+//
+//    }
+//
+//    private static String generateTestRefer() {
+//        try {
+//            return "refer " + new Name(Name.EXAMPLE).toString();
+//        } catch (IllegalValueException ive) {
+//            throw new RuntimeException("test person data should be valid by definition");
+//        }
+//    }
+//
+//    private static String generateTestReferWithDoctorName() {
+//        try {
+//            return "refer d/" + new Doctor(Doctor.EXAMPLE).toString() + " p/" + new Name(Name.EXAMPLE).toString();
+//        } catch (IllegalValueException ive) {
+//            throw new RuntimeException("test person data should be valid by definition");
+//        }
+//    }
 
     /**
      * Utility methods

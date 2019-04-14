@@ -18,7 +18,7 @@ Please refer to the <<DeveloperGuide#setting-up, Setting up>> section to learn h
 . Click `Run Main.main()`
 . The GUI should appear in a few seconds
 +
-image::Ui.png[]
+image:https://raw.githubusercontent.com/cs2113-ay1819s2-t11-2/main/master/docs/images/Ui.png[width=800]
 
 == Viewing help : `help`
 
@@ -29,14 +29,67 @@ Format: `help`
 Help is also shown if you enter an incorrect command e.g. `abcd`
 ====
 
+//@@author liguanlong
+
+== Login to the system : `login`
+
+Allow the user to login to the system +
+Format: `login username password`
+
+[NOTE]
+====
+Login is required in order to use the address book
+====
+
+Examples:
+
+* `login Admin Admin123` +
+Logged in as Admin if the account and password are correct.
+
+== Register a new account: `register`
+
+Allow the user to register a new account in the system +
+Format: `register username password`
+
+[NOTE]
+====
+The password should contain at least one lowercase letter, one uppercase letter and one digit
+====
+
+Examples:
+
+* `register Doe Doe12345` +
+A new account is registered if the username chosen has not been registered before.
+
+== Logout from the system : `logout`
+
+Allow the user to logout from the system +
+Format: `logout`
+
+Examples:
+
+* `logout` + 
+The user will be logged out.
+
+//@@author
+
 == Adding a person: `add`
 
 Adds a person to the address book. +
-Format: `add NAME [p]p/PHONE_NUMBER [p]e/EMAIL [p]a/ADDRESS [t/TAG]...`
+Format: `add NAME [p]p/PHONE_NUMBER [p]e/EMAIL [p]a/ADDRESS m/APPOINTMENTDATE d/DOCTORNAME s/STATUS [t/TAG]...`
 
 ****
 Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional,
 items with `...` after them can have multiple instances. Order of parameters are fixed.
+
+Note that the appointment date must be in the format of YYYY MM DD HH MM, in other for the DoctorAppointment Command to work.
+The hour and minute follows the 24hour clock format. Appointment timings must be in blocks of 15minutes. The accepted minutes are 00, 15, 30, 45.
+No appointments are allowed before 8am or before system current time. Incorrect time formats will throw an error in parsing.
+Appointments with the same doctor at the same timing is not allowed.
+
+The doctor's name is case sensitive.
+
+The status must be any of following status: Critical / Waiting for Surgery / Life Support / Waiting for doctor appointment / Therapy / Observation.
 
 Put a `p` before the phone / email / address prefixes to mark it as `private`. `private` details can only
 be seen using the `viewall` command.
@@ -46,32 +99,96 @@ Persons can have any number of tags (including 0)
 
 Examples:
 
-* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01`
-* `add Betsy Crowe pp/1234567 e/betsycrowe@gmail.com pa/Newgate Prison t/criminal t/friend`
+* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01 m/2020 12 11 14 30 d/DoctorTan s/Observation`
+* `add Betsy Crowe pp/1234567 e/betsycrowe@gmail.com pa/Newgate Prison m/2020 11 04 08 00 d/DoctorTan s/Observation t/criminal t/friend`
 
 == Listing all persons : `list`
 
 Shows a list of all persons in the address book. +
 Format: `list`
 
+//@@author shawn-t
+== Getting length of the address book : `length`
+
+Shows the number of entries in the address book at the point of query. +
+Format: `length`
+
+//@@author shawn-t
+== Referring a patient to a doctor: `refer`
+Refers a patient from the address book to a doctor. +
+Note: This command is overloaded with two formats.
+
+Format 1: `refer NAME [MORE_NAMES]` +
+Refers target patient to a default doctor and shows a success message with patient's updated particulars if there is only one unique entry. If there are multiple entries, all patient entries with the target keywords in the addressbook will be printed and user will be prompted to identify the correct patient. If target patient does not exist in the addressbook, an error message will be printed. +
+[Note]
+Default doctor is the last specified doctor or `Dr Seuss` if never specified before previously.
+
+Examples: +
+* `refer John` +
+* `refer John Doe` +
+* `refer Doe`
+
+Format 2: `refer d/ DOCTORNAME p/NAME [MORE_NAMES]` +
+Refers target patient to a doctor specified by the user. Format 2 works exactly like format 1. If input contains an invalid doctor name (non-alphanumeric), an invalid command format message will be printed. +
+[Note]
+When a refer is successful using this format, the default doctor would be updated as this new doctor specified in the latest format 2 entry.
+
+Examples: +
+* `refer d/DoctorTan p/John Doe` +
+* `refer d/Dr Tan p/John Doe` +
+* `refer d/Dr Tan p/Doe`
+
+//@@author WuPeiHsuan
+== Listing all persons in sorted order : `sort`
+
+Shows a list of all persons sorted by desired attribute in alphabetical order in the address book. +
+Desired attribute must be name, appointment or status. +
+Format: `sort DESIRED_ATTRIBUTE`
+
+Examples:
+
+* `sort name` +
+Shows a list of all persons sorted by name in alphabetical order in the address book. 
+
+* `sort status` +
+Shows a list of all persons sorted by status according to the degree of urgency in the address book.
+The sequence of the status in this order is as follows: Critical, Waiting for Surgery, Life-support, Waiting for doctor appointment, Therapy and Observation.
+
+* `sort appointment` +
+Shows a list of all persons sorted by appointment date in chronological order in the address book.
+
+//@@author
+
+== Listing all appointments of a Doctor : `appointment`
+
+Displays a list of all patients who have appointments with a specific doctor.
+The list of persons are sorted by on chronological order of their appointment dates.
+For easy-readability, only the name and appointment date of each person is displayed.
+
+Format: `appointment DOCTOR_NAME`
+
+Examples: 
+
+* `appointment DoctorTan` +
+Shows a list of all patients who have appointments with DoctorTan.
+
 == Finding all persons containing any keyword in their name: `find`
 
 Finds persons whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-[NOTE]
-====
-The search is case sensitive, the order of the keywords does not matter, only the name is searched,
-and persons matching at least one keyword will be returned (i.e. `OR` search).
-====
+== Printing out the timetable (day) of a Doctor : `apptDate`
+
+Displays the doctor's appointment timetable for a specific day.
+A nice timeline will be shown. Can be used for dates older than the current date. (appointment history)
+Each time slot is 15 minutes. The timeline shows all the slots in the day, and indicates which slots are available or occupied.
+
+Format: `apptDate DOCTOR_NAME m/YYYY MM DD`
 
 Examples:
 
-* `find John` +
-Returns `John Doe` but not `john`.
-
-* `find Betsy Tim John` +
-Returns Any person having names `Betsy`, `Tim`, or `John`.
+* `apptDate DoctorTan m/2020 11 04` +
+Shows a list of all patients who have appointments with DoctorTan on 4th of November.
 
 == Deleting a person : `delete`
 
