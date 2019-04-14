@@ -32,9 +32,28 @@
 
 == Design
 
-image::ClassDiagram.png[]
+image::ClassDiagram.png["800"]
 
 //@@author WuPeiHsuan
+
+`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`]. It is responsible for,
+
+* At app launch: Initializing the components, and creating the GUI.
+* At shut down: Shutting down the components, closing the GUI and exiting the program.
+
+* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+
+<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
+The following class plays an important role at the architecture level:
+
+* <<Design-Ui,*`UI`*>>: The UI of the App.
+* <<Design-Logic,*`Logic`*>>: The command executor.
+* <<Design-Data,*`Data`*>>: Holds the data of the App in-memory.
+* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+
+Out of the four components
+
+* Only UI and Data defines its _API_ in an `interface`.
 
 == Testing
 
