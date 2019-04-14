@@ -166,7 +166,7 @@ These instructions only provide a starting point for testers to work on; testers
 === Login/Register/Logout Feature 
 
 [NOTE]
-The username password pair: Admin Admin123 is registered by default for testing purpose. (This is only valid for the user who has cloned our project repo. For jar file there is no such default account, and user will have to register a new account before starting to use the application.)
+The username password pair: `Admin` `Admin123` is registered by default for testing purpose. (This is only valid for the user who has cloned our project repo. For jar file there is no such default account, and user will have to register a new account before starting to use the application.)
 
 . Login
 
