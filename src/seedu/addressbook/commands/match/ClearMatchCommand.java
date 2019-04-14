@@ -2,6 +2,7 @@ package seedu.addressbook.commands.match;
 
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
+import seedu.addressbook.data.exception.IllegalValueException;
 
 /**
  * Clears the match list in address book.
@@ -16,7 +17,12 @@ public class ClearMatchCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        addressBook.clearMatch();
-        return new CommandResult(MESSAGE_SUCCESS);
+        try {
+            addressBook.clearMatch();
+            return new CommandResult(MESSAGE_SUCCESS);
+
+        } catch (IllegalValueException ive) {
+            return new CommandResult(ive.getMessage());
+        }
     }
 }

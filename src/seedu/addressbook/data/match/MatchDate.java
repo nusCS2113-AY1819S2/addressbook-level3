@@ -15,7 +15,7 @@ import java.util.List;
 public class MatchDate implements Comparable<MatchDate> {
 
     public static final String MESSAGE_INVALID_DATE_FORMAT = "Date should be valid and in format: dd mmm yyyy";
-    public static final String EXAMPLE = "15 Jun 2019";
+    public static final String EXAMPLE = "13 Jan 1991";
     public final Calendar calendar = new GregorianCalendar();
 
     /**
