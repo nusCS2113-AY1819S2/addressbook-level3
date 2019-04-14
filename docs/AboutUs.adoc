@@ -6,7 +6,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-Doctor on Call was developed by https://github.com/cs2113-ay1819s2-t11-2. It aims to reduce the inefficient communication between doctors and patients.
+Doctor on Call was developed by https://github.com/cs2113-ay1819s2-t11-2. It is a desktop address book application designed to facilitate doctors to manage patient information and aims to reduce the inefficient communication between doctors and patients.
 
 == User Interface
 
