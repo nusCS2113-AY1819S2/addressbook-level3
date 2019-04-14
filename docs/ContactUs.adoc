@@ -1,4 +1,7 @@
 //@@author liguanlong
+= About Us
+:site-section: ContactUs
+:stylesDir: stylesheets
 
 == Contact Us
 
