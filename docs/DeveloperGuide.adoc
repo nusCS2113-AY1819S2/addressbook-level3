@@ -33,10 +33,20 @@
 //@@author WuPeiHsuan
 == Design
 
+.Class Diagram
 image::ClassDiagram.png[width="800"]
 
 
 //@@author shawn-t
+
+[[Design-Architecture]]
+=== Architecture
+
+.Architecture Diagram
+image::Architecture.png[width="800"]
+
+The *_Architecture Diagram_* given above explains the high-level design of our Project. Given below is a quick overview of each component.
+
 `Main` has only one class called link:https://github.com/cs2113-ay1819s2-t11-2/main/blob/master/src/seedu/addressbook/Main.java[`Main`]. It is responsible for,
 
 * At app launch: Initializing the components, and creating the GUI.
