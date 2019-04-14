@@ -31,7 +31,7 @@ It is written in Java.
 *** Managed releases `v1.1` - `v1.3` (3 releases) on GitHub
 *** Create milestones and set deadlines
 ** Enhancements to existing features:
-*** Wrote additional tests for existing features 
+*** Updated tests for existing features 
 ** Documentation:
 *** Wrote the README page.
 *** Drew the class diagram.
@@ -39,7 +39,6 @@ It is written in Java.
 *** PRs reviewed (with non-trivial review comments)
 *** Contributed to forum discussions
 *** Reported bugs and suggestions for other teams in the class
-*** Some parts of the history feature I added was adopted by several other class mates
 ** Tools:
 *** Enable Travis CI for the team repo.
 
