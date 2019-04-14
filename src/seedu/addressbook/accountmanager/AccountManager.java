@@ -51,6 +51,7 @@ public class AccountManager {
             // check if command is login
             if (accountInfo.length == 3 && accountInfo[0].equals("login")) {
                 // check if username and password are correct
+            if (accountInfo.length == 3 && accountInfo[0].equals("login")) {
                 if (this.accounts.containsKey(accountInfo[1]) && this.accounts.get(accountInfo[1]).equals(accountInfo[2])) {
                     this.currentAccount = accountInfo[1];
                     setLoginStatus(true);
@@ -77,7 +78,6 @@ public class AccountManager {
             }
             // if no match with any command, return invalid format message
             return INVALID_FORMAT;
-
         }
         catch (Exception e){
             return INVALID_FORMAT;
