@@ -77,7 +77,7 @@ The sections below give more details of each component.
 === AccountManager Component
 
 *API* : link:https://github.com/cs2113-ay1819s2-t11-2/main/blob/master/src/seedu/addressbook/accountmanager/AccountManager.java[`AccountManager`] +
-For detailed implementation for AccountManager Component, please refer to <<Implementation - Login/Register/Logout Feature,*`Implementation - Login/Register/Logout Feature`*>>
+For detailed implementation for AccountManager Component, please refer to <<Implementation,*`Implementation`*>>
 
 [[Design-Data]]
 === Data Component
@@ -236,30 +236,64 @@ In addition to the Appointment class, we update the ReadOnlyPerson interface and
 === Refer feature
 ==== Current Implementation
 
-The refer feature is facilitated by the ReferCommand class and AddressBook class, and it implements the following operations:
+The refer feature is facilitated by the ReferCommand class, Logic class, Parser class and AddressBook class, and it implements the following operations:
 
+* `prepareRefer()` -- checks if input is valid and splits it at the specific prefix d/ when necessary
+* `getPatientToRefer()` -- looks up addressbook and returns target patient to refer
 * `toRefer = new Person(
              person.getName(),
              person.getPhone(),
              person.getEmail(),
              person.getAddress(),
              person.getAppointment(),
-             new Doctor("Dr Seuss"),
-             new Status("Referred"),
+             new Doctor(referraldoctor),
+             person.getStatus(),
              person.getTags()
-             );` -- Copies and modifies taget person's parameters
-* `addressBook.removePerson(person)` -- removes target person
-* `addressBook.addPerson(toRefer)` -- adds the edited person back into the addressbook
+             );` -- Copies and modifies taget patient's doctor name
+* `tagSet.add(new Tag("referred"))` -- adds a refer tag
+* `addressBook.removePerson(person)` -- removes target patient
+* `addressBook.addPerson(toRefer)` -- adds the newly update patient entry back into the addressbook
 
-Given below is an example usage scenario and how the refer feature is incorporated at each step.
+Given below is an example usage scenario and how the refer feature is incorporated at each step. The _Sequence Diagram for referring a patient_ is being provided at the end to further aid in illustrating this example.
 
 Step 1. The user executes command "refer john"
 
-Step 2. ReferCommand class looks through the Addressbook for all entries containing the keyword "john"
+Step 2.Logic class calls Parser class through command `parserCommand("refer John")`
 
-Step 3. If there is only one entry, ReferCommand modifies the entry's Doctor and adds a new tag 'refer' to the current collection of tags, deletes the old and adds the newly modified patient entry into the addressbook. If there are multiple entires, ReferCommand class prints all entries in the address book with the keyword and prompts user to key unique keyword (Repeats to Step 1).
+Step 3. Parser class calls method `prepareRefer("John")` to checks if input is valid and splits it at the specific prefix d/ when necessary.
 
-Step4. The successful execution returns a MESSAGE_SUCCESS along with the patient's particulars that are updated.
+Step 4. Parser class calls ReferCommand to start evoke the refer.
+
+Step 5. ReferComand class calls method `getPatientToRefer("John")` to looks through the Addressbook for all entries containing the keyword "john"
+
+Step 6. If there is only one entry, ReferCommand modifies the entry's Doctor and adds a new tag 'refer' to the current collection of tags, deletes the old and adds the newly modified patient entry into the addressbook. If there are multiple entires, ReferCommand class prints all entries in the address book with the keyword and prompts user to key unique keyword (Repeats to Step 1).
+
+Step7. The successful execution returns a MESSAGE_SUCCESS along with the patient's updated particulars.
+
+.Sequence Diagram for referring a patient
+image::ReferCommandSequenceDiagram.png[width="800"]
+
+//@@author shawn-t
+=== Length feature
+==== Current Implementation
+
+The refer feature is facilitated by the LengthCommand class, Logic class, Parser class and AddressBook class, and it implements the following operation:
+
+* `addressBook.size()` -- queries and returns the size of the addressbook
+
+Given below is an example usage scenario and how the length feature is incorporated at each step. The _Sequence Diagram for getting addressbook length_ is being provided at the end to further aid in illustrating this example.
+
+Step 1. The user executes command "length"
+
+Step 2.Logic class calls Parser class through command `parserCommand("length")`
+
+Step 3. Parser class calls LengthCommand to query the size of addressbook.
+
+Step 4. The successful execution returns the length of the address book.
+
+
+.Sequence Diagram for getting address book length
+image::LengthCommandSequenceDiagram.png[width="800"]
 
 //@@author liguanlong
 
