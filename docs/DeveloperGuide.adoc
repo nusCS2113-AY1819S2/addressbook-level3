@@ -77,7 +77,7 @@ The sections below give more details of each component.
 === AccountManager Component
 
 *API* : link:https://github.com/cs2113-ay1819s2-t11-2/main/blob/master/src/seedu/addressbook/accountmanager/AccountManager.java[`AccountManager`] +
-For detailed implementation for AccountManager Component, please refer to <<Implementation,*`Implementation`*>>
+For detailed implementation for AccountManager Component, please refer to <<Implementation - Login/Register/Logout Feature,*`Implementation - Login/Register/Logout Feature`*>>
 
 [[Design-Data]]
 === Data Component
@@ -803,7 +803,7 @@ Expected: An error message: Status should be Observation/ Critical / Waiting for
 === Login/Register/Logout Feature 
 
 [NOTE]
-The username password pair: `Admin` `Admin123` is registered by default for testing purpose.
+The username password pair: `Admin` `Admin123` is registered by default for testing purpose. (This is only valid for the user who has cloned our project repo. For jar file there is no such default account, and user will have to register a new account before starting to use the application.)
 
 . Login
 
