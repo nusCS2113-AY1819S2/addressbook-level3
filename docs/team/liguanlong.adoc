@@ -162,7 +162,7 @@ These instructions only provide a starting point for testers to work on; testers
 === Login/Register/Logout Feature 
 
 [NOTE]
-The username password pair: Admin Admin123 is registered by default for testing purpose.
+The username password pair: `Admin` `Admin123` is registered by default for testing purpose.
 
 . Login
 
