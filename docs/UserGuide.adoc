@@ -644,7 +644,7 @@ Example: +
 Adds a new match with the specified details.
 
 .Successful addition of match between teams "Fulham" and "Chelsea" on "1 Jan 2019"
-image::addmatch.png[]
+image::addmatch.PNG[]
 {empty} +
 {empty} +
 
@@ -661,14 +661,14 @@ Example: +
 * `listmatch` +
 
 .The list of match in League Tracker
-image::listmatch2.png[]
+image::listmatch2.PNG[]
 
 * `deletematch 1` +
 
 Deletes the 1st match in the match list.
 
 .Successful deletion of 1st match in the list
-image::deletematch.png[]
+image::deletematch.PNG[]
 
 
 {empty} +
@@ -682,7 +682,7 @@ Format : `clearmatch` +
 Clears all matches in League Tracker.
 
 .Successful clearing of matches
-image::clearmatch.png[]
+image::clearmatch.PNG[]
 
 {empty} +
 {empty} +
@@ -695,7 +695,7 @@ Format : `listmatch`
 List all matches in League Tracker.
 
 .The list of match in League Tracker
-image::listmatch.png[]
+image::listmatch.PNG[]
 
 {empty} +
 {empty} +
@@ -727,7 +727,7 @@ will be displayed.
 {empty} +
 
 .Successful search displaying the matches with date that has same day, month or year "01 Feb 2020"
-image::findmatch.png[]
+image::findmatch.PNG[]
 
 {empty} +
 {empty} +
@@ -755,14 +755,14 @@ Example: +
 * `listmatch` +
 
 .The list of match in League Tracker
-image::listmatch.png[]
+image::listmatch.PNG[]
 
 * `updatematch 1 h/20 a/8` +
 
 Updates the 1st match in the match list with specified match results.
 
 .Successful update of 1st match in the list
-image::updatematch.png[]
+image::updatematch.PNG[]
 
 {empty} +
 {empty} +
@@ -780,14 +780,14 @@ Example: +
 * `listmatch` +
 
 .The list of match in League Tracker
-image::listmatch2.png[]
+image::listmatch2.PNG[]
 
 * `viewmatch 1` +
 
 Display the 1st match details.
 
 .Details of the 1st match in the list
-image::viewmatch.png[]
+image::viewmatch.PNG[]
 // end::matchug[]
 
 {empty} +
