@@ -789,7 +789,8 @@ add Betsy Doe pp/1234567 e/betsycrowe@gmail.com pa/Doe Newgate m/2019 11 14 08 0
 Expected: An error message: `Invalid command format!` is displayed on the screen, with the displays the correct format below. +
 
 .. Test case 2: `refer ` +
-Expected: An error message: `Invalid command format!` is displayed on the screen, with the displays the correct format below. +
+Expected: An error message: +
+`Invalid command format!` is displayed on the screen, with the displays the correct format below. +
 
 .. Test case 3: `refer Shawn` +
 Expected: Prints out full particulars of all 3 patients with the name of `Shawn`, followed by a message: `3 similar entries have been found. Please re-enter patient's FULL NAME to refer` to prompt for a re-entry of the ful name of the target patient. +
