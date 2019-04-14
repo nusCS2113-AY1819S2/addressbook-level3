@@ -179,6 +179,13 @@ The finance feature is facilitated by `AddressBook`, `GetFinanceCommand`, `ViewF
 
 The finance feature is mainly supported by `Finance` class and `Command` class.
 
+* The following section covers some of the feature implementation. +
+
+1. <<Finance Class>> +
+2. <<Data Processing in Finance>> +
+3. <<Histogram>> +
+3. <<Update of Finance Data>> +
+
 ===== Finance Class
 
 The class diagram below illustrates the `Finance` class.
@@ -235,7 +242,7 @@ This conversion of numbers to a graphic display is achieved by
 
 The 2D string array is converted to a single string in order to be easier displayed.
 
-===== update of Finance data
+===== Update of Finance Data
 Finance objects are affected if there are changes in related Team objects or Match objects ie. changes of
 sponsor and ticket sales, making it dependent on these two classes. Additionally, the number of objects in
 the finance list should be the same of those in the team list. For example, when a team is deleted from League Tracker,
@@ -250,6 +257,8 @@ image::code_two.png[width="700"]
 [NOTE]
 This method is called every time information of the current financial condition of in the league is enquired.
 This method is used in `ListFinanceCommand`, `GetLeagueFinanceCommand` and `RankFinanceCommand`.
+{empty} +
+
 
 ==== Design Considerations
 ===== Aspect: How to update Finance objects
