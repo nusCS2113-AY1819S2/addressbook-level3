@@ -18,7 +18,7 @@ Please refer to the <<DeveloperGuide#setting-up, Setting up>> section to learn h
 . Click `Run Main.main()`
 . The GUI should appear in a few seconds
 +
-image:https://raw.githubusercontent.com/cs2113-ay1819s2-t11-2/main/master/docs/images/UI_1.4.png[width=800]
+image:https://raw.githubusercontent.com/cs2113-ay1819s2-t11-2/main/master/docs/images/Ui.png[width=800]
 
 == Viewing help : `help`
 

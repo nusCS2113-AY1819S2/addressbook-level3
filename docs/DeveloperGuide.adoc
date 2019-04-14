@@ -32,9 +32,51 @@
 
 == Design
 
-image::ClassDiagram.png[]
+[[Design-Architecture]]
+=== Architecture
 
 //@@author WuPeiHsuan
+.Architecture Diagram
+image::ClassDiagram.png[width="800"]
+
+The *_Architecture Diagram_* given above shows a detailed overview of how each class is related/ interacts with each other in the design of our project.
+
+//@@author shawn-t
+.Simplified Architecture Diagram
+image::Architecture.png[width="800"]
+
+The *_Simplified Architecture Diagram_* above is an abstraction of the first diagram provided. It categorises classes into the respective components by colour. Given below is a quick overview of each component.
+
+`Main` has only one class called link:https://github.com/cs2113-ay1819s2-t11-2/main/blob/master/src/seedu/addressbook/Main.java[`Main`]. It is responsible for,
+
+* At app launch: Initializing the components, and creating the GUI.
+* At shut down: Shutting down the components, closing the GUI and exiting the program.
+
+<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
+The following class plays an important role at the architecture level:
+
+* <<Design-Ui,*`UI`*>>: The UI of the App.
+* <<Design-Logic,*`Logic`*>>: The command executor.
+* <<Design-Data,*`Data`*>>: Holds the data of the App in-memory.
+* <<Design-Parser,*`Parser`*>>: Parses user input.
+* <<Design-Command,*`Command`*>>: A collection of commands classes that defines behaviour of the respective commands.
+* <<Design-AccountManager,*`AccountManager`*>>: Manages the logging in / out of user accounts.
+* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+
+[discrete]
+==== How the architecture components interact with each other
+
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+
+.Component interactions for `delete 1` command
+image::SDforDeletePerson.png[width="800"]
+
+The sections below give more details of each component.
+
+[[Design-Commons]]
+=== Common classes
+
+Classes used by multiple components are in the `seedu.addressbook.commons` package. In our project, Messages class and Utils class are the only two classes in this package.
 
 == Testing
 
@@ -145,7 +187,7 @@ Step 1. The user executes command "refer john"
 
 Step 2. ReferCommand class looks through the Addressbook for all entries containing the keyword "john"
 
-Step 3. If there is only one entry, ReferCommand modifies the entry's Doctor and Status parameters, deletes the old and adds the newly modified patient into the addressbook. If there are multiple entires, ReferCommand class prints all entries in the address book with the keyword and prompts user to key unique keyword (Repeats to Step 1).
+Step 3. If there is only one entry, ReferCommand modifies the entry's Doctor and adds a new tag 'refer' to the current collection of tags, deletes the old and adds the newly modified patient entry into the addressbook. If there are multiple entires, ReferCommand class prints all entries in the address book with the keyword and prompts user to key unique keyword (Repeats to Step 1).
 
 Step4. The successful execution returns a MESSAGE_SUCCESS along with the patient's particulars that are updated.
 
@@ -154,7 +196,7 @@ Step4. The successful execution returns a MESSAGE_SUCCESS along with the patient
 === Login/Register/Logout Feature 
 ==== Current Implementation
 
-The login / register mechanism is facilitated by `AccountManager`, it implements the following operations:
+The login/register/logout mechanism is facilitated by `AccountManager`, it implements the following operations:
 
 * `AccountManager()` -- The constructor for the class `AccountManager`.
 * `getLoginStatus()` -- Returns the login status to the caller.
@@ -240,7 +282,7 @@ In addition to the Appointment class, we update the ReadOnlyPerson interface and
 
 The example usage scenario is similar to the scenario of the Add appointment feature below.
 
-=== Add appointment feature 
+=== Add Appointment feature 
 ==== Current Implementation
 
 the add appointment feature is facilitated by the `Appointment` class, it implements the following operations:
@@ -323,6 +365,23 @@ Step 9. The `MainWindow` displays the newly formatted Persons in neat rows, disp
 === ApptDate feature (coming in v1.4)
 
 //@@author
+
+[appendix]
+== Product Scope
+
+*Target user profile*:
+
+* hospital doctor who has several long-term patients he/she has to take care of.
+* prefer desktop apps over other types
+* can type fast
+* prefers typing over mouse input
+* is reasonably comfortable using CLI apps
+
+*Value proposition*: 
+
+* manage contacts faster than a typical mouse/GUI driven app
+* To reduce inefficient communication between patients and doctors, so as to reduce the chances of patients having delays in treatment.
+
 [appendix]
 == User Stories
 
@@ -337,15 +396,22 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |doctor |keep track of current and past appointments with patients that I have for the day |be on time to deliver treatment
 |`* * *` |doctor |have a custom-made address book  |filter out the patients that are not affiliated to me
 |`* * *` |doctor |sort my patient according to my desired attribute |prioritize the allocation of my resources
-|`* * *` |doctor |good authentication |my patients’ data are protected and not easily disclosed
-|`* * *` |doctor |be able to directly refer patients to respective specialists | focus on attending to patients with medical conditions relevant to my expertise, and ensure that others are properly referred to the correct doctor to attend to their specific medical condition(s).
-|`*` |doctor with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |doctor |have good authentication |my patients’ data are protected and not easily disclosed
+|`* * *` |doctor |be able to directly refer patients to respective specialists |focus on attending to patients with medical conditions relevant to my expertise, and ensure that others are properly referred to the correct doctor to attend to their specific medical condition(s).
+|`* * *`|doctor |print out a list of all patients who have appointments with me|keep track of my appointments
+|`* *`|doctor |print my timetable of appointments neatly| manage my appointment more conveniently
+|`* *` |doctor |track the status of all my patients |know the stage of treatment in which the patient is undergoing
+|`* *` |doctor |indicate my patients' appointment date when I add him/her into addressbook |keep track of their appointment date
+
 
 //@@author
 
 |===========================================================================================================================================
 
 [appendix]
+
+//@@author shawn-t
+
 == Use Cases
 
 (For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
@@ -384,9 +450,9 @@ Use case resumes at step 2.
 *Main success scenario:*
 
 . The user requests to refer patient to another doctor.
-. AddressBook finds patient from the list of entries, and extract all the relevant particulars of the target patient.
-. Addressbook stores the extracted particulars in a temporary location and updates it with the new doctor's name and patient tag.
-. AddressBook deletes the old patient entry from the main list and updates the main list with the newly updated entry.
+. AddressBook finds patient from the list of entries, and extracts all the relevant particulars of the target patient.
+. Addressbook updates the extracted particulars with the new doctor's name and patient tag.
+. AddressBook deletes the old patient entry from the main list and adds the newly updated one into the main list.
 +
 Use case ends.
 
@@ -399,9 +465,15 @@ Use case ends.
 +
 Use case resumes at step 2.
 
-* 1b. Patient name has duplicates.
-** 1a1. AddressBook prints out patients' indexes and prompts users to select the correct index.
-** 1a2. User enters correct patient's index.
+* 1b. There are multiple entries in the addressbook with the same patient name(s) entered by the user.
+** 1b1. AddressBook prints out all similar patient entries and prompts users to to identify the correct patient.
+** 1b2. User enters correct patient's full name.
++
+Use case resumes at step 2.
+
+* 1c. The format of the doctor's name entered by the user is incorrect (non-alphanumeric).
+** 1c1. AddressBook shows an error message and reminds users that doctor names can only contain alphanumeric characters.
+** 1c2. User enters a valid doctor's name that follows the condition above.
 +
 Use case resumes at step 2.
 
@@ -562,3 +634,75 @@ Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others.
+
+[appendix]
+== Instructions for Manual Testing
+
+Given below are instructions to test the app manually.
+
+[NOTE]
+These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+
+=== Launch and Shutdown
+
+. Initial launch
+
+.. Download the jar file and copy into an empty folder
+.. Double-click the jar file +
+   Expected: Shows the GUI with welcome message. The window size may not be optimum.
+
+. Saving window preferences
+
+.. Resize the window to an optimum size. Move the window to a different location. Close the window.
+.. Re-launch the app by double-clicking the jar file. +
+   Expected: The most recent window size and location is retained.
+
+=== Sort feature
+
+=== Add Status feature
+
+=== Refer feature
+
+//@@author liguanlong
+=== Login/Register/Logout Feature 
+
+[NOTE]
+The username password pair: `Admin` `Admin123` is registered by default for testing purpose.
+
+. Login
+
+.. Prerequisites: The user has not logged in to the system.
+.. Test case: `login Admin Admin321` + 
+Expected: An error message: `Invalid username or password, please try again` is displayed on the screen.
+.. Test case: `login Admin Admin123` +
+Expected: Login succeed.
+.. Other incorrect login commands to try: `login`, `login Admin Admin123 Admin123` +
+Expected: Helping message is displayed on the screen.
+
+. Register
+
+.. Prerequisites: The user has not logged in to the system.
+.. Test case: `register newuser 12345` +
+Expected: An error message: `The password should contain at least one lowercase letter, one uppercase letter, and one digit` is displayed on the screen.
+.. Test case: `register Admin Password123` +
+Expected: An error message: `The username has already been registered, please try a new username` is displayed on the screen.
+.. Test case: `register newuser New123` +
+Expected: Registration succeed.
+.. Other incorrect register commands to try: `register`, `register Admin Admin123 Admin123` +
+Expected: Helping message is displayed on the screen.
+
+. Logout
+.. Prerequisites: The user has already logged in to the system.
+.. Test case: `logout` +
+Expected: The user is directed back to the login page.
+.. Other incorrect logout commands to try: `logout123` +
+Expected: Helping message is displayed on the screen.
+//@@author
+
+=== Add Doctor feature
+
+=== Add Appointment feature
+
+=== DoctorAppointments command
+
+=== ApptDate feature

@@ -12,7 +12,9 @@ public class AccountManager {
 
     private boolean loginStatus;
     private String currentAccount;
+    private Map<String, String> accounts = new HashMap<String, String>();
 
+    // All the string constants used in the class
     public static final String LOGIN_PROMPT = "Please login or register in order to use the address book";
     public static final String LOGOUT_MESSAGE_USAGE = "logout" + ":\n"
             + "Log the current user out.\n\t"
@@ -23,7 +25,6 @@ public class AccountManager {
     private static final String INVALID_FORMAT = "Please login or register using: " + "\n" + "login username password" + "\n" + "register username password";
     private static final String USERNAME_REGISTERED = "The username has already been registered, please try a new username";
     private static final String WEAK_PASSWORD = "The password should contain at least one lowercase letter, one uppercase letter, and one digit";
-    private Map<String, String> accounts = new HashMap<String, String>();
 
 
     public AccountManager(){
@@ -42,11 +43,14 @@ public class AccountManager {
     public String accountCommandHandler(String userCommandText){
         String[] accountInfo = userCommandText.split(" ");
         try {
+            // check if command is exit
             if (accountInfo.length == 1 && accountInfo[0].equals("exit")){
                 storeAccounts();
                 System.exit(0);
             }
+            // check if command is login
             if (accountInfo.length == 3 && accountInfo[0].equals("login")) {
+                // check if username and password are correct
                 if (this.accounts.containsKey(accountInfo[1]) && this.accounts.get(accountInfo[1]).equals(accountInfo[2])) {
                     this.currentAccount = accountInfo[1];
                     setLoginStatus(true);
@@ -56,29 +60,29 @@ public class AccountManager {
                     return INVALID_USERNAME_OR_PASSWORD;
                 }
             }
-            else{
-                if (accountInfo.length == 3 && accountInfo[0].equals("register")){
-                    String username = accountInfo[1];
-                    if (this.accounts.containsKey(accountInfo[1])) {
-                        return USERNAME_REGISTERED;
-                    }
-                    String password = accountInfo[2];
-                    if (weakPassword(password)){
-                        return WEAK_PASSWORD;
-                    }
-                    register(username, password);
-                    return REGISTRATION_SUCCEED;
+            // check if command is register
+            if (accountInfo.length == 3 && accountInfo[0].equals("register")){
+                String username = accountInfo[1];
+                // if the username has already been registered
+                if (this.accounts.containsKey(accountInfo[1])) {
+                    return USERNAME_REGISTERED;
                 }
-                else{
-                    return INVALID_FORMAT;
+                String password = accountInfo[2];
+                // if the password does not contain at least one lowercase letter, one uppercase letter and one digit
+                if (weakPassword(password)){
+                    return WEAK_PASSWORD;
                 }
+                register(username, password);
+                return REGISTRATION_SUCCEED;
             }
-        }
-        catch (Exception e){
+            // if no match with any command, return invalid format message
+            return INVALID_FORMAT;
+        } catch (Exception e){
             return INVALID_FORMAT;
         }
     }
 
+    // load all the accounts from accounts.properties to the HashMap accounts
     private void loadAccounts() {
         try {
             Properties accountsFile = new Properties();
@@ -88,10 +92,11 @@ public class AccountManager {
             }
         }catch (IOException e)
         {
-
+            e.printStackTrace();
         }
     }
 
+    // store all the accounts in HashMap accounts to accounts.properties
     public void storeAccounts() {
         try {
             Properties accountsFile = new Properties();
@@ -101,7 +106,7 @@ public class AccountManager {
             accountsFile.store(new FileOutputStream("accounts.properties"), null);
         } catch (IOException e)
         {
-
+            e.printStackTrace();
         }
     }
 
@@ -120,7 +125,7 @@ public class AccountManager {
     }
 
     private boolean weakPassword(String password){
-        return password.toLowerCase().equals(password) || doesNotContainDigit(password);
+        return password.toLowerCase().equals(password) || password.toUpperCase().equals(password) || doesNotContainDigit(password);
     }
 
     private boolean doesNotContainDigit(String password){
