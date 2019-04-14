@@ -10,18 +10,18 @@ public class ReferCommand extends Command {
 
     public static final String COMMAND_WORD = "refer";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Finds all persons whose names contain any of "
-            + "the specified keywords (case-sensitive) and displays them as a list with index numbers.\n\t"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Refers patient specified to a default doctor (format 1) or a specific doctor (format 2)"
+            + "If there are multiple entries, prints them out and prompts user to re-enter full name of the target patient.\n\t"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n\t"
-            + "Example: " + COMMAND_WORD + " alice bob charlie\n\t"
-            + "Example: " + COMMAND_WORD + " d/Dr Who p/ John Doe";
+            + "Example of format 1: " + COMMAND_WORD + " John Doe\n\t"
+            + "Example of format 2: " + COMMAND_WORD + " d/Dr Wong p/ John Doe";
 
     public static final String MESSAGE_REFER_SUCCESS = "Patient %2$s has been successfully referred to %3$s!! :D\n\n********************************************************************************************************\n%1$s \n********************************************************************************************************";
     public static final String MESSAGE_NO_SUCH_PERSON = "%1$s\nThis patient does not exists in the address book records.";
     public static final String MESSAGE_INVALID_DOCTOR_NAME = "Doctor's names should only contain spaces and/or alphanumeric characters\nSpecial characters like . ! @ # , etc are not allowed!\nPlease re-enter with an appropriate doctor name.";
 
     private final Set<String> keywords;
-    private volatile String referraldoctor = "Dr Seuss";
+    private static volatile String referraldoctor = "Dr Seuss";
 //    String params[];
 //    Set<String> tags;
     private Person toRefer;
