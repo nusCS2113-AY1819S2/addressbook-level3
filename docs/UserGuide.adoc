@@ -83,7 +83,11 @@ Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optiona
 items with `...` after them can have multiple instances. Order of parameters are fixed.
 
 Note that the appointment date must be in the format of YYYY MM DD HH MM, in other for the DoctorAppointment Command to work.
-The hour and minute follows the 24hour clock format. Incorrect time formats will throw an error in parsing.
+The hour and minute follows the 24hour clock format. Appointment timings must be in blocks of 15minutes. The accepted minutes are 00, 15, 30, 45.
+No appointments are allowed before 8am or before system current time. Incorrect time formats will throw an error in parsing.
+Appointments with the same doctor at the same timing is not allowed.
+
+The doctor's name is case sensitive.
 
 The status must be any of following status: Critical / Waiting for Surgery / Life Support / Waiting for doctor appointment / Therapy / Observation.
 
@@ -93,11 +97,10 @@ be seen using the `viewall` command.
 Persons can have any number of tags (including 0)
 ****
 
-Please input appointment times in blocks of 15minutes, and ensure that no repeated appointment timings.
 Examples:
 
-* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01 m/2009 12 11 14 30 d/DoctorTan s/Observation`
-* `add Betsy Crowe pp/1234567 e/betsycrowe@gmail.com pa/Newgate Prison m/2011 11 04 08 00 d/DoctorTan s/Observation t/criminal t/friend`
+* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01 m/2020 12 11 14 30 d/DoctorTan s/Observation`
+* `add Betsy Crowe pp/1234567 e/betsycrowe@gmail.com pa/Newgate Prison m/2020 11 04 08 00 d/DoctorTan s/Observation t/criminal t/friend`
 
 == Listing all persons : `list`
 
@@ -152,17 +155,17 @@ Shows a list of all persons sorted by appointment date in chronological order in
 
 //@@author
 
-== Listing all appointments of a Doctor : `DoctorAppointments`
+== Listing all appointments of a Doctor : `appointment`
 
-Displays a list of all persons who have appointments with a specific doctor. 
+Displays a list of all patients who have appointments with a specific doctor.
 The list of persons are sorted by on chronological order of their appointment dates.
 For easy-readability, only the name and appointment date of each person is displayed.
 
-Format: `DoctorAppointments DOCTOR_NAME`
+Format: `appointment DOCTOR_NAME`
 
 Examples: 
 
-* `DoctorAppointments DoctorTan` +
+* `appointment DoctorTan` +
 Shows a list of all patients who have appointments with DoctorTan.
 
 == Finding all persons containing any keyword in their name: `find`
@@ -170,17 +173,18 @@ Shows a list of all patients who have appointments with DoctorTan.
 Finds persons whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-== Printing out the timetable (day) of a Doctor : `ApptDate`
+== Printing out the timetable (day) of a Doctor : `apptDate`
 
-Displays an appointment timetable of the doctor for a specified date.
-Each time slot is 15 minutes. The timetable shows all the slots in the day, and indicates which slots are available or occupied.
+Displays the doctor's appointment timetable for a specific day.
+A nice timeline will be shown. Can be used for dates older than the current date. (appointment history)
+Each time slot is 15 minutes. The timeline shows all the slots in the day, and indicates which slots are available or occupied.
 
-Format: `ApptDate DOCTOR_NAME m/YYYY MM DD`
+Format: `apptDate DOCTOR_NAME m/YYYY MM DD`
 
 Examples:
 
-* `ApptDate DoctorTan m/2011 11 04` +
-Shows a list of all patients who have appointments with DoctorTan.
+* `apptDate DoctorTan m/2020 11 04` +
+Shows a list of all patients who have appointments with DoctorTan on 4th of November.
 
 == Deleting a person : `delete`
 
