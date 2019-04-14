@@ -58,6 +58,9 @@ The following class plays an important role at the architecture level:
 * <<Design-Ui,*`UI`*>>: The UI of the App.
 * <<Design-Logic,*`Logic`*>>: The command executor.
 * <<Design-Data,*`Data`*>>: Holds the data of the App in-memory.
+* <<Design-Parser,*`Parser`*>>: Parses user input.
+* <<Design-Command,*`Command`*>>: A collection of commands classes that defines behaviour of the respective commands.
+* <<Design-AccountManager,*`AccountManager`*>>: Manages the logging in / out of user accounts.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
 
 [discrete]
