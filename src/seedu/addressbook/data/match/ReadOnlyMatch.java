@@ -46,7 +46,8 @@ public interface ReadOnlyMatch {
                 && other.getHome().equals(this.getHome())
                 && other.getAway().equals(this.getAway())
                 && other.getHomeSales().equals(this.getHomeSales())
-                && other.getAwaySales().equals(this.getAwaySales()));
+                && other.getAwaySales().equals(this.getAwaySales())
+                && other.getScore().equals(this.getScore()));
     }
 
     /**

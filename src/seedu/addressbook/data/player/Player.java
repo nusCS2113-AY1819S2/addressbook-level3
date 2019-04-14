@@ -6,6 +6,7 @@ import java.util.Set;
 
 import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.tag.Tag;
+import seedu.addressbook.data.team.TeamName;
 
 
 /**
@@ -139,6 +140,24 @@ public class Player implements ReadOnlyPlayer {
     public void setTags(Set<Tag> replacement) {
         tags.clear();
         tags.addAll(replacement);
+    }
+
+    /**
+     *  Increases player's score by 1
+     */
+    public void addScore () throws IllegalValueException {
+        goalsScored = new GoalsScored (String.valueOf(Integer.valueOf(goalsScored.value) + 1));
+    }
+
+    /**
+     *  Decreases player's score by 1
+     */
+    public void subtractScore () throws IllegalValueException {
+        goalsScored = new GoalsScored (String.valueOf(Integer.valueOf(goalsScored.value) - 1));
+    }
+
+    public void clearGoals () throws IllegalValueException {
+        goalsScored = new GoalsScored("0");
     }
 
     @Override

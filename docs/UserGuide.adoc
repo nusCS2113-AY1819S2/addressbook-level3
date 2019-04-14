@@ -60,9 +60,27 @@ feature. These features will help you to manage useful information of your leagu
 {empty} +
 
 
-=== Players
+=== *Players*
 The players feature in the application helps you to manage information of players in the league.
+In League Tracker, a player profile consists of *11* necessary pieces of information (see Table 1 below)
+and *zero or more* tag(s) (optional)
 
+.The 11 necessary pieces of information
+|===
+| Player name
+| Position played by the player
+| Age of the player
+| Salary of the player (in USD)
+| Goals scored by the player
+| Goals assisted by the player
+| Name of the team that the player belongs to
+| Player's nationality
+| Player's jersey number in the current team
+| Number of appearance by the player in league games
+| Health status of the player
+|===
+
+{empty} +
 {empty} +
 
 
@@ -70,42 +88,21 @@ The players feature in the application helps you to manage information of player
 You can use the `addPlayer` command to add a new player to the League Tracker. +
 
 {empty} +
-{empty} +
+*Format* ：
 
-Format ：
-
-*  `addPlayer NAME p/POSITION a/AGE sal/SALARY gs/GOALSSCORED ga/GOALSASSISTED tm/TEAM ctry/COUNTRY jn/JERSEY_NUMBER
+*  `addPlayer NAME p/POSITION a/AGE sal/SALARY gs/GOALSSCORED ga/GOALSASSISTED tm/TEAM ctry/COUNTRY jn/JERSEYNUMBER
 app/APPEARANCE hs/HEALTHSTATUS t/TAGS`
 
 {empty} +
 
-Example: +
+*Example*: +
 
 *  `addPlayer Lionel Messi p/RW a/31 sal/20 gs/20 ga/20 tm/FC Barcelona ctry/Argentina jn/10 app/54 hs/Healthy`
 
 {empty} +
 
-If the player has been successfully added, a success message will be displayed to the user with all attributes
+If the player has been successfully added, a *success message* will be displayed to the user with all attributes
 listed(see figure 3)
-
-{empty} +
-
-IMPORTANT: In League Tracker, a player could only be added if he/she belongs to an existing team in League
-Tracker. Therefore, if the `Team` entered does not match any existing team in Leauge Tracker, player
-addition will not be successfully executed.
-
-{empty} +
-
-NOTE: Player names should be *spaces or alphanumeric characters*; +
-      Positions should be *spaces or alphanumeric characters*; +
-      Ages should be *integers between 0 and 100*; +
-      Salaries should be *positive numbers in million USD*; +
-      Goals Scored should be *a non-negative integer*; +
-      Goals Assisted should be *a non-negative integer*; +
-      Nationality should be a *string*; +
-      Jersey Number should be *an integer from 0 to 35*; +
-      Numbers of appearance should be *a non-negative integer*; +
-      Health Status should be a *string*;
 
 {empty} +
 
@@ -113,36 +110,59 @@ NOTE: Player names should be *spaces or alphanumeric characters*; +
 image::addSuccess.png[]
 
 {empty} +
+
+IMPORTANT: In League Tracker, a player could only be added if pass:q[<u>he/she belongs to an existing team in League
+Tracker</u>]. Therefore, if the `Team` entered does not match any existing team in Leauge Tracker, player
+addition will not be successfully executed.
+
+{empty} +
+
+NOTE: * `NAME` should be *spaces or alphanumeric characters*; +
+      * `Position` should be *spaces or alphanumeric characters*; +
+      * `AGE` should be *an integer between 0 and 100*; +
+      * `SALARY` should be *positive numbers in million USD*; +
+      * `GOALSSCORED` should be *a non-negative integer*; +
+      * `GOALSASSISTED` should be *a non-negative integer*; +
+      * `NATIONALITY` should be a *string*; +
+      * `JERSEYNUMBER` should be *an integer from 0 to 35*; +
+      * `APPEARANCE` should be *a non-negative integer*; +
+      * `HEALTHSTATUS` should be a *string*;
+
+{empty} +
 {empty} +
 
 ==== *Quick-add Player*
 As a full-detail `addPlayer` Command requires numerous attribute inputs from users,
-League Tracker provides an alternative command to *add player faster* with less attribute input
-needed from the user. You can use the `addFast` command to add a new player to the League Tracker.
+League Tracker provides an alternative command `addFast` to pass:[<u>add player faster</u>] with less attribute input
+needed from the user. +
+
 Only `NAME`, `POSITION`, `AGE`, `SALARY`, `TEAM`, `NATIONALITY`, `JERSEYNUMBER` and `TAGS (optional)`
  are needed as input.`GOALSSCORED`,`GOALSASSISTED`,`APPEARANCE` and `HEALTHSTATUS` are set to default values (0,0,0 and Healthy)
 
 {empty} +
 
-Format ：
+*Format* ：
 
 *  `addFast NAME p/POSITION a/AGE sal/SALARY tm/TEAM ctry/NATIONALITY jn/JERSEYNUMBER t/TAGS`
 
 {empty} +
 
-Example:
+*Example*:
 
 *  `addFast Lionel Messi p/RW a/31 sal/20 tm/FC Barcelona ctry/Argentina jn/10`
 
+{empty} +
+
+If the player has been successfully added, a *success message* will be displayed to the user with all attributes listed
+(including those that assume default values)(See figure 4)
 
 {empty} +
 
-
-If the player has been successfully added, a success message will be displayed to the user with all attributes listed
-(including those that assume default values)(See figure 4)
-
 .Success Message displayed after using addFast Command to add a player
 image::addFastSuccess.png[]
+
+
+NOTE: `addFast` Command has the same set of requirements on attribute data type as `addPlayer` command
 
 {empty} +
 {empty} +
@@ -150,18 +170,22 @@ image::addFastSuccess.png[]
 ==== *Delete Player By Index*
 You can use the `deletePlayer` command to delete an existing player in the League Tracker.
 
-First do a `listPlayer` command to obtain the index of player in the league record. Then perform `deletePlayer` command using this
+First you need to do a `listPlayer` command to pass:[<u>obtain the index of player</u>] in the league record.
+This step is *necessary*.
+
+Then perform `deletePlayer` command using this
 index.
 
 {empty} +
 
-Format ：
+*Format* ：
 
+*  `listPlayer` +
 *  `deletePlayer Index`
 
 {empty} +
 
-Example:
+*Example*:
 
 . Do a `listPlayer` command to obtain the index of all players in the league record.(See figure 5)
 
@@ -171,7 +195,7 @@ image::delete_PlayerListed.png[]
 . Assume that the user wants to delete the player named "Cristiano Ronaldo" with index 2, the user just needs to input
 `deletePlayer 2` as the delete command.
 
-. If successfully deleted, a message will be shown to the user. (See figure 6)
+. If successfully deleted, a *success message* will be shown to the user. (See figure 6)
 
 {empty} +
 
@@ -185,36 +209,18 @@ WARNING: For current versions of League Tracker, deletion of players are permane
 {empty} +
 {empty} +
 
-==== *Delete Player By Name and Team Name(coming in v1.4)*
-You can use the `deletePlayer` command to delete an existing player in the League Tracker. +
-
-{empty} +
-
-Format ：
-
-*  `deletePlayer NAME TEAM`
-
-{empty} +
-
-Example:
-
-*  `deletePlayer Lionel Messi tm/FC Barcelona`
-
-{empty} +
-{empty} +
-
 ==== *Delete All Players in League Tracker*
 You can use the `clearPlayer` command to delete all existing players in the League Tracker. +
 
 {empty} +
 
-Format :
+*Format* :
 
 *  `clearPlayer`
 
 {empty} +
 
-All players in League Tracker will be deleted and a successful message will be displayed to
+All players in League Tracker will be deleted and a *successful message* will be displayed to
 user (see figure 7).
 
 {empty} +
@@ -232,27 +238,28 @@ WARNING: For current versions of League Tracker, deletion of players are permane
 ==== *Display Player Profile By Index*
 You can use the `displayProfile` command to display the whole profile of a selected player. +
 
-First, you should do a `listPlayer` Command to obtain the index of the target player.
+First, you should do a `listPlayer` Command to pass:[<u>obtain the index of the target player.
+This step is *necessary*.
 
-Then, you can use this `displayProfile` Command for the full player profile for the player.
+Then, you can use this `displayProfile` Command to pass:[<u>obtain the full player profile for the playerpass:[<u>.
 
 {empty} +
 
-Format ：
+*Format* ：
 
 *  `listPlayer` +
 *  `displayProfile Index`
 
 {empty} +
 
-Example:
+*Example*:
 
 *  `listPlayer` +
 *  `displayProfile 1`
 
 {empty} +
 
-If the player with the index exists, a success message will be displayed to the user containing all information
+If the player with the index exists, a *success message* will be displayed to the user containing all information
 regarding the player
 
 {empty} +
@@ -265,13 +272,15 @@ image::viewAllSuccess.png[]
 
 
 ==== *Edit Player Profile*
-You can use this `editPlayer` command to edit information of an existing player's profile in the League Tracker. +
+You can use this `editPlayer` command to pass:[<u>edit information of an existing player's profile</u>]
+in the League Tracker. +
 
-First, you need to do a `listPlayer` command to obtain the index number of the target player in league tracker's record.
+First, you need to do a `listPlayer` command to pass:[<u>obtain the index number of the target player</u>] in league tracker's record.
 This step is *necessary*.
 
-Then, you can use this command to key in the attribute information you want to edit. Consequently the profile of
-the target player will be edited accordingly with the information provided.
+Then, you can use `editPlayer` command to do edition on the attribute information by pass:[<u>providing respective
+updated information</u>]. Consequently the profile of the target player will be edited in accordance with the
+information provided.
 
 {empty} +
 
@@ -286,12 +295,8 @@ Old values will be overwritten by new inputs (including tags).
 
 {empty} +
 
-NOTE: You will not be allowed to change player's `team` using the `editPlayer` command. +
-      It should be done using the `transfer` Command.
 
-{empty} +
-
-Format ：
+*Format* ：
 
 * `listPlayer` +
 * `editPlayer INDEX_NUMBER [n/NAME] [p/POSITIONPLAYED] [a/AGE] [sal/SALARY] [gs/GOALSSCORED] [ga/GOALSASSISTED]
@@ -302,7 +307,7 @@ attribute will be kept unchanged)
 
 {empty} +
 
-Example:
+*Example*:
 
 let's say you want to edit the player profile of a player with name "Lionel Messi"
 
@@ -319,7 +324,7 @@ From the `listPlayer` command (See figure 9), you find out that the index number
 
 {empty} +
 
-If the edition is executed successfully, a success message will be displayed to the user containing the player
+If the edition is executed successfully, a *success message* will be displayed to the user containing the player
 profile after edition(See figure 10).
 
 {empty} +
@@ -328,21 +333,36 @@ profile after edition(See figure 10).
 image::edit_success.png[]
 
 {empty} +
+
+NOTE: You will not be allowed to change player's `team` using the `editPlayer` command. +
+      It should be done using the `transfer` Command. +
+      {empty} +
+      Edition of `GOALSSCORED` is also blocked in `editPlayer` command to avoid interference with League Tracker's
+      automatic update using match information
+
+{empty} +
+
+WARNING: As League Tracker's internal algorithms use players' `NAME` attributes to distinguish, identify and track
+player objects, please be reminded that edition of `NAME` using `editPlayer` command pass:[<u>should be
+treated carefully after thorough considerations</u>]. You most
+likely need to adjust respective match information to make sure your action will not cause unwanted consequences.
+
+{empty} +
 {empty} +
 
 ==== *Search for Players using keywords*
 
-You can use the `findPlayer` command to search for players in League Tracker using certain keywords.
+You can use the `findPlayer` command to pass:[<u>search for players in League Tracker using certain keywords</u>].
 
 {empty} +
 
-Format:
+*Format*:
 
 *  `findPlayer KEYWORD`
 
 {empty} +
 
-Example:
+*Example*:
 
 *  `findPlayer Messi`
 
@@ -364,7 +384,7 @@ You can use the `listPlayer` command to check the list of all players with their
 
 {empty} +
 
-Format ：
+*Format* ：
 
 *  `listPlayer`
 
@@ -381,23 +401,21 @@ image::listSuccess.png[]
 {empty} +
 
 ==== *Sort Players in League Tracker*
-You can use the `sortPlayer` command to sort the player list by alphabetical order.
+You can use the `sortPlayer` command to pass:q[<u>sort the player list by *alphabetical order*</u>].
 
 {empty} +
 
-Format :
+*Format* :
 
 *  `sortPlayer`
 
 {empty} +
 
-Example:
+*Example*:
 
-* `listPlayer`
 
-{empty} +
-
-Figure 13 shows a player list before sorting.
+Figure 13 shows a player list before sorting, obtained using `listPlayer` command. However, `listPlayer` is
+*not compulsory* here.
 
 {empty} +
 
@@ -408,12 +426,10 @@ image::sort_beforesorting.png[]
 
 * `sortPlayer`
 
-If the sortPlayer command is executed successfully, a success message will be displayed to user. (see figure 14)
+If the sortPlayer command is executed successfully, a *success message* will be displayed to user. (see figure 14)
 
 .Success Message after executing a `sortPlayer` command
 image::sort_success.png[]
-
-* `listPlayer`
 
 Now do another `listPlayer` command, you can see that the player list has been alphabetically sorted.(See figure 15)
 
@@ -422,50 +438,61 @@ image::sort_aftersorting.png[]
 
 {empty} +
 
-==== Transfer Player
-You can use the `transfer` command to transfer a player to another existing team in League Tracker.
+==== *Transfer Player to a different team in League Tracker*
+You can use the `transfer` command to pass:[<u>transfer a player to another existing team in League Tracker</u>].
 
 {empty} +
 
-Format :
+*Format* :
 
-*  `transfer PLAYERNAME tm/DESTINATIONTEAM jn/NEWJERSEYNUMBER`
+*  `transfer PLAYERNAME tm/DESTINATIONTEAM jn/NEWJERSEYNUMBER sal/NEWSALARY`
 
 {empty} +
 
-NOTE: The player must already exist in League Tracker. +
-      The destination team must already exist in League Tracker +
+NOTE: The *player must already exist* in League Tracker. +
+      The *destination team must already exist* in League Tracker +
       The destination team shall not be the same as the player's current team +
-      The Jersey Number must be available in the destination team
+      The *Jersey Number must be available* in the destination team +
+      All *data type constraints* of these attributes still hold
 
 {empty} +
 
-Example:
+*Example*:
 
 Let's say you want to transfer the player "Lionel Messi" who is currently in team "FC Barcelona" to team "Juventus",
-his jersey number will be 10 in Juventus.
+his jersey number will be 10 at "Juventus", his salary will be 20,000,000 USD at "Juventus".
 (Here in example, assume that the conditions stated above are all met)
 
-* `transfer Lionel Messi tm/Juventus jn/10`
+* `transfer Lionel Messi tm/Juventus jn/10 sal/20000000`
 
-If the transfer is successfully executed, a success message will be shown to the user with player's name, his team before
-transfer, his team after transfer and his new jersey number.(See figure 16)
+If the transfer is successfully executed, a *success message* will be shown to the user with player's name, his team before
+transfer, his team after transfer, his new jersey number and his new salary.(See figure 16)
 
 {empty} +
 
 .Example of a success message displayed after a successful transfer
 image::transfer_success.png[]
 
+NOTE: For current versions, League Tracker will keep the gaols scored data as it keeps track of total number of
+goals scored by the individual player.
+
 {empty} +
 {empty} +
 
 ==== Display Player Profile using player's index number
-You can use the `displayProfile` command to display the profile of a specific player identified by his index number
+You can use the `displayProfile` command to  pass:[<u>display the profile of a specific player
+identified by his index number</u>].
+
+First you need to do a `listPlayer` command to pass:[<u>obtain the index of player</u>] in the league record.
+This step is *necessary*.
+
+Then perform `displayProfile` command using this index.
 
 {empty} +
 
-Format:
+*Format*:
 
+* `listPlayer`
 *  `displayProfile INDEXNUMBER`
 
 {empty} +
@@ -482,7 +509,6 @@ If the index number correctly identifies a player, the player's profile will be 
 
 .Displaying player's profile with index number 1
 image::display_index_success.png[]
-
 
 {empty} +
 {empty} +
@@ -511,7 +537,7 @@ image::addteam.png[]
 ==== *Delete Team*
 You can use the Delete Team command to delete an existing Team from League Tracker. +
 
-Format : `delteam INDEX`
+Format : `deleteteam INDEX`
 
 Example: +
 
@@ -520,7 +546,7 @@ Example: +
 .After listing
 image::listteam.png[]
 
-* `delteam 1` +
+* `deleteteam 1` +
 
 Deletes the 1st Team in the Team list.
 
@@ -530,7 +556,7 @@ image::delteam.png[]
 
 ==== *Edit Team*
 You can use the Edit Team command to edit information of a Team in League Tracker. +
-Format : `editteam INDEX [c/COUNTRY] [s/SPONSORSHIP] [t/TAGS]`
+Format : `editteam INDEX [n/NAME] [c/COUNTRY] [s/SPONSORSHIP] [t/TAGS]`
 
 Example: +
 
@@ -547,6 +573,20 @@ image::editteam.png[]
 Edits the name of the 1st Team in the Team list to United Malaysia.
 {empty} +
 {empty} +
+
+[NOTE]
+====
+Team's name cannot be edited if existing players or matches are tied to the team. +
+Inputing `t/nil` for tags will remove all tags for the team.
+
+====
+
+==== *Find Team*
+You can use the Find Team command to find teams containing certain keywords. +
+Format : `findteam KEYWORD`
+
+Example: +
+
 
 ==== *List Team*
 You can use the List Team command to see the list of all current teams in the league. +
@@ -742,37 +782,300 @@ image::rank_finance.png[]
 {empty} +
 {empty} +
 
-=== Export
-The Export Feature in League Tracker allows user to export data stored in League Tracker to Excel files to facilitate
-data transfer, storage and further processing.
+
+{empty} +
+{empty} +
+{empty} +
+
+=== *Export*
+The Export Feature in League Tracker allows user to pass:q[<u>export data stored in League Tracker to *Excel files*</u>]
+ to facilitate data transfer, storage and further processing.
+
+This feature is empowered by an external Java library named *Apache Poi*, developed and maintained by the Apache
+Software Foundation.
+
+{empty} +
+{empty} +
 
 ==== *Export Player Profiles to an Excel File*
+You can use the `exportPlayer` command to pass:q[<u>export all player profiles currently stored in League Tracker's storage file
+to an *Excel file*</u>]
 
+For now, the export path has been hard-coded to be `exported_player_record.xls`, which can be found under the same directory of
+the application once `exportPlayer` command is called.
+
+{empty} +
+
+*Format*:
+
+* `exportPlayer`
+
+{empty} +
+
+A *success message* will be displayed to the user after successful export. (see figure 26)
+
+.Success message shown to user after executing `exportPlayer`
+image::exportplayer.png[]
+
+{empty} +
+
+You can view and have further manipulation with the data exported. Figure 27 below shows what
+it looks like inside `exported_player_record.xls` .
+
+.Screenshot of the exported excel file containing all stored player profiles
+image::exportplayerexcel.png[]
+
+{empty} +
+
+NOTE: If `exported_player_record.xls` already exists, the `exportPlayer` command will overwrite the content.
+
+{empty} +
 {empty} +
 
 ==== *Export Team Profiles to an Excel File*
+You can use the `exportTeam` command to pass:q[<u>export all team profiles currently stored in League Tracker's storage file
+to an *Excel file*</u>]
 
+For now, the export path has been hard-coded to be `exported_team_record.xls`, which can be found under the same directory of
+the application once `exportTeam` command is called.
+
+{empty} +
+
+*Format*:
+
+* `exportTeam`
+
+{empty} +
+
+A *success message* will be displayed to the user after successful export. (see figure 26)
+
+.Success message shown to user after executing `exportTeam`
+image::exportteam.png[]
+
+{empty} +
+
+You can view and have further manipulation with the data exported. Figure 29 below shows what
+it looks like inside `exported_team_record.xls` .
+
+.Screenshot of the exported excel file containing all stored team profiles
+image::exportteamexcel.png[]
+
+{empty} +
+
+NOTE: If `exported_team_record.xls` already exists, the `exportTeam` command will overwrite the content.
+
+{empty} +
 {empty} +
 
 ==== *Export Finance Records to an Excel File*
+You can use the `exportFinance` command to pass:q[<u>export all finance records currently stored in League Tracker's storage file
+to an *Excel file*</u>]
 
+For now, the export path has been hard-coded to be `exported_finance_record.xls`, which can be found under the same directory of
+the application once `exportFinance` command is called.
+
+{empty} +
+
+*Format*:
+
+* `exportFinance`
+
+{empty} +
+
+A *success message* will be displayed to the user after successful export. (see figure 26)
+
+.Success message shown to user after executing `exportFinance`
+image::exportfinance.png[]
+
+{empty} +
+
+You can view and have further manipulation with the data exported. Figure 31 below shows what
+it looks like inside `exported_finance_record.xls` .
+
+.Screenshot of the exported excel file containing all stored finance records
+image::exportfinanceexcel.png[]
+
+{empty} +
+
+NOTE: If `exported_finance_record.xls` already exists, the `exportFinance` command will overwrite the content.
+
+{empty} +
 {empty} +
 
 ==== *Export Match Information to an Excel File*
+You can use the `exportMatch` command to pass:q[<u>export all match records currently stored in League Tracker's storage file
+to an *Excel file*</u>]
+
+For now, the export path has been hard-coded to be `exported_match_record.xls`, which can be found under the same directory of
+the application once `exportMatch` command is called.
 
 {empty} +
 
-== Exiting the program
+*Format*:
+
+* `exportMatch`
+
+{empty} +
+
+A *success message* will be displayed to the user after successful export. (see figure 32)
+
+.Success message shown to user after executing `exportMatch`
+image::exportMatch.png[]
+
+{empty} +
+
+You can view and have further manipulation with the data exported. Figure 33 below shows what
+it looks like inside `exported_match_record.xls` .
+
+.Screenshot of the exported excel file containing all stored match records
+image::exportmatchexcel.png[]
+
+{empty} +
+
+NOTE: If `exported_match_record.xls` already exists, the `exportMatch` command will overwrite the content.
+
+{empty} +
+{empty} +
+{empty} +
+
+=== *Data Analysis*
+You can use the `generateReport` command to have pass:[<u>an in-app analysis on data stored in League Tracker
+using its internal tools</u>]. Results will be compiled, processed and presented to you formally in a
+report format (see figure 34).
+
+{empty} +
+
+*Format*: `generateReport`
+
+{empty} +
+
+.Overview of report generated after in-app data analysis
+image::generatereportoverview.png[]
+
+{empty} +
+{empty} +
+
+The report consists of five sections: +
+1. Report introduction and timestamp +
+2. League Summary +
+3. Golden Boot (League top scorer) +
+4. Top scorers in each team +
+5. Transfer records of all player transfers executed successfully in the past
+
+{empty} +
+{empty} +
+
+* Section 1: Report Introduction and Timestamp +
+In this section, a brief introduction of report generation will be given and the exact timestamp of
+report generation will also be displayed for reference purposes. (See figure 35)
+
+.Section 1 of report
+image::reportone.png[]
+
+{empty} +
+
+* Section 2: League Summary +
+In this section, a summary of status and progress of the whole league will be presented (See figure 36), including:
+
+** *Number of players* currently tracked by League Tracker in league
+** *Number of teams* currently tracked by League Tracker in league
+** *Number of matches* currently tracked by League Tracker in league
+** *Number of matches played* and updated
+
+.Section 2 of report
+image::reporttwo.png[]
+
+{empty} +
+
+* Section 3: Golden Boot (league top scorer) +
+In this section, `NAME` ,`TEAM` and `GOALSSCORED` of the current Golden Boot in the league will be presented (See figure 37).
+If there are more than one player in the league having the same number of goals at the top of score board, all of them will
+be recognized and displayed here.
+
+.Section 3 of report
+image::reportthree.png[]
+
+{empty} +
+
+* Section 4: Top Scorer(s) in Each Team +
+In this section, `NAME` ,`TEAM` and `GOALSSCORED` of the top scorer(s) in each team will be presented (See figure 38).
+If there are more than one player in the same team having the same number of goals at the top of score board, all of them will
+be recognized and displayed here.
+
+.Section 4 of report
+image::reportfour.png[]
+
+{empty} +
+
+* Section 5: Transfer Records +
+In this section, All transfer records since activation of League Tracker will be displayed here. (See figure 39)
+
+.Section 5 of report
+image::reportfive.png[]
+
+{empty} +
+
+NOTE: For tracking purposes, all transfer ever made will be recorded, saved and displayed until the app resets
+
+{empty} +
+{empty} +
+
+IMPORTANT: As our exciting data analysis feature is still under development, we welcome all suggestions as of what other analysis
+should we include in the report. Please email e0201639@u.nus.edu if you have any suggestion,
+
+{empty} +
+{empty} +
+{empty} +
+
+=== *General*
+League Tracker also has some general commands
+
+{empty} +
+{empty} +
+
+==== *Viewing help sheet of all commands available in League Tracker*
+
+You can use the `help` command to pass:[<u>view the help sheet</u>] that we prepare to guide you when you use League Tracker. +
+
+{empty} +
+
+*Format*: `help`
+
+{empty} +
+
+Once successfully executed, the help sheet will appear for your view. All commands available are recorded and nicely
+categorized for your easy reference.(See figure 40)
+
+{empty} +
+
+.Help sheet displayed
+image::help.png[]
+
+{empty} +
+
+NOTE: This help sheet will also be displayed when you key in wrong formats of commands to help you correct your usage
+
+{empty} +
+{empty} +
+
+
+==== *Exiting League Tracker*
 
 You can use the Exit command to exit the program. +
 
 Format: `exit`
 
+
+{empty} +
+{empty} +
+{empty} +
+
+
 == Saving the data
 
 League tracker data are saved in the hard disk automatically after any command that changes the data.
 
-You do not need to save data manually. League tracker data are saved in a file called `leaguetracker.txt` in the project root folder.
+You do not need to save data manually. League tracker data are saved in a file called `league_tracker.txt` in the project root folder.
 
 == FAQ
 
@@ -799,7 +1102,7 @@ Display a Player's Profile : `displayProfile`
 === Teams
 
 Add Team to League : `addteam` +
-Delete Team from League : `delteam` +
+Delete Team from League : `deleteteam` +
 Edit Team's Profile : `editteam` +
 List Team in League : `listteam` +
 View Team in League : `viewteam` +

@@ -21,6 +21,10 @@ import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.commands.ExitCommand;
 import seedu.addressbook.commands.HelpCommand;
 import seedu.addressbook.commands.finance.ViewFinanceCommand;
+import seedu.addressbook.commands.match.DeleteMatchCommand;
+import seedu.addressbook.commands.match.FindMatchCommand;
+import seedu.addressbook.commands.match.UpdateMatchCommand;
+import seedu.addressbook.commands.match.ViewMatchCommand;
 import seedu.addressbook.commands.player.AddCommand;
 import seedu.addressbook.commands.player.AddFastCommand;
 import seedu.addressbook.commands.player.ClearCommand;
@@ -37,6 +41,11 @@ import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.finance.Finance;
 import seedu.addressbook.data.finance.ReadOnlyFinance;
+import seedu.addressbook.data.match.Match;
+import seedu.addressbook.data.match.MatchDate;
+import seedu.addressbook.data.match.ReadOnlyMatch;
+import seedu.addressbook.data.match.Score;
+import seedu.addressbook.data.match.TicketSales;
 import seedu.addressbook.data.player.Age;
 import seedu.addressbook.data.player.Appearance;
 import seedu.addressbook.data.player.GoalsAssisted;
@@ -49,12 +58,12 @@ import seedu.addressbook.data.player.Player;
 import seedu.addressbook.data.player.PositionPlayed;
 import seedu.addressbook.data.player.ReadOnlyPlayer;
 import seedu.addressbook.data.player.Salary;
-import seedu.addressbook.data.player.TeamName;
 import seedu.addressbook.data.tag.Tag;
 import seedu.addressbook.data.team.Country;
 import seedu.addressbook.data.team.ReadOnlyTeam;
 import seedu.addressbook.data.team.Sponsor;
 import seedu.addressbook.data.team.Team;
+import seedu.addressbook.data.team.TeamName;
 import seedu.addressbook.storage.StorageFile;
 
 public class LogicTest {
@@ -68,6 +77,12 @@ public class LogicTest {
     private StorageFile saveFile;
     private AddressBook addressBook;
     private Logic logic;
+
+    /**
+     *  input command to add a dummy team for testing
+     *  This is a valid addteam command
+     */
+    private String initializeTeam = " addteam FC Barcelona c/a s/0";
 
     @Before
     public void setup() throws Exception {
@@ -116,6 +131,7 @@ public class LogicTest {
                                        List<? extends ReadOnlyPlayer> lastPlayerList) throws Exception {
 
         //Execute the command
+        logic.execute(initializeTeam);
         CommandResult r = logic.execute(inputCommand);
 
         //Confirm the result contains the right data
@@ -258,7 +274,7 @@ public class LogicTest {
     }
 
 
-    /*@Test
+    @Test
     public void execute_add_invalidPlayerData() throws Exception {
         assertCommandBehavior(
                 "addPlayer []\\[;] p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam ctry/China"
@@ -284,12 +300,9 @@ public class LogicTest {
         assertCommandBehavior(
                 "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam ctry/China "
                         + "jn/9 app/zero hs/Healthy", Appearance.MESSAGE_APPEARANCE_CONSTRAINTS);
-        assertCommandBehavior(
-                "addPlayer Valid Name p/Striker a/30 sal/20000 gs/0 ga/0 tm/validTeam ctry/China "
-                        + "jn/9 app/0 hs/Healthy t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
-    }*/
+    }
 
-    /*@Test
+    @Test
     public void execute_add_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
@@ -304,9 +317,9 @@ public class LogicTest {
                 false,
                 Collections.emptyList());
 
-    }*/
+    }
 
-    /*@Test
+    @Test
     public void execute_addDuplicate_notAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
@@ -325,7 +338,7 @@ public class LogicTest {
                 false,
                 Collections.emptyList());
 
-    }*/
+    }
 
     @Test
     public void execute_list_showsAllPersons() throws Exception {
@@ -458,13 +471,13 @@ public class LogicTest {
         assertCommandBehavior("findPlayer ", expectedMessage);
     }
 
-    /*@Test
+    @Test
     public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Player pTarget1 = helper.generatePlayerWithName("bla bla KEY bla");
-        Player pTarget2 = helper.generatePlayerWithName("bla KEY bla bceofeia");
-        Player p1 = helper.generatePlayerWithName("KE Y");
-        Player p2 = helper.generatePlayerWithName("KEYKEYKEY sduauo");
+        Player pTarget1 = helper.generatePlayerWithName("bla bla KEY bla", 1);
+        Player pTarget2 = helper.generatePlayerWithName("bla KEY bla bceofeia", 2);
+        Player p1 = helper.generatePlayerWithName("KE Y", 3);
+        Player p2 = helper.generatePlayerWithName("KEYKEYKEY sduauo", 4);
 
         List<Player> fourPlayers = helper.generatePlayerList(p1, pTarget1, p2, pTarget2);
         AddressBook expectedAb = helper.generateAddressBook(fourPlayers);
@@ -476,7 +489,7 @@ public class LogicTest {
                 expectedAb,
                 true,
                 expectedList);
-    }*/
+    }
 
     @Test
     public void execute_find_isCaseSensitive() throws Exception {
@@ -498,13 +511,13 @@ public class LogicTest {
                 expectedList);
     }
 
-    /*@Test
+    @Test
     public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Player pTarget1 = helper.generatePlayerWithName("bla bla KEY bla");
-        Player pTarget2 = helper.generatePlayerWithName("bla rAnDoM bla bceofeia");
-        Player p1 = helper.generatePlayerWithName("key key");
-        Player p2 = helper.generatePlayerWithName("KEy sduauo");
+        Player pTarget1 = helper.generatePlayerWithName("bla bla KEY bla", 1);
+        Player pTarget2 = helper.generatePlayerWithName("bla rAnDoM bla bceofeia", 2);
+        Player p1 = helper.generatePlayerWithName("key key", 3);
+        Player p2 = helper.generatePlayerWithName("KEy sduauo", 4);
 
         List<Player> fourPlayers = helper.generatePlayerList(p1, pTarget1, p2, pTarget2);
         AddressBook expectedAb = helper.generateAddressBook(fourPlayers);
@@ -516,7 +529,7 @@ public class LogicTest {
                 expectedAb,
                 true,
                 expectedList);
-    }*/
+    }
 
     /**
      * Executes the command and confirms that the result message is correct.
@@ -668,7 +681,7 @@ public class LogicTest {
         List<Team> lastShownTeamList = helper.generateTeamList(t1, t2, t3);
 
         AddressBook expectedAb = helper.generateTeamAddressBook(lastShownTeamList);
-        expectedAb.editTeam(t2, editedTeam);
+        expectedAb.editTeam(t2, editedTeam, false);
 
 
         helper.addToTeamAddressBook(addressBook, lastShownTeamList);
@@ -760,6 +773,30 @@ public class LogicTest {
     }
 
     @Test
+    public void execute_viewTeam_successful() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Team t1 = helper.generateTeam(1);
+        Team t2 = helper.generateTeam(2);
+        List<Team> lastShownTeamList = helper.generateTeamList(t1, t2);
+        AddressBook expectedAb = helper.generateTeamAddressBook(lastShownTeamList);
+        helper.addToTeamAddressBook(addressBook, lastShownTeamList);
+
+        logic.setLastTeamShownList(lastShownTeamList);
+
+        assertTeamCommandBehavior("viewteam 1",
+                String.format(ViewTeam.MESSAGE_VIEW_TEAM_DETAILS, t1.getAsTextShowAll()),
+                expectedAb,
+                false,
+                lastShownTeamList);
+
+        assertTeamCommandBehavior("viewteam 2",
+                String.format(ViewTeam.MESSAGE_VIEW_TEAM_DETAILS, t2.getAsTextShowAll()),
+                expectedAb,
+                false,
+                lastShownTeamList);
+    }
+
+    @Test
     public void execute_tryToViewAllTeamMissingInAddressBook_errorMessage() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Team t1 = helper.generateTeam(1);
@@ -780,19 +817,19 @@ public class LogicTest {
     }
 
     @Test
-    public void execute_delTeam_invalidArgsFormat() throws Exception {
+    public void execute_deleteTeam_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteTeam.MESSAGE_USAGE);
         assertTeamCommandBehavior("deleteteam ", expectedMessage);
         assertTeamCommandBehavior("deleteteam arg not number", expectedMessage);
     }
 
     @Test
-    public void execute_delTeam_invalidIndex() throws Exception {
+    public void execute_deleteTeam_invalidIndex() throws Exception {
         assertInvalidIndexBehaviorForTeamCommand("deleteteam");
     }
 
     @Test
-    public void execute_delTeam_removesCorrectPerson() throws Exception {
+    public void execute_deleteTeam_removesCorrectPerson() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Team t1 = helper.generateTeam(1);
         Team t2 = helper.generateTeam(2);
@@ -814,7 +851,7 @@ public class LogicTest {
     }
 
     @Test
-    public void execute_delTeam_missingInAddressBook() throws Exception {
+    public void execute_deleteTeam_missingInAddressBook() throws Exception {
 
         TestDataHelper helper = new TestDataHelper();
         Team t1 = helper.generateTeam(1);
@@ -1063,6 +1100,127 @@ public class LogicTest {
     }
 
     /**
+     * Executes the command and confirms that the result message is correct.
+     */
+    private void assertMatchCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
+        assertMatchCommandBehavior(inputCommand, expectedMessage, AddressBook.empty(), false, Collections.emptyList());
+    }
+
+    /**
+     * Executes the command and confirms that the result message is correct and
+     * also confirms that the following three parts of the Logic object's state are as expected:<br>
+     * - the internal address book data are same as those in the {@code expectedAddressBook} <br>
+     * - the internal 'last shown list' matches the {@code expectedLastList} <br>
+     * - the storage file content matches data in {@code expectedAddressBook} <br>
+     */
+    private void assertMatchCommandBehavior(String inputCommand,
+                                            String expectedMessage,
+                                            AddressBook expectedAddressBook,
+                                            boolean isRelevantMatchesExpected,
+                                            List<? extends ReadOnlyMatch> lastMatchList) throws Exception {
+
+        //Execute the command
+        CommandResult r = logic.execute(inputCommand);
+
+        //Confirm the result contains the right data
+        assertEquals(expectedMessage, r.feedbackToUser);
+        assertEquals(r.getRelevantMatches().isPresent(), isRelevantMatchesExpected);
+        if (isRelevantMatchesExpected) {
+            assertEquals(lastMatchList, r.getRelevantMatches().get());
+        }
+
+        //Confirm the state of data is as expected
+        assertEquals(expectedAddressBook, addressBook);
+        assertEquals(lastMatchList, logic.getLastMatchList());
+        assertEquals(addressBook, saveFile.load());
+    }
+
+    /**
+     * Confirms the 'invalid argument index number behaviour' for the given command
+     * targeting a match in the last shown list, using visible index.
+     * @param commandWord to test assuming it targets a match in the last shown list based on visible index.
+     */
+    private void assertInvalidIndexBehaviorForMatchUpdateCommand(String commandWord) throws Exception {
+        String invalidFormat = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                UpdateMatchCommand.MESSAGE_USAGE);
+        String invalidIndexMessage = Messages.MESSAGE_INVALID_MATCH_DISPLAYED_INDEX;
+        LogicTest.TestDataHelper helper = new LogicTest.TestDataHelper();
+
+        Match match1 = helper.generateMatch(1);
+        Match match2 = helper.generateMatch(2);
+        List<Match> lastShownList = helper.generateMatchList(match1, match2);
+        String arbitraryParameter = "h/1 a/1";
+
+        logic.setLastMatchList(lastShownList);
+
+        assertMatchCommandBehavior(commandWord + " -1 " + arbitraryParameter, invalidFormat,
+                AddressBook.empty(), false, lastShownList);
+        assertMatchCommandBehavior(commandWord + " 0 " + arbitraryParameter, invalidIndexMessage,
+                AddressBook.empty(), false, lastShownList);
+        assertMatchCommandBehavior(commandWord + " 3 " + arbitraryParameter, invalidIndexMessage,
+                AddressBook.empty(), false, lastShownList);
+    }
+
+    /**
+     * Confirms the 'invalid argument index number behaviour' for the given command
+     * targeting a single match in the last shown list, using visible index.
+     */
+    private void assertInvalidIndexBehaviorForMatchCommand(String commandWord) throws Exception {
+        String expectedMessage = Messages.MESSAGE_INVALID_MATCH_DISPLAYED_INDEX;
+        LogicTest.TestDataHelper helper = new LogicTest.TestDataHelper();
+        List<Match> lastMatchList = helper.generateMatchList(2);
+
+        logic.setLastMatchList(lastMatchList);
+
+        assertMatchCommandBehavior(commandWord + " -1", expectedMessage, AddressBook.empty(), false, lastMatchList);
+        assertMatchCommandBehavior(commandWord + " 0", expectedMessage, AddressBook.empty(), false, lastMatchList);
+        assertMatchCommandBehavior(commandWord + " 3", expectedMessage, AddressBook.empty(), false, lastMatchList);
+    }
+
+    @Test
+    public void execute_updateMatch_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                UpdateMatchCommand.MESSAGE_USAGE);
+        assertMatchCommandBehavior("updatematch ", expectedMessage);
+    }
+
+    @Test
+    public void execute_updateMatch_invalidIndex() throws Exception {
+        assertInvalidIndexBehaviorForMatchUpdateCommand("updatematch");
+    }
+
+    @Test
+    public void execute_viewMatch_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewMatchCommand.MESSAGE_USAGE);
+        assertMatchCommandBehavior("viewmatch ", expectedMessage);
+        assertMatchCommandBehavior("viewmatch arg not number", expectedMessage);
+    }
+
+    @Test
+    public void execute_viewMatch_invalidIndex() throws Exception {
+        assertInvalidIndexBehaviorForMatchCommand("viewmatch");
+    }
+
+    @Test
+    public void execute_deleteMatch_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteMatchCommand.MESSAGE_USAGE);
+        assertMatchCommandBehavior("deletematch ", expectedMessage);
+        assertMatchCommandBehavior("deletematch arg not number", expectedMessage);
+    }
+
+    @Test
+    public void execute_deleteMatch_invalidIndex() throws Exception {
+        assertInvalidIndexBehaviorForMatchCommand("deletematch");
+    }
+
+    @Test
+    public void execute_findMatch_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindMatchCommand.MESSAGE_USAGE);
+        assertMatchCommandBehavior("findmatch ", expectedMessage);
+    }
+
+
+    /**
      * A utility class to generate test data.
      */
     class TestDataHelper {
@@ -1226,7 +1384,7 @@ public class LogicTest {
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             Set<Tag> tags = new HashSet<>(Arrays.asList(tag1, tag2));
-            return new Team(teamName, country, sponsor, new HashSet<>(), new HashSet<>(), tags);
+            return new Team(teamName, country, sponsor, new ArrayList<>(), new ArrayList<>(), tags);
         }
 
         /**
@@ -1240,8 +1398,8 @@ public class LogicTest {
                     new seedu.addressbook.data.team.TeamName("Team " + seed),
                     new Country("Country " + ((char) (64 + seed))),
                     new Sponsor("40" + seed),
-                    new HashSet<>(),
-                    new HashSet<>(),
+                    new ArrayList<>(),
+                    new ArrayList<>(),
                     new HashSet<>(Arrays.asList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))))
             );
         }
@@ -1295,7 +1453,7 @@ public class LogicTest {
                 tagsList = t.getTags();
             }
 
-            return new Team(teamName, country, sponsor, new HashSet<>(), new HashSet<>(), tagsList);
+            return new Team(teamName, country, sponsor, new ArrayList<>(), new ArrayList<>(), tagsList);
         }
 
         /** Generates the correct edit command based on the team given */
@@ -1395,8 +1553,8 @@ public class LogicTest {
                     new seedu.addressbook.data.team.TeamName(name),
                     new Country("Country"),
                     new Sponsor("404"),
-                    new HashSet<>(),
-                    new HashSet<>(),
+                    new ArrayList<>(),
+                    new ArrayList<>(),
                     Collections.singleton(new Tag("tag"))
             );
         }
@@ -1477,5 +1635,48 @@ public class LogicTest {
             return finances;
         }
 
+        /**
+         * Test Cases for Match from here onwards
+         */
+
+        /**
+         * Generates a valid match using the given seed.
+         * Each unique seed will generate a unique Match object.
+         *
+         * @param seed used to generate the match data field values
+         */
+        Match generateMatch(int seed) throws Exception {
+            return new Match(
+                    new MatchDate(seed + " Jan " + "20" + seed),
+                    new TeamName("Team " + ((char) (64 + seed))),
+                    new TeamName("Team " + ((char) (65 + seed))),
+                    new TicketSales (seed + "50"),
+                    new TicketSales (seed + "00"),
+                    new ArrayList<>(),
+                    new ArrayList<>(),
+                    new Score(""));
+        }
+
+        /**
+         * Creates a list of Matches based on the given Match objects.
+         */
+        List<Match> generateMatchList(Match... matches) throws Exception {
+            List<Match> matchList = new ArrayList<>();
+            for (Match match : matches) {
+                matchList.add(match);
+            }
+            return matchList;
+        }
+
+        /**
+         * Generates a list of Matches based on the number given.
+         */
+        List<Match> generateMatchList(int num) throws Exception {
+            List<Match> matches = new ArrayList<>();
+            for (int j = 1; j <= num; j++) {
+                matches.add(generateMatch(j));
+            }
+            return matches;
+        }
     }
 }

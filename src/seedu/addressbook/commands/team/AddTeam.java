@@ -1,5 +1,6 @@
 package seedu.addressbook.commands.team;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -49,14 +50,10 @@ public class AddTeam extends Command {
                 new TeamName(name),
                 new Country(country),
                 new Sponsor(sponsor),
-                new HashSet<>(),
-                new HashSet<>(),
+                new ArrayList<>(),
+                new ArrayList<>(),
                 tagSet
         );
-    }
-
-    public AddTeam(Team toAdd) {
-        this.toAdd = toAdd;
     }
 
     public ReadOnlyTeam getTeam() {

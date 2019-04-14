@@ -16,9 +16,7 @@ public class EditTeamDescriptor {
     private Country country;
     private Sponsor sponsor;
     private Set<Tag> tagset;
-
-
-    public EditTeamDescriptor() {}
+    private boolean nameChanged = false;
 
     public EditTeamDescriptor(String name,
                               String country,
@@ -28,6 +26,7 @@ public class EditTeamDescriptor {
             this.teamName = null;
         } else {
             this.teamName = new TeamName(name);
+            nameChanged = true;
         }
 
         if (country == null) {
@@ -47,16 +46,6 @@ public class EditTeamDescriptor {
         } else {
             this.tagset = tagset;
         }
-    }
-
-    /**
-     * Copy constructor.
-     */
-    public EditTeamDescriptor(EditTeamDescriptor toCopy) {
-        setTeamName(toCopy.teamName);
-        setCountry(toCopy.country);
-        setSponsor(toCopy.sponsor);
-        setTags(toCopy.tagset);
     }
 
     public void setTeamName(TeamName teamName) {
@@ -83,6 +72,9 @@ public class EditTeamDescriptor {
         return sponsor;
     }
 
+    public boolean getNameChange() {
+        return nameChanged;
+    }
     public void setTags(Set<Tag> tagset) {
         this.tagset = tagset;
     }
