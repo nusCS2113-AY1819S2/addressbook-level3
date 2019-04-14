@@ -39,13 +39,13 @@
 .Architecture Diagram
 image::ClassDiagram.png[width="800"]
 
-The *_Architecture Diagram_* given above shows a detailed overview of how each component is related/ interacts with each other in the design of our project.
+The *_Architecture Diagram_* given above shows a detailed overview of how each class is related/ interacts with each other in the design of our project.
 
 //@@author shawn-t
 .Simplified Architecture Diagram
 image::Architecture.png[width="800"]
 
-The *_Simplified Architecture Diagram_* above is an abstraction of the first diagram provided. It shows categorises classes into components, by colour. Given below is a quick overview of each component.
+The *_Simplified Architecture Diagram_* above is an abstraction of the first diagram provided. It categorises classes into the respective components by colour. Given below is a quick overview of each component.
 
 `Main` has only one class called link:https://github.com/cs2113-ay1819s2-t11-2/main/blob/master/src/seedu/addressbook/Main.java[`Main`]. It is responsible for,
 
