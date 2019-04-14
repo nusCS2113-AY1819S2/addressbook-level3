@@ -112,7 +112,7 @@ public class HelpCommand extends Command {
             + "\n" + ViewTeam.MESSAGE_USAGE + "\n"
             + "================================================================================= \n" + "\n"
             + "3. Commands on Finance in League Tracker \n" + "\n"
-            + "3.1 Obtain the financial records of team by index"
+            + "3.1 Obtain the financial records of team by index from the team list"
             + "\n" + GetFinanceCommand.MESSAGE_USAGE
             + "-------------------------------------------------------"
             + "----------------------------------------------- \n"
@@ -128,7 +128,7 @@ public class HelpCommand extends Command {
             + "\n" + ListFinanceCommand.MESSAGE_USAGE
             + "-----------------------------------------------------"
             + "------------------------------------------------- \n"
-            + "3.5 Show all details of the finance of the team"
+            + "3.5 Show all details of the finance of the team from the finance list"
             + "\n" + ViewFinanceCommand.MESSAGE_USAGE
             + "-----------------------------------------------------"
             + "------------------------------------------------- \n"
@@ -136,7 +136,7 @@ public class HelpCommand extends Command {
             + "\n" + ExportFinanceCommand.MESSAGE_USAGE
             + "\n"
             + "================================================================================= \n" + "\n"
-            + "4. Commands on Finance in League Tracker \n" + "\n"
+            + "4. Commands on Match in League Tracker \n" + "\n"
             + "4.1 Add a match to League Tracker"
             + "\n" + AddMatchCommand.MESSAGE_USAGE
             + "-----------------------------------------------------"
