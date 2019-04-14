@@ -167,9 +167,6 @@ Classes used by multiple components (eg.Utils.java) are collated in the `seedu.a
 
 == Implementation
 
- [to be edited]
-In this section, the detailed implementations of classes and features will be shown.+
-
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::finance[]
