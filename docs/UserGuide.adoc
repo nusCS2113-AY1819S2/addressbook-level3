@@ -514,9 +514,9 @@ image::display_index_success.png[]
 {empty} +
 {empty} +
 
+// tag::teamug[]
 === Teams
-The teams feature in the application helps you to manage information of football teams in the league. 
-{empty} +
+The teams feature in the application helps you to manage information of football teams in the league.
 {empty} +
 
 ==== *Add Team*
@@ -531,8 +531,6 @@ Adds a new Team with the specified details.
 
 .After Adding
 image::addteam.png[]
-
-{empty} +
 
 ==== *Delete Team*
 You can use the Delete Team command to delete an existing Team from League Tracker. +
@@ -552,7 +550,6 @@ Deletes the 1st Team in the Team list.
 
 .After deleting
 image::delteam.png[]
-{empty} +
 
 ==== *Edit Team*
 You can use the Edit Team command to edit information of a Team in League Tracker. +
@@ -572,7 +569,6 @@ image::editteam.png[]
 
 Edits the name of the 1st Team in the Team list to United Malaysia.
 {empty} +
-{empty} +
 
 [NOTE]
 ====
@@ -585,7 +581,10 @@ Inputing `t/nil` for tags will remove all tags for the team.
 You can use the Find Team command to find teams containing certain keywords. +
 Format : `findteam KEYWORD`
 
-Example: +
+Example: `findteam a`
+
+.After Finding
+image::FindTeam.png[]
 
 
 ==== *List Team*
@@ -595,8 +594,6 @@ Format : `listteam`
 
 .After Listing
 image::listteam.png[]
-
-{empty} +
 
 ==== *View Team*
 You can use the View Team command to see the deatils of a Team from the league tracker. +
@@ -619,9 +616,10 @@ image::listteam3.png[]
 image::viewteam.png[]
 
 Display the 1st team's details.
+// end::teamug[]
+{empty} +
+{empty} +
 
-{empty} +
-{empty} +
 
 // tag::matchug[]
 === Matches
@@ -1201,6 +1199,11 @@ A: Install the app in the other computer and overwrite the empty data file it cr
 
 == Command Summary
 
+=== General Usage
+List all commands : `help` +
+Exit the program : `exit` +
+Generate a report from data store in League Tracker : `generateReport`
+
 === Players
 
 Add a Player to League Tracker: `addPlayer` +
@@ -1218,11 +1221,13 @@ Display a Player's Profile : `displayProfile`
 === Teams
 
 Add Team to League : `addteam` +
+Clear all Teams in League : `clearteam`
 Delete Team from League : `deleteteam` +
 Edit Team's Profile : `editteam` +
+Export all Team profiles to an Excel file : `exportTeam` +
+Find Team with Keyword : `findteam` +
 List Team in League : `listteam` +
 View Team in League : `viewteam` +
-Export all Team profiles to an Excel file : `exportTeam`
 
 === Match Schedule
 Add Match to League : `addmatch` +
