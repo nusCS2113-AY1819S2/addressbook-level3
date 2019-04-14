@@ -42,7 +42,16 @@ public class UpdateMatchCommand extends Command {
 
     private final UpdateMatchDescriptor updateMatchDescriptor;
 
-
+    /**
+     * Constructs an UpdateMatchCommand
+     *
+     * @param targetVisibleIndex Index of match in match list seen by user.
+     * @param homeSales Match day ticket sales for home team.
+     * @param awaySales Match day ticket sales for away team.
+     * @param goalScorers List of goal scorers in the match
+     * @param ownGoalScorers List of own goal scorers in the match
+     * @throws IllegalValueException when player names of goal scorers and own goal scorers are invalid.
+     */
     public UpdateMatchCommand(int targetVisibleIndex, String homeSales, String awaySales,
                               List<String> goalScorers, List<String> ownGoalScorers) throws IllegalValueException {
         super(targetVisibleIndex);
