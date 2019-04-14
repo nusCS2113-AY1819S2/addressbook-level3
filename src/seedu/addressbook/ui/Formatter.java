@@ -1,9 +1,12 @@
 package seedu.addressbook.ui;
 
-import seedu.addressbook.data.person.ReadOnlyPerson;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import seedu.addressbook.data.finance.ReadOnlyFinance;
+import seedu.addressbook.data.match.ReadOnlyMatch;
+import seedu.addressbook.data.player.ReadOnlyPlayer;
+import seedu.addressbook.data.team.ReadOnlyTeam;
 
 /**
  * Used for formatting text for display. e.g. for adding text decorations.
@@ -34,19 +37,46 @@ public class Formatter {
         return sb.toString();
     }
 
-    /** Formats the given list of persons for displaying to the user. */
-    public String format(List<? extends ReadOnlyPerson> persons) {
+    /** Formats the given list of players for displaying to the user. */
+    public String formatPersonResult(List<? extends ReadOnlyPlayer> players) {
         final List<String> formattedPersons = new ArrayList<>();
-        for (ReadOnlyPerson person : persons) {
-            formattedPersons.add(person.getAsTextHidePrivate());
+        for (ReadOnlyPlayer player : players) {
+            formattedPersons.add(player.getAsTextShowAll());
         }
         return format(asIndexedList(formattedPersons));
+    }
+
+    /** Formats the given list of teams for displaying to the user. */
+    public String formatTeamResult(List<? extends ReadOnlyTeam> teams) {
+        final List<String> formattedTeams = new ArrayList<>();
+        for (ReadOnlyTeam team : teams) {
+            formattedTeams.add(team.getAsTextShowSome());
+        }
+        return format(asIndexedList(formattedTeams));
+    }
+
+    /** Formats the given list of matches for displaying to the user. */
+    public String formatMatchResult(List<? extends ReadOnlyMatch> matches) {
+        final List<String> formattedMatches = new ArrayList<>();
+        for (ReadOnlyMatch match : matches) {
+            formattedMatches.add(match.getAsTextShowSome());
+        }
+        return format(asIndexedList(formattedMatches));
+    }
+
+    /** Formats the given list of finances for displaying to the user. */
+    public String formatFinanceResult(List<? extends ReadOnlyFinance> finances) {
+        final List<String> formattedFinances = new ArrayList<>();
+        for (ReadOnlyFinance finance : finances) {
+            formattedFinances.add(finance.getAsTextShowSome());
+        }
+        return format(asIndexedList(formattedFinances));
     }
 
     /** Formats a list of strings as an indexed list. */
     private static String asIndexedList(List<String> listItems) {
         final StringBuilder formatted = new StringBuilder();
-        int displayIndex = 0 + DISPLAYED_INDEX_OFFSET;
+        int displayIndex = DISPLAYED_INDEX_OFFSET;
         for (String listItem : listItems) {
             formatted.append(getIndexedListItem(displayIndex, listItem)).append("\n");
             displayIndex++;
@@ -62,5 +92,4 @@ public class Formatter {
     private static String getIndexedListItem(int visibleIndex, String listItem) {
         return String.format(MESSAGE_INDEXED_LIST_ITEM, visibleIndex, listItem);
     }
-
 }

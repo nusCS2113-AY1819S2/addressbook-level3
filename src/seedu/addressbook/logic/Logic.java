@@ -1,43 +1,62 @@
 package seedu.addressbook.logic;
 
-import seedu.addressbook.commands.Command;
-import seedu.addressbook.commands.CommandResult;
-import seedu.addressbook.data.AddressBook;
-import seedu.addressbook.data.person.ReadOnlyPerson;
-import seedu.addressbook.parser.Parser;
-import seedu.addressbook.storage.StorageFile;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import seedu.addressbook.commands.Command;
+import seedu.addressbook.commands.CommandResult;
+import seedu.addressbook.data.AddressBook;
+import seedu.addressbook.data.finance.ReadOnlyFinance;
+import seedu.addressbook.data.match.ReadOnlyMatch;
+import seedu.addressbook.data.player.ReadOnlyPlayer;
+import seedu.addressbook.data.team.ReadOnlyTeam;
+import seedu.addressbook.parser.Parser;
+import seedu.addressbook.storage.StorageFile;
+
 /**
- * Represents the main Logic of the AddressBook.
+ * Represents the main Logic of the League Tracker.
  */
 public class Logic {
-
 
     private StorageFile storage;
     private AddressBook addressBook;
 
-    /** The list of person shown to the user most recently.  */
-    private List<? extends ReadOnlyPerson> lastShownList = Collections.emptyList();
+    /**
+     * The list of player shown to the user most recently.
+     */
+    private List<? extends ReadOnlyPlayer> lastPlayerShownList = Collections.emptyList();
 
-    public Logic() throws Exception{
+    /**
+     * The list of match shown to the user most recently.
+     */
+    private List<? extends ReadOnlyMatch> lastMatchList = Collections.emptyList();
+
+    /**
+     * The list of team shown to the user most recently.
+     */
+    private List<? extends ReadOnlyTeam> lastTeamShownList = Collections.emptyList();
+
+    /**
+     * The list of team shown to the user most recently.
+     */
+    private List<? extends ReadOnlyFinance> lastFinanceShownList = Collections.emptyList();
+
+    public Logic() throws Exception {
         setStorage(initializeStorage());
         setAddressBook(storage.load());
     }
 
-    Logic(StorageFile storageFile, AddressBook addressBook){
+    Logic(StorageFile storageFile, AddressBook addressBook) {
         setStorage(storageFile);
         setAddressBook(addressBook);
     }
 
-    void setStorage(StorageFile storage){
+    void setStorage(StorageFile storage) {
         this.storage = storage;
     }
 
-    void setAddressBook(AddressBook addressBook){
+    void setAddressBook(AddressBook addressBook) {
         this.addressBook = addressBook;
     }
 
@@ -54,14 +73,47 @@ public class Logic {
     }
 
     /**
-     * Unmodifiable view of the current last shown list.
+     * Unmodifiable view of the current last player list.
      */
-    public List<ReadOnlyPerson> getLastShownList() {
-        return Collections.unmodifiableList(lastShownList);
+    public List<ReadOnlyPlayer> getLastPlayerShownList() {
+        return Collections.unmodifiableList(lastPlayerShownList);
     }
 
-    protected void setLastShownList(List<? extends ReadOnlyPerson> newList) {
-        lastShownList = newList;
+    /**
+     * Unmodifiable view of the current last match list.
+     */
+    public List<ReadOnlyMatch> getLastMatchList() {
+        return Collections.unmodifiableList(lastMatchList);
+    }
+
+    protected void setLastMatchList(List<? extends ReadOnlyMatch> newList) {
+        lastMatchList = newList;
+    }
+
+    protected void setLastPlayerShownList(List<? extends ReadOnlyPlayer> newList) {
+        lastPlayerShownList = newList;
+    }
+
+    /**
+     * Unmodifiable view of the current last shown list(team).
+     */
+    public List<ReadOnlyTeam> getLastTeamShownList() {
+        return Collections.unmodifiableList(lastTeamShownList);
+    }
+
+    protected void setLastTeamShownList(List<? extends ReadOnlyTeam> newList) {
+        lastTeamShownList = newList;
+    }
+
+    /**
+     * Unmodifiable view of the current last shown list(finance).
+     */
+    public List<ReadOnlyFinance> getLastFinanceShownList() {
+        return Collections.unmodifiableList(lastFinanceShownList);
+    }
+
+    protected void setLastFinanceShownList(List<? extends ReadOnlyFinance> newList) {
+        lastFinanceShownList = newList;
     }
 
     /**
@@ -83,17 +135,33 @@ public class Logic {
      * @throws Exception if there was any problem during command execution.
      */
     private CommandResult execute(Command command) throws Exception {
-        command.setData(addressBook, lastShownList);
+        command.setData(addressBook,
+                lastPlayerShownList,
+                lastTeamShownList,
+                lastMatchList,
+                lastFinanceShownList);
         CommandResult result = command.execute();
         storage.save(addressBook);
         return result;
     }
 
-    /** Updates the {@link #lastShownList} if the result contains a list of Persons. */
+    /**
+     * Updates the {@link #lastPlayerShownList} if the result contains a list of Persons.
+     * Updates the {@link #lastMatchList} if the result contains a list of Matches.
+     */
     private void recordResult(CommandResult result) {
-        final Optional<List<? extends ReadOnlyPerson>> personList = result.getRelevantPersons();
-        if (personList.isPresent()) {
-            lastShownList = personList.get();
+        final Optional<List<? extends ReadOnlyPlayer>> playerList = result.getRelevantPlayers();
+        final Optional<List<? extends ReadOnlyTeam>> teamList = result.getRelevantTeams();
+        final Optional<List<? extends ReadOnlyMatch>> matchList = result.getRelevantMatches();
+        final Optional<List<? extends ReadOnlyFinance>> financeList = result.getRelevantFinances();
+        if (playerList.isPresent()) {
+            lastPlayerShownList = playerList.get();
+        } else if (teamList.isPresent()) {
+            lastTeamShownList = teamList.get();
+        } else if (matchList.isPresent()) {
+            lastMatchList = matchList.get();
+        } else if (financeList.isPresent()) {
+            lastFinanceShownList = financeList.get();
         }
     }
 }

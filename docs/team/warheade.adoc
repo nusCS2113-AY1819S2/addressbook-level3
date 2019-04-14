@@ -1,0 +1,279 @@
+= Wang Jiannan - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: League Tracker
+
+---
+
+== 1. Overview
+
+This Project Portfolio documents my contribution to the software engineering project *League Tracker*, a group project
+collectively done by four Undergraduate students in National University of Singapore under the module CS2113T.
+
+*League Tracker* is a Command Line Interface desktop application designed for pass:[<u>organizers of both professional and
+recreational football leagues</u>] in the world. For long, league organizers face immense difficulties when it comes to data storage,
+data categorization, data updates and data analysis due to the sheer size, inter-connectivity and complexity
+of data generated. Useful information are unfortunately trapped in silos. League Tracker aims to tackle the problem by providing
+a convenient and efficient solution as an automated, PC-based software application. With League Tracker, data storage is secured;
+data categorization is pre-set; data updates become a one-line task of updating match information as the subsequent updates
+are automatically done internally by precise algorithms; data analysis is integrated and visualized to be reflective of real-time situations.
+
+
+My main contributions to the project include: +
+
+* Implementing player features, export feature and data analysis feature.
+
+* Refactoring of the original *AddressBook 3* application.
+
+* Ensuring inter-layer coherence between `Player` and `Team` as well as `Player` and `Match`.
+
+== 2. Summary of Contributions
+
+This section summarises my contributions to the project.
+
+* *Code contributed*: [https://nuscs2113-ay1819s2.github.io/dashboard-beta/#=undefined&search=warheade[Click to view code]]
+
+* *Main features implemented*:
+
+** Implemented *Player Feature*.
+*** What it does: This feature allows the user to conveniently store and manipulate player profiles by typing commands.
+Specifically, the user can add/view/delete/edit/search for/sort/edit player profiles and record player transfers.
+*** Justification: This feature is the foundation of the application, it improves the user-friendliness of the product,
+as multiple commands are simplified so that all of the actions mentioned above can be achieved in one line of command.
+*** Highlights: This feature involves refactoring of the original application's commands as well as incorporating new commands.
+This feature also manages to achieve interaction with the `Team` feature and the `Match` feature so that
+updates of data are automatically done when needed and the other two features will not run into bugs.
+
+** Implemented *Export Feature*
+*** What it does: This feature allows the user to conveniently export all stored data in League Tracker, including player profiles,
+team profiles, match information and finance records to respective excel files.
+*** Justification: This feature ensures that data is not trapped in League Tracker. With export enabled, the user can
+backup the data any time. Also, excel files provide a more direct and visual alternative to view and process data,
+which now also becomes League Tracker's advantage after enabling data exportation.
+*** Highlights: This feature involves the use of `Apache Poi`, which is a three-party Java library. Insights are required on both `Apache Poi` and
+League Tracker's internal data storage formats to make sure export is done correctly without data corruption or data loss.
+
+** Implemented *Data Analysis Feature*
+*** What it does: This feature allows the user to conveniently analyse data stored with League Tracker's internal algorithms
+and generate a report summarizing results of the summary in just one line of command.
+*** Justification: This features takes League Tracker a step further using data stored for common data analysis that
+all league organizers definitely need to do on themselves. The use of tested and robust built-in algorithms greatly enhances reliability of the report generated as calculation would be
+free of human errors. Furthermore, the team opens the floor to users by prompting further suggestions on what analysis should be done.
+Therefore this feature can be easily updated to better cater to user needs.
+*** Highlights: This feature involves using all stored data
+
+* *Other contributions*:
+
+** Minor enhancements:
+*** Editing and updating help sheet in `help` command https://github.com/CS2113-AY1819S2-M11-1/main/pull/132[#132]
+*** Update UI of the application
+** Project management:
+*** Managed milestones `v1.1` - `v1.4` (4 milestones) on GitHub
+*** Managed releases `v1.3` - `v1.4` (3 releases) on GitHub
+*** Managed issues on GitHub (examples:  https://github.com/CS2113-AY1819S2-M11-1/main/issues/91[#91], https://github.com/CS2113-AY1819S2-M11-1/main/issues/86[#86], https://github.com/CS2113-AY1819S2-M11-1/main/issues/34[#34])
+
+** Community:
+*** Reviewed or commented pull requests (with non-trivial comments): (examples: https://github.com/CS2113-AY1819S2-M11-1/main/pull/135[#135], https://github.com/CS2113-AY1819S2-M11-1/main/pull/133[#133])
+*** Reported bugs and suggestions for other teams (examples: https://github.com/cs2113-ay1819s2-t08-2/main/issues/79[79],
+https://github.com/cs2113-ay1819s2-t08-2/main/issues/61[61],
+ https://github.com/cs2113-ay1819s2-t08-2/main/issues/57[57])
+
+
+== 3. Contributions to the User Guide
+
+|===
+|_Given below are selected sections I contributed to the User Guide. They showcase my ability to write easy-to-follow
+documentation targeting end-users. My full contribution to User Guide include: `4.1 Player`, `4.5 Export`, `4.6 Data Analysis`,
+`4.7 General`, `7 Command Summary`. Please refer to our user guide for more information.
+
+|===
+
+=== *Edit Player Profile*
+You can use this `editPlayer` command to pass:[<u>edit information of an existing player's profile</u>]
+in the League Tracker. +
+
+First, you need to do a `listPlayer` command to pass:[<u>obtain the index number of the target player</u>] in league tracker's record.
+This step is *necessary*.
+
+Then, you can use `editPlayer` command to do edition on the attribute information by pass:[<u>providing respective
+updated information</u>]. Consequently the profile of the target player will be edited in accordance with the
+information provided.
+
+[TIP]
+====
+Our `editPlayer` command allows the user to make changes to one or more attributes in the player profile.
+Simply follow the format and key in only the attribute information that you want to update.
+
+Please note that you need to key in at least one attribute to make the `editPlayer` command meaningful.
+Old values will be overwritten by new inputs (including tags).
+====
+
+{empty} +
+
+
+*Format* ：
+
+* `listPlayer` +
+* `editPlayer INDEX_NUMBER [n/NAME] [p/POSITIONPLAYED] [a/AGE] [sal/SALARY] [gs/GOALSSCORED] [ga/GOALSASSISTED]
+ [ctry/NATIONALITY] [jn/JERSEYNUMBER] [app/APPEARANCE] [hs/HEALTHSTATUS] [t/TAGS]`
+
+('[]' means that this entry is optional, If it is not typed in the input, the original information for this particular
+attribute will be kept unchanged)
+
+*Example*:
+
+let's say you want to edit the player profile of a player with name "Lionel Messi"
+
+Specifically, you want to change the salary information to be '2000' in the league tracker.
+
+* `listPlayer` +
+
+[.text-center]
+.Information displayed after `listPlayer` command
+image::edit_list.png[][align="center"][editlist,400,300]
+
+From the `listPlayer` command (See figure 1), you find out that the index number of player 'Lionel Messi' is 1.
+
+* `editPlayer 1 sal/2000`
+
+If the edition is executed successfully, a *success message* will be displayed to the user containing the player
+profile after edition(See figure 2).
+
+[.text-center]
+.Success Message after edition
+image::edit_success.png[][align="center"][editsuccess,400,300]
+
+
+NOTE: You will not be allowed to change player's `team` using the `editPlayer` command. +
+      It should be done using the `transfer` Command. +
+      {empty} +
+      Edition of `GOALSSCORED` is also blocked in `editPlayer` command to avoid interference with League Tracker's
+      automatic update using match information
+
+
+WARNING: As League Tracker's internal algorithms use players' `NAME` attributes to distinguish, identify and track
+player objects, please be reminded that edition of `NAME` using `editPlayer` command pass:[<u>should be
+treated carefully after thorough considerations</u>]. You most likely need to adjust respective match information to make sure your action will not cause unwanted consequences.
+
+== 4. Contributions to the Developer Guide
+
+|===
+|_Given below are selection of sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
+My full contribution to Developer Guide include: `3.1 Architecture`, `3.2 Main Component`, `3.3 Logic Component`,
+`4.1 Transfer Player Feature`, `4.4 Export Feature`. Please refer to our user guide for more information._
+|===
+
+=== Export Feature
+==== Current Implementation
+The export feature consists of four commands: `exportPlayer`, `exportTeam`, `exportMatch` and `exportFinance`. Taking
+`exportPlayer` as the example, it is facilitated by `PlayerApachePoiWriter`, which is a class using methods provided
+by the external Java library `Apache Poi`. Internally, an object of  `PlayerApachePoiWriter` is instantiated to write
+all `Player` to the default file path `exported_player_record.xls`. Currently, each of the four writer classes implements a `write()` function.
+
+* *PlayerApachePoiWriter#write()* --- Writes the index number, name, team name, position played, age, salary,
+goals scored, goals assisted, nationality, jersey number, appearance and health status stored currently in League tracker
+to `export_player_record.xls`, and overwrites the file if an older version exists.
+
+* *TeamApachePoiWriter#write()* --- Writes the index number, team name, country, amount of sponsorship and number of players
+stored currently in League tracker to `export_team_record.xls`, and overwrites the file if an older version exists.
+
+* *MatchApachePoiWriter#write()* --- Writes the index number, date, home team, away team, ticket sales going to home team,
+ticket sales going to away team, name(s) of goal scorer(s) and of own goal scorer(s) stored currently in League tracker
+to `export_match_record.xls`, and overwrites the file if an older version exists.
+
+* *FinanceApachePoiWriter#write()* --- Writes the index number, team name, amount of sponsorship received, amount of ticket
+sales income, amount of total income, amount of Q1 income, amount of Q2 income, amount of Q3 income, amount of Q4 income
+stored currently in League tracker to `export_match_record.xls`, and overwrites the file if an older version exists.
+
+Given below is an example scenario of usage and how the export feature mechanism behaves internally at each step.
+`exportPlayer` is used to illustrate the process as other commands all follow the same process.
+
+Step 1: The user calls the `exportPlayer` command with a text input `exportPlayer` in the command box.
+
+Step 2: The `MainWindow` calls `Logic#execute()`, `Logic` then calls `Parser#parseCommand()` to parse and identify the keyword
+to decide what command to instantiate and execute.
+
+Step 3: `Parser` identifies the keyword `exportPlayer` and instantiates a new `ExportPlayerCommand` object to be executed.
+
+Step 4: the `ExportPlayerCommand` object first calls `Addressbook#getAllPlayers()` to obtain a list of all players currently
+stored in League Tracker. It then calls `PlayerApachePoiWriter#write()` and pass the list inside.
+
+Step 5: the `PlayerApachePoiWriter#write()` writes data to the output file path defined.
+
+NOTE: The file path is defined in `outputFilepath`, and is hard-coded as `export_player_record.xls` for now. +
+Any existing file with the same path will be overwritten.
+
+Figure 3 below shows a sequence diagram that illustrates the process of `exportPlayer` command execution.
+
+[.text-center]
+.A sequence diagram for `exportPlayer` command
+image::exportplayersequence.png[][exportplayersequence,500,400]
+
+==== Implementation of write()
+Given below is the algorithm behind the write() method used in export feature:
+
+Step 1: Instantiate an object of  `PlayerApachePoiWriter`/ `TeamApachePoiWriter`/ `MatchApachePoiWriter` / `FinanceApachePoiWriter`
+
+Step 2: Write the headers to the excel file
+
+Step 3: Loop through the list passed in containing all players / teams / matches / finances in League Tracker to write
+to the excel file.
+
+.step 3 writing data code snippet (use `PlayerApachePoiWriter` as the example)
+[source.java]
+----
+int num = allPlayers.size();
+
+            for (int i = 1; i <= num; i++) {
+                ReadOnlyPlayer playerNow = allPlayers.get(i - 1);
+
+                row = playerSheet.createRow(i);
+                cell = row.createCell(0);
+                cell.setCellValue(i);
+                cell = row.createCell(1);
+                cell.setCellValue(playerNow.getName().toString());
+                cell = row.createCell(2);
+                cell.setCellValue(playerNow.getTeamName().toString());
+                cell = row.createCell(3);
+                cell.setCellValue(playerNow.getPositionPlayed().toString());
+                cell = row.createCell(4);
+                cell.setCellValue(playerNow.getAge().toString());
+                cell = row.createCell(5);
+                cell.setCellValue(playerNow.getSalary().toString());
+                cell = row.createCell(6);
+                cell.setCellValue(playerNow.getGoalsScored().toString());
+                cell = row.createCell(7);
+                cell.setCellValue(playerNow.getGoalsAssisted().toString());
+                cell = row.createCell(8);
+                cell.setCellValue(playerNow.getNationality().toString());
+                cell = row.createCell(9);
+                cell.setCellValue(playerNow.getJerseyNumber().toString());
+                cell = row.createCell(10);
+                cell.setCellValue(playerNow.getAppearance().toString());
+                cell = row.createCell(11);
+                cell.setCellValue(playerNow.getHealthStatus().toString());
+            }
+
+            for (int j = 0; j <= 11; j++) {
+                playerSheet.autoSizeColumn(j);
+            }
+----
+
+Step 4: Close the `PlayerApachePoiWriter`/ `TeamApachePoiWriter`/ `MatchApachePoiWriter` / `FinanceApachePoiWriter`.
+
+==== Design considerations
+*Aspect* How data is passed into the writer object
+
+* Alternative 1 (current choice): `List<ReadOnlyPlayer>` (same List<> container for the other three commands with their respective data types)
+** Pros: Easy to implement as `getAllPlayer()` is already implemented in `Addressbook`
+** Cons: We must ensure that the implementation of each command is correct, which cannot be observed inside `exportPlayer` command
+
+* Alternative 2: `Addressbook`
+** Pros: Ensures data integrity as the whole set of data in League Tracker is passed in
+** Cons: Additional amount of data are passed in which are unnecessary. Hard to write tests and requires more methods to process
+ the data.
+
+* Solution: The data is passed in to the writer object through its constructor as a List.
+

@@ -1,0 +1,6 @@
+= Contact Us
+:site-section: ContactUs
+:stylesDir: stylesheets
+
+* *Bug reports, Suggestions* : Post in our https://github.com/CS2113-AY1819S2-M11-1/main/issues[issue tracker] if you noticed bugs or have suggestions on how to improve.
+* *Contributing* : We welcome pull requests. Follow the process described https://github.com/oss-generic/process[here]

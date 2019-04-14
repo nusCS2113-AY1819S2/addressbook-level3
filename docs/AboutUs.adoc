@@ -1,0 +1,50 @@
+= About Us
+:site-section: AboutUs
+:relfileprefix: team/
+:imagesDir: images
+:stylesDir: stylesheets
+
+The LeagueTracker provides football league operator with efficient methods of managing the players, teams and matches in the league. It features many ways to keep track of the teams and players playing in the league. The LeagueTracker will help manager have an easier time in keeping track of the current situation in the football league. +
+{empty} +
+We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+== Project Team
+
+=== Wang Jiannan
+image::warheade.png[width="150", align="left"]
+{empty}[http://github.com/warheade[github]] [<<warheade#, portfolio>>]
+
+Role: Team Lead, Developer +
+Responsibilities: Player Feature
+
+'''
+
+=== Lee Ying Rong
+image::yingrong1996.png[width="150", align="left"]
+{empty}[http://github.com/yingrong1996[github]] [<<yingrong1996#, portfolio>>]
+
+Role: Testing, Developer +
+Responsibilities: Team Feature
+
+'''
+
+=== Lee Chong Wei Justin
+image::e0176106.png[width="150", align="left"]
+{empty}[http://github.com/E0176106[github]] [<<E0176106#, portfolio>>]
+
+Role: Integration, Developer +
+Responsibilities: Match Schedule Feature
+
+'''
+
+=== Hu Yidi
+image::huyidi.png[width="150", align="left"]
+{empty}[https://github.com/huyidi[github]] [<<huyidi#, portfolio>>]
+
+Role: Documentation, Developer +
+Responsibilities: Finance Feature
+
+'''
+
+
+

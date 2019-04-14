@@ -1,0 +1,78 @@
+= Hu Yidi - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: League Tracker
+
+---
+
+== Overview
+
+CS2113T Software Engineering module in Semester 2 AY 2018/2019 required us to do a team project of enhancing a basic
+command line interface application addressbook. My team and I decided to morph AdressBook Level 3 into a football league records
+management application called League Tracker. This enhanced application helps league managers to record
+ relevant information of players, teams, matches and finances in the league.
+ Moreover, it processes the data to provide league managers with better organised information.
+ League Tracker is a CLI (Command Line Interface) application written in OOP fashion with a very basic GUI.
+
+My role in this project was to design and write the codes for the finance feature. The following sections
+illustrate my contributions in more detail, as well as the relevant sections I have added to the
+user and developer guides in relation to the finance feature.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the finance feature*
+** What it does: It allows league managers to keep track of the financial income of each team in the league and even
+visualise the trend of changes within certain time period.
+** Justification: This feature improves the product because the financial aspect of a league is important to
+league managers. The profitability of each team and the league indicates the survivability of them in the future.
+** Highlights: This enhancement processes existing data from other classes and requires data analysis. It implements
+visualisation of data trends as well.
+
+
+* *Code contributed*: [https://nuscs2113-ay1819s2.github.io/dashboard-beta/#=undefined&search=huyidi[Code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Added AboutUs and updated all team members' photos: https://github.com/CS2113-AY1819S2-M11-1/main/pull/16[#16],
+https://github.com/CS2113-AY1819S2-M11-1/main/pull/17[#17], https://github.com/CS2113-AY1819S2-M11-1/main/pull/18/files[#18],
+https://github.com/CS2113-AY1819S2-M11-1/main/pull/19[#19]
+** Enhancements to existing features:
+*** Adjusted help command to make it easier to view: https://github.com/CS2113-AY1819S2-M11-1/main/pull/122/files[#122]
+** Documentation:
+*** Did cosmetic tweaks to existing contents of and added contents and pictures to the User Guide and Developer Guide: https://github.com/CS2113-AY1819S2-M11-1/main/pull/49/files[#49],
+https://github.com/CS2113-AY1819S2-M11-1/main/pull/50/files[#50]
+** Community:
+*** Reported bugs and suggestions for team members: https://github.com/CS2113-AY1819S2-M11-1/main/issues/113[#113],
+https://github.com/CS2113-AY1819S2-M11-1/main/issues/116[#116],
+https://github.com/CS2113-AY1819S2-M11-1/main/issues/137[#137], https://github.com/CS2113-AY1819S2-M11-1/main/issues/138[#138],
+
+*** Reported bugs for other teams in the class: https://github.com/CS2113-AY1819S2-T09-3/main/issues/154[#154],
+https://github.com/CS2113-AY1819S2-T09-3/main/issues/158[#158], https://github.com/CS2113-AY1819S2-T09-3/main/issues/159[#159],
+https://github.com/CS2113-AY1819S2-T09-3/main/issues/163[#163], https://github.com/CS2113-AY1819S2-T09-3/main/issues/166[#166],
+https://github.com/CS2113-AY1819S2-T09-3/main/issues/167[#167]
+
+
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the League Tracker User Guide for the Finance feature.
+They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=financeug]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the League Tracker Developer Guide for the Finance feature.
+They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=finance]
+

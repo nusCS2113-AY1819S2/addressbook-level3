@@ -1,99 +1,1321 @@
-= Developer Guide
+= League Tracker - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
+:toc-placement: preamble
+:sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
-:experimental:
+:xrefstyle: full
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+endif::[]
+
+By: `CS2113-AY1819S2-M11-1`      Since: `Jan 2019`      Licence: `MIT`
+
+== Introduction
+
+The LeagueTracker is a CLI (Command Line Interface) application written in OOP fashion with a very basic GUI.
+This application is adapted from AddressBook3. It is created to provide league managers a football league operator with an efficient method of managing the league in the current season. It features many ways to keep track of the teams and players playing in the league. The LeagueTracker will make useful information of the league managed to be more organized and accessible. +
+
+This Developer Guide provides you useful information regarding setting, coding and testing of League Tracker.
 
 == Setting up
 
 === Prerequisites
 
-* JDK 9 or later
-* IntelliJ IDE
+. *JDK `9`* or later
 
-=== Importing the project into IntelliJ
+. *IntelliJ* IDE
 
+
+=== Setting up the project in your computer
+To set up this project on our computer: +
+
+. Fork this repo, and clone the fork to your computer
 . Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
-. Set up the correct JDK version
+. Set up the correct JDK version for Gradle
 .. Click `Configure` > `Project Defaults` > `Project Structure`
-.. If JDK 9 is listed in the drop down, select it. If it is not, click `New...` and select the directory where you installed JDK 9
-.. Click `OK`
+.. Click `New...` and find the directory of the JDK
 . Click `Import Project`
 . Locate the `build.gradle` file and select it. Click `OK`
 . Click `Open as Project`
 . Click `OK` to accept the default settings
-. Run the `seedu.addressbook.Main` class (right-click the `Main` class and click `Run Main.main()`) and try executing a few commands
-. Run all the tests (right-click the `test` folder, and click `Run 'All Tests'`) and ensure that they pass
-. Open the `StorageFile` file and check for any code errors
-.. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
-.. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=java.xml.bind' to module compiler options`
+. Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
+This will generate all resources required by the application and tests.
+
+=== Verifying the setup
+
+. Run the `seedu.addressbook.Main` and try a few commands
+. <<Testing,Run the tests>> to ensure they all pass.
+
+=== Configurations to do before writing code
+
+==== Configuring the coding style
+
+This project follows https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[oss-generic coding standards]. IntelliJ's default style is mostly compliant with ours but it uses a different import order from ours. To rectify,
+
+. Go to `File` > `Settings...` (Windows/Linux), or `IntelliJ IDEA` > `Preferences...` (macOS)
+. Select `Editor` > `Code Style` > `Java`
+. Click on the `Imports` tab to set the order
+
+* For `Class count to use import with '\*'` and `Names count to use static import with '*'`: Set to `999` to prevent IntelliJ from contracting the import statements
+* For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javax.*`, `import org.\*`, `import com.*`, `import all other imports`. Add a `<blank line>` between each `import`
+
+Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
+
+==== Updating documentation to match your fork
+
+After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level3` repo.
+
+If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level3`), you should do the following:
+
+. Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
+
+. Replace the URL in the attribute `repoURL` in link:{repoURL}/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and link:{repoURL}/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
+
+==== Setting up CI
+
+Set up Travis to perform Continuous Integration (CI) for your fork. See <<UsingTravis#, UsingTravis.adoc>> to learn how to set it up.
+
+After setting up Travis, you can optionally set up coverage reporting for your team fork (see <<UsingCoveralls#, UsingCoveralls.adoc>>).
+
+[NOTE]
+Coverage reporting could be useful for a team repository that hosts the final version but it is not that useful for your personal fork.
+
+Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingAppVeyor.adoc>>).
+
+[NOTE]
+Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
 
 == Design
 
-image::mainClassDiagram.png[]
+=== Architecture
+
+[.text-center]
+.Architecture Diagram
+image::Architecture.png[width="600"]
+
+The *_Architecture Diagram_* given above explains the high-level design of the League Tracker.
+Given below is a quick overview of each component. +
+
+*Main* has only one class called `Main`. It is responsible for:
+
+* At app launch: Initializing the components in the correct sequence, and connects them up with each other.
+
+* At shut down: Shutting down the components.
+
+
+*Logic* is the command executor.
+
+*Data* Holds the data of the League Tracker in-memory.
+
+*Storage* Reads data from, and writes data to the hard disk.
+
+=== Main Component
+
+[.text-center]
+.Class Disgram showcasing the structure of Main Component
+image::Uicomponent.png[width="600"]
+
+The Main Component consists of a UI package and a `Main` class. Inside the UI package, there are various classes such
+as `MainWindow`, `Formatter` and `Gui` as shown in figure 2. A `Stoppable` interface is also included which
+the `main` class implements.
+
+The UI package uses JavaFX UI framework. Layout of `MainWindow` is defined in `mainwindow.fxml` which can be found
+under the same package.
+
+The Main Component:
+
+* Displays the CLI Gui
+
+* Accepts input from users
+
+* Executes user commands using the `Logic` Component
+
+* Listens for changes to `Data`
+
+
+=== Logic Component
+[.text-center]
+.Class Disgram showcasing the structure of Logic Component
+image::LogicComponent.png[width="600"]
+
+The Logic Component has a `Logic` package with a `Logic` class and a `Parser` package with a `Parser` class.
+
+1. `Logic` uses `Parser` class in the `Parser` package to parse the user command
+
+2. This produces a `Command` object which is executed by `Logic`.
+
+3. The command execution can affect `Data`
+
+4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to Ui.
+
+5. This `CommandResult` object can also invoke actions at Ui such as displaying a message or a summary.
+
+
+=== Data Component
+.Data Component Diagram
+image::Data.png[width"800"]
+
+The data component shows
+
+=== Storage Component
+[.text-center]
+.Storage Diagram
+image::Storage.png[width="600"]
+
+The storage component stores League Tracker data in an XML format and is able to convert it back into a human-readable format in League Tracker.
+
+=== Common Classes
+Classes used by multiple components (eg.Utils.java) are collated in the `seedu.addressbook.common` package.
+(`main` > `src` > `seedu` > `addressbook` > `common`)
+
+== Implementation
+
+This section describes some noteworthy details on how certain features are implemented.
+
+
+=== Transfer Player Feature
+==== Current implementation
+
+This feature enables the user to capture the event of player transfer in the actual football league world.
+As the `TEAM`, `SALARY`, `JERSEYNUMBER` of the player will be changed during transfer, which will affect the calculation
+of *finance*, the structure and storage in relevant *teams*  and the updated information by *matches*, League Tracker's
+`transferPlayer` command takes all these into consideration to provide a one-liner efficient solution to the need of
+ such complicated changes. +
+
+{empty} +
+
+There are 4 steps involved in the process of this feature: +
+Step 1. *Parsing user input*: User input is broken down into sub-fields, such as `NAME`, `DESTINATIONTEAM`, `NEWJERSEYNUMBER`,
+and `NEWSALARY`. relevant Strings are then passed in to create the `TransferPlayerCommand` object +
+Step 2. *Creating `PLAYER` object called `oldPlayer`* : Using the `NAME` string provided by the user, the command locates the target `PLAYER`
+object in League Tracker's internal storage lists and using information retrieved from it to instantiated another `PLAYER`
+object called `oldPlayer` which represents the player before transfer. +
+Step 3. *Creating `PLAYER` object called `newPlayer`*: Using both user-input information and information retrieved from `oldPlayer`,
+the command then instantiates another `PLAYER` object called `newPlayer` that contains updated information of the player
+after transfer.
+Step 4. *Removing `oldPlayer` and adding `newPlayer`*: After several checks for exceptions, the `oldPlayer` will be removed from
+League Tracker's internal lists and `newPlayer` will be added to replace the `oldPlayer`, symbolizing and realizing the real-life
+process of player transfer.
+
+Figure 5 shows a class diagram of the `Player` class involved here.
+
+[.text-center]
+.A class diagram of the `Player` class
+image::playerclassdiagram.png[]
+
+{empty} +
+
+The following is an example of a use case, and how the mechanism behaves.
+
+{empty} +
+
+User input: `transfer Lionel Messi tm/Real Madrid jn/10 sal/20`
+
+{empty} +
+
+*Step 1: Parsing user input:* +
+`MainWindow` object detects the user input and calls `logic.execute()` with the input string passed in. In
+`logic.execute()` the `logic` object calls `Parser().parseCommand()`. As the `transfer` keyword is recognized by the
+`parser`, a `prepareTransferCommand() method will be invoked to create a `TransferPlayerCommand` object using `NAME`,
+`DESTINATIONTEAM`, `NEWJERSEYNUMBER`, `NEWSALARY` parsed values from the input string through their respective prefixes
+as the input.
+
+{empty} +
+
+*Step 2: Creating `oldPlayer` object* +
+`TransferPlayerCommand` object will first call an `addressbook.getAllPlayers()` method in `Addressbook` to get a list of all players
+currently stored in League Tracker. It will then search through the list to find the target player. This player profile
+will be used to create the `oldPlayer`.
+
+.Create `oldPlayer` code snippet
+[source.java]
+----
+//check if the player exists in league tracker
+        //check if the destination team is the same as the current team of player
+        for (Player player : oldAllPlayers) {
+            if (player.getName().equals(this.playerNameItem)) {
+                oldPlayer = player;
+                oldTeamName = player.getTeamName().toString();
+                isOldPlayerFound = true;
+                if (oldTeamName.equals(this.teamNameItem.toString())) {
+                    return new CommandResult(String.format(MESSAGE_DESTINATION_IS_CURRENT, oldTeamName));
+                }
+            }
+        }
+----
+
+{empty} +
+
+*Step 3: Creating `newPlayer` object* +
+`TransferPlayerCommand` object will also call an `addressbook.getAllTeams()` method in `Addressbook` to get a list all teams currently
+stored in League Tracker to check if the destination team exists. It will then use the input information as well as
+information stored in `oldPlayer`to create a `newPlayer` which contains correct information of the player after transfer.
+
+.create `newPlayer` code snippet
+[source.java]
+----
+// if the player does not exist, return an error message and terminate the execute()
+        // else, create the player after transfer
+        if (!isOldPlayerFound) {
+            return new CommandResult(String.format(
+                    MESSAGE_PLAYER_NOT_FOUND, this.playerNameItem.toString()
+            ));
+        } else {
+            newPlayer = createPlayerAfterTransfer(this.teamNameItem, this.jerseyNumberItem,
+                    this.salaryItem, oldPlayer);
+        }
+
+        .
+        .
+        .
+
+     /**
+     * creates the player after transfer
+     * @param teamNameItem Team Name of the destination team
+     * @param oldPlayer player before transfer
+     * @param salaryItem Salary of the player in the destination team
+     * @param jerseyNumberItem jersey number of the player in the destination team
+     * @return player after transfer
+     */
+    private static Player createPlayerAfterTransfer(TeamName teamNameItem,
+                                                    JerseyNumber jerseyNumberItem,
+                                                    Salary salaryItem,
+                                                    Player oldPlayer) {
+        return new Player(oldPlayer.getName(), oldPlayer.getPositionPlayed(), oldPlayer.getAge(),
+                salaryItem, oldPlayer.getGoalsScored(), oldPlayer.getGoalsAssisted(),
+                teamNameItem, oldPlayer.getNationality(), jerseyNumberItem,
+                oldPlayer.getAppearance(), oldPlayer.getHealthStatus(), oldPlayer.getTags());
+    }
+----
+
+{empty} +
+
+*Step 4: Removing `oldPlayer` from internal list and add in `newPlayer`* +
+At this step, `TransferPlayerCommand` object will first call an `addressbook.removePlayer()` method to remove the
+`oldPlayer` from the internal lists in League Tracker. The player's original team's `playerList` will also be updated to
+remove this player. Then, `TransferPlayerCommand` object will call an `addressbook.addPlayer()` method to add `newPlayer`
+into internal lists, including the destination team's `playerList`. After success execution of the above actions,
+`TransferPlayerCommand` will return a `CommandResult` to `MainWindow` containing the success message to be displayed.
+
+{empty} +
+
+[.text-center]
+.sequence diagram showing the process of `tranferPlayer` command
+image::transfersequence.png[]
+
+==== Design Considerations
+
+*Aspect: removing `oldPlayer` and adding `newPlayer`* +
+
+* *Alternative 1 (Current Implementation)*: creating the `oldPlayer` and the 'newPlayer` objects and pass them to
+ the `addressbook.removePlayer()` and `addressbook.addPlayer()` methods in `Addressbook` respectively to do removal and
+ addition.
+
+** Pros: Separation of Concerns is achieved. As those two methods also integrate the update of `Team` objects' player lists
+inside, maximum encapsulation is achieved. Low coupling as now the `TransferPlayerCommand` only has coupling with `Addressbook`.
+
+** Cons: Inefficient in terms of time-complexity as player list and team list are iterated multiple times just to locate the
+object for removal and addition.
+
+* *Alternative 2*: use pointers to store location of the involved `Player` objects in the internal lists and use to do edition
+on them straight.
+
+** Pros: More efficient in terms of time-complexity, edition is done in one step instead of multiple steps.
+
+** Cons: More coupling as `TransferPlayerCommand` now has coupling with more classes like `Addressbook`, `Player`, `Team`.
+This approach also has potential data corruption risks as it directly accesses the storage. Wrong formats or data types may
+not be detected.
+
+
+
+=== Finance feature
+==== Current Implementation
+The finance feature is facilitated by `AddressBook`, `GetFinanceCommand`, `ViewFinanceCommand`, `ListFinanceCommand`
+`GetLeagueFinanceCommand`, `RankFinanceCommand`, `Finance`, `ReadOnlyTeam` and `Match`.
+
+The finance feature is mainly supported by `Finance` class and `Command` class.
+
+* The following section covers some of the feature implementation. +
+
+1. <<Finance Class>> +
+2. <<Data Processing in Finance>> +
+3. <<Histogram>> +
+3. <<Update of Finance Data>> +
+
+===== Finance Class
+
+The class diagram below illustrates the `Finance` class.
+
+[.text-center]
+.finance class diagram
+image::finance_class.png[width="200"]
+
+The Finance class consists information of the name of the team, incomes from sponsorship and ticket sales, total incomes
+within each quarter of the year and a histogram which can help to visualise the trend of changes of total income among
+four quarters.
+
+Unlike `Player`, `Team` and `Match` which need the execution of add commands to create new objects,
+a `Finance` object can be created by `Finance(ReadOnlyTeam team)` based on existing teams in League Tracker.
+The following sequence diagram shows how the instantiation of a Finance object works by interacting with
+`ReadOnlyTeam` class and `Match` class
+
+[.text-center]
+.finance class sequence diagram
+image::finance_sequence_d.png[width="500"]
+
+[NOTE]
+This sequence diagram mainly focuses on the interaction with `ReadOnlyTeam` class and `Match` class.
+The actual instantiation of a `Finance` object is more complicated than the above sequence diagram.
+
+===== Data Processing in Finance
+
+The `ticketIncome` in a Finance object is calculated by iterating through the relevant matches of the team which
+are obtained by `getMatches()` from the target team and checking whether the team plays home or away in the
+respective match to add the corresponding home or away sale to the ticket income.
+
+[.text-center]
+.example of codes of getting total ticket income
+image::code_one.png[width="500"]
+
+Each quarter's financial income is calculated by `sponsorMoney/4` + the ticket sale income in this quarter.
+The ticket sale income in a particular quarter is calculated by iterating through the relevant matches of the team
+ and check if the month of the current match is within the particular quarter of the year.
+
+
+===== Histogram
+
+A histogram displaying columns of financial income in each quarter is implemented in the Finance Class.
+
+[.text-center]
+.histogram displayed in command
+image::histogram_with.png[width="400"]
+
+This conversion of numbers to a graphic display is achieved by
+
+1. finding the maximum number among the four input numbers `quarterOne`, `quarterTwo`, `quarterThree` and `quarterFour`
+
+2. making the maximum number to be the tallest column, and then taking the height of the rest numbers proportionally
+
+3. converting the heights of four columns to a 2D string array
+
+4. building the 2D array to a single string
+
+The 2D string array is converted to a single string in order to be easier displayed.
+
+===== Update of Finance Data
+Finance objects are affected if there are changes in related Team objects or Match objects ie. changes of
+sponsor and ticket sales, making it dependent on these two classes. Additionally, the number of objects in
+the finance list should be the same of those in the team list. For example, when a team is deleted from League Tracker,
+the finance list should not display the financial condition of the nonexistent team.
+
+A method called refreshFinance is therefore implemented in `AddressBook`. This method helps to "refresh"
+finance list in `AddressBook` to get a finance list matching the current information in the league.
+
+[.text-center]
+.example of codes of refreshFinance()
+image::code_two.png[width="700"]
+
+[NOTE]
+This method is called every time information of the current financial condition of in the league is enquired.
+This method is used in `ListFinanceCommand`, `GetLeagueFinanceCommand` and `RankFinanceCommand`.
+
+{empty} +
+
+==== Design Considerations
+===== Aspect: How to update Finance objects
+
+* **Alternative 1 (current choice):** Use a refreshFinance method in `AddressBook` to clear the old
+finance list and then load new data.
+** Pros: It is easy to implement. The finance list only needs to be changed at the time of enquiry.
+** Cons: It may have performance issues in terms of time complexity. This method makes the time complexity of
+every enquiry of the current finance list to be O(n).
+* **Alternative 2:** Make corresponding changes to Finance objects every time Team objects or Match objects
+are changed.
+** Pros: Enquiry of information in the current finance list will be faster.
+** Cons: We must ensure that the implementation of each change is correct. The finance list will be frequently changed
+even if there is no enquiry on finance.
+
+I decide to proceed with the current implementation as it is easy to implement and more unlikely to produce bugs.
+
+===== Aspect: Histogram display
+
+* **Alternative 1 (current choice):** Use available common keyboard characters to produce the histogram string.
+** Pros: It is unlikely to produce unexpected message.
+** Cons: It does not give a good visual effect. It requires some amount of effort to make sure columns in the histogram
+ are straight as different characters do not take the same amount of space.
+* **Alternative 2:** Use special characters
+
+[.text-center]
+.example of using special characters to produce the histogram
+image::histogram_special.png[width="400"]
+
+** Pros: It produces a better visual effect.
+
+** Cons: It is more likely to produce unexpected messages from the jar file. The special characters
+may not be able to be parsed correctly.
+
+I decide to proceed with the current implementation as it is more safe in terms of producing the expected message and
+less likely to raise bugs.
+// end::finance[]
+
+// tag::team[]
+=== Team Feature
+==== Current Implementation
+* The team feature is facilitated by `AddTeam`, `ClearTeam`, `DeleteTeam`, `EditTeam`, `FindTeam`, `ListTeam`, `ViewTeam` +
+* The feature mainly uses the `addressbook` class, `Team` class and the `Command` class. +
+
+The class diagram below illustrates the `Team`class. +
+
+.Team Class Diagram
+image::TeamClassDiagram.png[width="300"]
+
+* The following section covers some of the feature implementation. +
+
+1. <<AddTeam>> +
+2. <<EditTeam>> +
+3. <<Point System>> +
+
+==== AddTeam
+
+The AddTeam Command creates a record of the team with the attributes provided by the user. +
+
+The user is minimally required to provide the name, country and the annual sponsorship for the creation of teams. The program will automatically check for duplication of team to ensure that all team's name are unique. +
+
+Given below is an example usage scenario and how the add team mechanism behaves at each step.
+
+Step 1. The user enters in a note with its *associated parameters*. e.g `addteam Liver Pool c/UK s/10000000`.
+
+Step 2. The _Logic_ calls _parseCommand_ with that input.
+
+Step 3. The _Parser_ is called and returns a _AddTeam_ object to _Logic_.
+
+Step 4. The _Logic_ will call _execute_ method on the _AddTeam_ object.
+
+Step 5. _AddTeam_ will call the _Team_ Constructor with the provided arguments.
+
+Step 6. _Team_ constructor return a Team object with the provided arguments.
+
+Step 7. _AddressBook_ is called to add Team to the teamlist in the AddressBook itself.
+
+Step 6. If the team already exists, _DuplicateTeamException_ will be thrown. This will return a string message "This team already exists in the team list".
+
+Step 7. Else, _add(team)_ method is called and team is added.
+
+The sequence diagram below illustrates how the mechanism for adding teams function.
+
+
+.Add Team Sequence Diagram
+image::AddTeamSQ.png[width="500"]
+
+==== EditTeam
+
+The EditTeam Command edits record of a existing team with the attributes provided by the user. +
+
+The user is minimally required to provide the at least one attribute. e.g `name, country, annual sponsorship` for the editing of teams. The program will check that for repeated team's name. +
+
+Given below is an example usage scenario and how the edit team mechanism behaves at each step.
+
+Step 1. The user enters in a note with its *associated parameters*. e.g `editteam n/Liver Pool`.
+
+Step 2. The _Logic_ calls _parseCommand_ with that input.
+
+Step 3. The _Parser_ is called and returns a _EditTeam_ object to _Logic_.
+
+Step 4. The _Logic_ will call _execute_ method on the _EditTeam_ object.
+
+Step 5. _EditTeam_ will call the _EditTeamDescriptor_ with the provided arguments.
+
+Step 6. _EditTeam_ will call a method within it's class to genernate attributes of the edited team.
+
+Step 7. _EditTeam_ will call _Team_ Constructor with the new attricutes.
+
+Step 8. _Team_ constructor return a Team object with the new attributes.
+
+Step 9. _AddressBook_ is called to remove the old Team and add the new Team to the teamlist in the AddressBook itself.
+
+Step 6. If the team's name already exists, _DuplicateTeamException_ will be thrown. This will return a string message "This team's name already exists in the team list".
+
+Step 7. Else, _edit(team)_ method is called with the old team removed and the new team added.
+
+==== Point System
+
+The Point System keeps track of the `win`, `lose`, `draw` and `points` of the team in the current league. Changes in match records will automatically result in coresponding changes to the listed attributes. +
+
+After the matchrecord is updated, it will call for the `Team` class and performs the following action.
+
+1. `Team` class will check the results of the matches and increment the win, lose and draw records of both teams involved.
+2. The `Team` class will call for the update points method and calulate the points from the new win, lose and draw records.
+3. Removal of these matches will also result in coresponding changes in the parameter
+
+The new parametes will be reflected when `listteam` commad is called.
+
+==== Design Consideration
+
+Aspect: Checking for *duplicate teams* in adding
+
+* **Alternative 1(current choice):** Implement a method to check new teams entered. If a new team has exactly the same name as exisitng teams in the League Tracker, it will be classified as duplicate team and cannot be added.
+** Pros: Ease of implementation
+** Cons: If the names are just slightly different it will not be able to differentiate it to be the same team. +
+1. TeamA
+2. Team A +
+
+* **Alternative 2:** Implement a method to prompt user if given teams with names silmilar to existing teams' name.
+** Pros: Can reduce the amount of duplicate teams that are added.
+** Cons: Difficult of implemnetation and false positive could be an issue.
+1. Team A
+2. Team B
+
+Final decision: Alternative 1 was chosen due to the ease of implementation.
+
+Aspect: Prevents team's name to be edited when tied to other players or matches
+
+* **Alternative 1(current choice):** Implement a method to check if name is edited and ensure that no match or players are tied to the team if so.
+** Pros: Ease of implementation
+** Cons: It becomes impossible of user to change the team's name entire without the removal of the entire team's record adding it back in
+
+* **Alternative 2:** Implement a method to change the change of team name entire throughout the whole league tracker.
+** Pros: More user friendly.
+** Cons: Difficult of implemnetation and may result in slower processing as all records need to be run through at least once.
+
+Final decision: Alternative 1 was chosen due to the rarity of team's name edited during a game season.
+// end::team[]
+
+// tag::matchdg[]
+=== Match Feature
+The match feature allows users to store, retrieve and manipulate match records in a league. It also
+edits player and team profile with its `UpdateMatchCommand` with information processed from a match outcome.
+
+==== Current Implementation
+The match feature is facilitated by `AddMatchCommand`, `ClearMatchCommand`, `DeleteMatchCommand`,
+`FindMatchCommand`, `ListMatchCommand`, `ViewMatchCommand` and `UpdateMatchCommand`.
+
+The match feature extends the `AddressBook` class with a list of `Match`, stored as a `UniqueMatchList` which prevents duplicate matches
+from existing in League Tracker. The figure below shows the class diagram showing the implementation of the match feature.
+
+image::matchclass.PNG[width="600"]
+
+There are many commands facilitating this feature. The remaining portion of this section will
+describe the implementation of the most noteworthy command, `UpdateMatchCommand`.
+
+===== Updating Matches
+Updating match is done by executing `UpdateMatchCommand` which is constructed in the `Parser` Class after it parses the user's command string. +
+{empty} +
+The execution of the `UpdateMatchCommand` can be broken down in to 5 different stages:
+
+. Retrieval of `Match` object called `toRemove` from `addressBook`
+. Construction of `Match` object called `toReplace` with attributes of `toRemove` and `updateMatchDescriptor` which is an attribute
+of `UpdateMatchCommand`.
+. Replacement of `toRemove` with `toReplace` in `addressBook`
+. Update of relevant `Player` and `Team` objects
+. Return of `CommandResult`
+
+==== Design Considerations
+
+Aspect: How score of a match is updated. +
+
+Alternative 1 was chosen because of the robustness of LeagueTracker and high coupling between classes.
+Error in score data will likely cause error in other features.
+
+* Alternative 1 (current choice): Compute internally with the list of `goalscorers` and `owngoalscorer`.
+** Pros:
+*** Provides many layer of checking to reduce chance of error in score.
+*** Reduces input command length for users.
+** Cons:
+*** Harder to implement.
+*** Not very intuitive for users
+* Alternative 2: User enter score manually
+** Pros:
+*** Easy to implement
+** Cons:
+*** Error prone
+*** Longer input command for users.
+// end::matchdg[]
+
+{empty} +
+{empty} +
+
+
+=== Export Feature
+==== Current Implementation
+The export feature consists of four commands: `exportPlayer`, `exportTeam`, `exportMatch` and `exportFinance`. Taking
+`exportPlayer` as the example, it is facilitated by `PlayerApachePoiWriter`, which is a class using methods provided
+by the external Java library `Apache Poi`. Internally, an object of  `PlayerApachePoiWriter` is instantiated to write
+all `Player` to the default file path `exported_player_record.xls`. Currently, each of the four writer classes implements a `write()` function.
+
+
+* *PlayerApachePoiWriter#write()* --- Writes the index number, name, team name, position played, age, salary,
+goals scored, goals assisted, nationality, jersey number, appearance and health status stored currently in League tracker
+to `export_player_record.xls`, and overwrites the file if an older version exists.
+
+* *TeamApachePoiWriter#write()* --- Writes the index number, team name, country, amount of sponsorship and number of players
+stored currently in League tracker to `export_team_record.xls`, and overwrites the file if an older version exists.
+
+* *MatchApachePoiWriter#write()* --- Writes the index number, date, home team, away team, ticket sales going to home team,
+ticket sales going to away team, name(s) of goal scorer(s) and of own goal scorer(s) stored currently in League tracker
+to `export_match_record.xls`, and overwrites the file if an older version exists.
+
+* *FinanceApachePoiWriter#write()* --- Writes the index number, team name, amount of sponsorship received, amount of ticket
+sales income, amount of total income, amount of Q1 income, amount of Q2 income, amount of Q3 income, amount of Q4 income
+stored currently in League tracker to `export_match_record.xls`, and overwrites the file if an older version exists.
+
+Given below is an example scenario of usage and how the export feature mechanism behaves internally at each step.
+`exportPlayer` is used to illustrate the process as other commands all follow the same process.
+
+Step 1: The user calls the `exportPlayer` command with a text input `exportPlayer` in the command box.
+
+Step 2: The `MainWindow` calls `Logic#execute()`, `Logic` then calls `Parser#parseCommand()` to parse and identify the keyword
+to decide what command to instantiate and execute.
+
+Step 3: `Parser` identifies the keyword `exportPlayer` and instantiates a new `ExportPlayerCommand` object to be executed.
+
+Step 4: the `ExportPlayerCommand` object first calls `Addressbook#getAllPlayers()` to obtain a list of all players currently
+stored in League Tracker. It then calls `PlayerApachePoiWriter#write()` and pass the list inside.
+
+Step 5: the `PlayerApachePoiWriter#write()` writes data to the output file path defined.
+
+NOTE: The file path is defined in `outputFilepath`, and is hard-coded as `export_player_record.xls` for now. +
+Any existing file with the same path will be overwritten.
+
+Figure 13 below shows a sequence diagram that illustrates the process of `exportPlayer` command execution.
+
+[.text-center]
+.A sequence diagram for `exportPlayer` command
+image::exportplayersequence.png[][exportplayersequence,500,400]
+
+==== Implementation of write()
+Given below is the algorithm behind the write() method used in export feature:
+
+Step 1: Instantiate an object of  `PlayerApachePoiWriter`/ `TeamApachePoiWriter`/ `MatchApachePoiWriter` / `FinanceApachePoiWriter`
+
+Step 2: Write the headers to the excel file
+
+Step 3: Loop through the list passed in containing all players / teams / matches / finances in League Tracker to write
+to the excel file.
+
+.step 3 writing data code snippet (use `PlayerApachePoiWriter` as the example)
+[source.java]
+----
+int num = allPlayers.size();
+
+            for (int i = 1; i <= num; i++) {
+                ReadOnlyPlayer playerNow = allPlayers.get(i - 1);
+
+                row = playerSheet.createRow(i);
+                cell = row.createCell(0);
+                cell.setCellValue(i);
+                cell = row.createCell(1);
+                cell.setCellValue(playerNow.getName().toString());
+                cell = row.createCell(2);
+                cell.setCellValue(playerNow.getTeamName().toString());
+                cell = row.createCell(3);
+                cell.setCellValue(playerNow.getPositionPlayed().toString());
+                cell = row.createCell(4);
+                cell.setCellValue(playerNow.getAge().toString());
+                cell = row.createCell(5);
+                cell.setCellValue(playerNow.getSalary().toString());
+                cell = row.createCell(6);
+                cell.setCellValue(playerNow.getGoalsScored().toString());
+                cell = row.createCell(7);
+                cell.setCellValue(playerNow.getGoalsAssisted().toString());
+                cell = row.createCell(8);
+                cell.setCellValue(playerNow.getNationality().toString());
+                cell = row.createCell(9);
+                cell.setCellValue(playerNow.getJerseyNumber().toString());
+                cell = row.createCell(10);
+                cell.setCellValue(playerNow.getAppearance().toString());
+                cell = row.createCell(11);
+                cell.setCellValue(playerNow.getHealthStatus().toString());
+            }
+
+            for (int j = 0; j <= 11; j++) {
+                playerSheet.autoSizeColumn(j);
+            }
+----
+
+Step 4: Close the `PlayerApachePoiWriter`/ `TeamApachePoiWriter`/ `MatchApachePoiWriter` / `FinanceApachePoiWriter`.
+
+==== Design considerations
+*Aspect* How data is passed into the writer object
+
+* Alternative 1 (current choice): `List<ReadOnlyPlayer>` (same List<> container for the other three commands with their respective data types)
+** Pros: Easy to implement as `getAllPlayer()` is already implemented in `Addressbook`
+** Cons: We must ensure that the implementation of each command is correct, which cannot be observed inside `exportPlayer` command
+
+* Alternative 2: `Addressbook`
+** Pros: Ensures data integrity as the whole set of data in League Tracker is passed in
+** Cons: Additional amount of data are passed in which are unnecessary. Hard to write tests and requires more methods to process
+ the data.
+
+* Solution: The data is passed in to the writer object through its constructor as a List.
+
+
+== Documentation
+Following AddressBook3, our League Tracker uses AsciiDoc for writing documentation.We choose AsciiDoc as it provides both a human-readable,
+plain-text writing format as well as a text processor and toolchain that are able to translate AsciiDoc documents into different formats(called backend),
+including HTML,DocBook and PDF.
+
+=== Editing Documentation
+In your IntelliJ IDE, open `Main` > `docs` > `templates` and select the documentation file (eg. `DeveloperGuide.adoc`) to open and edit.
+IntelliJ IDE will notify to download the AsciiDoc Plugin. With the plugin, a preview of the documentation will be shown on the screen when the documentation is being
+edited for ease of developers.
+
+=== Publishing Documentation
+Auto-publishing of documentations has been enabled in League Tracker using Travis CI. A guide of doing so is provided below.
+
+1. Ensure that you have set up Travis CI properly for the project.
+
+2. On Github, create a new user account give this account collaborator and admin access to the repo.
+   Using this account, generate a personal access token using this link: https://github.com/settings/tokens/new
+
+[TIP]
+Personal access tokens serve as passwords so they must be kept secret to protect your accounts. Delete and regenerate if it is leaked.
+
+[TIP]
+We use a new user account to generate the token for team projects to prevent team members from gaining access to other team members' repos.
+    If you are the only one with write access to the repo, you can use your own account to generate the token.
+
+   * Add a description for the token. (e.g. Travis CI - auto-publishing)
+   * Check the `public repo` checkbox.
+   * Click `Generate Token` to grant access for Travis CI to the repo of the project.
+
+[.text-center]
+.Generating personal token for auto-publishing on Github
+image::generate_token.png[width="600"]
+
+
+=== Converting Documentation to PDF format
+
+We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
+
+Here are the steps to convert the project documentation files to PDF format.
+
+.  Use asciidoctor to convert AsciiDoc files in docs to HTML format. Generated HTML files can be found in `build/docs`.
+.  Go to your generated HTML files in the `build/docs` folder, right click on them and select `Open with` -> `Google Chrome`.
+.  Within Chrome, click on the `Print` option in Chrome's menu.
+.  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
+
+[.text-center]
+.Saving documentation as PDF files in Chrome
+image::chrome_save_as_pdf.png[width="300"]
 
 == Testing
 
-* In IntelliJ, right-click on the `test` folder and choose `Run 'All Tests'`
+=== Running Tests
+
+There are three ways to run tests.
+
+[TIP]
+The most reliable way to run tests is the 3rd one. The first two methods might fail some GUI tests due to platform/resolution-specific idiosyncrasies.
+
+*Method 1: Using IntelliJ JUnit test runner*
+
+* To run all tests, right-click on the `src/test/java` folder and choose `Run 'All Tests'`
+* To run a subset of tests, you can right-click on a test package, test class, or a test and choose `Run 'ABC'`
+
+*Method 2: Using Gradle*
+
+* Open a console and run the command `gradlew clean allTests` (Mac/Linux: `./gradlew clean allTests`)
+
+[NOTE]
+See <<UsingGradle#, UsingGradle.adoc>> for more info on how to run tests using Gradle.
+
+*Method 3: Using Gradle (headless)*
+
+Thanks to the https://github.com/TestFX/TestFX[TestFX] library we use, our GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running.
+
+To run tests in headless mode, open a console and run the command `gradlew clean headless allTests` (Mac/Linux: `./gradlew clean headless allTests`)
+
+
+== Dev Ops
+
+=== Build Automation
+
+See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build automation.
+
+=== Continuous Integration
+
+We use https://travis-ci.org/[Travis CI] and https://www.appveyor.com/[AppVeyor] to perform _Continuous Integration_ on our projects. See <<UsingTravis#, UsingTravis.adoc>> and <<UsingAppVeyor#, UsingAppVeyor.adoc>> for more details.
+
+=== Coverage Reporting
+
+We use https://coveralls.io/[Coveralls] to track the code coverage of our projects. See <<UsingCoveralls#, UsingCoveralls.adoc>> for more details.
+
+=== Documentation Previews
+When a pull request has changes to asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
+
+=== Making a Release
+
+Here are the steps to create a new release.
+
+.  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
+.  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
+.  Tag the repo with the version number. e.g. `v0.1`
+.  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
+
+
+[appendix]
+== Product Scope
+
+*Target user profile*:
+* Football League Operators +
+* Has a need to manage profiles of teams and players in a league +
+* Has a need to collect and view specific data regarding the league (matches', teams' and players' information in the league)  +
+* Comfortable with typing +
+* Prefer desktop apps over other type +
+* Reasonably comfortable using CLI apps
+
+
+*Value proposition*:
+
+* Manage league/team/player faster than a typical mouse/GUI driven app. +
+* Easy retrieval and manipulation of records needed. +
+* Provide crucial analysis of records in the league
+
 
 [appendix]
 == User Stories
-
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="100%",cols="22%,<23%,<25%,<30%",options="header",]
-|===========================================================================================================================================
+[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+|=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
-|`* * *` |user |add a new person |
-|`* * *` |user |delete a person |remove entries that I no longer need
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
-|`* *` |user |hide <<private-contact-detail, private contact details>> by default |minimize chance of someone else seeing them by accident
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
-|===========================================================================================================================================
+|`* * *` |League Organiser |add, edit and delete players into the records | add new player when they join,delete old player when they retire
+
+|`* * *` |League Organiser |add, edit and delete teams into current league| add new team that move up major league
+
+|`* * *` |League Organiser |list all teams and player. | See all current teams and player
+
+|`* * *` |League Organiser |see the performance of players in the league | know player's goals scored and Penalties.
+
+|`* * *` |League Organiser |see the teams ranking in league | know which team is currently leading in points
+
+|`* * *` |League Organiser |keep track of the matches| to see match schedule and results
+
+|`* * *` |League Organiser |add, edit and delete matches in current league | edit the match schedule
+
+|`* * *` |League Organiser |see the real-time balancing of income of each team | know the financial condition of each team
+
+|`* *` |League Organiser |see the statistic of each team | know the percentage of winnings, average of fouls per matches of each team
+
+
+|=======================================================================
+
+_{More to be added}_
+
+[appendix]
+== Non Functional Requirements
+
+. Quality requirement: The system should be efficient enough for organiser to quickly updat and keep track of the teams playing in the league.
+. Performance requirements: The system should be able to present the information in an orgainised format as the data could be confusing.
+. Project scope: The product is developed solely for the use of league organiser.
+. Computer Environment: The product should work on any mainstream OS as long as it has Java 8 (revision 1.8.0_201 or higher) installed.
+. UI Justifiability: A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+
+_{More to be added}_
+
 
 [appendix]
 == Use Cases
+(For all use cases below, the System is the League Tracker and the Actor is the user, unless specified otherwise)
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
-
-=== Use case: Delete person
+Use Case: Add Player
 
 *MSS*
 
-. User requests to list persons
-. AddressBook shows a list of persons
-. User requests to delete a specific person in the list
-. AddressBook deletes the person.
+. User requests to add a specific player in the League
+. User specify the following detail:
+  Name, Position Played, Age, Salary, Goals Scored, Goals Assisted, Team Name, Nationality,
+Jersey Number, Appearance,HealthStatus, Tags(optional)
+. System adds the person.
+. If successful, a message will be shown and a new player is added
+. If not successful, a message specifying reason for failure will be shown and command list
+  will be printed
++
+Use case ends.
+
+
+
+Use Case: Delete Player
+
+*MSS*
+
+. (Optional) User requests to list all players in the league
+. (Optional) System shows a list of players
+. User requests to delete a specific player in the list
+. User specify the following detail:
+  Name, Team,Jersey Number
+. System adds the person.
+. If successful, a message will be shown and the player is deleted
+. If not successful, a message specifying reason for failure will be shown and command list
+  will be printed
++
+Use case ends.
+
+
+
+Use Case: Transfer Player (coming in v1.4)
+
+*MSS*
+
+. (Optional) User requests to list all players in the league
+. (Optional) System shows a list of players
+. User requests to transfer a specific player in the list
+. User specify the following detail:
+  Name,Team,Jersey Number,Original Team,Destination Team
+. System transfers the player.
+. If successful, a message will be shown and the player's details as well as details for teams will
+  be updated.
+. If not successful, a message specifying reason for failure will be shown and command list
+  will be printed
++
+Use case ends.
+
+
+
+Use Case: Edit Player
+
+*MSS*
+
+. (Optional) User requests to list all players in the league
+. (Optional) System shows a list of players
+. User requests to edit a specific player in the list
+. User first specifies the name, team and Jersey Number of the player
+. System returns a message of whether the player exists
+. If the player exists, a "Please enter new details" Message will be shown by system to ask for
+  input. Otherwise, a PlayerNotFound exception Message will be printed followed by the list of commands
+. Assume the player exists, user then specifies the following detail to be reflected in the new profile:
+  Name,Team,Jersey Number,Original Team,Destination Team
+. System updates the player.
+. If successful, a message will be shown and the player's details will
+  be updated.
+. If not successful, a message specifying reason for failure will be shown and command list
+  will be printed
++
+Use case ends.
+
+
+[discrete]
+=== Use case: Add team
+
+*MSS*
+
+1. User requests to add a new team with given fields
+2. League Tracker adds the team
 +
 Use case ends.
 
 *Extensions*
 
+[none]
+* 1a. The given fields are invalid
++
+[none]
+** 1ai. League Tracker shows an error message
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Delete task
+
+*MSS*
+
+1.  User requests to list teams
+2.  League Tracker shows a list of teams
+3.  User requests to delete a specific team in the team list
+4.  League Tracker deletes the team
++
+Use case ends.
+
+*Extensions*
+
+[none]
 * 2a. The list is empty.
 +
 Use case ends.
 
+[none]
 * 3a. The given index is invalid.
-** 3a1. AddressBook shows an error message.
++
+[none]
+** 3ai. League Tracker shows an error message.
 +
 Use case resumes at step 2.
 
-[appendix]
-== Non Functional Requirements
+[discrete]
+=== Use case: Edit team
 
-. Should work on any <<mainstream-os, mainstream OS>> as long as it has Java 9 or higher installed.
-. Should be able to hold up to 1000 persons.
-. Should come with automated unit tests and open source code.
-. Should favor DOS style commands over Unix-style commands.
+*MSS*
+
+1. User requests to list teams
+2. League Tracker shows a list of teams
+3. User requests to edit a specific team in the list with the given fields
+4. League Tracker edits the task
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty
++
+Use case ends.
+
+[none]
+* 3a. The given index is invalid
++
+[none]
+** 3ai. League Tracker returns an error
++
+Use case resumes at step 2.
+
+[none]
+* 3b. The given fields are invalid
++
+[none]
+** 3bi. League Tracker returns an error
++
+Use case resumes at step 2.
+
+
+[discrete]
+=== Use case: Find team
+
+*MSS*
+
+1. User requests to find a team with keyword
+2. League Tracker shows teams with names matching keyword
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty
++
+Use case ends.
+
+[none]
+* 2b. The given index is invalid
++
+[none]
+** 2bi. League Tracker returns an error
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: List team
+
+*MSS*
+
+1. User requests to list all teams
+2. League Tracker shows all teams
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty
++
+Use case ends.
+
+
+[discrete]
+=== Use case: view team
+
+*MSS*
+
+1. User requests to list teams
+2. League Tracker shows a list of teams
+3. User requests to view a specific team in the list in detail
+4. League Tracker display the team
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty
++
+Use case ends.
+
+[none]
+* 3a. The given index is invalid
++
+[none]
+** 3ai. League Tracker returns an error
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: update match
+
+*MSS*
+
+1. User requests to list matches
+2. League Tracker shows a list of matches
+3. User requests to update a specific match in the list with match outcome details
+4. League Tracker edits the match, all affected players and teams
+5. League Tracker shows edited match
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty
++
+Use case ends.
+
+[none]
+* 3a. The given index of match or match outcome fields are invalid
++
+[none]
+** 3ai. League Tracker returns an error
++
+Use case resumes at step 2.
+
 
 [appendix]
 == Glossary
 
-[[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+*League*: a group of football teams which play each other over a period for a championship.
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others.
+*Transfer*: the action taken whenever a player under contract moves between clubs. It refers to the transferring of a player's registration from one association football club to another.
+
+*Jersey Number*: a number allocated to each player in a teamName to uniquely identify the player. Jersey Numbers usually range from 1 to 35 and will be printed at the back
+
+*Mainstream OS*: Windows, Linux, Unix, OS-X
+
+[appendix]
+== Instructions for Manual Testing
+
+Given below are instructions to test the app manually.
+
+[NOTE]
+These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+
+=== Launch and Shutdown
+
+. Initial launch
+
+.. Download the jar file and copy into an empty folder
+.. Double-click the jar file +
+   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+
+. Saving window preferences
+
+.. Resize the window to an optimum size. Move the window to a different location. Close the window.
+.. Re-launch the app by double-clicking the jar file. +
+   Expected: The most recent window size and location is retained.
+
+
+_{ more test cases ... }_
+
+=== Deleting a player
+
+
+. Deleting a player while all players are listed
+
+.. Prerequisites: List all players using the `list` command. Multiple players in the list.
+.. Test case: `deletePlayer 1` +
+   Expected: First contact is deleted from the list. Details of the deleted contact shown.
+.. Test case: `deletePlayer 0` +
+   Expected: No player is deleted. Error details shown.
+.. Other incorrect delete commands to try: `deletePlayer`, `deletePlayer x` (where x is larger than the list size) +
+   Expected: Similar to previous.
+
+
+=== Adding a player
+
+. Adding a player while the player's team already exists
+
+.. Prerequisites: The `TEAM` that the player is going to be added to must already exist.
+.. Test case: `addPlayer Lionel Messi p/RW a/31 sal/2000 gs/30 ga/25 tm/FC BARCELONA ctry/Argentina jn/10 app/40 hs/HEALTHY` +
+Expected: The player `Lionel Messi` is successfully added. Details of the player shown .
+.. Test case: `addPlayer Lionel Messi p/RW sal/2000 gs/30 ga/25 tm/FC BARCELONA ctry/Argentina jn/10 app/40 hs/HEALTHY` +
+Expected: No player is added. Error message shown.
+.. Other incorrect addPlayer commands to try: `addPlayer`, `addPlayer ___&*9 p/RW a/31 sal/2000 gs/30 ga/25 tm/FC BARCELONA ctry/Argentina jn/10 app/40 hs/HEALTHY`
+Expected: Similar to Previous
+
+=== Transferring a player
+
+. Transferring an existing player to an existing team that the player does not belong to
+
+.. Prerequisites: Player must exist in League Tracker. Destination team must exist in League Tracker.
+The jersey number in the destination team must be available.
+.. Test case: `transfer Lionel Messi tm/Real Madrid jn/10 sal/2000` +
+Expected: A success message will be shown with the player's name, new team, new jersey number and new salary.
+.. Test case: `transfer Lionel Messi jn/10 sal/2000` +
+Expected: No transfer is done. Error Message shown .
+.. Other incorrect commands to try: `transfer Lionel Messi tm/Real Madrid sal/2000`, `transfer Lionel Messi tm/Real Madrid jn/10`,
+`transfer`
+
+_{ more test cases ... }_
+
+=== Adding a team
+
+. Adding a team to the League Tracker
+
+
+.. Test case: `addteam aa c/cc s/90` +
+   Expected: First team is added to the list. Details of the added team shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `addteam ;/'; c/sad s0` +
+   Expected: No team is added. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect addteam commands to try: `addteam`, `addteam x c/asd s/90` (x is non-alphanumerical) +
+   Expected: Similar to previous.
+
+=== Deleting a team
+
+. Deleting a team while all teams are listed
+
+.. Prerequisites: List all teams using the `listteam` command. Multiple teams in the list.
+.. Test case: `deleteteam 1` +
+   Expected: First team is deleted from the list. Details of the deleted team shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `deleteteam 0` +
+   Expected: No team is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `deleteteam`, `deleteteam x` (where x is larger than the list size or invaild) +
+   Expected: Similar to previous.
+
+=== Editing a team
+
+. Editing a team while all teams are listed
+
+.. Prerequisites: List all teams using the `listteam` command. Multiple teams in the list.
+.. Test case: `editteam 1 n/aa` +
+   Expected: First team is edited to having `aa` as team's name. Details of the edited contact shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `editteam 0` +
+   Expected: No team is edited. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect editteam commands to try: `editteam`, `editteam x` (where x is larger than the list size or invalid), `editteam 1 n/aa`(aa is the name of existing team) +
+   Expected: Similar to previous.
+
+=== Viewing a Finance
+
+. Viewing a finance while all finances are listed
+
+.. Prerequisites: List all finances using the `listfinance` command. Multiple finances in the list.
+.. Test case: `viewfinance 1` +
+   Expected: First finance information is viewed from the list. Details of the viewed finance shown.
+.. Test case: `viewfinance 0` +
+.. Expected: No finance is viewed. Message "The finance index provided is invalid" is shown.
+.. Other incorrect viewfinance commands to try: `viewfinance`, `viewfinance x` (where x is larger than the list size) +
+   Expected: Similar to previous.
+
+=== Getting a Finance from the team list
+
+. Getting a finance of a selected team while all teams are listed
+
+.. Prerequisites: List all teams using the `listteam` command. Multiple teams in the list.
+.. Test case: `getfinance 1` +
+   Expected: Finance information of the first team is viewed from the list. Details of the viewed finance shown.
+.. Test case: `getfinance 0` +
+.. Expected: No finance is viewed. Message "The team index provided is invalid" is shown.
+.. Other incorrect viewfinance commands to try: `getfinance`, `getfinance x` (where x is larger than the list size) +
+   Expected: Similar to previous.
+
+_{ more test cases ... }_

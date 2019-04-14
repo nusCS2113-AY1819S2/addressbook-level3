@@ -1,16 +1,26 @@
 package seedu.addressbook.storage;
 
-import seedu.addressbook.data.AddressBook;
-import seedu.addressbook.data.exception.IllegalValueException;
-import seedu.addressbook.storage.jaxb.AdaptedAddressBook;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.Writer;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.text.ParseException;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-import java.io.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+
+import seedu.addressbook.data.AddressBook;
+import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.storage.jaxb.AdaptedAddressBook;
 
 /**
  * Represents the file used to store address book data.
@@ -18,7 +28,7 @@ import java.nio.file.Paths;
 public class StorageFile {
 
     /** Default file path used if the user doesn't provide the file name. */
-    public static final String DEFAULT_STORAGE_FILEPATH = "addressbook.txt";
+    public static final String DEFAULT_STORAGE_FILEPATH = "league_tracker.txt";
 
     /* Note: Note the use of nested classes below.
      * More info https://docs.oracle.com/javase/tutorial/java/javaOO/nested.html
@@ -43,9 +53,10 @@ public class StorageFile {
         }
     }
 
+    public final Path path;
+
     private final JAXBContext jaxbContext;
 
-    public final Path path;
 
     /**
      * @throws InvalidStorageFilePathException if the default path is invalid
@@ -108,7 +119,7 @@ public class StorageFile {
      *
      * @throws StorageOperationException if there were errors reading and/or converting data from file.
      */
-    public AddressBook load() throws StorageOperationException {
+    public AddressBook load() throws StorageOperationException, ParseException {
         try (final Reader fileReader =
                      new BufferedReader(new FileReader(path.toFile()))) {
 
