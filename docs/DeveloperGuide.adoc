@@ -283,9 +283,9 @@ Given below is an example usage scenario and how the login/register/logout mecha
 
 Step 1. The user launches the application. The `AccountManager` will be initialized, `loadAccounts` will be called to load all the accounts to a `HashMap` from local storage, the `HashMap` is used to keep track of all the account information.
 
-Step2. The user executes `register Doe 123` command to register a new account with username Doe and password 123. The new username and the corresponding password will be temporarily put into the `HashMap`.
+Step2. The user executes `register Doe Doe123` command to register a new account with username Doe and password Doe123. The new username and the corresponding password will be temporarily put into the `HashMap`.
 
-Step3. The user executes `login Doe 123` command to login to the system, if the login is successful, `setLoginStatus` will be called to set the login status accordingly, and the user will then be able to start using the addressbook.
+Step3. The user executes `login Doe Doe123` command to login to the system, if the login is successful, `setLoginStatus` will be called to set the login status accordingly, and the user will then be able to start using the addressbook.
 
 Step4. The user executes some other commands.
 
