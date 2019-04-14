@@ -176,6 +176,9 @@ This section describes some noteworthy details on how certain features are imple
 
 The class diagram below illustrates the `Team`class. +
 
+.Team Class Diagram
+image::TeamClassDiagram.png[width="400"]
+
 * The following section covers some of the feature implementation. +
 
 1. <<AddTeam>> +
@@ -209,6 +212,10 @@ Step 6. If the team already exists, _DuplicateTeamException_ will be thrown. Thi
 Step 7. Else, _add(team)_ method is called and team is added.
 
 The sequence diagram below illustrates how the mechanism for adding teams function.
+
+
+.Add Team Sequence Diagram
+image::AddTeamSQ.png[width="800"]
 
 ==== EditTeam
 
