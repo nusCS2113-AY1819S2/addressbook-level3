@@ -52,16 +52,16 @@ The *_Simplified Architecture Diagram_* above is an abstraction of the first dia
 * At app launch: Initializing the components, and creating the GUI.
 * At shut down: Shutting down the components, closing the GUI and exiting the program.
 
-<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
-The following class plays an important role at the architecture level:
+The rest of the App consists of the following eight components:
 
-* <<Design-Ui,*`UI`*>>: The UI of the App.
-* <<Design-Logic,*`Logic`*>>: The command executor.
-* <<Design-Data,*`Data`*>>: Holds the data of the App in-memory.
-* <<Design-Parser,*`Parser`*>>: Parses user input.
-* <<Design-Command,*`Command`*>>: A collection of commands classes that defines behaviour of the respective commands.
 * <<Design-AccountManager,*`AccountManager`*>>: Manages the logging in / out of user accounts.
+* <<Design-Command,*`Command`*>>: represents a collection of classes that defines the behaviour of the respective commands.
+* <<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
+* <<Design-Data,*`Data`*>>: Holds the data of the App in-memory.
+* <<Design-Logic,*`Logic`*>>: The command executor.
+* <<Design-Parser,*`Parser`*>>: Parses user input.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+* <<Design-Ui,*`Ui`*>>: The UI of the App.
 
 [discrete]
 ==== How the architecture components interact with each other
@@ -73,10 +73,56 @@ image::SDforDeletePerson.png[width="800"]
 
 The sections below give more details of each component.
 
+[[Design-AccountManager]]
+=== AccountManager classes
+
+*API* : link:https://github.com/cs2113-ay1819s2-t11-2/src/main/java/seedu/addressbook/accountmanager[`AccountManager`]
+
+[[Design-Command]]
+=== Command classes
+
+*API* : link:https://github.com/cs2113-ay1819s2-t11-2/src/main/java/seedu/addressbook/commands[`Commands`]
+
+Classes in this component defines the behaviour of the respective commands. Examples include the SortCommand, ReferCommand DoctorAppointments classes, the IncorrectCommand class, as well as the CommandResult class.
+
 [[Design-Commons]]
 === Common classes
 
+*API* : link:https://github.com/cs2113-ay1819s2-t11-2/src/main/java/seedu/addressbook/common[`Common`]
+
 Classes used by multiple components are in the `seedu.addressbook.commons` package. In our project, Messages class and Utils class are the only two classes in this package.
+
+[[Design-Data]]
+=== Data classes
+
+image::DataComponent.png[width="800"]
+
+*API* : link:https://github.com/cs2113-ay1819s2-t11-2/src/main/java/seedu/addressbook/data[`Data`]
+
+The `Data`,
+
+* stores the Address Book data.
+* exposes an unmodifiable `ReadOnlyList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+
+[[Design-Logic]]
+=== Logic classes
+
+*API* : link:https://github.com/cs2113-ay1819s2-t11-2/src/main/java/seedu/addressbook/data[`Data`]
+
+[[Design-Parser]]
+=== Parser classes
+
+*API* : link:https://github.com/cs2113-ay1819s2-t11-2/src/main/java/seedu/addressbook/parser/Parser.java[`Parser.java`]
+
+[[Design-Storage]]
+=== Storage classes
+
+*API* : link:https://github.com/cs2113-ay1819s2-t11-2/src/main/java/seedu/addressbook/storage/jaxb/StorageFile.java[`StorageFile.java`]
+
+[[Design-Ui]]
+=== Ui classes
+
+*API* : link:https://github.com/cs2113-ay1819s2-t11-2/src/main/java/seedu/addressbook/ui[`UI`]
 
 == Testing
 
