@@ -30,18 +30,17 @@
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
 .. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=java.xml.bind' to module compiler options`
 
+//@@author WuPeiHsuan
 == Design
 
 image::ClassDiagram.png["800"]
 
-//@@author WuPeiHsuan
 
+//@@author shawn-t
 `Main` has only one class called link:https://github.com/cs2113-ay1819s2-t11-2/main/blob/master/src/seedu/addressbook/Main.java[`Main`]. It is responsible for,
 
 * At app launch: Initializing the components, and creating the GUI.
 * At shut down: Shutting down the components, closing the GUI and exiting the program.
-
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
 <<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
 The following class plays an important role at the architecture level:
@@ -50,10 +49,6 @@ The following class plays an important role at the architecture level:
 * <<Design-Logic,*`Logic`*>>: The command executor.
 * <<Design-Data,*`Data`*>>: Holds the data of the App in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
-
-Out of the four components
-
-* Only UI and Data defines its _API_ in an `interface`.
 
 [[Design-Commons]]
 === Common classes
