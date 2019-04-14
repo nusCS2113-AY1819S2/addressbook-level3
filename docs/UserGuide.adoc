@@ -634,7 +634,7 @@ You can use the `addmatch` command to add a new match to League Tracker. +
 
 Format : `addmatch DD MMM YYYY h/HOMETEAM a/AWAYTEAM`
 
-IMPORTANT : `HOMETEAM` and `AWAYTEAM` must be added into League Tracker before addition of match. (See section 4.2.1. Add Team)
+IMPORTANT: `HOMETEAM` and `AWAYTEAM` must be added into League Tracker before addition of match. (See section 4.2.1. Add Team)
 
 {empty} +
 
