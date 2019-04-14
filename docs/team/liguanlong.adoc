@@ -31,7 +31,7 @@ Doctor on Call is a desktop address book application designed to facilitate doct
 ** Tools:
 *** Utilized Java Properties file to store account information
 
-
+---
 
 == Contributions to the User Guide:
 
@@ -78,6 +78,8 @@ Examples:
 
 * `logout` + 
 The user will be logged out.
+
+---
 
 == Contributions to the Developer Guide:
 
@@ -151,6 +153,8 @@ HashMap is used because memory is not a serious issue for this program as the pr
 * ** Alternative 4:** Use a XML file to store the username password pairs
 ** Pros: Compatible with HashMap. 
 ** Cons: Large in file size.
+
+---
 
 == Instructions for Manual Testing
 
