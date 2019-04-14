@@ -74,7 +74,7 @@ image::SDforDeletePerson.png[width="800"]
 The sections below give more details of each component.
 
 [[Design-AccountManager]]
-=== AccountManager
+=== AccountManager Component
 
 *API* : link:https://github.com/cs2113-ay1819s2-t11-2/main/blob/master/src/seedu/addressbook/accountmanager/AccountManager.java[`AccountManager`]
 
@@ -123,8 +123,9 @@ The `Storage` component,
 [[Design-Ui]]
 === Ui Component
 
-*API* : link:https://github.com/cs2113-ay1819s2-t11-2/main/blob/master/src/seedu/addressbook/ui[`UI`]
-The `UI` component,
+*API* : link:https://github.com/cs2113-ay1819s2-t11-2/main/blob/master/src/seedu/addressbook/ui/Gui.java[`Gui.java`]
+
+The `Gui.java` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Data` component so that the UI can be updated with the modified data.
