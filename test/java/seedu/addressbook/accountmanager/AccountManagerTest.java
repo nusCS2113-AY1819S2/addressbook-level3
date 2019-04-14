@@ -1,12 +1,14 @@
 //@@author liguanlong
 package seedu.addressbook.accountmanager;
 
+import org.junit.After;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 public class AccountManagerTest {
 
+    // all the expected outputs
     private static final String SUCCESS = "Login Success, loading...";
     private static final String INVALID_USERNAME_OR_PASSWORD = "Invalid username or password, please try again";
     private static final String REGISTRATION_SUCCEED = "Registration succeed, please login using the username and password";
@@ -28,6 +30,7 @@ public class AccountManagerTest {
 
     @Test
     public void checkLoginInfo() {
+        // all the inputs
         final String input1 = "login Admin Admin123";
         final String input2 = "some_random_string";
         final String input3 = "login wrong_username wrong_password";
@@ -36,6 +39,8 @@ public class AccountManagerTest {
         final String input6 = "register new New123";
         final String input7 = "register Admin Admin345";
         final String input8 = "login new New123";
+
+        // check if the actual outputs are equal to expected outputs
         assertEquals(accountManager.accountCommandHandler(input1), SUCCESS);
         assertEquals(accountManager.accountCommandHandler(input2), INVALID_FORMAT);
         assertEquals(accountManager.accountCommandHandler(input3), INVALID_USERNAME_OR_PASSWORD);
