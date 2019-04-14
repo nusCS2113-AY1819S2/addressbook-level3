@@ -116,7 +116,7 @@ public class AddressBook {
     }
 
     /**
-     * Replaces name of a goalScorer in all matches.
+     * Replaces name of a (own)goalScorer in all matches.
      *
      * @param toRemove Player with old name.
      * @param toReplace Player with new name.
@@ -135,7 +135,7 @@ public class AddressBook {
     }
 
     /**
-     * Replaces name of a goalScorer in a match.
+     * Replaces name of a (own)goalScorer in a match.
      *
      * @param goalScorers Names of goal scorers or own goal scorers in the match.
      * @param toRemove Player's new name.
