@@ -907,4 +907,67 @@ Expected:  `Length of the address book is: 0`
 
 === DoctorAppointments feature
 
+. appointment command
+
+.. Prerequisites: please add the following patient entries being proceeding: +
+add John p/98765432 e/john@gmail.com a/John street, block 123, #01-01 m/2019 12 11 12 30 d/DoctorTan s/Observation +
+add Xiao ming p/98765432 e/johnd@gmail.com a/JohnD street, block 123, #01-01 m/2019 12 11 12 00 d/doctor tan s/Observation +
+add kumar  p/98765432 e/johnt@gmail.com a/JohnT street, block 123, #01-01 m/2019 12 11 11 30 d/DOCTOR TAN s/Observation +
+add Shawn Tan p/98765432 e/shawnt@gmail.com a/Shawn street, block 123, #01-01 m/2019 12 11 11 00 d/DoctorTan s/Observation +
+
+.. Test case 1: `appointment `+
+Expected: Prints out `Invalid command format!` message followed by a reminder +
+`	Parameters: DOCTOR_NAME +
+Example: appointment DoctorTan.` +
+
+.. Test case 2: `appointment DoctorTan` +
+Expected: A table with header columns `Name`,   `Date`  and `Doctor`. +
+Shawn Tan and John should be inside the table. +
+
+.. Test case 3: `appointment doctor tan` +
+Expected: A table with header columns `Name`,   `Date`  and `Doctor`. +
+Xiao ming should be inside the table. +
+
+.. Test case 4: `appointment DOCTOR TAN` +
+Expected: A table with header columns `Name`,   `Date`  and `Doctor`. +
+Kumar should be inside the table. +
+
+
 === ApptDate feature
+
+. apptDate command
+
+.. Prerequisites: please add the following patient entries being proceeding: +
+add John p/98765432 e/john@gmail.com a/John street, block 123, #01-01 m/2019 12 11 12 30 d/DoctorTan s/Observation +
+add Xiao ming p/98765432 e/johnd@gmail.com a/JohnD street, block 123, #01-01 m/2019 12 11 12 00 d/DoctorTan s/Observation +
+add Shawn Tan p/98765432 e/shawnt@gmail.com a/Shawn street, block 123, #01-01 m/2019 12 11 11 00 d/DoctorTan s/Observation +
+add kumar  p/98765432 e/johnt@gmail.com a/JohnT street, block 123, #01-01 m/2020 12 11 11 30 d/DoctorTan s/Observation +
+
+
+.. Test case 1: `apptDate `+
+Expected: Prints out `Invalid command format!` message followed by a reminder +
+`	Parameters: NAME m/APPOINTMENT +
+Example: appointment DoctorTan.` +
+
+.. Test case 2: `apptDate DoctorTan`+
+Expected: Prints out `Invalid command format!` message followed by a reminder +
+`	Parameters: NAME m/APPOINTMENT +
+Example: appointment DoctorTan.` +
+
+.. Test case 3: `apptDate DoctorTan m/30November`+
+Expected: Prints out `Invalid command format!` message followed by a reminder +
+` Dates must be in the 24hr format of yyyy MM dd.` +
+
+.. Test case 4: `apptDate DoctorTan m/2020 12 11`+
+Expected: Prints out `Invalid command format!` message followed by a reminder +
+`Doctor's names should only contain spaces and/or alphanumeric characters +
+Special characters like . ! @ # , etc are not allowed! +
+Please re-enter with an appropriate doctor name.` +
+
+.. Test case 5: `apptDate DoctorTan m/2019 12 11`+
+Expected: `This is your Appointment timetable for the date: 2019-12-11` message followed by timeline +
+Shawn, Xiao ming and John should appear in the timeline, following that that order.
+
+.. Test case 6: `apptDate DoctorTan m/2020 12 11`+
+Expected: `This is your Appointment timetable for the date: 2019-12-11` message followed by timeline +
+Only Kumar should appear in the timeline at the 11:30 time-slot.
