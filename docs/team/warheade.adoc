@@ -134,12 +134,12 @@ Specifically, you want to change the salary information to be '2000' in the leag
 .Information displayed after `listPlayer` command
 image::edit_list.png[][align="center"][editlist,400,300]
 
-From the `listPlayer` command (See figure 9), you find out that the index number of player 'Lionel Messi' is 1.
+From the `listPlayer` command (See figure 1), you find out that the index number of player 'Lionel Messi' is 1.
 
 * `editPlayer 1 sal/2000`
 
 If the edition is executed successfully, a *success message* will be displayed to the user containing the player
-profile after edition(See figure 10).
+profile after edition(See figure 2).
 
 [.text-center]
 .Success Message after edition
@@ -205,7 +205,7 @@ Step 5: the `PlayerApachePoiWriter#write()` writes data to the output file path 
 NOTE: The file path is defined in `outputFilepath`, and is hard-coded as `export_player_record.xls` for now. +
 Any existing file with the same path will be overwritten.
 
-Figure 13 below shows a sequence diagram that illustrates the process of `exportPlayer` command execution.
+Figure 3 below shows a sequence diagram that illustrates the process of `exportPlayer` command execution.
 
 [.text-center]
 .A sequence diagram for `exportPlayer` command
