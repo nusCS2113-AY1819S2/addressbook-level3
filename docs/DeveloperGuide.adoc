@@ -137,7 +137,7 @@ image::UiComponent.png[width="800"]
 
 *API* : link:https://github.com/cs2113-ay1819s2-t11-2/main/blob/master/src/seedu/addressbook/commands[`Commands`]
 
-Classes in this component defines the behaviour of the respective commands. Examples include the SortCommand, ReferCommand DoctorAppointments classes, the IncorrectCommand class, as well as the CommandResult class.
+Classes in this component defines the behaviour of the respective commands. Examples include the SortCommand, ReferCommand, IncorrectCommand class etc, as well as the CommandResult class.
 
 [[Design-Commons]]
 === Common classes
@@ -146,6 +146,7 @@ Classes in this component defines the behaviour of the respective commands. Exam
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package. In our project, Messages class and Utils class are the only two classes in this package.
 
+//@@author
 == Testing
 
 === Running Tests
@@ -472,13 +473,12 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |doctor |indicate my patients' appointment date when I add him/her into addressbook |keep track of their appointment date
 
 
-//@@author
 
+//@@author shawn-t
 |===========================================================================================================================================
 
 [appendix]
 
-//@@author shawn-t
 
 == Use Cases
 
@@ -686,6 +686,7 @@ Use case ends.
 +
 Use case ends.
 
+//@@author
 [appendix]
 == Non Functional Requirements
 
@@ -765,12 +766,61 @@ Expected: Helping message is displayed on the screen.
 Expected: The user is directed back to the login page.
 .. Other incorrect logout commands to try: `logout123` +
 Expected: Helping message is displayed on the screen.
+
+//@@author shawn-t
+=== Refer Doctor feature
+
+[NOTE]
+Please ensure the following entries have been added into the addressbook before trying the test cases below. If there are not entries in the addressbook, the 'no such person' execption will be shown.
+
+. refer NAME [MORE_NAMES]
+
+.. Prerequisites: please add the following patient entries being proceeding:
+add John p/98765432 e/john@gmail.com a/John street, block 123, #01-01 m/2019 12 11 12 30 d/DoctorTan s/Observation
+add John Doe p/98765432 e/johnd@gmail.com a/JohnD street, block 123, #01-01 m/2019 12 11 12 00 d/DoctorTan s/Observation
+add John Teo p/98765432 e/johnt@gmail.com a/JohnT street, block 123, #01-01 m/2019 12 11 11 30 d/DoctorTan s/Observation
+add Shawn Tan p/98765432 e/shawnt@gmail.com a/Shawn street, block 123, #01-01 m/2019 12 11 11 00 d/DoctorTan s/Observation
+add Shawn Doe p/98765432 e/shawnd@gmail.com a/ShawnD street, block 123, #01-01 m/2019 12 11 10 30 d/DoctorTan s/Observation
+add Shawn Teo p/98765432 e/shawnteo@gmail.com a/ShawnT street, block 123, #01-01 m/2019 12 11 10 00 d/DoctorTan s/Observation
+add Abigail p/98765432 e/shawnteo@gmail.com a/ShawnT street, block 123, #01-01 m/2019 12 11 09 30 d/DoctorTan s/Observation
+add Abigail Doe p/98765432 e/shawnteo@gmail.com a/Abigail street, block 123, #01-01 m/2019 12 11 09 00 d/DoctorTan s/Observation
+add Betsy Crowe pp/1234567 e/betsycrowe@gmail.com pa/Crowe Newgate m/2019 11 14 08 30 d/DoctorTan s/Observation
+add Betsy Doe pp/1234567 e/betsycrowe@gmail.com pa/Doe Newgate m/2019 11 14 08 00 d/DoctorTan s/Observation
+
+.. Test case 1: `refer` + 
+Expected: An error message: `Invalid command format!` is displayed on the screen, with the displays the correct format below. +
+
+.. Test case 2: `refer ` + 
+Expected: An error message: `Invalid command format!` is displayed on the screen, with the displays the correct format below. +
+
+.. Test case 3: `refer Shawn` +
+Expected: Prints out full particulars of all 3 patients with the name of `Shawn`, followed by a message: `3 similar entries have been found. Please re-enter patient's FULL NAME to refer` to prompt for a re-entry of the ful name of the target patient. +
+
+.. Test case 4: `refer Shawn Doe` +
+Expected: Prints out success message: `Patient Shawn Doe has been successfully referred to Dr Seuss!! :D`, followed by the patient's updated entry below. +
+
+.. Test case 5: `refer John` +
+Expected: Prints out success message: `Patient John has been successfully referred to Dr Seuss!! :D`, followed by the patient's updated entry below.  +
+[NOTE]
+This is an edge case test. It is a successful refer (unlike test case 3) because there is an entry `John` without any last names in this case - this leads to the patient name being an exact and unique match of the keyword inputted unlike test case 3 where every `Shawn` has a last name (therefore no patient name == keyword inputted).
+
+.. Test case 6: `refer d/Dr Elizabeth p/John` +
+Expected: Prints out success message: `Patient John has been successfully referred to Dr Elizabeth!! :D`, followed by the patient's updated entry below.  +
+
+.. Test case 7: `refer Abigail` +
+Expected: Prints out success message: `Patient Abigail has been successfully referred to Dr Elizabeth!! :D`, followed by the patient's updated entry below.  +
+[NOTE]
+The default doctor is Dr Seuss. However, once a new doctor of preferrence is introduced (Dr Elizabeth in this case), the new doctor will be the new default foctor for subsequent refer commands that do not specify a change in referral doctor. Please note that it is part of the feature's design and not a bug :).
+
+.. Test case 8: `refer d/Dr. Tan p/Abigail` +
+Expected: Prints out `Invalid command format!` message followed by a reminder +
+`Doctor's names should only contain spaces and/or alphanumeric characters +
+Special characters like . ! @ # , etc are not allowed! +
+Please re-enter with an appropriate doctor name.`
+ 
 //@@author
-
-=== Add Doctor feature
-
 === Add Appointment feature
 
-=== DoctorAppointments command
+=== DoctorAppointments feature
 
 === ApptDate feature
