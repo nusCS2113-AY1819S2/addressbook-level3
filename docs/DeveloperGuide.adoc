@@ -169,6 +169,7 @@ Classes used by multiple components (eg.Utils.java) are collated in the `seedu.a
 
 This section describes some noteworthy details on how certain features are implemented.
 
+
 === Transfer Player Feature
 ==== Current implementation
 
@@ -321,6 +322,7 @@ This approach also has potential data corruption risks as it directly accesses t
 not be detected.
 
 
+
 === Finance feature
 ==== Current Implementation
 The finance feature is facilitated by `AddressBook`, `GetFinanceCommand`, `ViewFinanceCommand`, `ListFinanceCommand`
@@ -328,12 +330,19 @@ The finance feature is facilitated by `AddressBook`, `GetFinanceCommand`, `ViewF
 
 The finance feature is mainly supported by `Finance` class and `Command` class.
 
+* The following section covers some of the feature implementation. +
+
+1. <<Finance Class>> +
+2. <<Data Processing in Finance>> +
+3. <<Histogram>> +
+3. <<Update of Finance Data>> +
+
 ===== Finance Class
 
 The class diagram below illustrates the `Finance` class.
 
 .finance class diagram
-image::finance_class.png[]
+image::finance_class.png[width="200"]
 
 The Finance class consists information of the name of the team, incomes from sponsorship and ticket sales, total incomes
 within each quarter of the year and a histogram which can help to visualise the trend of changes of total income among
@@ -345,7 +354,7 @@ The following sequence diagram shows how the instantiation of a Finance object w
 `ReadOnlyTeam` class and `Match` class
 
 .finance class sequence diagram
-image::finance_sequence_d.png[]
+image::finance_sequence_d.png[width="500"]
 
 [NOTE]
 This sequence diagram mainly focuses on the interaction with `ReadOnlyTeam` class and `Match` class.
@@ -358,7 +367,7 @@ are obtained by `getMatches()` from the target team and checking whether the tea
 respective match to add the corresponding home or away sale to the ticket income.
 
 .example of codes of getting total ticket income
-image::code_one.png[]
+image::code_one.png[width="500"]
 
 Each quarter's financial income is calculated by `sponsorMoney/4` + the ticket sale income in this quarter.
 The ticket sale income in a particular quarter is calculated by iterating through the relevant matches of the team
@@ -370,7 +379,7 @@ The ticket sale income in a particular quarter is calculated by iterating throug
 A histogram displaying columns of financial income in each quarter is implemented in the Finance Class.
 
 .histogram displayed in command
-image::histogram.png[]
+image::histogram.png[width="400"]
 
 This conversion of numbers to a graphic display is achieved by
 
@@ -384,7 +393,7 @@ This conversion of numbers to a graphic display is achieved by
 
 The 2D string array is converted to a single string in order to be easier displayed.
 
-===== update of Finance data
+===== Update of Finance Data
 Finance objects are affected if there are changes in related Team objects or Match objects ie. changes of
 sponsor and ticket sales, making it dependent on these two classes. Additionally, the number of objects in
 the finance list should be the same of those in the team list. For example, when a team is deleted from League Tracker,
@@ -394,11 +403,13 @@ A method called refreshFinance is therefore implemented in `AddressBook`. This m
 finance list in `AddressBook` to get a finance list matching the current information in the league.
 
 .example of codes of refreshFinance()
-image::code_two.png[]
+image::code_two.png[width="700"]
 
 [NOTE]
 This method is called every time information of the current financial condition of in the league is enquired.
 This method is used in `ListFinanceCommand`, `GetLeagueFinanceCommand` and `RankFinanceCommand`.
+
+{empty} +
 
 ==== Design Considerations
 ===== Aspect: How to update Finance objects
@@ -425,16 +436,16 @@ I decide to proceed with the current implementation as it is easy to implement a
 * **Alternative 2:** Use special characters
 
 .example of using special characters to produce the histogram
-image::histogram_special.png[]
+image::histogram_special.png[width="400"]
 
 ** Pros: It produces a better visual effect.
 
-** Cons: It is more likely to produce unexpected message from the jar file. The special characters
+** Cons: It is more likely to produce unexpected messages from the jar file. The special characters
 may not be able to be parsed correctly.
 
 I decide to proceed with the current implementation as it is more safe in terms of producing the expected message and
 less likely to raise bugs.
-
+// end::finance[]
 
 === Team Feature
 
@@ -1077,4 +1088,68 @@ image::transfer.png[width="300"]
 
 *Mainstream OS*: Windows, Linux, Unix, OS-X
 
+[appendix]
+== Instructions for Manual Testing
 
+Given below are instructions to test the app manually.
+
+[NOTE]
+These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+
+=== Launch and Shutdown
+
+. Initial launch
+
+.. Download the jar file and copy into an empty folder
+.. Double-click the jar file +
+   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+
+. Saving window preferences
+
+.. Resize the window to an optimum size. Move the window to a different location. Close the window.
+.. Re-launch the app by double-clicking the jar file. +
+   Expected: The most recent window size and location is retained.
+
+_{ more test cases ... }_
+
+=== Deleting a person
+
+. Deleting a person while all persons are listed
+
+.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Test case: `delete 1` +
+   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete 0` +
+   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+   Expected: Similar to previous.
+
+_{ more test cases ... }_
+
+=== Viewing a Finance
+
+. Viewing a finance while all finances are listed
+
+.. Prerequisites: List all finances using the `listfinance` command. Multiple finances in the list.
+.. Test case: `viewfinance 1` +
+   Expected: First finance information is viewed from the list. Details of the viewed finance shown.
+.. Test case: `viewfinance 0` +
+.. Expected: No finance is viewed. Message "The finance index provided is invalid" is shown.
+.. Other incorrect viewfinance commands to try: `viewfinance`, `viewfinance x` (where x is larger than the list size) +
+   Expected: Similar to previous.
+
+_{ more test cases ... }_
+
+=== Getting a Finance from the team list
+
+. Getting a finance of a selected team while all teams are listed
+
+.. Prerequisites: List all teams using the `listteam` command. Multiple teams in the list.
+.. Test case: `getfinance 1` +
+   Expected: Finance information of the first team is viewed from the list. Details of the viewed finance shown.
+.. Test case: `getfinance 0` +
+.. Expected: No finance is viewed. Message "The team index provided is invalid" is shown.
+.. Other incorrect viewfinance commands to try: `getfinance`, `getfinance x` (where x is larger than the list size) +
+   Expected: Similar to previous.
+
+_{ more test cases ... }_

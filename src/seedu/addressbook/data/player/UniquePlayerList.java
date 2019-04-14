@@ -190,10 +190,10 @@ public class UniquePlayerList implements Iterable<Player> {
     }
 
     /**
-     * Finds players with matching Name from list of players.
+     * Finds player with matching Name from list of players.
      *
-     * @param target
-     * @return
+     * @param target Name of targeted player
+     * @return Targeted player
      * @throws PlayerNotFoundException if player is not found
      */
     public Player find (Name target) throws PlayerNotFoundException {
