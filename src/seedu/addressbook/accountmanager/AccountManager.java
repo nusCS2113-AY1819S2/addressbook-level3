@@ -29,7 +29,6 @@ public class AccountManager {
 
     public AccountManager(){
         this.loginStatus = false;
-        register("Admin", "Admin123"); // this account is registered for debugging purpose
         loadAccounts();
     }
 
