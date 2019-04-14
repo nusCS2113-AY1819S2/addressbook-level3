@@ -36,9 +36,10 @@ public class AccountManagerTest {
         final String input3 = "login wrong_username wrong_password";
         final String input4 = "register new new123";
         final String input5 = "register new New";
-        final String input6 = "register new New123";
-        final String input7 = "register Admin Admin345";
-        final String input8 = "login new New123";
+        final String input6 = "register new NEW123";
+        final String input7 = "register new New123";
+        final String input8 = "register Admin Admin345";
+        final String input9 = "login new New123";
 
         // check if the actual outputs are equal to expected outputs
         assertEquals(accountManager.accountCommandHandler(input1), SUCCESS);
@@ -46,8 +47,9 @@ public class AccountManagerTest {
         assertEquals(accountManager.accountCommandHandler(input3), INVALID_USERNAME_OR_PASSWORD);
         assertEquals(accountManager.accountCommandHandler(input4), WEAK_PASSWORD);
         assertEquals(accountManager.accountCommandHandler(input5), WEAK_PASSWORD);
-        assertEquals(accountManager.accountCommandHandler(input6), REGISTRATION_SUCCEED);
-        assertEquals(accountManager.accountCommandHandler(input7), USERNAME_REGISTERED);
-        assertEquals(accountManager.accountCommandHandler(input8), SUCCESS);
+        assertEquals(accountManager.accountCommandHandler(input6), WEAK_PASSWORD);
+        assertEquals(accountManager.accountCommandHandler(input7), REGISTRATION_SUCCEED);
+        assertEquals(accountManager.accountCommandHandler(input8), USERNAME_REGISTERED);
+        assertEquals(accountManager.accountCommandHandler(input9), SUCCESS);
     }
 }

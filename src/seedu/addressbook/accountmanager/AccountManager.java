@@ -125,7 +125,7 @@ public class AccountManager {
     }
 
     private boolean weakPassword(String password){
-        return password.toLowerCase().equals(password) || doesNotContainDigit(password);
+        return password.toLowerCase().equals(password) || password.toUpperCase().equals(password) || doesNotContainDigit(password);
     }
 
     private boolean doesNotContainDigit(String password){
