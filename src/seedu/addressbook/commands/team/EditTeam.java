@@ -70,7 +70,8 @@ public class EditTeam extends Command {
                 return new CommandResult(MESSAGE_EDIT_TEAM_FAIL);
             }
 
-            addressBook.editTeam(teamToEdit, editedTeam);
+            addressBook.editTeam(teamToEdit, editedTeam,
+                    editTeamDescriptor.getNameChange());
 
             return new CommandResult(String.format(MESSAGE_EDIT_TEAM_SUCCESS, editedTeam));
 
