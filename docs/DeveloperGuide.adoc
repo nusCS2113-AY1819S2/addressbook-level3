@@ -654,7 +654,21 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
+=== Sort feature
+
+=== Add Status feature
+
+=== Refer feature
+
 //@@author liguanlong
 === Login/Register/Logout Feature 
 
 //@@author
+
+=== Add Doctor feature
+
+=== Add Appointment feature
+
+=== DoctorAppointments command
+
+=== ApptDate feature
