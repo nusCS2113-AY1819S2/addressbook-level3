@@ -60,7 +60,7 @@ feature. These features will help you to manage useful information of your leagu
 {empty} +
 
 
-=== *Players*
+=== Players
 The players feature in the application helps you to manage information of players in the league.
 In League Tracker, a player profile consists of *11* necessary pieces of information (see Table 1 below)
 and *zero or more* tag(s) (optional)
@@ -623,55 +623,172 @@ Display the 1st team's details.
 {empty} +
 {empty} +
 
+// tag::matchug[]
 === Matches
 The Match Schedule Feature in the application helps you to manage information of matches in the league. 
 {empty} +
 {empty} +
 
 ==== *Add Matches*
-You can use the Add Matches command to add a new match to the League Tracker. +
+You can use the `addmatch` command to add a new match to League Tracker. +
 
-Format : `addmatch dd mmm yyyy h/hometeam a/awayteam`
+Format : `addmatch DD MMM YYYY h/HOMETEAM a/AWAYTEAM`
+
+IMPORTANT : `HOMETEAM` and `AWAYTEAM` must be added into League Tracker before addition of match. (See section 4.2.1. Add Team)
+
+{empty} +
 
 Example: +
- `addmatch 28 Feb 2019 h/Fulham a/Chelsea` +
- 
+ `addmatch 1 Jan 2019 h/Fulham a/Chelsea` +
+
 Adds a new match with the specified details.
+
+.Successful addition of match between teams "Fulham" and "Chelsea" on "1 Jan 2019"
+image::addmatch.png[]
 {empty} +
 {empty} +
- 
+
 ==== *Delete Matches*
-You can use the Delete Matches command to delete an existing match from League Tracker. +
+You can use the `deletematch` command to delete an existing match from League Tracker. +
 
 Format : `deletematch INDEX`
+
+NOTE: You should `listmatch` or `findmatch` to get `INDEX` before you execute this command. +
+(See sections 4.3.4. List Matches and 4.3.5. Search For Matches By Match Date)
 
 Example: +
 
 * `listmatch` +
+
+.The list of match in League Tracker
+image::listmatch2.png[]
+
 * `deletematch 1` +
 
 Deletes the 1st match in the match list.
+
+.Successful deletion of 1st match in the list
+image::deletematch.png[]
+
+
+{empty} +
+{empty} +
+
+==== *Delete All Matches In League Tracker*
+You can use the `clearmatch` command to delete all existing matches from League Tracker. +
+
+Format : `clearmatch` +
+
+Clears all matches in League Tracker.
+
+.Successful clearing of matches
+image::clearmatch.png[]
+
 {empty} +
 {empty} +
 
 ==== *List Matches*
-You can use the List Matches command to see the list of all matches in the current league. +
+You can use the `listmatch` command to see the list of all matches in League Tracker. +
 
 Format : `listmatch`
+
+List all matches in League Tracker.
+
+.The list of match in League Tracker
+image::listmatch.png[]
+
+{empty} +
+{empty} +
+
+==== *Search for Matches using match date*
+
+You can use the `findmatch` command to search for matches in League Tracker pass:[<u> with same day, month or year</u>].
+
+{empty} +
+
+*Format*:
+
+*  `findmatch DATE`
+
+NOTE: If the day of the `DATE` is single digit, i.e 1-9, "0" must be added in front. For example 8 Apr 2019 is to be keyed in as 08 Apr 2019. +
+{empty} +
+Month is case-sensitive when used in this command.
+
+
+*Example*:
+
+*  `findmatch 01 Feb 2020`
+
+{empty} +
+
+If one or more matches has date with the same day, month or year, a summary of the match(es)
+will be displayed.
+
+{empty} +
+
+.Successful search displaying the matches with date that has same day, month or year "01 Feb 2020"
+image::findMatch.png[]
+
 {empty} +
 {empty} +
 
 ==== *Update Matches*
-You can use the Update Matches command to update the outcome of an existing match in League Tracker. +
+You can use the `updatematch` command to update the outcome of an existing match in League Tracker. +
 
-Format : `updatematch INDEX h/homerevenue a/awayrevenue g/goalscorer o/owngoalscorer`
+Format : `updatematch INDEX h/HOMEREVENUE a/AWAYREVENUE [g/GOALSCORER]... [o/OWNGOALSCORER]...`
+
+IMPORTANT: `GOALSCORER` and `OWNGOALSCORER` must be in the `TEAMS` participating in the match.
+
+{empty} +
+
+NOTE: `GOALSCORER` and `OWNGOALSCORER` are optional fields and can be omitted. +
+{empty} +
+`GOALSCORER` and `OWNGOALSCORER` can also be included in command more than once to add more `GOALSCORERs` and `OWNGOALSCORERs`
+e.g `updatematch INDEX h/HOMEREVENUE a/AWAYREVENUE [g/GOALSCORER][g/GOALSCORER][o/OWNGOALSCORER][o/OWNGOALSCORER]`.
+
+NOTE: You should `listmatch` or `findmatch` to get `INDEX` before you execute this command. +
+(See sections 4.3.4. List Matches and 4.3.5. Search For Matches By Match Date)
+
 
 Example: +
 
 * `listmatch` +
-* `updatematch 1 h/200 a/100 g/Gonzalo Higuain g/Calum Chambers o/Tim Ream` +
+
+.The list of match in League Tracker
+image::listmatch.png[]
+
+* `updatematch 1 h/20 a/8` +
 
 Updates the 1st match in the match list with specified match results.
+
+.Successful update of 1st match in the list
+image::updatematch.png[]
+
+{empty} +
+{empty} +
+
+==== *View Matches*
+You can use the `viewmatch` command to see the full details of a Match in League Tracker. +
+
+Format : `viewmatch INDEX`
+
+NOTE: You should `listmatch` or `findmatch` to get `INDEX` before you execute this command. +
+(See sections 4.3.4. List Matches and 4.3.5. Search For Matches By Match Date)
+
+Example: +
+
+* `listmatch` +
+
+.The list of match in League Tracker
+image::listmatch2.png[]
+
+* `viewmatch 1` +
+
+Display the 1st match details.
+
+.Details of the 1st match in the list
+image::viewmatch.png[]
+
 {empty} +
 {empty} +
 
