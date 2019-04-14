@@ -8,9 +8,9 @@ https://coveralls.io/github//CS2113-AY1819S2-M11-1/main?branch=master[image:http
 image::Ui.png[]
 
 * This is a CLI (Command Line Interface) League Tracker application *written in OOP fashion*. It has a very basic GUI.
-* It is a Java application intended for League Operators to manage teams, players, matches records.
+* It is a Java application intended for League Operators to manage team, player and match records.
 
-*Useful Links*
+*Site Map*
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
