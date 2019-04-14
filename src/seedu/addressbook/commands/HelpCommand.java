@@ -1,5 +1,5 @@
 package seedu.addressbook.commands;
-
+import seedu.addressbook.accountmanager.AccountManager;
 
 /**
  * Shows help instructions.
@@ -15,11 +15,15 @@ public class HelpCommand extends Command {
             + "\n" + DeleteCommand.MESSAGE_USAGE
             + "\n" + ClearCommand.MESSAGE_USAGE
             + "\n" + FindCommand.MESSAGE_USAGE
+            + "\n" + LengthCommand.MESSAGE_USAGE
             + "\n" + ListCommand.MESSAGE_USAGE
+            + "\n" + ReferCommand.MESSAGE_USAGE
+            + "\n" + SortCommand.MESSAGE_USAGE
             + "\n" + ViewCommand.MESSAGE_USAGE
             + "\n" + ViewAllCommand.MESSAGE_USAGE
             + "\n" + HelpCommand.MESSAGE_USAGE
-            + "\n" + ExitCommand.MESSAGE_USAGE;
+            + "\n" + ExitCommand.MESSAGE_USAGE
+            + "\n" + AccountManager.LOGOUT_MESSAGE_USAGE;
 
     @Override
     public CommandResult execute() {

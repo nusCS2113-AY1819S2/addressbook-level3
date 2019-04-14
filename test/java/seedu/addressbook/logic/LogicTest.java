@@ -135,13 +135,13 @@ public class LogicTest {
     @Test
     public void execute_add_invalidPersonData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] p/12345 e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add []\\[;] p/12345 e/valid@e.mail a/valid, address, m/2012 12 30 13 50, d/DoctorTan s/Observation", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", Phone.MESSAGE_PHONE_CONSTRAINTS);
+                "add Valid Name p/not_numbers e/valid@e.mail a/valid, address, m/2012 12 30 13 50, d/DoctorTan s/Observation", Phone.MESSAGE_PHONE_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/notAnEmail a/valid, address", Email.MESSAGE_EMAIL_CONSTRAINTS);
+                "add Valid Name p/12345 e/notAnEmail a/valid, address, m/2012 12 30 13 50, d/DoctorTan s/Observation", Email.MESSAGE_EMAIL_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add Valid Name p/12345 e/valid@e.mail a/valid, address, m/2012 12 30 13 50, d/DoctorTan, s/Observation, t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
 
@@ -466,10 +466,13 @@ public class LogicTest {
             Phone privatePhone = new Phone("111111", true);
             Email email = new Email("adam@gmail.com", false);
             Address privateAddress = new Address("111, alpha street", true);
+            Appointment appointment = new Appointment("2012 12 30 13 50");
+            Doctor doctor = new Doctor("DoctorTan");
+            Status status = new Status("Observation");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             Set<Tag> tags = new HashSet<>(Arrays.asList(tag1, tag2));
-            return new Person(name, privatePhone, email, privateAddress, tags);
+            return new Person(name, privatePhone, email, privateAddress, appointment, doctor, status, tags);
         }
 
         /**
@@ -486,6 +489,9 @@ public class LogicTest {
                     new Phone("" + Math.abs(seed), isAllFieldsPrivate),
                     new Email(seed + "@email", isAllFieldsPrivate),
                     new Address("House of " + seed, isAllFieldsPrivate),
+                    new Appointment("2012 12 30 13 50"),
+                    new Doctor("DoctorTan"),
+                    new Status("Observation"),
                     new HashSet<>(Arrays.asList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))))
             );
         }
@@ -499,8 +505,7 @@ public class LogicTest {
             cmd.add(p.getName().toString());
             cmd.add((p.getPhone().isPrivate() ? "pp/" : "p/") + p.getPhone());
             cmd.add((p.getEmail().isPrivate() ? "pe/" : "e/") + p.getEmail());
-            cmd.add((p.getAddress().isPrivate() ? "pa/" : "a/") + p.getAddress());
-
+            cmd.add((p.getAddress().isPrivate() ? "pa/" : "a/") + p.getAddress() + "m/"+p.getAppointment() + "d/"+p.getDoctor() + "s/"+p.getStatus());
             Set<Tag> tags = p.getTags();
             for(Tag t: tags){
                 cmd.add("t/" + t.tagName);
@@ -582,6 +587,9 @@ public class LogicTest {
                     new Phone("1", false),
                     new Email("1@email", false),
                     new Address("House of 1", false),
+                    new Appointment("2012 12 30 13 50"),
+                    new Doctor("DoctorTan"),
+                    new Status("Observation"),
                     Collections.singleton(new Tag("tag"))
             );
         }
