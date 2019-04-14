@@ -3,54 +3,47 @@ package seedu.addressbook.commands;
 
 import seedu.addressbook.data.person.ReadOnlyPerson;
 import java.time.format.DateTimeFormatter;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
 public class DoctorAppointmentsCommand extends Command {
 
     public DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy MM d kk mm");
-    public static final String COMMAND_WORD = "DoctorAppointments";
+    public static final String COMMAND_WORD = "appointment";
+    public static final String MESSAGE_INVALID_DOCTOR_NAME = "Doctor's names should only contain spaces and/or alphanumeric characters\nSpecial characters like . ! @ # , etc are not allowed!\nPlease re-enter with an appropriate doctor name.";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Displays a list of all patients who have appointments with a certain doctor, in chronological order of appointments."
+            + "Past appointments are not shown (based on current time).\n\t"
+            + "Parameters: DOCTOR_NAME...\n\t"
+            + "Example: " + COMMAND_WORD + " DoctorTan";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Finds all patients who have appointments with a certain doctor, and sorts them chronologically";
-//            + "the specified keywords (case-sensitive) and displays them as a list with index numbers.\n\t"
-//            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n\t"
-//            + "Example: " + COMMAND_WORD + " alice bob charlie";
+    private final String doctorName;
 
-    private final Set<String> keywords;
-
-    public DoctorAppointmentsCommand(Set<String> keywords) {
-        this.keywords = keywords;
-    }
-
-    /**
-     * Returns copy of keywords in this command.
-     */
-    public Set<String> getKeywords() {
-        return new HashSet<>(keywords);
+    public DoctorAppointmentsCommand(String doctorName) {
+        this.doctorName = doctorName.trim();
     }
 
     @Override
     public CommandResult execute() {
-        final List<ReadOnlyPerson> personsFound = getPersonsWithNameContainingAnyKeyword(keywords);
+        final List<ReadOnlyPerson> personsFound = getPersonsWithNameContainingAnyKeyword(doctorName);
         Indicator.setLastCommand("DoctorAppointments");
-        return new CommandResult(getMessageForAppointmentsShownSummary(personsFound, keywords.toString()), personsFound);
+        return new CommandResult(getMessageForAppointmentsShownSummary(personsFound, doctorName), personsFound);
     }
 
     /**
-     * Retrieve all persons in the address book whose names contain some of the specified keywords.
+     * Retrieve all patients in the address book whose doctor's name is the same.
      *
-     * @param keywords for searching
      * @return list of persons found
      */
-    private List<ReadOnlyPerson> getPersonsWithNameContainingAnyKeyword(Set<String> keywords) {
+    private List<ReadOnlyPerson> getPersonsWithNameContainingAnyKeyword(String doctorName) {
         final List<ReadOnlyPerson> matchedPersons = new ArrayList<>();
         for (ReadOnlyPerson person : addressBook.getAllPersons()) {
-            final Set<String> wordsInName = new HashSet<>(person.getDoctor().getWordsInName());
-            if (!Collections.disjoint(wordsInName, keywords)) {
+            final String doctor = person.getDoctor().toString();
+            if (doctorName.equals(doctor)) {
                 LocalDateTime date = LocalDateTime.parse(person.getAppointment().toString(), formatter);
                 person.setLocalDateTime(date);
-                matchedPersons.add(person);
+                if (date.compareTo(LocalDateTime.now()) > 0){
+                    matchedPersons.add(person);
+                }
             }
         }
         Collections.sort(matchedPersons, new SortDate());

@@ -35,12 +35,12 @@ public interface ReadOnlyPerson {
      */
     default boolean isSameStateAs(ReadOnlyPerson other) {
         return other == this // short circuit if same object
+                || (other.getAppointment().equals(this.getAppointment())
+                && other.getDoctor().equals(this.getDoctor())) //same appointment time with same doctor not allowed
                 || (other != null // this is first to avoid NPE below
                 && other.getName().equals(this.getName()) // state checks here onwards
                 && other.getPhone().equals(this.getPhone())
                 && other.getEmail().equals(this.getEmail())
-//                && other.getAppointment().equals(this.getAppointment())
-//                && other.getDoctor().equals(this.getDoctor())
                 && other.getAddress().equals(this.getAddress()));
     }
 

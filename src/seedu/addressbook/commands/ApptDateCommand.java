@@ -5,14 +5,21 @@ import seedu.addressbook.data.person.ReadOnlyPerson;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 
 public class ApptDateCommand extends Command {
 
-    public static final String COMMAND_WORD = "ApptDate";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Finds all patients who have appointments with a certain doctor on a certain date, and prints out a timeline";
+    public static final String COMMAND_WORD = "apptDate";
+    public static final String MESSAGE_INVALID_DOCTOR_NAME = "Doctor's names should only contain spaces and/or alphanumeric characters\nSpecial characters like . ! @ # , etc are not allowed!\nPlease re-enter with an appropriate doctor name.";
+    public static final String MESSAGE_DATE_CONSTRAINTS = "Dates must be in the 24hr format of yyyy MM dd.";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Displays the doctor's appointment timetable for a specific day. "
+            + "A nice timeline will be shown. Can be used for dates older than the current date. (appointment history) \n\t"
+            + "Parameters: NAME m/APPOINTMENT \n\t"
+            + "Example: " + COMMAND_WORD
+            + " John Doe m/2020 12 11";
 
-    public DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy MM dd");
+    public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy MM dd");
     public DateTimeFormatter formatterTime = DateTimeFormatter.ofPattern("yyyy MM d kk mm");
 
     public String doctor;
@@ -47,12 +54,10 @@ public class ApptDateCommand extends Command {
      * @return list of persons found
      */
     private List<ReadOnlyPerson> getPersonsWithSameDoctorSameDate() {
-        final Set<String> doctorKeyword = new HashSet<>(Arrays.asList(this.doctor));
         final List<ReadOnlyPerson> matchedPersons = new ArrayList<>();
-
         for (ReadOnlyPerson person : addressBook.getAllPersons()) {
-            final Set<String> DoctorName = new HashSet<>(person.getDoctor().getWordsInName());
-            if (!Collections.disjoint(DoctorName, doctorKeyword)) {
+            String doctorName = person.getDoctor().toString();
+            if (doctorName.equals(this.doctor)) {
                 LocalDateTime date = LocalDateTime.parse(person.getAppointment().toString(), formatterTime);
                 person.setLocalDateTime(date);
                 if (date.getYear() == this.year & date.getMonthValue() == this.month & date.getDayOfMonth() == this.day){
@@ -111,6 +116,17 @@ public class ApptDateCommand extends Command {
         //removing the duplicated person from the method called.
         matchedPersons.remove(this.counter);
         return matchedPersons;
+    }
+
+    public static boolean isValidDate(String test) {
+        Boolean indicator = true;
+        try{
+            LocalDate.parse(test, formatter);
+            }
+        catch (DateTimeParseException e){
+            indicator = false;
+        }
+        return (indicator);
     }
 }
 
