@@ -684,8 +684,8 @@ Expected: Helping message is displayed on the screen.
 .. Prerequisites: The user has not logged in to the system.
 .. Test case: `register newuser 12345` +
 Expected: An error message: `The password should contain at least one lowercase letter, one uppercase letter, and one digit` is displayed on the screen.
-.. Test case: `register Admin Password123 +
-Expected: An error message: ` The username has already been registered, please try a new username` is displayed on the screen.
+.. Test case: `register Admin Password123` +
+Expected: An error message: `The username has already been registered, please try a new username` is displayed on the screen.
 .. Test case: `register newuser New123` +
 Expected: Registration succeed.
 .. Other incorrect delete commands to try: `register`, `register Admin Admin123 Admin123` +
