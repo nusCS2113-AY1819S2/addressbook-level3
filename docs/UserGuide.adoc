@@ -116,7 +116,9 @@ Refers a patient from the address book to a doctor. +
 Note: This command is overloaded with two formats.
 
 Format 1: `refer NAME [MORE_NAMES]` +
-Refers target patient to a default doctor, Dr Seuss, and shows a success message with patient's updated particulars if there is only one unique entry. If there are multiple entries, all patient entries with the target keywords in the addressbook will be printed and user will be prompted to identify the correct patient. If target patient does not exist in the addressbook, an error message will be printed. +
+Refers target patient to a default doctor and shows a success message with patient's updated particulars if there is only one unique entry. If there are multiple entries, all patient entries with the target keywords in the addressbook will be printed and user will be prompted to identify the correct patient. If target patient does not exist in the addressbook, an error message will be printed. +
+[Note]
+Default doctor is the last specified doctor or `Dr Seuss` if never specified before previously.
 
 Examples: +
 * `refer John` +
@@ -124,7 +126,9 @@ Examples: +
 * `refer Doe`
 
 Format 2: `refer d/ DOCTORNAME p/NAME [MORE_NAMES]` +
-Refers target patient to a doctor specified by the user. Format 2 works exactly like format 1. If input contains an invalid doctor name (non-alphanumeric), an invalid command format message will be printed.
+Refers target patient to a doctor specified by the user. Format 2 works exactly like format 1. If input contains an invalid doctor name (non-alphanumeric), an invalid command format message will be printed. +
+[Note]
+When a refer is successful using this format, the default doctor would be updated as this new doctor specified in the latest format 2 entry.
 
 Examples: +
 * `refer d/DoctorTan p/John Doe` +
