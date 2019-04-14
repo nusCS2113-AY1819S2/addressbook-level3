@@ -38,20 +38,20 @@ public class Finance implements ReadOnlyFinance {
 
         this.sponsorMoney = Double.valueOf(team.getSponsor().value);
 
-        List<Match> matchesOfTeam = team.getMatches();//gets relevant matches of the target team
+        List<Match> matchesOfTeam = team.getMatches(); //gets relevant matches of the target team
         this.ticketIncome = getTicketIncomeFromMatches(matchesOfTeam, teamName);
 
         /**
          * gets each quarter's income with sponsorMoney/4 + ticket sale within each quarter.
          */
-        this.quarterOne = sponsorMoney / 4 +
-                getTicketIncomeFromMatches(getMatchesWithDateContainingAnyKeyword(matchesOfTeam, QUARTER_ONE_MONTHS), teamName);
-        this.quarterTwo = sponsorMoney / 4 +
-                getTicketIncomeFromMatches(getMatchesWithDateContainingAnyKeyword(matchesOfTeam, QUARTER_TWO_MONTHS), teamName);
-        this.quarterThree = sponsorMoney / 4 +
-                getTicketIncomeFromMatches(getMatchesWithDateContainingAnyKeyword(matchesOfTeam, QUARTER_THREE_MONTHS), teamName);
-        this.quarterFour = sponsorMoney / 4 +
-                getTicketIncomeFromMatches(getMatchesWithDateContainingAnyKeyword(matchesOfTeam, QUARTER_FOUR_MONTHS), teamName);
+        this.quarterOne = sponsorMoney / 4
+                + getTicketIncomeFromMatches(getMatchesWithMonths(matchesOfTeam, QUARTER_ONE_MONTHS), teamName);
+        this.quarterTwo = sponsorMoney / 4
+                + getTicketIncomeFromMatches(getMatchesWithMonths(matchesOfTeam, QUARTER_TWO_MONTHS), teamName);
+        this.quarterThree = sponsorMoney / 4
+                + getTicketIncomeFromMatches(getMatchesWithMonths(matchesOfTeam, QUARTER_THREE_MONTHS), teamName);
+        this.quarterFour = sponsorMoney / 4
+                + getTicketIncomeFromMatches(getMatchesWithMonths(matchesOfTeam, QUARTER_FOUR_MONTHS), teamName);
 
         this.histogram = new Histogram(NUMBER_OF_QUARTER, quarterOne, quarterTwo, quarterThree, quarterFour);
     }
@@ -100,7 +100,7 @@ public class Finance implements ReadOnlyFinance {
      * @param keywords (relevant months) for searching
      * @return set of matches found
      */
-    private List<Match> getMatchesWithDateContainingAnyKeyword(List<Match> relatedMatches, Set<String> keywords) {
+    private List<Match> getMatchesWithMonths(List<Match> relatedMatches, Set<String> keywords) {
         final List<Match> matchedMatches = new ArrayList<>();
         for (Match match : relatedMatches) {
             final Set<String> wordsInDate = new HashSet<>(match.getDate().getWordsInDate());
