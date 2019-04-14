@@ -1,4 +1,6 @@
 = Lee Ying Rong - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
 :stylesDir: ../stylesheets
 
 == PROJECT: League Tracker - Morphed from AB3
@@ -13,10 +15,10 @@ League Tracker is a desktop application written in Java to help users manage a s
 
 It has four main features:
 
-* Player Management
-* Team Management
-* Match Management
-* Finance Management
+1.Player Management +
+2.Team Management +
+3.Match Management +
+4.Finance Management
 
 The interactions of this application with the users are implemented with a Command Line Interface (CLI) which prints out the results based on the command the user type in.
 
@@ -84,18 +86,18 @@ https://nuscs2113-ay1819s2.github.io/dashboard-beta/#search=yingrong[*Code Dashb
 === Other contributions
 
 * Project management:
-** Edited the initial codes to pass all CheckStyle problems
+** Edited the initial codes to pass all CheckStyle problems https://github.com/CS2113-AY1819S2-M11-1/main/pull/47[#47]
 
 ** Closed off some bugs issue reported by other teams with explanation
 
 * Enhancements to existing features:
-** Wrote test cases to increase coverage for the program
+** Wrote test cases to increase coverage for the program https://github.com/CS2113-AY1819S2-M11-1/main/pull/126[#126]
 
 * Documentation:
 ** Updated user guide and developer guide.
 
 * Others:
-** Added icon for the program
+** Added icon for the program https://github.com/CS2113-AY1819S2-M11-1/main/pull/110[#110]
 
 == Contributions to the User Guide
 
@@ -103,7 +105,7 @@ https://nuscs2113-ay1819s2.github.io/dashboard-beta/#search=yingrong[*Code Dashb
 |_Given below are sections I contributed to the User Guide. I did the write up for the Team Management Feature and how the user should use it._
 |===
 
-include::../UserGuide.adoc[tag=team]
+include::../UserGuide.adoc[tag=teamug]
 
 == Contributions to the Developer Guide
 
@@ -111,4 +113,4 @@ include::../UserGuide.adoc[tag=team]
 |_Given below are sections I contributed to the Developer Guide. I did the write up on the Team Management Implementation._
 |===
 
-include::../DeveloperGuide.adoc[tag=implementation]
+include::../DeveloperGuide.adoc[tag=team]

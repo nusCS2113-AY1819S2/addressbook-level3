@@ -137,7 +137,7 @@ The Main Component:
 
 === Logic Component
 .Class Disgram showcasing the structure of Logic Component
-image::Logiccomponent.png[width="600"]
+image::LogicComponent.png[width="600"]
 
 The Logic Component has a `Logic` package with a `Logic` class and a `Parser` package with a `Parser` class.
 
@@ -153,7 +153,10 @@ The Logic Component has a `Logic` package with a `Logic` class and a `Parser` pa
 
 
 === Data Component
- [to be edited]
+.Data Component Diagram
+image::Data.png[width"800"]
+
+The data component shows
 
 === Storage Component
 .Storage Diagram
@@ -297,8 +300,8 @@ I decide to proceed with the current implementation as it is more safe in terms 
 less likely to raise bugs.
 // end::finance[]
 
+// tag::team[]
 === Team Feature
-
 ==== Current Implementation
 * The team feature is facilitated by `AddTeam`, `ClearTeam`, `DeleteTeam`, `EditTeam`, `FindTeam`, `ListTeam`, `ViewTeam` +
 * The feature mainly uses the `addressbook` class, `Team` class and the `Command` class. +
@@ -306,7 +309,7 @@ less likely to raise bugs.
 The class diagram below illustrates the `Team`class. +
 
 .Team Class Diagram
-image::TeamClassDiagram.png[width="400"]
+image::TeamClassDiagram.png[width="300"]
 
 * The following section covers some of the feature implementation. +
 
@@ -344,7 +347,7 @@ The sequence diagram below illustrates how the mechanism for adding teams functi
 
 
 .Add Team Sequence Diagram
-image::AddTeamSQ.png[width="800"]
+image::AddTeamSQ.png[width="400"]
 
 ==== EditTeam
 
@@ -417,7 +420,7 @@ Aspect: Prevents team's name to be edited when tied to other players or matches
 ** Cons: Difficult of implemnetation and may result in slower processing as all records need to be run through at least once.
 
 Final decision: Alternative 1 was chosen due to the rarity of team's name edited during a game season.
-
+// end::team[]
 
 
 == Documentation
@@ -862,6 +865,33 @@ _{ more test cases ... }_
 .. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 .. Test case: `delete 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete 0` +
+   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+   Expected: Similar to previous.
+
+_{ more test cases ... }_
+
+
+=== Deleting a team
+
+. Deleting a person while all persons are listed
+
+.. Prerequisites: List all persons using the `listteam` command. Multiple persons in the list.
+.. Test case: `deleteteam 1` +
+   Expected: First team is deleted from the list. Details of the deleted team shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `deleteteam 0` +
+   Expected: No team is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `deleteteam`, `deleteteam x` (where x is larger than the list size or invaild) +
+   Expected: Similar to previous.
+
+=== Editing a team
+
+. Editing a team while all persons are listed
+
+.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Test case: `editteam 1 n/aa` +
+   Expected: First team is edited to having `aa` as team's name. Details of the edited contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
    Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
