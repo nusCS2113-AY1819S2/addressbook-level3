@@ -11,15 +11,15 @@
 
 == Overview
 
-Doctor on Call is a desktop address book application designed to facilitate doctors to manage patient information. The programming language used is Java.
+Doctor on Call is a desktop address book application designed to facilitate doctors to manage patient information. It aims to reduce the inefficient communication between doctors and patients.The programming language used is Java.
 
 == Summary of Contributions
 
 * *Code contributed*: [https://nuscs2113-ay1819s2.github.io/dashboard-beta/#search=liguanlong&sort=displayName&since=2019-02-10&until=2019-04-10&timeframe=day&reverse=false&repoSort=true[the link to the RepoSense report page]]
 
 * *Major enhancement*: added login/register/logout feature to the address book
-** What it does: This featrue allows users to register and login using an account
-** Justification: This feature is implemented to ensure authentication
+** What it does: This featrue allows users to register and login using an account, and also allows the user to logout from the system.
+** Justification: This feature is implemented to ensure authentication.
 
 * *Other contributions*:
 ** Project management: 
