@@ -348,6 +348,7 @@ To facilitate the update, a new `Indicator` class is created and a new method is
 * `getAsTextNameDateDoctor()` --This is a method of the `ReadOnlyPerson` interface. It is a new String builder that builds a String of information about the Person. The information contains only the name and appointment date of the person. The String is padded on the right with whitespace to ensure a tabular format.
 
 The UI `Formatter` is updated in the following way.
+
 * `format(Persons)` --Checks if the last invoked user Command is the `DoctorAppointmentsCommand`. If it is, calls the new String builder method `getAsTextNameDateDoctor()` for each Person to be formatted.
 
 Given below is an example usage scenario and the formatter formats the Person to be printed in a tabular format. It continues from Step 6 above. 
@@ -394,7 +395,8 @@ We convert the appointment time of each matchedPerson into the number of minutes
 
 If the iterator 'i' matches the appointment timing of a Person, we print out the Person beside that time-slot.
 
-The UI `Formatter` facilitates the printing of timetable
+The UI `Formatter` facilitates the printing of timetable.
+
 * `format(Persons)` --Checks if the last invoked user Command is the `ApptDateCommand`. If it is, it retrieves the timetable from the `ApptDate` class,
 and prints out the neatly formatted timetable.
 
