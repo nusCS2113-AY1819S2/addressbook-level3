@@ -1,0 +1,116 @@
+= Lee Ying Rong - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: League Tracker - Morphed from AB3
+
+---
+
+== Overview
+
+This portfolio is written to show my contributions to the League Tracker project.
+
+League Tracker is a desktop application written in Java to help users manage a soccer league.
+
+It has four main features:
+
+1.Player Management +
+2.Team Management +
+3.Match Management +
+4.Finance Management
+
+The interactions of this application with the users are implemented with a Command Line Interface (CLI) which prints out the results based on the command the user type in.
+
+This project is morphed from the
+https://github.com/se-edu/addressbook-level3[Address Book Level 3]
+created by
+https://github.com/se-edu[SE-EDU initiative].
+
+The application is developed by team M11-1 for the module CS2113T in the National University of Singapore (NUS).
+
+The team consists of four people, with each people managing one of the four functionality of the program.
+
+== Summary of contributions
+
+=== Implemented contributions
+
+==== Major contribution
+
+
+Added the functionality to manage teams
+
+* What it does: Allows the user to add, delete, edit, clear and list teams in the league tracker.
+
+* Justification: This feature is required for league organiser to be able to easily keep track of the current statuses of the teams playing in the league itself (e.g. The players in the various team).
+It allows the league orgainse to easily updates and maintain the various teams in the records.
+
+* Highlights: This feature allows the user to edit parameters of the the team entered rather than having to remove and re-enter the parameters again.
+
+* Credits: The implementation of the order list is based on the code written for the person list in the Address Book
+Level 3 made by SE-EDU initiative.
+
+Added the functionality of points system
+
+* What it does: Allows the user to keep track of the win, lose, draw and points of team currently in the league.
+
+* Justification: This feature is required for league organiser to be able to easily locate the current best playing teams and the progress of league.
+
+* Highlights: This feature does not require the user to key in the information diretly but could be generated from information entered in the match functionality.
+
+
+=== Proposed Idea For Future Implementations
+
+==== Implement statistic features that generate win rates
+
+====
+
+* What it does: It will generate a prediction on the final winning champion team for the league.
+
+* Justification: It will allow the league orgainiser to focus his attention on the winning teams rather than on teams that dont perform as well.
+
+====
+
+==== Create a mass key in function
+
+====
+
+* What it does: Allows the user to key in team's inforamtion in buck rather than team by team.
+* Justification: It will help shorten the time needed for the user to initialized the usage of the league tracker.
+====
+
+=== Code contributed
+
+https://nuscs2113-ay1819s2.github.io/dashboard-beta/#search=yingrong[*Code Dashboard*]
+
+=== Other contributions
+
+* Project management:
+** Edited the initial codes to pass all CheckStyle problems https://github.com/CS2113-AY1819S2-M11-1/main/pull/47[#47]
+
+** Closed off some bugs issue reported by other teams with explanation
+
+* Enhancements to existing features:
+** Wrote test cases to increase coverage for the program https://github.com/CS2113-AY1819S2-M11-1/main/pull/126[#126]
+
+* Documentation:
+** Updated user guide and developer guide.
+
+* Others:
+** Added icon for the program https://github.com/CS2113-AY1819S2-M11-1/main/pull/110[#110]
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. I did the write up for the Team Management Feature and how the user should use it._
+|===
+
+include::../UserGuide.adoc[tag=teamug]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. I did the write up on the Team Management Implementation._
+|===
+
+include::../DeveloperGuide.adoc[tag=team]

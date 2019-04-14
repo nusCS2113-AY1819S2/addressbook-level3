@@ -80,10 +80,10 @@ If you plan to develop this fork as a separate product (i.e. instead of contribu
 
 Set up Travis to perform Continuous Integration (CI) for your fork. See <<UsingTravis#, UsingTravis.adoc>> to learn how to set it up.
 
-After setting up Travis, you can optionally set up coverage reporting for your teamName fork (see <<UsingCoveralls#, UsingCoveralls.adoc>>).
+After setting up Travis, you can optionally set up coverage reporting for your team fork (see <<UsingCoveralls#, UsingCoveralls.adoc>>).
 
 [NOTE]
-Coverage reporting could be useful for a teamName repository that hosts the final version but it is not that useful for your personal fork.
+Coverage reporting could be useful for a team repository that hosts the final version but it is not that useful for your personal fork.
 
 Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingAppVeyor.adoc>>).
 
@@ -141,7 +141,7 @@ The Main Component:
 === Logic Component
 [.text-center]
 .Class Disgram showcasing the structure of Logic Component
-image::Logiccomponent.png[width="600"]
+image::LogicComponent.png[width="600"]
 
 The Logic Component has a `Logic` package with a `Logic` class and a `Parser` package with a `Parser` class.
 
@@ -157,7 +157,10 @@ The Logic Component has a `Logic` package with a `Logic` class and a `Parser` pa
 
 
 === Data Component
- [to be edited]
+.Data Component Diagram
+image::Data.png[width"800"]
+
+The data component shows
 
 === Storage Component
 [.text-center]
@@ -390,7 +393,7 @@ A histogram displaying columns of financial income in each quarter is implemente
 
 [.text-center]
 .histogram displayed in command
-image::histogram.png[width="400"]
+image::histogram_with.png[width="400"]
 
 This conversion of numbers to a graphic display is achieved by
 
@@ -460,13 +463,16 @@ I decide to proceed with the current implementation as it is more safe in terms 
 less likely to raise bugs.
 // end::finance[]
 
+// tag::team[]
 === Team Feature
-
 ==== Current Implementation
 * The team feature is facilitated by `AddTeam`, `ClearTeam`, `DeleteTeam`, `EditTeam`, `FindTeam`, `ListTeam`, `ViewTeam` +
 * The feature mainly uses the `addressbook` class, `Team` class and the `Command` class. +
 
 The class diagram below illustrates the `Team`class. +
+
+.Team Class Diagram
+image::TeamClassDiagram.png[width="300"]
 
 * The following section covers some of the feature implementation. +
 
@@ -501,6 +507,10 @@ Step 6. If the team already exists, _DuplicateTeamException_ will be thrown. Thi
 Step 7. Else, _add(team)_ method is called and team is added.
 
 The sequence diagram below illustrates how the mechanism for adding teams function.
+
+
+.Add Team Sequence Diagram
+image::AddTeamSQ.png[width="400"]
 
 ==== EditTeam
 
@@ -573,6 +583,7 @@ Aspect: Prevents team's name to be edited when tied to other players or matches
 ** Cons: Difficult of implemnetation and may result in slower processing as all records need to be run through at least once.
 
 Final decision: Alternative 1 was chosen due to the rarity of team's name edited during a game season.
+// end::team[]
 
 
 === Export Feature
@@ -711,7 +722,7 @@ Auto-publishing of documentations has been enabled in League Tracker using Travi
 Personal access tokens serve as passwords so they must be kept secret to protect your accounts. Delete and regenerate if it is leaked.
 
 [TIP]
-We use a new user account to generate the token for teamName projects to prevent teamName members from gaining access to other teamName members' repos.
+We use a new user account to generate the token for team projects to prevent team members from gaining access to other team members' repos.
     If you are the only one with write access to the repo, you can use your own account to generate the token.
 
    * Add a description for the token. (e.g. Travis CI - auto-publishing)
@@ -807,8 +818,8 @@ Here are the steps to create a new release.
 
 *Value proposition*:
 
-* Manage league/teamName/player faster than a typical mouse/GUI driven app. +
-* Easy access to records needed. +
+* Manage league/team/player faster than a typical mouse/GUI driven app. +
+* Easy retrieval and manipulation of records needed. +
 * Provide crucial analysis of records in the league
 
 
@@ -821,21 +832,21 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |League Organiser |add, edit and delete players into the records | add new player when they join,delete old player when they retire
 
-|`* * *` |League Organiser |add, edit and delete teams into current league| add new teamName that move up major league
+|`* * *` |League Organiser |add, edit and delete teams into current league| add new team that move up major league
 
 |`* * *` |League Organiser |list all teams and player. | See all current teams and player
 
 |`* * *` |League Organiser |see the performance of players in the league | know player's goals scored and Penalties.
 
-|`* * *` |League Organiser |see the teams ranking in league | know which teamName is currently leading in points
+|`* * *` |League Organiser |see the teams ranking in league | know which team is currently leading in points
 
-|`* * *` |League Organiser |keep track on the future match up for the playing teams| see the match scheduling
+|`* * *` |League Organiser |keep track of the matches| to see match schedule and results
 
 |`* * *` |League Organiser |add, edit and delete matches in current league | edit the match schedule
 
-|`* * *` |League Organiser |see the real-time balancing of income of each teamName | know the financial condition of each teamName
+|`* * *` |League Organiser |see the real-time balancing of income of each team | know the financial condition of each team
 
-|`* *` |League Organiser |see the statistic of each teamName | know the percentage of winnings, average of fouls per matches of each teamName
+|`* *` |League Organiser |see the statistic of each team | know the percentage of winnings, average of fouls per matches of each team
 
 
 |=======================================================================
@@ -919,7 +930,7 @@ Use Case: Edit Player
 . (Optional) User requests to list all players in the league
 . (Optional) System shows a list of players
 . User requests to edit a specific player in the list
-. User first specifies the name, teamName and Jersey Number of the player
+. User first specifies the name, team and Jersey Number of the player
 . System returns a message of whether the player exists
 . If the player exists, a "Please enter new details" Message will be shown by system to ask for
   input. Otherwise, a PlayerNotFound exception Message will be printed followed by the list of commands
@@ -1087,6 +1098,34 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+[discrete]
+=== Use case: update match
+
+*MSS*
+
+1. User requests to list matches
+2. League Tracker shows a list of matches
+3. User requests to update a specific match in the list with match outcome details
+4. League Tracker edits the match, all affected players and teams
+5. League Tracker shows edited match
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty
++
+Use case ends.
+
+[none]
+* 3a. The given index of match or match outcome fields are invalid
++
+[none]
+** 3ai. League Tracker returns an error
++
+Use case resumes at step 2.
+
 
 [appendix]
 == Glossary
@@ -1096,7 +1135,6 @@ Use case resumes at step 2.
 *Transfer*: the action taken whenever a player under contract moves between clubs. It refers to the transferring of a player's registration from one association football club to another.
 
 *Jersey Number*: a number allocated to each player in a teamName to uniquely identify the player. Jersey Numbers usually range from 1 to 35 and will be printed at the back
-                 of players' jerseys during matches for identification purposes.
 
 *Mainstream OS*: Windows, Linux, Unix, OS-X
 
@@ -1131,6 +1169,33 @@ _{ more test cases ... }_
 .. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 .. Test case: `delete 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete 0` +
+   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+   Expected: Similar to previous.
+
+_{ more test cases ... }_
+
+
+=== Deleting a team
+
+. Deleting a person while all persons are listed
+
+.. Prerequisites: List all persons using the `listteam` command. Multiple persons in the list.
+.. Test case: `deleteteam 1` +
+   Expected: First team is deleted from the list. Details of the deleted team shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `deleteteam 0` +
+   Expected: No team is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `deleteteam`, `deleteteam x` (where x is larger than the list size or invaild) +
+   Expected: Similar to previous.
+
+=== Editing a team
+
+. Editing a team while all persons are listed
+
+.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Test case: `editteam 1 n/aa` +
+   Expected: First team is edited to having `aa` as team's name. Details of the edited contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
    Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +

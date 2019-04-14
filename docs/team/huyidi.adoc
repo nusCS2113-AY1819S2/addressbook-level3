@@ -31,7 +31,7 @@ league managers. The profitability of each team and the league indicates the sur
 visualisation of data trends as well.
 
 
-* *Code contributed*: [https://nuscs2113-ay1819s2.github.io/dashboard-beta/#=undefined&search=huyidi[Functional code]] [https://github.com[Test code]]
+* *Code contributed*: [https://nuscs2113-ay1819s2.github.io/dashboard-beta/#=undefined&search=huyidi[Code]]
 
 * *Other contributions*:
 
