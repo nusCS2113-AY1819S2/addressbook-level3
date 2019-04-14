@@ -1,0 +1,75 @@
+= Lee Chong Wei Justin - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: League Tracker
+
+---
+
+== Overview
+
+This Project Portfolio documents my role and contributions to this project.
+
+LeagueTracker is a project for a software engineering module (CS2113T Software Engineering & Object Oriented Programming)
+in my second year of undergraduate studies at National University of Singapore. It was created by my team which consists
+of 4 Computer Engineering undergraduates. For the project, we were task morph an existing application called
+AddressBook to suit the need of any specific group of people. Thus, we identified football league operators as our target audience
+and created this application.
+{empty} +
+
+The LeagueTracker is a CLI (Command Line Interface) application. It stores, retrieves and manipulate information
+on players, teams and matches in an efficient manner, reducing workload in data management for league operators.
+{empty} +
+
+My role in this project was to design and write the codes for the match feature. My responsibility was to integrate the code
+to ensure that code team members do not conflict with existing code base.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the match feature*
+** What it does:
+*** It allows league operators to keep track of the matches the league.
+*** It also helps operators update records of relevant players and teams after a match is played.
+** Justification:
+*** This feature improves the product because there is many matches for the operator to keep track of. With the
+the ability to store, retrieve and manipulate information on matches, keeping track of matches becomes easier for operators.
+*** As a match produces many information that are to be recorded in player records and team records, manual recording of information becomes error prone.
+This application not only hasten the process of recording information, it reduces the chance of operators making mistakes
+by automating the process.
+** Highlights: This feature processes data from user input about a match and updates object of other classes. It features
+robustness against invalid inputs.
+
+* *Code contributed*: [https://nuscs2113-ay1819s2.github.io/dashboard-beta/#=undefined&search=E0176106[Functional code]] [https://github.com[Test code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed issue tracker
+*** Managed release v1.1-v1.3
+*** Setup GitHub Pages for the project
+*** Setup Travis and Coveralls for project
+
+** Documentation:
+*** Updated User and Developer Guide
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the League Tracker User Guide for the Match feature.
+They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=matchug]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the League Tracker Developer Guide for the Finance feature.
+They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=matchdg]
+
