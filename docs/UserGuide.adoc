@@ -635,10 +635,11 @@ Updates the 1st match in the match list with specified match results.
 {empty} +
 {empty} +
 
+// tag::financeug[]
 === Finance
 The Finance Feature in the application helps you to manage and keep track of financial conditions in the league.
 {empty} +
-{empty} +
+
 
 ==== *Get League Finance*
 You can use the Get League Finance command to view the total financial condition of the league. +
@@ -647,11 +648,10 @@ Format : `getlf`
 
 Example: +
 `getlf`
-{empty} +
 
 .result after typing "getlf"
-image::result_after_getlf.png[]
-{empty} +
+image::result_after_getlf.png[width="600"]
+
 [NOTE]
 ====
 The histogram of financial incomes of four quarters helps you to better visualise the trend of changes
@@ -669,14 +669,14 @@ Example: +
 
 * `Listteam` +
 * `getfinance 4`
-{empty} +
+
 
 .the list of teams displayed after typing "listteam"
-image::after_listteam.png[]
+image::after_listteam.png[width="600"]
 
 .result of getting finance of the selected team
-image::result_of_getfinance.png[]
-{empty} +
+image::result_of_getfinance.png[width="600"]
+
 [TIP]
 ====
 This Get Team Finance command enables you to view the financial condition of a team from the list of teams.
@@ -692,11 +692,11 @@ Format : `listfinance`
 
 Example: +
 `listfinance` +
-{empty} +
+
 
 .result of listing finances
-image::list_finance.png[]
-{empty} +
+image::list_finance.png[width="600"]
+
 [NOTE]
 ====
 The order of the finance list corresponds to the order of the list of teams.
@@ -713,14 +713,14 @@ Example: +
 
 * `Listfinance` +
 * `viewfinance 4`
-{empty} +
+
 
 .the list of finances displayed after typing "listfinance"
-image::list_finance.png[]
+image::list_finance.png[width="600"]
 
 .result of viewing finance of the selected team from the finance list
-image::view_finance.png[]
-{empty} +
+image::view_finance.png[width="600"]
+
 [NOTE]
 ====
 This View Team Finance command gives you a more detailed version of the financial condition compared to
@@ -735,12 +735,12 @@ Format : `rankfinance`
 
 Example: +
 `rankfinance` +
-{empty} +
+
 
 .result of ranking finances
-image::rank_finance.png[]
+image::rank_finance.png[width="600"]
 {empty} +
-{empty} +
+// end::financeug[]
 
 === Export
 The Export Feature in League Tracker allows user to export data stored in League Tracker to Excel files to facilitate
