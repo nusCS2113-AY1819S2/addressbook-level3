@@ -94,6 +94,7 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 
 === Architecture
 
+[.text-center]
 .Architecture Diagram
 image::Architecture.png[width="600"]
 
@@ -114,6 +115,8 @@ Given below is a quick overview of each component. +
 *Storage* Reads data from, and writes data to the hard disk.
 
 === Main Component
+
+[.text-center]
 .Class Disgram showcasing the structure of Main Component
 image::Uicomponent.png[width="600"]
 
@@ -136,8 +139,9 @@ The Main Component:
 
 
 === Logic Component
+[.text-center]
 .Class Disgram showcasing the structure of Logic Component
-image::Logiccomponent.png[width="600"]
+image::LogicComponent.png[width="600"]
 
 The Logic Component has a `Logic` package with a `Logic` class and a `Parser` package with a `Parser` class.
 
@@ -153,9 +157,13 @@ The Logic Component has a `Logic` package with a `Logic` class and a `Parser` pa
 
 
 === Data Component
- [to be edited]
+.Data Component Diagram
+image::Data.png[width"800"]
+
+The data component shows
 
 === Storage Component
+[.text-center]
 .Storage Diagram
 image::Storage.png[width="600"]
 
@@ -196,6 +204,7 @@ process of player transfer.
 
 Figure 5 shows a class diagram of the `Player` class involved here.
 
+[.text-center]
 .A class diagram of the `Player` class
 image::playerclassdiagram.png[]
 
@@ -295,6 +304,7 @@ into internal lists, including the destination team's `playerList`. After succes
 
 {empty} +
 
+[.text-center]
 .sequence diagram showing the process of `tranferPlayer` command
 image::transfersequence.png[]
 
@@ -341,6 +351,7 @@ The finance feature is mainly supported by `Finance` class and `Command` class.
 
 The class diagram below illustrates the `Finance` class.
 
+[.text-center]
 .finance class diagram
 image::finance_class.png[width="200"]
 
@@ -353,6 +364,7 @@ a `Finance` object can be created by `Finance(ReadOnlyTeam team)` based on exist
 The following sequence diagram shows how the instantiation of a Finance object works by interacting with
 `ReadOnlyTeam` class and `Match` class
 
+[.text-center]
 .finance class sequence diagram
 image::finance_sequence_d.png[width="500"]
 
@@ -366,6 +378,7 @@ The `ticketIncome` in a Finance object is calculated by iterating through the re
 are obtained by `getMatches()` from the target team and checking whether the team plays home or away in the
 respective match to add the corresponding home or away sale to the ticket income.
 
+[.text-center]
 .example of codes of getting total ticket income
 image::code_one.png[width="500"]
 
@@ -378,8 +391,9 @@ The ticket sale income in a particular quarter is calculated by iterating throug
 
 A histogram displaying columns of financial income in each quarter is implemented in the Finance Class.
 
+[.text-center]
 .histogram displayed in command
-image::histogram.png[width="400"]
+image::histogram_with.png[width="400"]
 
 This conversion of numbers to a graphic display is achieved by
 
@@ -402,6 +416,7 @@ the finance list should not display the financial condition of the nonexistent t
 A method called refreshFinance is therefore implemented in `AddressBook`. This method helps to "refresh"
 finance list in `AddressBook` to get a finance list matching the current information in the league.
 
+[.text-center]
 .example of codes of refreshFinance()
 image::code_two.png[width="700"]
 
@@ -435,6 +450,7 @@ I decide to proceed with the current implementation as it is easy to implement a
  are straight as different characters do not take the same amount of space.
 * **Alternative 2:** Use special characters
 
+[.text-center]
 .example of using special characters to produce the histogram
 image::histogram_special.png[width="400"]
 
@@ -447,13 +463,16 @@ I decide to proceed with the current implementation as it is more safe in terms 
 less likely to raise bugs.
 // end::finance[]
 
+// tag::team[]
 === Team Feature
-
 ==== Current Implementation
 * The team feature is facilitated by `AddTeam`, `ClearTeam`, `DeleteTeam`, `EditTeam`, `FindTeam`, `ListTeam`, `ViewTeam` +
 * The feature mainly uses the `addressbook` class, `Team` class and the `Command` class. +
 
 The class diagram below illustrates the `Team`class. +
+
+.Team Class Diagram
+image::TeamClassDiagram.png[width="300"]
 
 * The following section covers some of the feature implementation. +
 
@@ -488,6 +507,10 @@ Step 6. If the team already exists, _DuplicateTeamException_ will be thrown. Thi
 Step 7. Else, _add(team)_ method is called and team is added.
 
 The sequence diagram below illustrates how the mechanism for adding teams function.
+
+
+.Add Team Sequence Diagram
+image::AddTeamSQ.png[width="500"]
 
 ==== EditTeam
 
@@ -560,15 +583,16 @@ Aspect: Prevents team's name to be edited when tied to other players or matches
 ** Cons: Difficult of implemnetation and may result in slower processing as all records need to be run through at least once.
 
 Final decision: Alternative 1 was chosen due to the rarity of team's name edited during a game season.
+// end::team[]
+
 
 === Export Feature
 ==== Current Implementation
-The export feature consists of four commands: `exportPlayer`, `exportTeam`, `exportMatch` and `exportFinance`. The export
-feature is facilitated by `PlayerApachePoiWriter`, `TeamApachePoiWriter`, `MatchApachePoiWriter` and `FinanceApachePoiWriter`.
-They are empowered by the external Java library `Apache Poi`. Internally, an object of  `PlayerApachePoiWriter`/
-`TeamApachePoiWriter`/ `MatchApachePoiWriter` / `FinanceApachePoiWriter` is instantiated to write all `Player` / `Team`
-/ `Match` / `Finance` to the default file path `exported_player_record.xls` / `exported_team_record.xls` / `exported_match_record.xls`
-/ `exported_finance_record.xls`. Currently, each of the four implements a `write()` function.
+The export feature consists of four commands: `exportPlayer`, `exportTeam`, `exportMatch` and `exportFinance`. Taking
+`exportPlayer` as the example, it is facilitated by `PlayerApachePoiWriter`, which is a class using methods provided
+by the external Java library `Apache Poi`. Internally, an object of  `PlayerApachePoiWriter` is instantiated to write
+all `Player` to the default file path `exported_player_record.xls`. Currently, each of the four writer classes implements a `write()` function.
+
 
 * *PlayerApachePoiWriter#write()* --- Writes the index number, name, team name, position played, age, salary,
 goals scored, goals assisted, nationality, jersey number, appearance and health status stored currently in League tracker
@@ -605,10 +629,11 @@ Any existing file with the same path will be overwritten.
 
 Figure 13 below shows a sequence diagram that illustrates the process of `exportPlayer` command execution.
 
+[.text-center]
 .A sequence diagram for `exportPlayer` command
-image::exportplayersequence.png[]
+image::exportplayersequence.png[][exportplayersequence,500,400]
 
-==== Implementation of PlayerApachePoiWriter#write() / TeamApachePoiWriter#write() / MatchApachePoiWriter#write() / ApachePoiWriter#write()
+==== Implementation of write()
 Given below is the algorithm behind the write() method used in export feature:
 
 Step 1: Instantiate an object of  `PlayerApachePoiWriter`/ `TeamApachePoiWriter`/ `MatchApachePoiWriter` / `FinanceApachePoiWriter`
@@ -617,7 +642,6 @@ Step 2: Write the headers to the excel file
 
 Step 3: Loop through the list passed in containing all players / teams / matches / finances in League Tracker to write
 to the excel file.
-
 
 .step 3 writing data code snippet (use `PlayerApachePoiWriter` as the example)
 [source.java]
@@ -675,59 +699,6 @@ Step 4: Close the `PlayerApachePoiWriter`/ `TeamApachePoiWriter`/ `MatchApachePo
 
 * Solution: The data is passed in to the writer object through its constructor as a List.
 
-// tag::matchdg[]
-=== Match Feature
-The match feature allows users to store, retrieve and manipulate match records in a league. It also
-edits player and team profile with its `UpdateMatchCommand` with information processed from a match outcome.
-
-==== Current Implementation
-The match feature is facilitated by `AddMatchCommand`, `ClearMatchCommand`, `DeleteMatchCommand`,
-`FindMatchCommand`, `ListMatchCommand`, `ViewMatchCommand` and `UpdateMatchCommand`.
-
-The match feature extends the `AddressBook` class with a list of `Match`, stored as a `UniqueMatchList` which prevents duplicate matches
-from existing in League Tracker. The figure below shows the class diagram showing the implementation of the match feature.
-
-image::matchclass.PNG[width="600"]
-
-There are many commands facilitating this feature. The remaining portion of this section will
-describe the implementation of the most noteworthy command, `UpdateMatchCommand`.
-
-===== Updating Matches
-Updating match is done by executing `UpdateMatchCommand` which is constructed in the `Parser` Class after it parses the user's command string. +
-{empty} +
-The execution of the `UpdateMatchCommand` can be broken down in to 5 different stages:
-
-. Retrieval of `Match` object called `toRemove` from `addressBook`
-. Construction of `Match` object called `toReplace` with attributes of `toRemove` and `updateMatchDescriptor` which is an attribute
-of `UpdateMatchCommand`.
-. Replacement of `toRemove` with `toReplace` in `addressBook`
-. Update of relevant `Player` and `Team` objects
-. Return of `CommandResult`
-
-==== Design Considerations
-
-Aspect: How score of a match is updated. +
-
-Alternative 1 was chosen because of the robustness of LeagueTracker and high coupling between classes.
-Error in score data will likely cause error in other features.
-
-* Alternative 1 (current choice): Compute internally with the list of `goalscorers` and `owngoalscorer`.
-** Pros:
-*** Provides many layer of checking to reduce chance of error in score.
-*** Reduces input command length for users.
-** Cons:
-*** Harder to implement.
-*** Not very intuitive for users
-* Alternative 2: User enter score manually
-** Pros:
-*** Easy to implement
-** Cons:
-*** Error prone
-*** Longer input command for users.
-// end::matchdg[]
-
-{empty} +
-{empty} +
 
 == Documentation
 Following AddressBook3, our League Tracker uses AsciiDoc for writing documentation.We choose AsciiDoc as it provides both a human-readable,
@@ -758,6 +729,7 @@ We use a new user account to generate the token for team projects to prevent tea
    * Check the `public repo` checkbox.
    * Click `Generate Token` to grant access for Travis CI to the repo of the project.
 
+[.text-center]
 .Generating personal token for auto-publishing on Github
 image::generate_token.png[width="600"]
 
@@ -773,6 +745,7 @@ Here are the steps to convert the project documentation files to PDF format.
 .  Within Chrome, click on the `Print` option in Chrome's menu.
 .  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
 
+[.text-center]
 .Saving documentation as PDF files in Chrome
 image::chrome_save_as_pdf.png[width="300"]
 
@@ -1161,10 +1134,7 @@ Use case resumes at step 2.
 
 *Transfer*: the action taken whenever a player under contract moves between clubs. It refers to the transferring of a player's registration from one association football club to another.
 
-image::transfer.png[width="300"]
-
-*Jersey Number*: a number allocated to each player in a team to uniquely identify the player. Jersey Numbers usually range from 1 to 35 and will be printed at the back
-                 of players' jerseys during matches for identification purposes.
+*Jersey Number*: a number allocated to each player in a teamName to uniquely identify the player. Jersey Numbers usually range from 1 to 35 and will be printed at the back
 
 *Mainstream OS*: Windows, Linux, Unix, OS-X
 
@@ -1190,21 +1160,85 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
+
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Deleting a player
 
-. Deleting a person while all persons are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+. Deleting a player while all players are listed
+
+.. Prerequisites: List all players using the `list` command. Multiple players in the list.
+.. Test case: `deletePlayer 1` +
+   Expected: First contact is deleted from the list. Details of the deleted contact shown.
+.. Test case: `deletePlayer 0` +
+   Expected: No player is deleted. Error details shown.
+.. Other incorrect delete commands to try: `deletePlayer`, `deletePlayer x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
+
+=== Adding a player
+
+. Adding a player while the player's team already exists
+
+.. Prerequisites: The `TEAM` that the player is going to be added to must already exist.
+.. Test case: `addPlayer Lionel Messi p/RW a/31 sal/2000 gs/30 ga/25 tm/FC BARCELONA ctry/Argentina jn/10 app/40 hs/HEALTHY` +
+Expected: The player `Lionel Messi` is successfully added. Details of the player shown .
+.. Test case: `addPlayer Lionel Messi p/RW sal/2000 gs/30 ga/25 tm/FC BARCELONA ctry/Argentina jn/10 app/40 hs/HEALTHY` +
+Expected: No player is added. Error message shown.
+.. Other incorrect addPlayer commands to try: `addPlayer`, `addPlayer ___&*9 p/RW a/31 sal/2000 gs/30 ga/25 tm/FC BARCELONA ctry/Argentina jn/10 app/40 hs/HEALTHY`
+Expected: Similar to Previous
+
+=== Transferring a player
+
+. Transferring an existing player to an existing team that the player does not belong to
+
+.. Prerequisites: Player must exist in League Tracker. Destination team must exist in League Tracker.
+The jersey number in the destination team must be available.
+.. Test case: `transfer Lionel Messi tm/Real Madrid jn/10 sal/2000` +
+Expected: A success message will be shown with the player's name, new team, new jersey number and new salary.
+.. Test case: `transfer Lionel Messi jn/10 sal/2000` +
+Expected: No transfer is done. Error Message shown .
+.. Other incorrect commands to try: `transfer Lionel Messi tm/Real Madrid sal/2000`, `transfer Lionel Messi tm/Real Madrid jn/10`,
+`transfer`
+
 _{ more test cases ... }_
+
+=== Adding a team
+
+. Adding a team to the League Tracker
+
+
+.. Test case: `addteam aa c/cc s/90` +
+   Expected: First team is added to the list. Details of the added team shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `addteam ;/'; c/sad s0` +
+   Expected: No team is added. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect addteam commands to try: `addteam`, `addteam x c/asd s/90` (x is non-alphanumerical) +
+   Expected: Similar to previous.
+
+=== Deleting a team
+
+. Deleting a team while all teams are listed
+
+.. Prerequisites: List all teams using the `listteam` command. Multiple teams in the list.
+.. Test case: `deleteteam 1` +
+   Expected: First team is deleted from the list. Details of the deleted team shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `deleteteam 0` +
+   Expected: No team is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `deleteteam`, `deleteteam x` (where x is larger than the list size or invaild) +
+   Expected: Similar to previous.
+
+=== Editing a team
+
+. Editing a team while all teams are listed
+
+.. Prerequisites: List all teams using the `listteam` command. Multiple teams in the list.
+.. Test case: `editteam 1 n/aa` +
+   Expected: First team is edited to having `aa` as team's name. Details of the edited contact shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `editteam 0` +
+   Expected: No team is edited. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect editteam commands to try: `editteam`, `editteam x` (where x is larger than the list size or invalid), `editteam 1 n/aa`(aa is the name of existing team) +
+   Expected: Similar to previous.
 
 === Viewing a Finance
 
@@ -1217,8 +1251,6 @@ _{ more test cases ... }_
 .. Expected: No finance is viewed. Message "The finance index provided is invalid" is shown.
 .. Other incorrect viewfinance commands to try: `viewfinance`, `viewfinance x` (where x is larger than the list size) +
    Expected: Similar to previous.
-
-_{ more test cases ... }_
 
 === Getting a Finance from the team list
 
