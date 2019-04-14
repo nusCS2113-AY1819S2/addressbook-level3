@@ -1235,7 +1235,9 @@ Update Match in League : `updatematch` +
 View Match Detail : `viewmatch`
 
 === Finance
-Get League Finance : `GetLeagueFinance` +
-Get Team Finance : `GetTeamFinance` +
-List Team Finance : `ListTeamFinance` +
+Get League Finance : `getlf` +
+Get Team Finance : `getfinance` +
+List Team Finance : `Listfinance` +
+View Team Finance : `viewfinance` +
+Rank Team Finance : `rankfinance` +
 Export all Finance records to an Excel file : `exportFinance`
