@@ -258,8 +258,8 @@ image::code_two.png[width="700"]
 [NOTE]
 This method is called every time information of the current financial condition of in the league is enquired.
 This method is used in `ListFinanceCommand`, `GetLeagueFinanceCommand` and `RankFinanceCommand`.
-{empty} +
 
+{empty} +
 
 ==== Design Considerations
 ===== Aspect: How to update Finance objects
