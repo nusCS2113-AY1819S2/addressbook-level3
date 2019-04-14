@@ -47,17 +47,16 @@ public class MainWindow {
     @FXML
     void onCommand(ActionEvent event) {
         try {
-            // utilize accountManager to handle login/register
             String userCommandText = commandInput.getText();
             String loginResult = accountManager.accountCommandHandler(userCommandText);
             CommandResult msg = new CommandResult(loginResult);
             displayResult(msg);
             clearCommandInput();
 
-            if(accountManager.getLoginStatus()) // if logged in
+            if(accountManager.getLoginStatus())
             {
                 String[] accountInfo = userCommandText.split(" ");
-                if(accountInfo.length == 1 && accountInfo[0].equals("logout")){ // if the command is logout
+                if(accountInfo.length == 1 && accountInfo[0].equals("logout")){
                     accountManager.logout();
                 }
                 else{
