@@ -24,7 +24,7 @@ public class DoctorAppointmentsCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        final List<ReadOnlyPerson> personsFound = getPersonsWithNameContainingAnyKeyword(doctorName);
+        final List<ReadOnlyPerson> personsFound = getPersonsWithName(doctorName);
         Indicator.setLastCommand("DoctorAppointments");
         return new CommandResult(getMessageForAppointmentsShownSummary(personsFound, doctorName), personsFound);
     }
@@ -34,7 +34,7 @@ public class DoctorAppointmentsCommand extends Command {
      *
      * @return list of persons found
      */
-    private List<ReadOnlyPerson> getPersonsWithNameContainingAnyKeyword(String doctorName) {
+    private List<ReadOnlyPerson> getPersonsWithName(String doctorName) {
         final List<ReadOnlyPerson> matchedPersons = new ArrayList<>();
         for (ReadOnlyPerson person : addressBook.getAllPersons()) {
             final String doctor = person.getDoctor().toString();
