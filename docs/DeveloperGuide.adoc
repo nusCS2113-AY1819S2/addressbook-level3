@@ -95,13 +95,15 @@ The `AddressBook.java`,
 
 *API* : link:https://github.com/cs2113-ay1819s2-t11-2/main/blob/master/src/seedu/addressbook/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
-.  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  `Logic` uses the `Parser` class to parse the user command.
+.  This results in a `Command` object which is executed by the matching Command class (e.g. DeleteCommand class exceutes delete).
+.  The command execution can affect the `UniquePersonList` (e.g. deleting a person).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+
+image::LogicComponent.png[width="800"]
 
 .Interactions Inside the Logic Component for the `delete 1` Command
 
@@ -117,8 +119,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 The `Storage` component,
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the Address Book data in a default .txt file named addressbook.txt and read it back.
 
 [[Design-Ui]]
 === Ui Component
@@ -130,7 +131,8 @@ The `Gui.java` component,
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Data` component so that the UI can be updated with the modified data.
 
-[[Design-Command]]
+image::UiComponent.png[width="800"]
+
 === Command classes
 
 *API* : link:https://github.com/cs2113-ay1819s2-t11-2/main/blob/master/src/seedu/addressbook/commands[`Commands`]
