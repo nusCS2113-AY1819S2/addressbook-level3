@@ -263,7 +263,7 @@ Step4. The successful execution returns a MESSAGE_SUCCESS along with the patient
 
 //@@author liguanlong
 
-=== [[Login/Register/Logout Feature]]
+=== Login/Register/Logout Feature
 ==== Current Implementation
 
 The login/register/logout mechanism is facilitated by `AccountManager`, it implements the following operations:
