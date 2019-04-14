@@ -154,7 +154,7 @@ Step4. The successful execution returns a MESSAGE_SUCCESS along with the patient
 === Login/Register/Logout Feature 
 ==== Current Implementation
 
-The login / register mechanism is facilitated by `AccountManager`, it implements the following operations:
+The login/register/logout mechanism is facilitated by `AccountManager`, it implements the following operations:
 
 * `AccountManager()` -- The constructor for the class `AccountManager`.
 * `getLoginStatus()` -- Returns the login status to the caller.
