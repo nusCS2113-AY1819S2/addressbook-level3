@@ -77,6 +77,7 @@ The sections below give more details of each component.
 === AccountManager Component
 
 *API* : link:https://github.com/cs2113-ay1819s2-t11-2/main/blob/master/src/seedu/addressbook/accountmanager/AccountManager.java[`AccountManager`]
+For detailed implementation for AccountManager Component, please refer to <<Login/Register/Logout Feature,*`Login/Register/Logout Feature`*>>
 
 [[Design-Data]]
 === Data Component
@@ -262,7 +263,7 @@ Step4. The successful execution returns a MESSAGE_SUCCESS along with the patient
 
 //@@author liguanlong
 
-=== Login/Register/Logout Feature 
+=== [[Login/Register/Logout Feature]]
 ==== Current Implementation
 
 The login/register/logout mechanism is facilitated by `AccountManager`, it implements the following operations:
@@ -762,15 +763,47 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
+
+//@@author WuPeiHsuan
 === Sort feature
 
+.. Prerequisites: Please add some patient entries. +
+
+.. Test case 1: `sort name` +
+Expected: Prints out a list of all patients sort by name in lexicographically order. +
+
+.. Test case 2: `sort status` +
+Expected: Prints out a list of all patients sort by status according to the degree of urgency. +
+
+.. Test case 3: `sort appointment` +
+Expected: Prints out a list of all patients sort by appointment in chronological order. +
+
+.. Other incorrect commands to try: `sort`, `sort abc` + 
+Expected: An error message: `Invalid command format!` is displayed on the screen, with the displays the correct format below. 
+
+
 === Add Status feature
+
+.. Prerequisites: The user has logged in to the system.
+
+.. Test case 1: `add John p/98765432 e/john@gmail.com a/John street, block 123, #01-01 m/2019 12 11 12 30 d/DoctorTan s/Observation` + 
+Expected: New person added: John Phone: 98765432 Email: john@gmail.com Address: John street, block 123, #01-01  Appointment: 2019 12 11 12 30 Doctor: DoctorTan Status: Observation Tags: 
+
+.. Test case 2: `add Amy p/98765432 e/john@gmail.com a/John street, block 123, #01-01 m/2019 12 11 12 30 d/DoctorTan s/Waiting for Surgery` + 
+Expected:  New person added: Amy Phone: 98765432 Email: john@gmail.com Address: John street, block 123, #01-01  Appointment: 2019 12 11 12 30 Doctor: DoctorTan Status: Waiting for Surgery Tags: 
+
+
+.. Other incorrect commands to try:  `add Sherry p/98765432 e/john@gmail.com a/John street, block 123, #01-01 m/2019 12 11 12 30 d/DoctorTan s/nothing` +
+Expected: An error message: Status should be Observation/ Critical / Waiting for Surgery / Therapy / Life Support / Waiting for doctor appointment
+
+//@@author 
+
 
 //@@author liguanlong
 === Login/Register/Logout Feature 
 
 [NOTE]
-The username password pair: `Admin` `Admin123` is registered by default for testing purpose. (This is only valid for the user who has cloned our project repo. For jar file there is no such default account, and user will have to register a new account before starting to use the application.)
+The username password pair: `Admin` `Admin123` is registered by default for testing purpose.
 
 . Login
 
