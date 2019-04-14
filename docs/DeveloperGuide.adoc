@@ -229,7 +229,7 @@ The ticket sale income in a particular quarter is calculated by iterating throug
 A histogram displaying columns of financial income in each quarter is implemented in the Finance Class.
 
 .histogram displayed in command
-image::histogram.png[width="400"]
+image::histogram_with.png[width="400"]
 
 This conversion of numbers to a graphic display is achieved by
 
