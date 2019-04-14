@@ -38,25 +38,20 @@ public class Finance implements ReadOnlyFinance {
 
         this.sponsorMoney = Double.valueOf(team.getSponsor().value);
 
-        List<Match> matchesOfTeam = team.getMatches();
+        List<Match> matchesOfTeam = team.getMatches();//gets relevant matches of the target team
         this.ticketIncome = getTicketIncomeFromMatches(matchesOfTeam, teamName);
 
         /**
-         * gets ticket sale within each quarter.
+         * gets each quarter's income with sponsorMoney/4 + ticket sale within each quarter.
          */
-        List<Match> matchesOfQuarterOne = getMatchesWithDateContainingAnyKeyword(matchesOfTeam, QUARTER_ONE_MONTHS);
-        double quarterOneTicketIncome = getTicketIncomeFromMatches(matchesOfQuarterOne, teamName);
-        List<Match> matchesOfQuarterTwo = getMatchesWithDateContainingAnyKeyword(matchesOfTeam, QUARTER_TWO_MONTHS);
-        double quarterTwoTicketIncome = getTicketIncomeFromMatches(matchesOfQuarterTwo, teamName);
-        List<Match> matchesOfQuarterThree = getMatchesWithDateContainingAnyKeyword(matchesOfTeam, QUARTER_THREE_MONTHS);
-        double quarterThreeTicketIncome = getTicketIncomeFromMatches(matchesOfQuarterThree, teamName);
-        List<Match> matchesOfQuarterFour = getMatchesWithDateContainingAnyKeyword(matchesOfTeam, QUARTER_FOUR_MONTHS);
-        double quarterFourTicketIncome = getTicketIncomeFromMatches(matchesOfQuarterFour, teamName);
-
-        this.quarterOne = sponsorMoney / 4 + quarterOneTicketIncome;
-        this.quarterTwo = sponsorMoney / 4 + quarterTwoTicketIncome;
-        this.quarterThree = sponsorMoney / 4 + quarterThreeTicketIncome;
-        this.quarterFour = sponsorMoney / 4 + quarterFourTicketIncome;
+        this.quarterOne = sponsorMoney / 4 +
+                getTicketIncomeFromMatches(getMatchesWithDateContainingAnyKeyword(matchesOfTeam, QUARTER_ONE_MONTHS), teamName);
+        this.quarterTwo = sponsorMoney / 4 +
+                getTicketIncomeFromMatches(getMatchesWithDateContainingAnyKeyword(matchesOfTeam, QUARTER_TWO_MONTHS), teamName);
+        this.quarterThree = sponsorMoney / 4 +
+                getTicketIncomeFromMatches(getMatchesWithDateContainingAnyKeyword(matchesOfTeam, QUARTER_THREE_MONTHS), teamName);
+        this.quarterFour = sponsorMoney / 4 +
+                getTicketIncomeFromMatches(getMatchesWithDateContainingAnyKeyword(matchesOfTeam, QUARTER_FOUR_MONTHS), teamName);
 
         this.histogram = new Histogram(NUMBER_OF_QUARTER, quarterOne, quarterTwo, quarterThree, quarterFour);
     }
@@ -78,7 +73,7 @@ public class Finance implements ReadOnlyFinance {
     }
 
     /**
-     * calculate ticketIncome from relevant matches of the team.
+     * calculates ticketIncome from relevant matches of the team.
      *
      * @param teamName for finding relevant homeSale/awaySale in each match
      * @return value of ticketSale

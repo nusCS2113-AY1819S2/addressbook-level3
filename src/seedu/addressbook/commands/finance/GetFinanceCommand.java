@@ -8,7 +8,7 @@ import seedu.addressbook.data.team.ReadOnlyTeam;
 
 
 /**
- * check the financial profit in USD of a team identified using it's last displayed index from the League.
+ * checks the financial profit in USD of a team identified using it's last displayed index from the League.
  */
 
 public class GetFinanceCommand extends Command {

@@ -290,7 +290,7 @@ image::histogram_special.png[width="400"]
 
 ** Pros: It produces a better visual effect.
 
-** Cons: It is more likely to produce unexpected message from the jar file. The special characters
+** Cons: It is more likely to produce unexpected messages from the jar file. The special characters
 may not be able to be parsed correctly.
 
 I decide to proceed with the current implementation as it is more safe in terms of producing the expected message and
