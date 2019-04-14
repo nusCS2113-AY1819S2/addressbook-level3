@@ -15,7 +15,7 @@ import seedu.addressbook.data.team.Sponsor;
 import seedu.addressbook.data.team.Team;
 import seedu.addressbook.data.team.TeamName;
 import seedu.addressbook.data.team.UniqueTeamList;
-
+import seedu.addressbook.data.team.UniqueTeamList.DuplicateTeamException;
 
 
 /**
@@ -42,6 +42,7 @@ public class EditTeam extends Command {
     public static final String MESSAGE_EDIT_TEAM_FAIL = "Team's name cannot be change with exiting player"
             + " or matches tied to the team";
     public static final String MESSAGE_NOARGS = "At least one field to edit must be provided.\n%1$s";
+    public static final String MESSAGE_DUPLICATE_TEAM = "This team's name already exists in the address book";
 
     private final EditTeamDescriptor editTeamDescriptor;
 
@@ -69,7 +70,8 @@ public class EditTeam extends Command {
                 return new CommandResult(MESSAGE_EDIT_TEAM_FAIL);
             }
 
-            addressBook.editTeam(teamToEdit, editedTeam);
+            addressBook.editTeam(teamToEdit, editedTeam,
+                    editTeamDescriptor.getNameChange());
 
             return new CommandResult(String.format(MESSAGE_EDIT_TEAM_SUCCESS, editedTeam));
 
@@ -77,6 +79,8 @@ public class EditTeam extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_TEAM_DISPLAYED_INDEX);
         } catch (UniqueTeamList.TeamNotFoundException tnfe) {
             return new CommandResult(Messages.MESSAGE_TEAM_NOT_IN_LEAGUE_TRACKER);
+        } catch (DuplicateTeamException dt) {
+            return new CommandResult(MESSAGE_DUPLICATE_TEAM);
         }
 
     }

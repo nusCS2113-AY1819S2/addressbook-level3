@@ -681,7 +681,7 @@ public class LogicTest {
         List<Team> lastShownTeamList = helper.generateTeamList(t1, t2, t3);
 
         AddressBook expectedAb = helper.generateTeamAddressBook(lastShownTeamList);
-        expectedAb.editTeam(t2, editedTeam);
+        expectedAb.editTeam(t2, editedTeam, false);
 
 
         helper.addToTeamAddressBook(addressBook, lastShownTeamList);

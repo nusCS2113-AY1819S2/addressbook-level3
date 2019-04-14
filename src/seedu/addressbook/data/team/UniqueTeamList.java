@@ -130,7 +130,12 @@ public class UniqueTeamList implements Iterable<Team> {
     /**
      * Removes the equivalent team from the list.
      */
-    public void edit(ReadOnlyTeam toRemove, Team toReplace) throws TeamNotFoundException {
+    public void edit(ReadOnlyTeam toRemove,
+                     Team toReplace,
+                     boolean namechange) throws TeamNotFoundException, DuplicateTeamException {
+        if (contains(toReplace) && namechange) {
+            throw new DuplicateTeamException();
+        }
         final boolean teamFoundAndDeleted = internalList.remove(toRemove);
         if (!teamFoundAndDeleted) {
             throw new TeamNotFoundException();

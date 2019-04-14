@@ -16,6 +16,7 @@ public class EditTeamDescriptor {
     private Country country;
     private Sponsor sponsor;
     private Set<Tag> tagset;
+    private boolean nameChanged = false;
 
     public EditTeamDescriptor(String name,
                               String country,
@@ -25,6 +26,7 @@ public class EditTeamDescriptor {
             this.teamName = null;
         } else {
             this.teamName = new TeamName(name);
+            nameChanged = true;
         }
 
         if (country == null) {
@@ -70,6 +72,9 @@ public class EditTeamDescriptor {
         return sponsor;
     }
 
+    public boolean getNameChange() {
+        return nameChanged;
+    }
     public void setTags(Set<Tag> tagset) {
         this.tagset = tagset;
     }
