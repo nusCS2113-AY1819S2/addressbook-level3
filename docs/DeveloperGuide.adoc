@@ -94,6 +94,7 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 
 === Architecture
 
+[.text-center]
 .Architecture Diagram
 image::Architecture.png[width="600"]
 
@@ -114,6 +115,8 @@ Given below is a quick overview of each component. +
 *Storage* Reads data from, and writes data to the hard disk.
 
 === Main Component
+
+[.text-center]
 .Class Disgram showcasing the structure of Main Component
 image::Uicomponent.png[width="600"]
 
@@ -136,6 +139,7 @@ The Main Component:
 
 
 === Logic Component
+[.text-center]
 .Class Disgram showcasing the structure of Logic Component
 image::LogicComponent.png[width="600"]
 
@@ -159,6 +163,7 @@ image::Data.png[width"800"]
 The data component shows
 
 === Storage Component
+[.text-center]
 .Storage Diagram
 image::Storage.png[width="600"]
 
@@ -199,6 +204,7 @@ process of player transfer.
 
 Figure 5 shows a class diagram of the `Player` class involved here.
 
+[.text-center]
 .A class diagram of the `Player` class
 image::playerclassdiagram.png[]
 
@@ -298,6 +304,7 @@ into internal lists, including the destination team's `playerList`. After succes
 
 {empty} +
 
+[.text-center]
 .sequence diagram showing the process of `tranferPlayer` command
 image::transfersequence.png[]
 
@@ -344,6 +351,7 @@ The finance feature is mainly supported by `Finance` class and `Command` class.
 
 The class diagram below illustrates the `Finance` class.
 
+[.text-center]
 .finance class diagram
 image::finance_class.png[width="200"]
 
@@ -356,6 +364,7 @@ a `Finance` object can be created by `Finance(ReadOnlyTeam team)` based on exist
 The following sequence diagram shows how the instantiation of a Finance object works by interacting with
 `ReadOnlyTeam` class and `Match` class
 
+[.text-center]
 .finance class sequence diagram
 image::finance_sequence_d.png[width="500"]
 
@@ -369,6 +378,7 @@ The `ticketIncome` in a Finance object is calculated by iterating through the re
 are obtained by `getMatches()` from the target team and checking whether the team plays home or away in the
 respective match to add the corresponding home or away sale to the ticket income.
 
+[.text-center]
 .example of codes of getting total ticket income
 image::code_one.png[width="500"]
 
@@ -381,6 +391,7 @@ The ticket sale income in a particular quarter is calculated by iterating throug
 
 A histogram displaying columns of financial income in each quarter is implemented in the Finance Class.
 
+[.text-center]
 .histogram displayed in command
 image::histogram_with.png[width="400"]
 
@@ -405,6 +416,7 @@ the finance list should not display the financial condition of the nonexistent t
 A method called refreshFinance is therefore implemented in `AddressBook`. This method helps to "refresh"
 finance list in `AddressBook` to get a finance list matching the current information in the league.
 
+[.text-center]
 .example of codes of refreshFinance()
 image::code_two.png[width="700"]
 
@@ -438,6 +450,7 @@ I decide to proceed with the current implementation as it is easy to implement a
  are straight as different characters do not take the same amount of space.
 * **Alternative 2:** Use special characters
 
+[.text-center]
 .example of using special characters to produce the histogram
 image::histogram_special.png[width="400"]
 
@@ -572,14 +585,14 @@ Aspect: Prevents team's name to be edited when tied to other players or matches
 Final decision: Alternative 1 was chosen due to the rarity of team's name edited during a game season.
 // end::team[]
 
+
 === Export Feature
 ==== Current Implementation
-The export feature consists of four commands: `exportPlayer`, `exportTeam`, `exportMatch` and `exportFinance`. The export
-feature is facilitated by `PlayerApachePoiWriter`, `TeamApachePoiWriter`, `MatchApachePoiWriter` and `FinanceApachePoiWriter`.
-They are empowered by the external Java library `Apache Poi`. Internally, an object of  `PlayerApachePoiWriter`/
-`TeamApachePoiWriter`/ `MatchApachePoiWriter` / `FinanceApachePoiWriter` is instantiated to write all `Player` / `Team`
-/ `Match` / `Finance` to the default file path `exported_player_record.xls` / `exported_team_record.xls` / `exported_match_record.xls`
-/ `exported_finance_record.xls`. Currently, each of the four implements a `write()` function.
+The export feature consists of four commands: `exportPlayer`, `exportTeam`, `exportMatch` and `exportFinance`. Taking
+`exportPlayer` as the example, it is facilitated by `PlayerApachePoiWriter`, which is a class using methods provided
+by the external Java library `Apache Poi`. Internally, an object of  `PlayerApachePoiWriter` is instantiated to write
+all `Player` to the default file path `exported_player_record.xls`. Currently, each of the four writer classes implements a `write()` function.
+
 
 * *PlayerApachePoiWriter#write()* --- Writes the index number, name, team name, position played, age, salary,
 goals scored, goals assisted, nationality, jersey number, appearance and health status stored currently in League tracker
@@ -616,10 +629,11 @@ Any existing file with the same path will be overwritten.
 
 Figure 13 below shows a sequence diagram that illustrates the process of `exportPlayer` command execution.
 
+[.text-center]
 .A sequence diagram for `exportPlayer` command
-image::exportplayersequence.png[]
+image::exportplayersequence.png[][exportplayersequence,500,400]
 
-==== Implementation of PlayerApachePoiWriter#write() / TeamApachePoiWriter#write() / MatchApachePoiWriter#write() / ApachePoiWriter#write()
+==== Implementation of write()
 Given below is the algorithm behind the write() method used in export feature:
 
 Step 1: Instantiate an object of  `PlayerApachePoiWriter`/ `TeamApachePoiWriter`/ `MatchApachePoiWriter` / `FinanceApachePoiWriter`
@@ -628,7 +642,6 @@ Step 2: Write the headers to the excel file
 
 Step 3: Loop through the list passed in containing all players / teams / matches / finances in League Tracker to write
 to the excel file.
-
 
 .step 3 writing data code snippet (use `PlayerApachePoiWriter` as the example)
 [source.java]
@@ -716,6 +729,7 @@ We use a new user account to generate the token for team projects to prevent tea
    * Check the `public repo` checkbox.
    * Click `Generate Token` to grant access for Travis CI to the repo of the project.
 
+[.text-center]
 .Generating personal token for auto-publishing on Github
 image::generate_token.png[width="600"]
 
@@ -731,6 +745,7 @@ Here are the steps to convert the project documentation files to PDF format.
 .  Within Chrome, click on the `Print` option in Chrome's menu.
 .  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
 
+[.text-center]
 .Saving documentation as PDF files in Chrome
 image::chrome_save_as_pdf.png[width="300"]
 
@@ -1119,10 +1134,7 @@ Use case resumes at step 2.
 
 *Transfer*: the action taken whenever a player under contract moves between clubs. It refers to the transferring of a player's registration from one association football club to another.
 
-image::transfer.png[width="300"]
-
-*Jersey Number*: a number allocated to each player in a team to uniquely identify the player. Jersey Numbers usually range from 1 to 35 and will be printed at the back
-                 of players' jerseys during matches for identification purposes.
+*Jersey Number*: a number allocated to each player in a teamName to uniquely identify the player. Jersey Numbers usually range from 1 to 35 and will be printed at the back
 
 *Mainstream OS*: Windows, Linux, Unix, OS-X
 

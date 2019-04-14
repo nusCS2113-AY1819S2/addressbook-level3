@@ -23,19 +23,11 @@ are automatically done internally by precise algorithms; data analysis is integr
 
 My main contributions to the project include: +
 
-* Design of League Tracker's functions and features
-
 * Implementing player features, export feature and data analysis feature.
 
 * Refactoring of the original *AddressBook 3* application.
 
 * Ensuring inter-layer coherence between `Player` and `Team` as well as `Player` and `Match`.
-
-* Writing test cases for player features, export feature and data analysis feature.
-
-* Writing documentations such as User Guide and Developer Guide.
-
-* Coordinating tasks, setting and enforcing timelines and task allocations as team leader
 
 == 2. Summary of Contributions
 
@@ -45,41 +37,37 @@ This section summarises my contributions to the project.
 
 * *Main features implemented*:
 
-** Implemented *the ability to store and manipulate player profiles*.
+** Implemented *Player Feature*.
 *** What it does: This feature allows the user to conveniently store and manipulate player profiles by typing commands.
-Specifically, the user can add player profiles, view player profiles, delete player profiles, edit player profiles, search for player profiles
-using keywords, sort player profiles, edit player profiles and record player transfers.
+Specifically, the user can add/view/delete/edit/search for/sort/edit player profiles and record player transfers.
 *** Justification: This feature is the foundation of the application, it improves the user-friendliness of the product,
 as multiple commands are simplified so that all of the actions mentioned above can be achieved in one line of command.
-*** Highlights: This feature involves refactoring of the original application's commands as well as incorporating new commands that
-will meet pressing needs of the user while at the same time ensure product coherence and integrity of data. This feature also manages to achieve
-interaction with the `Team` feature and the `Match` feature so that updates of data are automatically done when needed and the
-other two features will not run into bugs.
+*** Highlights: This feature involves refactoring of the original application's commands as well as incorporating new commands.
+This feature also manages to achieve interaction with the `Team` feature and the `Match` feature so that
+updates of data are automatically done when needed and the other two features will not run into bugs.
 
-** Implemented *the ability to export all data stored to excel files*
+** Implemented *Export Feature*
 *** What it does: This feature allows the user to conveniently export all stored data in League Tracker, including player profiles,
-team profiles, match information and finance records to respective excel files for further storage, transfer and processing of data.
-*** Justification: This feature ensures that data is not trapped in League Tracker again after we manage to salvage it from the papers.
-With export enabled, data is effectively mobile so that the user can backup the data any time. Also, excel files provide a more direct and visual
-alternative to view and process data, which now also becomes League Tracker's advantage after enabling data exportation.
+team profiles, match information and finance records to respective excel files.
+*** Justification: This feature ensures that data is not trapped in League Tracker. With export enabled, the user can
+backup the data any time. Also, excel files provide a more direct and visual alternative to view and process data,
+which now also becomes League Tracker's advantage after enabling data exportation.
 *** Highlights: This feature involves the use of `Apache Poi`, which is a three-party Java library. Insights are required on both `Apache Poi` and
 League Tracker's internal data storage formats to make sure export is done correctly without data corruption or data loss.
 
-** Implemented *the ability to do analysis on data stored in League Tracker*
-*** What it does: This feature allows the user to conveniently analyse data stored with League Tracker's build-in algorithms
+** Implemented *Data Analysis Feature*
+*** What it does: This feature allows the user to conveniently analyse data stored with League Tracker's internal algorithms
 and generate a report summarizing results of the summary in just one line of command.
-*** Justification: It is obvious that raw data is useless without processing and analysis. This features takes League Tracker a step
-further to make use of data stored for common data analysis that all league organizers definitely need to do on themselves.
-The use of tested and robust build-in algorithms greatly enhances reliability of the report generated as calculation would be
+*** Justification: This features takes League Tracker a step further using data stored for common data analysis that
+all league organizers definitely need to do on themselves. The use of tested and robust built-in algorithms greatly enhances reliability of the report generated as calculation would be
 free of human errors. Furthermore, the team opens the floor to users by prompting further suggestions on what analysis should be done.
-Therefore this feature can be easily updated to better cater to user needs. Users can also make changes themselves by implementing algorithms they need
-as League Tracker is open source.
+Therefore this feature can be easily updated to better cater to user needs.
 *** Highlights: This feature involves using all stored data
 
 * *Other contributions*:
 
 ** Minor enhancements:
-*** Editing and updating help sheet in `help` command
+*** Editing and updating help sheet in `help` command https://github.com/CS2113-AY1819S2-M11-1/main/pull/132[#132]
 *** Update UI of the application
 ** Project management:
 *** Managed milestones `v1.1` - `v1.4` (4 milestones) on GitHub
@@ -95,15 +83,12 @@ https://github.com/cs2113-ay1819s2-t08-2/main/issues/61[61],
 
 == 3. Contributions to the User Guide
 
-
 |===
 |_Given below are selected sections I contributed to the User Guide. They showcase my ability to write easy-to-follow
 documentation targeting end-users. My full contribution to User Guide include: `4.1 Player`, `4.5 Export`, `4.6 Data Analysis`,
 `4.7 General`, `7 Command Summary`. Please refer to our user guide for more information.
 
 |===
-
-{empty} +
 
 === *Edit Player Profile*
 You can use this `editPlayer` command to pass:[<u>edit information of an existing player's profile</u>]
@@ -115,8 +100,6 @@ This step is *necessary*.
 Then, you can use `editPlayer` command to do edition on the attribute information by pass:[<u>providing respective
 updated information</u>]. Consequently the profile of the target player will be edited in accordance with the
 information provided.
-
-{empty} +
 
 [TIP]
 ====
@@ -139,8 +122,6 @@ Old values will be overwritten by new inputs (including tags).
 ('[]' means that this entry is optional, If it is not typed in the input, the original information for this particular
 attribute will be kept unchanged)
 
-{empty} +
-
 *Example*:
 
 let's say you want to edit the player profile of a player with name "Lionel Messi"
@@ -149,24 +130,21 @@ Specifically, you want to change the salary information to be '2000' in the leag
 
 * `listPlayer` +
 
+[.text-center]
 .Information displayed after `listPlayer` command
-image::edit_list.png[]
+image::edit_list.png[][align="center"][editlist,400,300]
 
 From the `listPlayer` command (See figure 9), you find out that the index number of player 'Lionel Messi' is 1.
 
 * `editPlayer 1 sal/2000`
 
-{empty} +
-
 If the edition is executed successfully, a *success message* will be displayed to the user containing the player
 profile after edition(See figure 10).
 
-{empty} +
-
+[.text-center]
 .Success Message after edition
-image::edit_success.png[]
+image::edit_success.png[][align="center"][editsuccess,400,300]
 
-{empty} +
 
 NOTE: You will not be allowed to change player's `team` using the `editPlayer` command. +
       It should be done using the `transfer` Command. +
@@ -174,16 +152,10 @@ NOTE: You will not be allowed to change player's `team` using the `editPlayer` c
       Edition of `GOALSSCORED` is also blocked in `editPlayer` command to avoid interference with League Tracker's
       automatic update using match information
 
-{empty} +
 
 WARNING: As League Tracker's internal algorithms use players' `NAME` attributes to distinguish, identify and track
 player objects, please be reminded that edition of `NAME` using `editPlayer` command pass:[<u>should be
-treated carefully after thorough considerations</u>]. You most
-likely need to adjust respective match information to make sure your action will not cause unwanted consequences.
-
-{empty} +
-{empty} +
-
+treated carefully after thorough considerations</u>]. You most likely need to adjust respective match information to make sure your action will not cause unwanted consequences.
 
 == 4. Contributions to the Developer Guide
 
@@ -193,39 +165,12 @@ My full contribution to Developer Guide include: `3.1 Architecture`, `3.2 Main C
 `4.1 Transfer Player Feature`, `4.4 Export Feature`. Please refer to our user guide for more information._
 |===
 
-{empty} +
-
-=== Main Component
-.Class Disgram showcasing the structure of Main Component
-image::Uicomponent.png[width="600"]
-
-The Main Component consists of a UI package and a `Main` class. Inside the UI package, there are various classes such
-as `MainWindow`, `Formatter` and `Gui` as shown in figure 2. A `Stoppable` interface is also included which
-the `main` class implements.
-
-The UI package uses JavaFX UI framework. Layout of `MainWindow` is defined in `mainwindow.fxml` which can be found
-under the same package.
-
-The Main Component:
-
-* Displays the CLI Gui
-
-* Accepts input from users
-
-* Executes user commands using the `Logic` Component
-
-* Listens for changes to `Data`
-
-{empty} +
-
 === Export Feature
 ==== Current Implementation
-The export feature consists of four commands: `exportPlayer`, `exportTeam`, `exportMatch` and `exportFinance`. The export
-feature is facilitated by `PlayerApachePoiWriter`, `TeamApachePoiWriter`, `MatchApachePoiWriter` and `FinanceApachePoiWriter`.
-They are empowered by the external Java library `Apache Poi`. Internally, an object of  `PlayerApachePoiWriter`/
-`TeamApachePoiWriter`/ `MatchApachePoiWriter` / `FinanceApachePoiWriter` is instantiated to write all `Player` / `Team`
-/ `Match` / `Finance` to the default file path `exported_player_record.xls` / `exported_team_record.xls` / `exported_match_record.xls`
-/ `exported_finance_record.xls`. Currently, each of the four implements a `write()` function.
+The export feature consists of four commands: `exportPlayer`, `exportTeam`, `exportMatch` and `exportFinance`. Taking
+`exportPlayer` as the example, it is facilitated by `PlayerApachePoiWriter`, which is a class using methods provided
+by the external Java library `Apache Poi`. Internally, an object of  `PlayerApachePoiWriter` is instantiated to write
+all `Player` to the default file path `exported_player_record.xls`. Currently, each of the four writer classes implements a `write()` function.
 
 * *PlayerApachePoiWriter#write()* --- Writes the index number, name, team name, position played, age, salary,
 goals scored, goals assisted, nationality, jersey number, appearance and health status stored currently in League tracker
@@ -262,10 +207,11 @@ Any existing file with the same path will be overwritten.
 
 Figure 13 below shows a sequence diagram that illustrates the process of `exportPlayer` command execution.
 
+[.text-center]
 .A sequence diagram for `exportPlayer` command
-image::exportplayersequence.png[]
+image::exportplayersequence.png[][exportplayersequence,500,400]
 
-==== Implementation of PlayerApachePoiWriter#write() / TeamApachePoiWriter#write() / MatchApachePoiWriter#write() / ApachePoiWriter#write()
+==== Implementation of write()
 Given below is the algorithm behind the write() method used in export feature:
 
 Step 1: Instantiate an object of  `PlayerApachePoiWriter`/ `TeamApachePoiWriter`/ `MatchApachePoiWriter` / `FinanceApachePoiWriter`
@@ -274,7 +220,6 @@ Step 2: Write the headers to the excel file
 
 Step 3: Loop through the list passed in containing all players / teams / matches / finances in League Tracker to write
 to the excel file.
-
 
 .step 3 writing data code snippet (use `PlayerApachePoiWriter` as the example)
 [source.java]
@@ -331,158 +276,4 @@ Step 4: Close the `PlayerApachePoiWriter`/ `TeamApachePoiWriter`/ `MatchApachePo
  the data.
 
 * Solution: The data is passed in to the writer object through its constructor as a List.
-
-
-{empty} +
-
-=== Transfer Player Feature
-==== Current implementation
-
-This feature enables the user to capture the event of player transfer in the actual football league world.
-As the `TEAM`, `SALARY`, `JERSEYNUMBER` of the player will be changed during transfer, which will affect the calculation
-of *finance*, the structure and storage in relevant *teams*  and the updated information by *matches*, League Tracker's
-`transferPlayer` command takes all these into consideration to provide a one-liner efficient solution to the need of
- such complicated changes. +
-
-{empty} +
-
-There are 4 steps involved in the process of this feature: +
-Step 1. *Parsing user input*: User input is broken down into sub-fields, such as `NAME`, `DESTINATIONTEAM`, `NEWJERSEYNUMBER`,
-and `NEWSALARY`. relevant Strings are then passed in to create the `TransferPlayerCommand` object +
-Step 2. *Creating `PLAYER` object called `oldPlayer`* : Using the `NAME` string provided by the user, the command locates the target `PLAYER`
-object in League Tracker's internal storage lists and using information retrieved from it to instantiated another `PLAYER`
-object called `oldPlayer` which represents the player before transfer. +
-Step 3. *Creating `PLAYER` object called `newPlayer`*: Using both user-input information and information retrieved from `oldPlayer`,
-the command then instantiates another `PLAYER` object called `newPlayer` that contains updated information of the player
-after transfer.
-Step 4. *Removing `oldPlayer` and adding `newPlayer`*: After several checks for exceptions, the `oldPlayer` will be removed from
-League Tracker's internal lists and `newPlayer` will be added to replace the `oldPlayer`, symbolizing and realizing the real-life
-process of player transfer.
-
-Figure 5 shows a class diagram of the `Player` class involved here.
-
-.A class diagram of the `Player` class
-image::playerclassdiagram.png[]
-
-{empty} +
-
-The following is an example of a use case, and how the mechanism behaves.
-
-{empty} +
-
-User input: `transfer Lionel Messi tm/Real Madrid jn/10 sal/20`
-
-{empty} +
-
-*Step 1: Parsing user input:* +
-`MainWindow` object detects the user input and calls `logic.execute()` with the input string passed in. In
-`logic.execute()` the `logic` object calls `Parser().parseCommand()`. As the `transfer` keyword is recognized by the
-`parser`, a `prepareTransferCommand() method will be invoked to create a `TransferPlayerCommand` object using `NAME`,
-`DESTINATIONTEAM`, `NEWJERSEYNUMBER`, `NEWSALARY` parsed values from the input string through their respective prefixes
-as the input.
-
-{empty} +
-
-*Step 2: Creating `oldPlayer` object* +
-`TransferPlayerCommand` object will first call an `addressbook.getAllPlayers()` method in `Addressbook` to get a list of all players
-currently stored in League Tracker. It will then search through the list to find the target player. This player profile
-will be used to create the `oldPlayer`.
-
-.Create `oldPlayer` code snippet
-[source.java]
-----
-//check if the player exists in league tracker
-        //check if the destination team is the same as the current team of player
-        for (Player player : oldAllPlayers) {
-            if (player.getName().equals(this.playerNameItem)) {
-                oldPlayer = player;
-                oldTeamName = player.getTeamName().toString();
-                isOldPlayerFound = true;
-                if (oldTeamName.equals(this.teamNameItem.toString())) {
-                    return new CommandResult(String.format(MESSAGE_DESTINATION_IS_CURRENT, oldTeamName));
-                }
-            }
-        }
-----
-
-{empty} +
-
-*Step 3: Creating `newPlayer` object* +
-`TransferPlayerCommand` object will also call an `addressbook.getAllTeams()` method in `Addressbook` to get a list all teams currently
-stored in League Tracker to check if the destination team exists. It will then use the input information as well as
-information stored in `oldPlayer`to create a `newPlayer` which contains correct information of the player after transfer.
-
-.create `newPlayer` code snippet
-[source.java]
-----
-// if the player does not exist, return an error message and terminate the execute()
-        // else, create the player after transfer
-        if (!isOldPlayerFound) {
-            return new CommandResult(String.format(
-                    MESSAGE_PLAYER_NOT_FOUND, this.playerNameItem.toString()
-            ));
-        } else {
-            newPlayer = createPlayerAfterTransfer(this.teamNameItem, this.jerseyNumberItem,
-                    this.salaryItem, oldPlayer);
-        }
-
-        .
-        .
-        .
-
-     /**
-     * creates the player after transfer
-     * @param teamNameItem Team Name of the destination team
-     * @param oldPlayer player before transfer
-     * @param salaryItem Salary of the player in the destination team
-     * @param jerseyNumberItem jersey number of the player in the destination team
-     * @return player after transfer
-     */
-    private static Player createPlayerAfterTransfer(TeamName teamNameItem,
-                                                    JerseyNumber jerseyNumberItem,
-                                                    Salary salaryItem,
-                                                    Player oldPlayer) {
-        return new Player(oldPlayer.getName(), oldPlayer.getPositionPlayed(), oldPlayer.getAge(),
-                salaryItem, oldPlayer.getGoalsScored(), oldPlayer.getGoalsAssisted(),
-                teamNameItem, oldPlayer.getNationality(), jerseyNumberItem,
-                oldPlayer.getAppearance(), oldPlayer.getHealthStatus(), oldPlayer.getTags());
-    }
-----
-
-{empty} +
-
-*Step 4: Removing `oldPlayer` from internal list and add in `newPlayer`* +
-At this step, `TransferPlayerCommand` object will first call an `addressbook.removePlayer()` method to remove the
-`oldPlayer` from the internal lists in League Tracker. The player's original team's `playerList` will also be updated to
-remove this player. Then, `TransferPlayerCommand` object will call an `addressbook.addPlayer()` method to add `newPlayer`
-into internal lists, including the destination team's `playerList`. After success execution of the above actions,
-`TransferPlayerCommand` will return a `CommandResult` to `MainWindow` containing the success message to be displayed.
-
-{empty} +
-
-.sequence diagram showing the process of `tranferPlayer` command
-image::transfersequence.png[]
-
-==== Design Considerations
-
-*Aspect: removing `oldPlayer` and adding `newPlayer`* +
-
-* *Alternative 1 (Current Implementation)*: creating the `oldPlayer` and the 'newPlayer` objects and pass them to
- the `addressbook.removePlayer()` and `addressbook.addPlayer()` methods in `Addressbook` respectively to do removal and
- addition.
-
-** Pros: Separation of Concerns is achieved. As those two methods also integrate the update of `Team` objects' player lists
-inside, maximum encapsulation is achieved. Low coupling as now the `TransferPlayerCommand` only has coupling with `Addressbook`.
-
-** Cons: Inefficient in terms of time-complexity as player list and team list are iterated multiple times just to locate the
-object for removal and addition.
-
-* *Alternative 2*: use pointers to store location of the involved `Player` objects in the internal lists and use to do edition
-on them straight.
-
-** Pros: More efficient in terms of time-complexity, edition is done in one step instead of multiple steps.
-
-** Cons: More coupling as `TransferPlayerCommand` now has coupling with more classes like `Addressbook`, `Player`, `Team`.
-This approach also has potential data corruption risks as it directly accesses the storage. Wrong formats or data types may
-not be detected.
 

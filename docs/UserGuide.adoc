@@ -33,11 +33,13 @@ This User Guide provides information on the League Tracker installation process 
 .  Double-click the file to start the application. The GUI should appear in a few seconds.
 
 +
+[.text-center]
 .Welcome page of the GUI
 image::Ui.png[]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it.
 +
+[.text-center]
 .Location of Command Box in GUI
 image::UiCommandBox.png[]
 
@@ -105,7 +107,7 @@ If the player has been successfully added, a *success message* will be displayed
 listed(see figure 3)
 
 {empty} +
-
+[.text-center]
 .Success Message displayed after adding a player
 image::addSuccess.png[]
 
@@ -157,7 +159,7 @@ If the player has been successfully added, a *success message* will be displayed
 (including those that assume default values)(See figure 4)
 
 {empty} +
-
+[.text-center]
 .Success Message displayed after using addFast Command to add a player
 image::addFastSuccess.png[]
 
@@ -189,6 +191,7 @@ index.
 
 . Do a `listPlayer` command to obtain the index of all players in the league record.(See figure 5)
 
+[.text-center]
 .Information of all players in the league record after executing the `listPlayer` command
 image::delete_PlayerListed.png[]
 
@@ -198,7 +201,7 @@ image::delete_PlayerListed.png[]
 . If successfully deleted, a *success message* will be shown to the user. (See figure 6)
 
 {empty} +
-
+[.text-center]
 .Success Message displayed after using delete Command to delete a player
 image::deleteSuccess.png[]
 
@@ -224,7 +227,7 @@ All players in League Tracker will be deleted and a *successful message* will be
 user (see figure 7).
 
 {empty} +
-
+[.text-center]
 .Success Message displayed to user after deleting all existing players in League Tracker
 image::clearPlayerSuccess.png[]
 
@@ -263,7 +266,7 @@ If the player with the index exists, a *success message* will be displayed to th
 regarding the player
 
 {empty} +
-
+[.text-center]
 .Success Message displayed to user with a viewAll Command by index
 image::viewAllSuccess.png[]
 
@@ -315,6 +318,7 @@ Specifically, you want to change the salary information to be '2000' in the leag
 
 * `listPlayer` +
 
+[.text-center]
 .Information displayed after `listPlayer` command
 image::edit_list.png[]
 
@@ -328,7 +332,7 @@ If the edition is executed successfully, a *success message* will be displayed t
 profile after edition(See figure 10).
 
 {empty} +
-
+[.text-center]
 .Success Message after edition
 image::edit_success.png[]
 
@@ -372,7 +376,7 @@ If one or more players with such keyword in his/her name exist in the league tra
 will be displayed.(See figure 11).
 
 {empty} +
-
+[.text-center]
 .Successful search displaying the profile of a player "Lionel Messi" whose name matches the keyword "Messi"
 image::findPlayer.png[]
 
@@ -393,7 +397,7 @@ You can use the `listPlayer` command to check the list of all players with their
 A list of all players' information will be displayed following the command.(See figure 12)
 
 {empty} +
-
+[.text-center]
 .Successful `listPlayer` Command displaying all player profiles in League Tracker
 image::listSuccess.png[]
 
@@ -418,7 +422,7 @@ Figure 13 shows a player list before sorting, obtained using `listPlayer` comman
 *not compulsory* here.
 
 {empty} +
-
+[.text-center]
 .A player list in League Tracker before sorting obtained by executing a `listPlayer` Command
 image::sort_beforesorting.png[]
 
@@ -428,11 +432,13 @@ image::sort_beforesorting.png[]
 
 If the sortPlayer command is executed successfully, a *success message* will be displayed to user. (see figure 14)
 
+[.text-center]
 .Success Message after executing a `sortPlayer` command
 image::sort_success.png[]
 
 Now do another `listPlayer` command, you can see that the player list has been alphabetically sorted.(See figure 15)
 
+[.text-center]
 .The player list after executing a `sortPlayer` command
 image::sort_aftersorting.png[]
 
@@ -470,6 +476,7 @@ transfer, his team after transfer, his new jersey number and his new salary.(See
 
 {empty} +
 
+[.text-center]
 .Example of a success message displayed after a successful transfer
 image::transfer_success.png[]
 
@@ -506,7 +513,7 @@ Example:
 If the index number correctly identifies a player, the player's profile will be displayed to user.(See figure 17)
 
 {empty} +
-
+[.text-center]
 .Displaying player's profile with index number 1
 image::display_index_success.png[]
 
@@ -529,6 +536,7 @@ Example: +
  
 Adds a new Team with the specified details.
 
+[.text-center]
 .After Adding
 image::addteam.png[]
 
@@ -541,6 +549,7 @@ Example: +
 
 * `listteam` +
 
+[.text-center]
 .After listing
 image::listteam.png[]
 
@@ -548,6 +557,7 @@ image::listteam.png[]
 
 Deletes the 1st Team in the Team list.
 
+[.text-center]
 .After deleting
 image::delteam.png[]
 
@@ -559,11 +569,13 @@ Example: +
 
 * `listteam` +
 
+[.text-center]
 .After Listing
 image::listteam2.png[]
 
 * `editteam 1 n/United Malaysia` +
 
+[.text-center]
 .After Editing
 image::editteam.png[]
 
@@ -592,6 +604,7 @@ You can use the List Team command to see the list of all current teams in the le
 
 Format : `listteam`
 
+[.text-center]
 .After Listing
 image::listteam.png[]
 
@@ -607,11 +620,13 @@ Example: +
 
 * `listteam` +
 
+[.text-center]
 .After Listing
 image::listteam3.png[]
 
 * `viewteam 1` +
 
+[.text-center]
 .After Viewing
 image::viewteam.png[]
 
@@ -639,6 +654,7 @@ Example: +
 
 Adds a new match with the specified details.
 
+[.text-center]
 .Successful addition of match between teams "Fulham" and "Chelsea" on "1 Jan 2019"
 image::addmatch.PNG[]
 {empty} +
@@ -656,6 +672,7 @@ Example: +
 
 * `listmatch` +
 
+[.text-center]
 .The list of match in League Tracker
 image::listmatch2.PNG[]
 
@@ -663,9 +680,9 @@ image::listmatch2.PNG[]
 
 Deletes the 1st match in the match list.
 
+[.text-center]
 .Successful deletion of 1st match in the list
 image::deletematch.PNG[]
-
 
 {empty} +
 {empty} +
@@ -677,6 +694,7 @@ Format : `clearmatch` +
 
 Clears all matches in League Tracker.
 
+[.text-center]
 .Successful clearing of matches
 image::clearmatch.PNG[]
 
@@ -690,6 +708,7 @@ Format : `listmatch`
 
 List all matches in League Tracker.
 
+[.text-center]
 .The list of match in League Tracker
 image::listmatch.PNG[]
 
@@ -722,6 +741,7 @@ will be displayed.
 
 {empty} +
 
+[.text-center]
 .Successful search displaying the matches with date that has same day, month or year "01 Feb 2020"
 image::findmatch.PNG[]
 
@@ -750,6 +770,7 @@ Example: +
 
 * `listmatch` +
 
+[.text-center]
 .The list of match in League Tracker
 image::listmatch.PNG[]
 
@@ -757,6 +778,7 @@ image::listmatch.PNG[]
 
 Updates the 1st match in the match list with specified match results.
 
+[.text-center]
 .Successful update of 1st match in the list
 image::updatematch.PNG[]
 
@@ -775,6 +797,7 @@ Example: +
 
 * `listmatch` +
 
+[.text-center]
 .The list of match in League Tracker
 image::listmatch2.PNG[]
 
@@ -782,6 +805,7 @@ image::listmatch2.PNG[]
 
 Display the 1st match details.
 
+[.text-center]
 .Details of the 1st match in the list
 image::viewmatch.PNG[]
 // end::matchug[]
@@ -803,6 +827,7 @@ Format : `getlf`
 Example: +
 `getlf`
 
+[.text-center]
 .result after typing "getlf"
 image::result_after_getlf.png[width="600"]
 
@@ -825,9 +850,11 @@ Example: +
 * `getfinance 4`
 
 
+[.text-center]
 .the list of teams displayed after typing "listteam"
 image::after_listteam.png[width="600"]
 
+[.text-center]
 .result of getting finance of the selected team
 image::result_of_getfinance.png[width="600"]
 
@@ -847,7 +874,7 @@ Format : `listfinance`
 Example: +
 `listfinance` +
 
-
+[.text-center]
 .result of listing finances
 image::list_finance.png[width="600"]
 
@@ -869,9 +896,11 @@ Example: +
 * `viewfinance 4`
 
 
+[.text-center]
 .the list of finances displayed after typing "listfinance"
 image::list_finance.png[width="600"]
 
+[.text-center]
 .result of viewing finance of the selected team from the finance list
 image::view_finance.png[width="600"]
 
@@ -890,7 +919,7 @@ Format : `rankfinance`
 Example: +
 `rankfinance` +
 
-
+[.text-center]
 .result of ranking finances
 image::rank_finance.png[width="600"]
 {empty} +
@@ -928,6 +957,7 @@ the application once `exportPlayer` command is called.
 
 A *success message* will be displayed to the user after successful export. (see figure 26)
 
+[.text-center]
 .Success message shown to user after executing `exportPlayer`
 image::exportplayer.png[]
 
@@ -936,6 +966,7 @@ image::exportplayer.png[]
 You can view and have further manipulation with the data exported. Figure 27 below shows what
 it looks like inside `exported_player_record.xls` .
 
+[.text-center]
 .Screenshot of the exported excel file containing all stored player profiles
 image::exportplayerexcel.png[]
 
@@ -963,6 +994,7 @@ the application once `exportTeam` command is called.
 
 A *success message* will be displayed to the user after successful export. (see figure 26)
 
+[.text-center]
 .Success message shown to user after executing `exportTeam`
 image::exportteam.png[]
 
@@ -971,6 +1003,7 @@ image::exportteam.png[]
 You can view and have further manipulation with the data exported. Figure 29 below shows what
 it looks like inside `exported_team_record.xls` .
 
+[.text-center]
 .Screenshot of the exported excel file containing all stored team profiles
 image::exportteamexcel.png[]
 
@@ -998,6 +1031,7 @@ the application once `exportFinance` command is called.
 
 A *success message* will be displayed to the user after successful export. (see figure 26)
 
+[.text-center]
 .Success message shown to user after executing `exportFinance`
 image::exportfinance.png[]
 
@@ -1006,6 +1040,7 @@ image::exportfinance.png[]
 You can view and have further manipulation with the data exported. Figure 31 below shows what
 it looks like inside `exported_finance_record.xls` .
 
+[.text-center]
 .Screenshot of the exported excel file containing all stored finance records
 image::exportfinanceexcel.png[]
 
@@ -1033,6 +1068,7 @@ the application once `exportMatch` command is called.
 
 A *success message* will be displayed to the user after successful export. (see figure 32)
 
+[.text-center]
 .Success message shown to user after executing `exportMatch`
 image::exportMatch.png[]
 
@@ -1041,6 +1077,7 @@ image::exportMatch.png[]
 You can view and have further manipulation with the data exported. Figure 33 below shows what
 it looks like inside `exported_match_record.xls` .
 
+[.text-center]
 .Screenshot of the exported excel file containing all stored match records
 image::exportmatchexcel.png[]
 
@@ -1063,6 +1100,7 @@ report format (see figure 34).
 
 {empty} +
 
+[.text-center]
 .Overview of report generated after in-app data analysis
 image::generatereportoverview.png[]
 
@@ -1083,6 +1121,7 @@ The report consists of five sections: +
 In this section, a brief introduction of report generation will be given and the exact timestamp of
 report generation will also be displayed for reference purposes. (See figure 35)
 
+[.text-center]
 .Section 1 of report
 image::reportone.png[]
 
@@ -1096,6 +1135,7 @@ In this section, a summary of status and progress of the whole league will be pr
 ** *Number of matches* currently tracked by League Tracker in league
 ** *Number of matches played* and updated
 
+[.text-center]
 .Section 2 of report
 image::reporttwo.png[]
 
@@ -1106,6 +1146,7 @@ In this section, `NAME` ,`TEAM` and `GOALSSCORED` of the current Golden Boot in 
 If there are more than one player in the league having the same number of goals at the top of score board, all of them will
 be recognized and displayed here.
 
+[.text-center]
 .Section 3 of report
 image::reportthree.png[]
 
@@ -1116,6 +1157,7 @@ In this section, `NAME` ,`TEAM` and `GOALSSCORED` of the top scorer(s) in each t
 If there are more than one player in the same team having the same number of goals at the top of score board, all of them will
 be recognized and displayed here.
 
+[.text-center]
 .Section 4 of report
 image::reportfour.png[]
 
@@ -1124,6 +1166,7 @@ image::reportfour.png[]
 * Section 5: Transfer Records +
 In this section, All transfer records since activation of League Tracker will be displayed here. (See figure 39)
 
+[.text-center]
 .Section 5 of report
 image::reportfive.png[]
 
@@ -1162,6 +1205,7 @@ categorized for your easy reference.(See figure 40)
 
 {empty} +
 
+[.text-center]
 .Help sheet displayed
 image::help.png[]
 
