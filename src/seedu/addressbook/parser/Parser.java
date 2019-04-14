@@ -125,6 +125,7 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
+    //@@author matthiaslum
     private Command prepareAppt(String args){
         final Matcher matcher = APPT_DATE_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
@@ -156,6 +157,7 @@ public class Parser {
                     DoctorAppointmentsCommand.MESSAGE_INVALID_DOCTOR_NAME));        }
         return new DoctorAppointmentsCommand(doctorName);
     }
+    //@@author
 
     private Command prepareAdd(String args){
         final Matcher matcher = PERSON_DATA_ARGS_FORMAT.matcher(args.trim());

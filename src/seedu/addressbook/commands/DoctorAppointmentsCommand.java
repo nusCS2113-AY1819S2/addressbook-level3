@@ -6,6 +6,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 import java.util.*;
 
+/**
+ * Displays all the appointments that a given doctor has, ignoring expired appointments
+ */
 public class DoctorAppointmentsCommand extends Command {
 
     public DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy MM d kk mm");
@@ -13,7 +16,7 @@ public class DoctorAppointmentsCommand extends Command {
     public static final String MESSAGE_INVALID_DOCTOR_NAME = "Doctor's names should only contain spaces and/or alphanumeric characters\nSpecial characters like . ! @ # , etc are not allowed!\nPlease re-enter with an appropriate doctor name.";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Displays a list of all patients who have appointments with a certain doctor, in chronological order of appointments."
             + "Past appointments are not shown (based on current time).\n\t"
-            + "Parameters: DOCTOR_NAME...\n\t"
+            + "Parameters: DOCTOR_NAME\n\t"
             + "Example: " + COMMAND_WORD + " DoctorTan";
 
     private final String doctorName;
@@ -30,9 +33,9 @@ public class DoctorAppointmentsCommand extends Command {
     }
 
     /**
-     * Retrieve all patients in the address book whose doctor's name is the same.
+     * Retrieve all patients in the address book whose doctor's name is the same as the one specified by the user.
      *
-     * @return list of persons found
+     * @return list of persons found.
      */
     private List<ReadOnlyPerson> getPersonsWithName(String doctorName) {
         final List<ReadOnlyPerson> matchedPersons = new ArrayList<>();

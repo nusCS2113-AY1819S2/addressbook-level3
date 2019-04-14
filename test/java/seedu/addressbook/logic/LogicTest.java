@@ -136,6 +136,7 @@ public class LogicTest {
                 "add Valid Name p/12345 e/valid@email a/valid, address but no doctor, m/2021 12 15 13 30 s/Observation", expectedMessage);
     }
 
+    //@@author matthiaslum
     @Test
     public void execute_add_invalidPersonData() throws Exception {
         assertCommandBehavior(
@@ -155,6 +156,7 @@ public class LogicTest {
         assertCommandBehavior(
                 "add Valid Name p/12345 e/valid@e.mail a/valid, address, m/1800 12 15 13 00, d/DoctorTan s/Observation", Appointment.MESSAGE_APPOINTMENT_CONSTRAINTS);
     }
+    //@@author
 
     @Test
     public void execute_add_successful() throws Exception {
@@ -173,6 +175,7 @@ public class LogicTest {
 
     }
 
+    //@@author matthiaslum
     @Test
     public void execute_add_same_doctor_diff_name_diff_appt_successful() throws Exception {
         // setup expectations
@@ -192,6 +195,7 @@ public class LogicTest {
                 Collections.emptyList());
 
     }
+    //@@author
 
     @Test
     public void execute_addDuplicate_notAllowed() throws Exception {
@@ -214,6 +218,7 @@ public class LogicTest {
 
     }
 
+    //@@author matthiaslum
     @Test
     public void execute_add_SameAppointment_notAllowed() throws Exception {
         // setup expectations
@@ -234,6 +239,7 @@ public class LogicTest {
                 Collections.emptyList());
 
     }
+    //@@author
 
     @Test
     public void execute_list_showsAllPersons() throws Exception {
@@ -334,6 +340,7 @@ public class LogicTest {
         assertCommandBehavior("viewall arg not number", expectedMessage);
     }
 
+    //@@author matthiaslum
     @Test
     public void execute_appointment_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoctorAppointmentsCommand.MESSAGE_USAGE);
@@ -346,6 +353,7 @@ public class LogicTest {
         assertCommandBehavior("apptDate ", expectedMessage);
         assertCommandBehavior("apptDate Matthias ", expectedMessage);
     }
+    //@@author
 
     @Test
     public void execute_viewAll_invalidIndex() throws Exception {
@@ -521,6 +529,7 @@ public class LogicTest {
                                 expectedList);
     }
 
+    //@@author matthiaslum
     @Test
     public void appointment_sorts_persons_chronologoically() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -602,6 +611,7 @@ public class LogicTest {
                 true,
                 expectedList);
     }
+    //@@author
 
     /**
      * A utility class to generate test data.
@@ -742,6 +752,7 @@ public class LogicTest {
                     Collections.singleton(new Tag("tag"))
             );
         }
+        //@@author matthiaslum
         /**
          * Generates a Person object with given name, given appointment, and given doctor. Other fields will have some dummy values.
          */
@@ -757,6 +768,7 @@ public class LogicTest {
                     Collections.singleton(new Tag("tag"))
             );
         }
+        //@@author
     }
 
 }

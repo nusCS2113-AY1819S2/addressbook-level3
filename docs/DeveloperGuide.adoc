@@ -373,11 +373,11 @@ Given below is an example usage scenario and how the `Appointment` feature is in
 
 Step 1. The user executes command `Add NAME [p]p/PHONE [p]e/EMAIL [p]a/ADDRESS m/APPOINTMENT [t/TAG]...\n\t"`
 
-Step 2. The parser parses the user command, and creates the relevant object for `Appointment`, `Address` etc, and a new `Person` object is constructed. The `Logic` class executes the `AddCommand` with the prepared arguments. 
+Step 2. The parser parses the user command, verifying that the APPOINTMENT is of the 24 hour format YYYY MM DD HH MM. Then, it creates the relevant object for `Appointment`, `Address` etc, and a new `Person` object is constructed. The `Logic` class executes the `AddCommand` with the prepared arguments.
 
-Step 3. The `Addressbook` trie to add the new person into the `uniquePersonList`. But first, the `uniquePersonList` checks if the new Person object is a duplicate of an existing Person object in the Addressbook. If the Person is not a duplicate, it is added into the Addresbook and the Addressbook is saved.
+Step 3. The `Addressbook` tries to add the new person into the `uniquePersonList`. But first, the `uniquePersonList` checks if the new Person object is a duplicate of an existing Person object in the Addressbook. If the Person is not a duplicate, it is added into the Addresbook and the Addressbook is saved. Note that two patients cannot have the same appointment timing with the same doctor.
 
-Step4. The successful execution returns a MESSAGE_SUCCESS along with the added person. The MainWindow displays the result and prints the added person into the GUI.
+Step 4. The successful execution returns a MESSAGE_SUCCESS along with the added person. The MainWindow displays the result and prints the added person into the GUI.
 
 === DoctorAppointments feature
 ==== Current Implementation
@@ -436,7 +436,36 @@ image::DoctorAppointmentsFeature.png[width="800"]
 
 //@@author matthiaslum
 
-=== ApptDate feature (coming in v1.4)
+=== ApptDate feature
+==== Current Implementation
+
+This feature displays a doctor's appointment timetable for a specific day.
+This is a new feature, that is executed as `apptDate DOCTORNAME m/YYYY MM DD`.
+
+When the parser parses the user command that starts with the `apptDate` commandword, it instantiates an object of the class ApptDate.
+The user specfied date and doctor's name are stored as static fields in the class.
+
+Next, the logic class calls this object to be executed.
+
+The method `execute()` is similar in implementation to the `execute()` method of the previous appointment feature.
+
+In summary, the `execute()` method calls the method `getPersonsWithSameDoctorSameDate()`.
+
+`getPersonsWithSameDoctorSameDate()` finds all Persons in the addressbook that have the same doctor as the user's specified doctor.
+Then, it traverses the lists of matchedPersons to select only the Persons that have the same appointment date as the user specified date that is of the format YYYY MM DD.
+
+Then, it returns a matchedPersonsList that is used for the Command Result and for the last shown list.
+
+At the same time, we build a long string called `timetable`. This formatting of this string is tedious.
+Some methods involve padding of whitespaces and printing out time-slots of 15min starting from 6am.
+If anyone is confused by the 'for' loop, the iterator 'i' signifies the number of minutes that have elapsed since 00:00 hours of that day.
+We convert the appointment time of each matchedPerson into the number of minutes from 00:00.
+
+If the iterator 'i' matches the appointment timing of a Person, we print out the Person beside that time-slot.
+
+The UI `Formatter` facilitates the printing of timetable
+* `format(Persons)` --Checks if the last invoked user Command is the `ApptDateCommand`. If it is, it retrieves the timetable from the `ApptDate` class,
+and prints out the neatly formatted timetable.
 
 //@@author
 
