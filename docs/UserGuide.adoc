@@ -727,7 +727,7 @@ will be displayed.
 {empty} +
 
 .Successful search displaying the matches with date that has same day, month or year "01 Feb 2020"
-image::findMatch.png[]
+image::findmatch.png[]
 
 {empty} +
 {empty} +
@@ -788,6 +788,7 @@ Display the 1st match details.
 
 .Details of the 1st match in the list
 image::viewmatch.png[]
+// end::matchug[]
 
 {empty} +
 {empty} +
@@ -904,7 +905,7 @@ image::rank_finance.png[width="600"]
 {empty} +
 {empty} +
 
-=== *Export*
+=== Export
 The Export Feature in League Tracker allows user to pass:q[<u>export data stored in League Tracker to *Excel files*</u>]
  to facilitate data transfer, storage and further processing.
 
@@ -1055,7 +1056,7 @@ NOTE: If `exported_match_record.xls` already exists, the `exportMatch` command w
 {empty} +
 {empty} +
 
-=== *Data Analysis*
+=== Data Analysis
 You can use the `generateReport` command to have pass:[<u>an in-app analysis on data stored in League Tracker
 using its internal tools</u>]. Results will be compiled, processed and presented to you formally in a
 report format (see figure 34).
@@ -1144,7 +1145,7 @@ should we include in the report. Please email e0201639@u.nus.edu if you have any
 {empty} +
 {empty} +
 
-=== *General*
+=== General
 League Tracker also has some general commands
 
 {empty} +
