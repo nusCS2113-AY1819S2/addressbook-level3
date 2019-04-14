@@ -773,17 +773,17 @@ Please ensure the following entries have been added into the addressbook before 
 
 . refer NAME [MORE_NAMES]
 
-.. Prerequisites: please add the following patient entries being proceeding:
-add John p/98765432 e/john@gmail.com a/John street, block 123, #01-01 m/2019 12 11 12 30 d/DoctorTan s/Observation
-add John Doe p/98765432 e/johnd@gmail.com a/JohnD street, block 123, #01-01 m/2019 12 11 12 00 d/DoctorTan s/Observation
-add John Teo p/98765432 e/johnt@gmail.com a/JohnT street, block 123, #01-01 m/2019 12 11 11 30 d/DoctorTan s/Observation
-add Shawn Tan p/98765432 e/shawnt@gmail.com a/Shawn street, block 123, #01-01 m/2019 12 11 11 00 d/DoctorTan s/Observation
-add Shawn Doe p/98765432 e/shawnd@gmail.com a/ShawnD street, block 123, #01-01 m/2019 12 11 10 30 d/DoctorTan s/Observation
-add Shawn Teo p/98765432 e/shawnteo@gmail.com a/ShawnT street, block 123, #01-01 m/2019 12 11 10 00 d/DoctorTan s/Observation
-add Abigail p/98765432 e/shawnteo@gmail.com a/ShawnT street, block 123, #01-01 m/2019 12 11 09 30 d/DoctorTan s/Observation
-add Abigail Doe p/98765432 e/shawnteo@gmail.com a/Abigail street, block 123, #01-01 m/2019 12 11 09 00 d/DoctorTan s/Observation
-add Betsy Crowe pp/1234567 e/betsycrowe@gmail.com pa/Crowe Newgate m/2019 11 14 08 30 d/DoctorTan s/Observation
-add Betsy Doe pp/1234567 e/betsycrowe@gmail.com pa/Doe Newgate m/2019 11 14 08 00 d/DoctorTan s/Observation
+.. Prerequisites: please add the following patient entries being proceeding: +
+add John p/98765432 e/john@gmail.com a/John street, block 123, #01-01 m/2019 12 11 12 30 d/DoctorTan s/Observation +
+add John Doe p/98765432 e/johnd@gmail.com a/JohnD street, block 123, #01-01 m/2019 12 11 12 00 d/DoctorTan s/Observation +
+add John Teo p/98765432 e/johnt@gmail.com a/JohnT street, block 123, #01-01 m/2019 12 11 11 30 d/DoctorTan s/Observation +
+add Shawn Tan p/98765432 e/shawnt@gmail.com a/Shawn street, block 123, #01-01 m/2019 12 11 11 00 d/DoctorTan s/Observation +
+add Shawn Doe p/98765432 e/shawnd@gmail.com a/ShawnD street, block 123, #01-01 m/2019 12 11 10 30 d/DoctorTan s/Observation +
+add Shawn Teo p/98765432 e/shawnteo@gmail.com a/ShawnT street, block 123, #01-01 m/2019 12 11 10 00 d/DoctorTan s/Observation +
+add Abigail p/98765432 e/shawnteo@gmail.com a/ShawnT street, block 123, #01-01 m/2019 12 11 09 30 d/DoctorTan s/Observation +
+add Abigail Doe p/98765432 e/shawnteo@gmail.com a/Abigail street, block 123, #01-01 m/2019 12 11 09 00 d/DoctorTan s/Observation +
+add Betsy Crowe pp/1234567 e/betsycrowe@gmail.com pa/Crowe Newgate m/2019 11 14 08 30 d/DoctorTan s/Observation +
+add Betsy Doe pp/1234567 e/betsycrowe@gmail.com pa/Doe Newgate m/2019 11 14 08 00 d/DoctorTan s/Observation +
 
 .. Test case 1: `refer` + 
 Expected: An error message: `Invalid command format!` is displayed on the screen, with the displays the correct format below. +
@@ -816,6 +816,26 @@ Expected: Prints out `Invalid command format!` message followed by a reminder +
 Special characters like . ! @ # , etc are not allowed! +
 Please re-enter with an appropriate doctor name.`
  
+//@@author shawn-t
+=== Length feature
+
+. length
+
+.. Prerequisites: NIL
+
+.. Test case 1: `length`
+Expected:  `Length of the address book is: 10`
+[NOTE]
+The length will be 10 if the 10 test case inputs from the previous section (refer feature) is not cleared.
+
+.. Test case 2: `delete 1` +
+`length`
+Expected:  `Length of the address book is: 9`
+
+.. Test case 3: `clear` +
+`length`
+Expected:  `Length of the address book is: 0`
+
 //@@author
 === Add Appointment feature
 
