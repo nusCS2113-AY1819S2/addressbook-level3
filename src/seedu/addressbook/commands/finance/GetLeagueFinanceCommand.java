@@ -9,7 +9,7 @@ import seedu.addressbook.data.finance.ReadOnlyFinance;
 import seedu.addressbook.data.finance.UniqueFinanceList;
 
 /**
- * Give total finance of the league.
+ * Gives total finance of the league.
  */
 public class GetLeagueFinanceCommand extends Command {
 
