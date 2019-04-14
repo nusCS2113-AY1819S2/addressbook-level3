@@ -279,7 +279,7 @@ In addition to the Appointment class, we update the ReadOnlyPerson interface and
 
 The example usage scenario is similar to the scenario of the Add appointment feature below.
 
-=== Add appointment feature 
+=== Add Appointment feature 
 ==== Current Implementation
 
 the add appointment feature is facilitated by the `Appointment` class, it implements the following operations:
