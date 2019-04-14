@@ -2,6 +2,7 @@ package seedu.addressbook.parser;
 
 import seedu.addressbook.commands.*;
 import seedu.addressbook.data.exception.IllegalValueException;
+import seedu.addressbook.data.person.Appointment;
 import seedu.addressbook.data.person.Doctor;
 
 import java.util.*;
@@ -39,6 +40,10 @@ public class Parser {
     public static final Pattern APPT_DATE_ARGS_FORMAT =
             Pattern.compile("(?<name>[^/]+)"
                     + "m/(?<date>[^/]+)");
+
+    public static final Pattern DOCTORS_APPOINTMENT_ARGS_FORMAT =
+            Pattern.compile("(?<name>[^/]+)");
+
     /**
      * Signals that the user input could not be parsed.
      */
@@ -125,10 +130,31 @@ public class Parser {
         // Validate arg string format
         if (!matcher.matches())
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ApptDateCommand.MESSAGE_USAGE));
+        String doctor = matcher.group("name");
+        String appointment = matcher.group("date");
+        if (!Doctor.isValidName(doctor)){
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ApptDateCommand.MESSAGE_INVALID_DOCTOR_NAME));        }
+        if (!ApptDateCommand.isValidDate(appointment)){
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ApptDateCommand.MESSAGE_DATE_CONSTRAINTS));        }
         return new ApptDateCommand(
                 matcher.group("name"),
                 matcher.group("date")
         );
+    }
+
+    private Command prepareFindDoctor(String args) {
+        final Matcher matcher = DOCTORS_APPOINTMENT_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DoctorAppointmentsCommand.MESSAGE_USAGE));
+        }
+        final String doctorName = matcher.group("name").trim();
+        if (!Doctor.isValidName(doctorName)){
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DoctorAppointmentsCommand.MESSAGE_INVALID_DOCTOR_NAME));        }
+        return new DoctorAppointmentsCommand(doctorName);
     }
 
     private Command prepareAdd(String args){
@@ -287,18 +313,6 @@ public class Parser {
         return new FindCommand(keywordSet);
     }
 
-    private Command prepareFindDoctor(String args) {
-        final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    DoctorAppointmentsCommand.MESSAGE_USAGE));
-        }
-
-        // keywords delimited by whitespace
-        final String[] keywords = matcher.group("keywords").split("\\s+");
-        final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-        return new DoctorAppointmentsCommand(keywordSet);
-    }
 
     /**
      * Parses arguments in the context of the refer patient command.

@@ -5,7 +5,7 @@
         <phone isPrivate="false">98765432</phone>
         <email isPrivate="false">johnd@gmail.com</email>
         <address isPrivate="false">John street, block 123, #01-01</address>
-        <appointment>2012 12 30 13 50</appointment>
+        <appointment>2021 12 15 13 00</appointment>
         <doctor>DoctorTan</doctor>
         <status>Observation</status>
     </persons>
@@ -14,7 +14,7 @@
         <phone isPrivate="true">1234567</phone>
         <email isPrivate="false">betsycrowe@gmail.com</email>
         <address isPrivate="true">Newgate Prison</address>
-        <appointment>2012 12 30 13 50</appointment>
+        <appointment>2021 12 15 13 15</appointment>
         <doctor>DoctorTan</doctor>
         <status>Observation</status>
         <tagged>friend</tagged>

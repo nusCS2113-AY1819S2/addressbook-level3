@@ -96,7 +96,7 @@ public class StorageFileTest {
                                 new Phone("98765432", false),
                                 new Email("johnd@gmail.com", false),
                                 new Address("John street, block 123, #01-01", false),
-                                new Appointment("2012 12 30 13 50"),
+                                new Appointment("2021 12 15 13 00"),
                                 new Doctor("DoctorTan"),
                                 new Status("Observation"),
                                 Collections.emptySet()));
@@ -104,7 +104,7 @@ public class StorageFileTest {
                                 new Phone("1234567", true),
                                 new Email("betsycrowe@gmail.com", false),
                                 new Address("Newgate Prison", true),
-                                new Appointment("2012 12 30 13 50"),
+                                new Appointment("2021 12 15 13 15"),
                                 new Doctor("DoctorTan"),
                                 new Status("Observation"),
                                 new HashSet<>(Arrays.asList(new Tag("friend"), new Tag("criminal")))));

@@ -3,7 +3,6 @@ package seedu.addressbook.data.person;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 

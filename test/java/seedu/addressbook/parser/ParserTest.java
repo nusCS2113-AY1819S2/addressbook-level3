@@ -353,6 +353,29 @@ public class ParserTest {
     }
 
     @Test
+    public void appointmentCommand_invalidArgs() {
+        final String[] inputs = {
+                "appointment",
+                "appointment  "
+        };
+        final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoctorAppointmentsCommand.MESSAGE_USAGE);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+
+    @Test
+    public void apptDateCommand_invalidArgs() {
+        final String[] inputs = {
+                "apptDate validname r23r2",
+                "apptDate  ",
+                "apptDate",
+                "apptDate NODATE",
+
+        };
+        final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ApptDateCommand.MESSAGE_USAGE);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+
+    @Test
     public void referCommand_invalidDoctorNameInArgs() {
         final String[] inputs = {
                 // invalid doctor names
@@ -363,6 +386,47 @@ public class ParserTest {
                 "refer d/#@! p/John Doe"
         };
         final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReferCommand.MESSAGE_INVALID_DOCTOR_NAME);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+
+    @Test
+    public void appointmentCommand_invalidDoctorNameInArgs() {
+        final String[] inputs = {
+                // invalid doctor names
+                "appointment Dr.",
+                "appointment Dr,",
+                "appointment Dr!",
+                "appointment Dr@",
+                "appointment #@!"
+        };
+        final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoctorAppointmentsCommand.MESSAGE_INVALID_DOCTOR_NAME);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+
+    @Test
+    public void apptDateCommand_invalidDoctorNameInArgs() {
+        final String[] inputs = {
+                // invalid doctor names
+                "apptDate Dr. m/2020 11 12",
+                "apptDate Dr, m/2020 11 12",
+                "apptDate Dr! m/2020 11 12",
+                "apptDate Dr@ m/2020 11 12",
+                "apptDate #@! m/2020 11 12"
+        };
+        final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ApptDateCommand.MESSAGE_INVALID_DOCTOR_NAME);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+
+    @Test
+    public void apptDateCommand_invalidDateInArgs() {
+        final String[] inputs = {
+                // invalid doctor names
+                "apptDate Dr m/2020 11 12 21",
+                "apptDate Dr m/2020 100 22",
+                "apptDate Dr m/30Nov",
+                "apptDate Dr m/223232322323232233223",
+        };
+        final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ApptDateCommand.MESSAGE_DATE_CONSTRAINTS);
         parseAndAssertIncorrectWithMessage(resultMessage, inputs);
     }
 
