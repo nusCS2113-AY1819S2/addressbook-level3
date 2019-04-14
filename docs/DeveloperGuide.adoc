@@ -675,7 +675,59 @@ Step 4: Close the `PlayerApachePoiWriter`/ `TeamApachePoiWriter`/ `MatchApachePo
 
 * Solution: The data is passed in to the writer object through its constructor as a List.
 
+// tag::matchdg[]
+=== Match Feature
+The match feature allows users to store, retrieve and manipulate match records in a league. It also
+edits player and team profile with its `UpdateMatchCommand` with information processed from a match outcome.
 
+==== Current Implementation
+The match feature is facilitated by `AddMatchCommand`, `ClearMatchCommand`, `DeleteMatchCommand`,
+`FindMatchCommand`, `ListMatchCommand`, `ViewMatchCommand` and `UpdateMatchCommand`.
+
+The match feature extends the `AddressBook` class with a list of `Match`, stored as a `UniqueMatchList` which prevents duplicate matches
+from existing in League Tracker. The figure below shows the class diagram showing the implementation of the match feature.
+
+image::matchclass.PNG[width="600"]
+
+There are many commands facilitating this feature. The remaining portion of this section will
+describe the implementation of the most noteworthy command, `UpdateMatchCommand`.
+
+===== Updating Matches
+Updating match is done by executing `UpdateMatchCommand` which is constructed in the `Parser` Class after it parses the user's command string. +
+{empty} +
+The execution of the `UpdateMatchCommand` can be broken down in to 5 different stages:
+
+. Retrieval of `Match` object called `toRemove` from `addressBook`
+. Construction of `Match` object called `toReplace` with attributes of `toRemove` and `updateMatchDescriptor` which is an attribute
+of `UpdateMatchCommand`.
+. Replacement of `toRemove` with `toReplace` in `addressBook`
+. Update of relevant `Player` and `Team` objects
+. Return of `CommandResult`
+
+==== Design Considerations
+
+Aspect: How score of a match is updated. +
+
+Alternative 1 was chosen because of the robustness of LeagueTracker and high coupling between classes.
+Error in score data will likely cause error in other features.
+
+* Alternative 1 (current choice): Compute internally with the list of `goalscorers` and `owngoalscorer`.
+** Pros:
+*** Provides many layer of checking to reduce chance of error in score.
+*** Reduces input command length for users.
+** Cons:
+*** Harder to implement.
+*** Not very intuitive for users
+* Alternative 2: User enter score manually
+** Pros:
+*** Easy to implement
+** Cons:
+*** Error prone
+*** Longer input command for users.
+// end::matchdg[]
+
+{empty} +
+{empty} +
 
 == Documentation
 Following AddressBook3, our League Tracker uses AsciiDoc for writing documentation.We choose AsciiDoc as it provides both a human-readable,
