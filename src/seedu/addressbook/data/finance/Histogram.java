@@ -1,7 +1,7 @@
 package seedu.addressbook.data.finance;
 
 /**
- * build histogram of finance value.
+ * builds histogram of finance value.
  */
 public class Histogram {
     public static final int LENGTH = 10;
@@ -35,7 +35,7 @@ public class Histogram {
         double yFour = heightFour;
 
         /**
-         * process values to fit height in Histogram.
+         * processes values to fit height in Histogram.
          */
         double maxAmongFour = Math.max(Math.max(Math.max(yOne, yTwo), yThree), yFour);
         double yOneToFitHeight = (yOne / maxAmongFour) * MAX_HEIGHT;
@@ -83,7 +83,7 @@ public class Histogram {
         }
 
         /**
-         * build the 2D string to a string.
+         * builds the 2D string to a string.
          */
         StringBuilder sb = new StringBuilder();
         for (String[] s1 : twoDString) {
