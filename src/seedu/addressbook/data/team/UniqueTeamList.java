@@ -121,8 +121,8 @@ public class UniqueTeamList implements Iterable<Team> {
      */
     public void sort() {
         Comparator<Team> customTeamCompare = Comparator
-                .comparing(Team::getPoints)
-                .thenComparing(Team::getWins)
+                .comparing(Team::getPoints).reversed()
+                .thenComparing(Team::getLoses)
                 .thenComparing(Team::getTeamName);
         Collections.sort(internalList, customTeamCompare);
     }
