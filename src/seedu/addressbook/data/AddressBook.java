@@ -102,7 +102,6 @@ public class AddressBook {
     /**
      * Edits the equivalent player from League Tracker
      */
-
     public void editPlayer(ReadOnlyPlayer toEdit, Player newPlayer) throws UniquePlayerList.PlayerNotFoundException {
         allPlayers.edit(toEdit, newPlayer);
         if (!toEdit.getName().equals(newPlayer.getName())) {
@@ -117,9 +116,10 @@ public class AddressBook {
     }
 
     /**
-     * Replaces name of a goalScorer in all matches.
-     * @param toRemove
-     * @param toReplace
+     * Replaces name of a (own)goalScorer in all matches.
+     *
+     * @param toRemove Player with old name.
+     * @param toReplace Player with new name.
      */
     public void replaceNameForAllMatches (ReadOnlyPlayer toRemove, Player toReplace) {
         for (Match match : allMatches) { //for all match
@@ -127,15 +127,20 @@ public class AddressBook {
                 match.setGoalScorers(replaceNameInMatch(
                         match.getGoalScorers(), toRemove.getName(), toReplace.getName()));
             }
+            if (match.getOwnGoalScorers().contains(toRemove.getName())) {
+                match.setOwnGoalScorers(replaceNameInMatch(
+                        match.getOwnGoalScorers(), toRemove.getName(), toReplace.getName()));
+            }
         }
     }
 
     /**
-     * Replaces name of a goalScorer in a match.
-     * @param goalScorers
-     * @param toRemove
-     * @param toReplace
-     * @return
+     * Replaces name of a (own)goalScorer in a match.
+     *
+     * @param goalScorers Names of goal scorers or own goal scorers in the match.
+     * @param toRemove Player's new name.
+     * @param toReplace Player's old name.
+     * @return List of names of (own)goal scorers with names updated.
      */
     public List<Name> replaceNameInMatch (List<Name> goalScorers, Name toRemove, Name toReplace) {
         for (Name name : goalScorers) {
@@ -406,8 +411,10 @@ public class AddressBook {
     }
 
     /**
-     * @param toRemove the match to be removed
-     * @param toReplace the match to be added to replace the removed match
+     * Computes the score given goal scorers and own goal scorers.
+     *
+     * @param toRemove Match to be removed
+     * @param toReplace Match to be added to replace the removed match
      * @return Computed score of both team
      * @throws TeamNotFoundException if either team does not exit in LeagueTracker
      * @throws PlayerNotInTeamException if any (own)goalScorers is not in either team
@@ -428,8 +435,10 @@ public class AddressBook {
     }
 
     /**
-     * @param target a list of names of goals scorers/own goal scorers
-     * @param team a list of all teams in League Tracker
+     * Counts the score of each team contributed by either goals or own goals.
+     *
+     * @param target A list of names of goals scorers/own goal scorers
+     * @param team A list of all teams in League Tracker
      * @return score of each team contributed by either goals or own goals.
      */
     private int countScore (List<Name> target, List <Player> team) {
